@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import { Link, withRouter } from 'react-router-dom'
 import { Menu } from 'antd';
-import logo from '../../assets/images/logo.png'
+// import logo from '../../assets/images/logo.png'
 import menuList from '../../config/menuConfig'
 import './index.less'
 import Sider from 'antd/lib/layout/Sider';
@@ -95,8 +95,9 @@ class leftNav extends Component {
                 collapsed={this.state.collapsed}
                 className="left-nav">
                 <Link to='/' className="left-nav-header">
-                    <img src={logo} alt="logo" />
-                    <h1>红包抽奖后台管理</h1>
+                    {/* <img src={logo} alt="logo" /> */}
+                    {/* <h1>红包抽奖后台管理系统</h1> */}
+                    <h1>AIOTEdge</h1>
                 </Link>
                 <Menu
                     selectedKeys={[path]}

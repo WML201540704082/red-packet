@@ -18,7 +18,8 @@ import Paid from '../records/paid'
 import Operate from '../records/operate'
 import Withdraw from '../withdraw/withdraw'
 
-const { Footer, Sider, Content } = Layout;
+// const { Footer, Sider, Content } = Layout;
+const { Sider, Content } = Layout;
 
 /*
 后台管理的路由组件
@@ -53,7 +54,7 @@ export default class Admin extends Component {
                             <Redirect to='/home'/>
                         </Switch>
                     </Content>
-                    <Footer style={{textAlign: 'center', color: '#cccccc'}}>推荐使用谷歌浏览器，可以获得更佳页面操作体验</Footer>
+                    {/* <Footer style={{textAlign: 'center', color: '#cccccc', padding: '0 0 15px'}}>推荐使用谷歌浏览器，可以获得更佳页面操作体验</Footer> */}
                 </Layout>
             </Layout>
         )

@@ -2,7 +2,7 @@ import React, {Component} from 'react'
 import { Form, Input, Button, message } from 'antd'
 import { UserOutlined, LockOutlined } from '@ant-design/icons'
 import './login.less'
-import logo from '../../assets/images/logo.png'
+// import logo from '../../assets/images/logo.png'
 import { reqLogin } from '../../api'
 import memoryUtils from '../../utils/memoryUtils'
 import storageUtils from '../../utils/storageUtils'
@@ -61,11 +61,11 @@ export default class Login extends Component {
         return (
             <div className="login">
                 <header className="login-header">
-                    <img src={logo} alt="logo" />
-                    <h1>红包抽奖后台管理系统</h1>
+                    {/* <img src={logo} alt="logo" /> */}
+                    {/* <h1>红包抽奖后台管理系统</h1> */}
                 </header>
                 <section className="login-content">
-                    <h2>用户登录</h2>
+                    <h2>红包抽奖后台管理系统</h2>
                     <Form
                         name="normal_login"
                         className="login-form"
