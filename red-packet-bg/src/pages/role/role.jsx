@@ -1,15 +1,17 @@
 import React, { Component } from 'react'
-import { Card, Table, Button, message } from 'antd'
-import { PlusOutlined } from '@ant-design/icons';
+import { Card, Table, Button, message, Input, Modal } from 'antd'
 import LinkButton from '../../components/link-button'
 import {getDeviceList} from '../../api'
+import AddForm from './add-form'
 
 // 商品分类路由
 export default class Role extends Component {
 
 	state = {
 		loading: false, // 是否正在获取数据中
-		robConfigs: [], // 一级分类列表
+		roles: [], // 角色列表
+		role: {}, // 选中的role
+		isShowAdd: false, // 是否显示添加页面
 	}
 
 	/*
@@ -23,22 +25,22 @@ export default class Role extends Component {
               key: 'deviceId',
             },
             {
-              title: '设备名称',
+              title: '角色名称',
               dataIndex: 'deviceName',
               key: 'deviceName',
             },
             {
-              title: 'id',
+              title: '角色排序',
               dataIndex: 'id',
               key: 'addidress',
             },
             {
                 title: '操作',
-                width: 300,
+                                                              
                 render: () => (
                     <span>
-                        <LinkButton>修改子分类</LinkButton>
-                        <LinkButton>查看子分类</LinkButton>
+                        <LinkButton>编辑</LinkButton>
+                        <LinkButton>删除</LinkButton>
                     </span>
                 )
 			},
@@ -46,9 +48,9 @@ export default class Role extends Component {
 	}
 
 	/*
-	 异步获取一级分类列表显示
+	 异步获取列表显示
 	 */
-	getDeviceList = async () => {
+	getRoleList = async () => {
 
 		// 在发请求前显示Loading
 		this.setState({loading:true})
@@ -57,14 +59,32 @@ export default class Role extends Component {
 		// 在请求完成后隐藏Loading
 		this.setState({loading:false})
 		if (result.code === 200) {
-			const robConfigs = result.data
+			const roles = result.data
 			// 更新状态
 			this.setState({
-				robConfigs
+				roles
 			})
 		} else {
 			message.error('获取分类列表失败')
 		}
+	}
+
+	onRow = (role) => {
+		return {
+			onClick: event => { // 点击行
+				console.log(role)
+				this.setState({
+					role
+				})
+			}
+		}
+	}
+
+	/*
+	 添加角色
+	 */
+	addRole = ()  => {
+
 	}
 
 	/*
@@ -78,32 +98,53 @@ export default class Role extends Component {
 	 执行异步任务：发异步ajax请求
 	*/
 	componentDidMount() {
-		this.getDeviceList()
+		this.getRoleList()
 	}
     render() {
 
 		// 读取状态数据
-		const {robConfigs,loading} = this.state
+		const {roles,loading,role,isShowAdd} = this.state
 
         // card的左侧
-        const title = '一级分类列表'
+        const title = (
+			<span>
+				<Button type='primary' onClick={() => this.setState({isShowAdd: true})}>添加</Button> &nbsp;&nbsp;
+				<Button type='primary' disabled={!role.id}>角色权限</Button>
+			</span>
+		)
         // card的右侧
         const extra = (
-            <Button type='primary'>
-                <PlusOutlined />
-                添加
-            </Button>
+			<span>
+				<span style={{fontSize: '14px',fontWeight: '400'}}>角色名称:</span>
+				<Input placeholder='请输入角色名称' style={{width:200, margin: '0 15px'}}/>
+				<Button type='primary'>搜索</Button>
+			</span>
         )
           
         return (
             <Card title={title} extra={extra}>
                 <Table 
                     bordered
-                    rowKey='key'
+                    rowKey='id'
 					loading={loading}
-                    dataSource={robConfigs}
+                    dataSource={roles}
                     columns={this.columns}
-					pagination={{defaultPageSize:5,showQuickJumper:true}}/>
+					pagination={{defaultPageSize:5,showQuickJumper:true}}
+					rowSelection={{type: 'radio',selectedRowKeys: [role.id]}}
+					onRow={this.onRow}
+				/>
+				<Modal
+					title="添加角色"
+					visible={isShowAdd}
+					onOk={this.addRole}
+					onCancel={() => {this.setState({
+						isShowAdd: false
+					})}}
+				>
+					<AddForm
+						setForm={(form) => this.form = form}
+					/>
+				</Modal>
             </Card>
         )
     }
