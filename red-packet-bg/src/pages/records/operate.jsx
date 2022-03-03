@@ -1,10 +1,11 @@
 import React, { Component } from 'react'
 
-export default class Product extends Component {
+// 饼状图
+export default class Operate extends Component {
     render() {
         return (
             <div>
-                Product
+                operate
             </div>
         )
     }

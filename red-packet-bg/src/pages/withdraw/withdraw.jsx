@@ -1,11 +1,10 @@
 import React, { Component } from 'react'
 
-// 折线图
-export default class Line extends Component {
+export default class Withdraw extends Component {
     render() {
         return (
             <div>
-                Line
+                withdraw
             </div>
         )
     }

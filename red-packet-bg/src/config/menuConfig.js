@@ -1,9 +1,11 @@
 import {
-    AppstoreOutlined,
     PieChartOutlined,
-    DesktopOutlined,
     ContainerOutlined,
+    DesktopOutlined,
+    UserOutlined,
     MailOutlined,
+    AppstoreOutlined,
+    SwapOutlined
   } from '@ant-design/icons';
 const menuList =[
     {
@@ -12,48 +14,58 @@ const menuList =[
         icon: <PieChartOutlined />, // 图标名称
     },
     {
-        title: '商品',
-        key: '/products',
-        icon: <MailOutlined />,
-        children: [ // 子菜单路由
-            {
-                title: '品类管理', 
-                key: '/category', 
-            },
-            {
-                title: '商品管理', 
-                key: '/product', 
-            },
-        ]
-    },
-    {
-        title: '用户管理', 
-        key: '/user', 
-        icon: <DesktopOutlined />, 
-    },
-    {
         title: '角色管理', 
         key: '/role', 
         icon: <ContainerOutlined />, 
     },
     {
-        title: '图形图表',
-        key: '/charts',
+        title: '账号管理', 
+        key: '/account', 
+        icon: <DesktopOutlined />, 
+    },
+    {
+        title: '用户管理', 
+        key: '/user', 
+        icon: <UserOutlined />, 
+    },
+    {
+        title: '配置',
+        key: '/config',
+        icon: <MailOutlined />,
+        children: [ // 子菜单路由
+            {
+                title: '抢红包配置', 
+                key: '/robConfig', 
+            },
+            {
+                title: '拆红包设置', 
+                key: '/openConfig', 
+            },
+        ]
+    },
+    {
+        title: '记录',
+        key: '/records',
         icon: <AppstoreOutlined />,
         children: [
             {
-                title: '柱形图', 
-                key: '/charts/bar', 
+                title: '开奖记录', 
+                key: '/records/lottery', 
             },
             {
-                title: '折线图', 
-                key: '/charts/line', 
+                title: '充值记录', 
+                key: '/records/paid', 
             },
             {
-                title: '饼图', 
-                key: '/charts/pie', 
+                title: '操作记录', 
+                key: '/records/operate', 
             },
         ]
+    },
+    {
+        title: '提现管理', 
+        key: '/withdraw', 
+        icon: <SwapOutlined />, 
     },
 ]
 

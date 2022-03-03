@@ -1,11 +1,10 @@
 import React, { Component } from 'react'
 
-// 饼状图
-export default class Pie extends Component {
+export default class OpenConfig extends Component {
     render() {
         return (
             <div>
-                Pie
+                openConfig
             </div>
         )
     }

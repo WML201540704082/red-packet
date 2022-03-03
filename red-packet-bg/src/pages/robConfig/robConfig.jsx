@@ -5,11 +5,11 @@ import LinkButton from '../../components/link-button'
 import {getDeviceList} from '../../api'
 
 // 商品分类路由
-export default class Category extends Component {
+export default class RobConfig extends Component {
 
 	state = {
 		loading: false, // 是否正在获取数据中
-		categorys: [], // 一级分类列表
+		crobConfigs: [], // 一级分类列表
 	}
 
 	/*
@@ -57,10 +57,10 @@ export default class Category extends Component {
 		// 在请求完成后隐藏Loading
 		this.setState({loading:false})
 		if (result.code === 200) {
-			const categorys = result.data
+			const robConfigs = result.data
 			// 更新状态
 			this.setState({
-				categorys
+				robConfigs
 			})
 		} else {
 			message.error('获取分类列表失败')
@@ -83,7 +83,7 @@ export default class Category extends Component {
     render() {
 
 		// 读取状态数据
-		const {categorys,loading} = this.state
+		const {robConfigs,loading} = this.state
 
         // card的左侧
         const title = '一级分类列表'
@@ -101,7 +101,7 @@ export default class Category extends Component {
                     bordered
                     rowKey='key'
 					loading={loading}
-                    dataSource={categorys}
+                    dataSource={robConfigs}
                     columns={this.columns}
 					pagination={{defaultPageSize:5,showQuickJumper:true}}/>
             </Card>

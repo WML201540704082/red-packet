@@ -8,13 +8,15 @@ import Header from '../../components/header';
 
 // 引入路由
 import Home from '../home/home'
-import Category from '../category/category'
-import Product from '../product/product'
+import RobConfig from '../robConfig/robConfig'
+import OpenConfig from '../openConfig/openConfig'
 import Role from '../role/role'
+import Account from '../account/account'
 import User from '../user/user'
-import Bar from '../charts/bar'
-import Line from '../charts/line'
-import Pie from '../charts/pie'
+import Lottery from '../records/lottery'
+import Paid from '../records/paid'
+import Operate from '../records/operate'
+import Withdraw from '../withdraw/withdraw'
 
 const { Footer, Sider, Content } = Layout;
 
@@ -39,13 +41,15 @@ export default class Admin extends Component {
                     <Content style={{margin: 20, backgroundColor: '#fff'}}>
                         <Switch>
                             <Route path='/home' component={Home}></Route>
-                            <Route path='/category' component={Category}></Route>
-                            <Route path='/product' component={Product}></Route>
                             <Route path='/role' component={Role}></Route>
+                            <Route path='/account' component={Account}></Route>
                             <Route path='/user' component={User}></Route>
-                            <Route path='/charts/bar' component={Bar}></Route>
-                            <Route path='/charts/line' component={Line}></Route>
-                            <Route path='/charts/pie' component={Pie}></Route>
+                            <Route path='/robConfig' component={RobConfig}></Route>
+                            <Route path='/openConfig' component={OpenConfig}></Route>
+                            <Route path='/records/lottery' component={Lottery}></Route>
+                            <Route path='/records/paid' component={Paid}></Route>
+                            <Route path='/records/operate' component={Operate}></Route>
+                            <Route path='/withdraw' component={Withdraw}></Route>
                             <Redirect to='/home'/>
                         </Switch>
                     </Content>
