@@ -1,110 +1,142 @@
+//列表页面
 import React, { Component } from 'react'
-import { Card, Table, Button, message } from 'antd'
-import { PlusOutlined } from '@ant-design/icons';
-import LinkButton from '../../components/link-button'
-import {reqRoles} from '../../api'
+import { Button, Table, Card, Modal } from 'antd'
+import { PlusCircleOutlined } from '@ant-design/icons'
+import { reqAccount } from '../../api'
+import AddRob from './add-rob'
 
-// 商品分类路由
 export default class RobConfig extends Component {
-
-	state = {
-		loading: false, // 是否正在获取数据中
-		crobConfigs: [], // 一级分类列表
-	}
-
-	/*
-	 初始化Table所有列的数组
-	*/
-	initColums = () => {
-		this.columns = [
-            {
-              title: '设备id',
-              dataIndex: 'deviceId',
-              key: 'deviceId',
-            },
-            {
-              title: '设备名称',
-              dataIndex: 'deviceName',
-              key: 'deviceName',
-            },
-            {
-              title: 'id',
-              dataIndex: 'id',
-              key: 'addidress',
-            },
-            {
-                title: '操作',
-                width: 300,
-                render: () => (
-                    <span>
-                        <LinkButton>修改子分类</LinkButton>
-                        <LinkButton>查看子分类</LinkButton>
-                    </span>
-                )
-			},
-		];
-	}
-
-	/*
-	 异步获取角色列表显示
-	 */
-	 getRoles = async () => {
-
-		// 在发请求前显示Loading
-		this.setState({loading:true})
-		// 发异步ajax请求，获取数据
-		const result = await reqRoles()
-		// 在请求完成后隐藏Loading
-		this.setState({loading:false})
-		if (result.code === 200) {
-			const robConfigs = result.data
-			// 更新状态
-			this.setState({
-				robConfigs
-			})
-		} else {
-			message.error('获取分类列表失败')
+	formRef = React.createRef()
+	constructor(props) {
+		super(props)
+		this.state = {
+			dataSource: [],
+			isModalVisible: false,
+			isDeleteVisible: false,
+			deviceId: ''
 		}
 	}
-
-	/*
-	 为第一次render()准备数据
-	*/
 	componentWillMount() {
-		this.initColums()
+		this.getDataList()
+	}
+	getDataList = async () => {
+		let result = await reqAccount()
+		if (result.code === 200) {
+			this.setState({
+				dataSource: result.data,
+			})
+		}
+	}
+	render() {
+		let { dataSource, isDeleteVisible, deviceId } = this.state
+		// card的左侧
+		const title = (
+		<span>
+			<Button type={'primary'} icon={<PlusCircleOutlined/>} onClick={() => this.oppModal('新增')}>添加</Button>
+		</span>
+		)
+		return (
+		<div>
+			<Card title={title}>
+				<Table
+					bordered
+					rowKey="id"
+					dataSource={dataSource}
+					columns={[
+						{
+							title: '序号',
+							dataIndex: 'id',
+							key: 'id',
+						},
+						{
+							title: '抢红包下注额度',
+							dataIndex: 'deviceName',
+							key: 'deviceName',
+						},
+						{
+							title: '抢红包中奖区间',
+							dataIndex: 'id',
+							key: 'addidress',
+						},
+						{
+							title: <span style={{ fontWeight: 700 }}>操作</span>,
+							key: 'id',
+							align: 'center',
+							width: '20%',
+							render: reload => {
+								return (
+									<span>
+									<Button type={'link'} onClick={() => this.oppModal('修改', reload)}>编辑</Button>
+									<Button type={'link'} onClick={() => this.deleteModal(reload.deviceId)}>删除</Button>
+									</span>
+								)
+							},
+						},
+					]}
+				/>
+				<Modal
+					title="删除"
+					visible={isDeleteVisible}
+					onOk={() => this.deleteRobConfig(deviceId)}
+					onCancel={() => {this.setState({
+						isDeleteVisible: false
+					})}}
+				>
+					<span>确认删除该项配置吗?</span>
+				</Modal>
+			</Card>
+			{this.showModal(this.state.isModalVisible, dataSource)}
+		</div>
+		)
 	}
 
-	/*
-	 执行异步任务：发异步ajax请求
-	*/
-	componentDidMount() {
-		this.getRoles()
+	oppModal = (type, data) => {
+		if (data) {
+			// 编辑
+			let { deviceId, deviceName, pwd, confirmPwd, id } = data
+			this.setState({
+				id: id,
+				isModalVisible: true,
+				modalType: type,
+				deviceId: deviceId,
+				deviceName: deviceName,
+				pwd: pwd,
+				confirmPwd: confirmPwd,
+			})
+		} else {
+			// 新增
+			this.setState({
+				isModalVisible: true,
+				modalType: type,
+			})
+		}
 	}
-    render() {
-
-		// 读取状态数据
-		const {robConfigs,loading} = this.state
-
-        // card的左侧
-        const title = '一级分类列表'
-        // card的右侧
-        const extra = (
-            <Button type='primary'>
-                <PlusOutlined />
-                添加
-            </Button>
-        )
-          
-        return (
-            <Card title={title} extra={extra}>
-                <Table 
-                    bordered
-                    rowKey='key'
-					loading={loading}
-                    dataSource={robConfigs}
-                    columns={this.columns}
-					pagination={{defaultPageSize:5,showQuickJumper:true}}/>
-            </Card>
-        )
-    }
+	showModal = (flag, data) => {
+		let { id, deviceId, deviceName, modalType } = this.state
+		if (flag) {
+		return (
+			<AddRob
+				flag={flag}
+				dataSource={data}
+				dataSourceFun={value => this.setState({ dataSource: value })}
+				closeModal={() => this.setState({isModalVisible: false,})}
+				id={id}
+				deviceId={deviceId}
+				deviceName={deviceName}
+				type={modalType}
+				/>
+			)
+		}
+	}
+	// 删除
+	deleteModal = (deviceId) => {
+		this.setState({
+			isDeleteVisible: true,
+			deviceId,
+		})
+	}
+	deleteRobConfig = (deviceId) => {
+		console.log(deviceId)
+		debugger
+	}
 }
