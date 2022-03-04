@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 import { Card, Table, Button, message } from 'antd'
 import { PlusOutlined } from '@ant-design/icons';
 import LinkButton from '../../components/link-button'
-import {getDeviceList} from '../../api'
+import {reqRoles} from '../../api'
 
 // 商品分类路由
 export default class RobConfig extends Component {
@@ -46,14 +46,14 @@ export default class RobConfig extends Component {
 	}
 
 	/*
-	 异步获取一级分类列表显示
+	 异步获取角色列表显示
 	 */
-	getDeviceList = async () => {
+	 getRoles = async () => {
 
 		// 在发请求前显示Loading
 		this.setState({loading:true})
 		// 发异步ajax请求，获取数据
-		const result = await getDeviceList()
+		const result = await reqRoles()
 		// 在请求完成后隐藏Loading
 		this.setState({loading:false})
 		if (result.code === 200) {
@@ -78,7 +78,7 @@ export default class RobConfig extends Component {
 	 执行异步任务：发异步ajax请求
 	*/
 	componentDidMount() {
-		this.getDeviceList()
+		this.getRoles()
 	}
     render() {
 
