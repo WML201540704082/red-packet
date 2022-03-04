@@ -47,9 +47,9 @@ export default class Admin extends Component {
                             <Route path='/user' component={User}></Route>
                             <Route path='/robConfig' component={RobConfig}></Route>
                             <Route path='/openConfig' component={OpenConfig}></Route>
-                            <Route path='/records/lottery' component={Lottery}></Route>
-                            <Route path='/records/paid' component={Paid}></Route>
-                            <Route path='/records/operate' component={Operate}></Route>
+                            <Route path='/lottery' component={Lottery}></Route>
+                            <Route path='/paid' component={Paid}></Route>
+                            <Route path='/operate' component={Operate}></Route>
                             <Route path='/withdraw' component={Withdraw}></Route>
                             <Redirect to='/home'/>
                         </Switch>

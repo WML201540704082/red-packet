@@ -50,15 +50,15 @@ const menuList =[
         children: [
             {
                 title: '开奖记录', 
-                key: '/records/lottery', 
+                key: '/lottery', 
             },
             {
                 title: '充值记录', 
-                key: '/records/paid', 
+                key: '/paid', 
             },
             {
                 title: '操作记录', 
-                key: '/records/operate', 
+                key: '/operate', 
             },
         ]
     },

@@ -17,6 +17,8 @@ export const reqAddRole = (name) => ajax(BASE + 'device', {name} , 'POST')
 export const reqAccount = data => ajax(BASE + 'device/search', data, 'POST')
 // 添加账号
 export const reqAddAccount = (deviceId,deviceName) => ajax(BASE + 'device', {deviceId,deviceName} , 'POST')
+// 获取开奖记录列表
+export const reqLottery = data => ajax(BASE + 'device/search', data, 'POST')
 
 
 /*
