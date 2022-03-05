@@ -96,8 +96,8 @@ class leftNav extends Component {
                 className="left-nav">
                 <Link to='/' className="left-nav-header">
                     {/* <img src={logo} alt="logo" /> */}
-                    {/* <h1>红包抽奖后台管理系统</h1> */}
-                    <h1>AIOTEdge</h1>
+                    <h1>红包抽奖后台管理系统</h1>
+                    {/* <h1>AIOTEdge</h1> */}
                 </Link>
                 <Menu
                     selectedKeys={[path]}

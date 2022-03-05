@@ -125,12 +125,12 @@ export default class Account extends Component {
 						align: 'center',
 						width: '20%',
 						render: reload => {
-						return (
-							<span>
-							<Button type={'link'} onClick={() => this.oppModal('修改', reload)}>编辑</Button>
-							<Button type={'link'} onClick={() => this.oppModal('修改', reload)}>禁用</Button>
-							</span>
-						)
+							return (
+								<span>
+									<Button type={'link'} onClick={() => this.oppModal('修改', reload)}>编辑</Button>
+									<Button type={'link'} onClick={() => this.oppModal('修改', reload)}>禁用</Button>
+								</span>
+							)
 						},
 					},
 					]}
@@ -149,23 +149,23 @@ export default class Account extends Component {
 
 	oppModal = (type, data) => {
 		if (data) {
-		// 编辑
-		let { deviceId, deviceName, pwd, confirmPwd, id } = data
-		this.setState({
-			id: id,
-			isModalVisible: true,
-			modalType: type,
-			deviceId: deviceId,
-			deviceName: deviceName,
-			pwd: pwd,
-			confirmPwd: confirmPwd,
-		})
+			// 编辑
+			let { deviceId, deviceName, pwd, confirmPwd, id } = data
+			this.setState({
+				id: id,
+				isModalVisible: true,
+				modalType: type,
+				deviceId: deviceId,
+				deviceName: deviceName,
+				pwd: pwd,
+				confirmPwd: confirmPwd,
+			})
 		} else {
 		// 新增
-		this.setState({
-			isModalVisible: true,
-			modalType: type,
-		})
+			this.setState({
+				isModalVisible: true,
+				modalType: type,
+			})
 		}
 	}
 	showModal = (flag, data) => {

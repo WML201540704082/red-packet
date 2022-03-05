@@ -1,34 +1,99 @@
-import React, {Component} from "react"
-import { PropTypes } from "prop-types"
-import {
-    Form,
-    Input,
-} from 'antd'
+//对话框表单组件
+import React, { Component } from 'react'
+import { Modal, Input, Form, message } from 'antd'
+import { reqAddRole, reqEditRole } from '../../api'
+const { Item } = Form
 
-const Item = Form.Item
-
-/*
-添加分类的form组建
- */
-class AddForm extends Component {
-    static propTypes = {
-        setForm: PropTypes.func.isRequired, // 用来传递form对象的函数
-
+export default class ModalComponent extends Component {
+    formRef = React.createRef()
+    constructor(props) {
+        super(props)
+        this.state = {
+            flag: false,
+            type: '',
+            id: 0,
+        }
     }
-
-    componentWillMount () {
-        this.props.setForm(this.props.form)
+    componentWillMount() {
+      let { flag, id, name, type, dataSource } = this.props
+        this.setState({
+            flag,
+            id,
+            name,
+            type,
+            dataSource
+        })
+    }
+    componentDidMount() {
+        let { name } = this.state
+        this.formRef.current.setFieldsValue({ name })
+    }
+    closeClear = () => {
+        let { closeModal } = this.props
+        this.formRef.current.resetFields() //清空表单
+        closeModal()
     }
 
     render() {
+        let { flag, type } = this.state
         return (
-            <Form>
-                <Item label='角色名称' name='roleName' rules={[{required: true, message: '角色名称必须输入'}]}>
-                    <Input placeholder="请输入角色名称"/>
-                </Item>
-            </Form>
+            <Modal 
+                title={type} 
+                visible={flag} 
+                onOk={this.handleOk} 
+                onCancel={() => this.closeClear()} 
+                cancelText="取消" 
+                okText="确定"
+            >
+                <Form labelCol={{span: 4}} ref={this.formRef}>
+                    <Item name="name" label="角色名称" hasFeedback rules={[{ required: true, message: '角色名称不可以为空!' }]}>
+                        <Input allowClear placeholder="请输入角色名称！" onChange={this.changeName} />
+                    </Item>
+                </Form>
+            </Modal>
         )
     }
-}
+    changeName = e => {
+        this.setState({
+            name: e.target.value,
+        })
+    }
 
-export default AddForm
+    handleOk = async () => {
+        let { closeModal, dataSourceFun } = this.props
+        let { type, dataSource, id, name } = this.state
+        let params = {
+            id,
+            name,
+        }
+        if (type === '新增') {
+            if (!name) return message.info('角色名称不可以为空！')
+            let result = await reqAddRole(params)
+            if (result.code === 0) {
+                message.success('角色添加成功！', 1)
+                let newDataSource = [...dataSource]
+                newDataSource.unshift(result.data)
+                dataSourceFun(newDataSource)
+                this.formRef.current.setFieldsValue({ name: undefined }) //给表单设置值
+                this.formRef.current.resetFields() //清空表单
+            } else {
+                return message.error(result.msg, 1)
+            }
+            closeModal()
+        } else {
+            if (!name) return message.info('角色名称不可以为空！')
+            let result = await reqEditRole(params)
+            if (result.code === 0) {
+                message.success('角色编辑成功！', 1)
+                let newDataSource = [...dataSource]
+                newDataSource.unshift(result.data)
+                dataSourceFun(newDataSource)
+                this.formRef.current.setFieldsValue({ name: undefined }) //给表单设置值
+                this.formRef.current.resetFields() //清空表单
+            } else {
+                return message.error(result.msg, 1)
+            }
+            closeModal()
+        }
+    }
+}

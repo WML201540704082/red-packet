@@ -3,16 +3,22 @@
 */
 
 import ajax from './axjax';
-const BASE = 'api/v2/'
+const BASE = 'api/'
 
 // 登陆
-export const reqLogin = (username,password) => ajax(BASE + 'login', {username,password}, 'POST')
+export const reqLogin = data => ajax(BASE + 'sys/home/login', data, 'POST')
 
 // 获取角色列表
-export const reqRoles = () => ajax(BASE + 'device/search', {}, 'POST')
-export const getDeviceDetils = (deviceId) => ajax(BASE + `deviceId/${deviceId}`)
+export const reqRoles = data => ajax(BASE + 'sys/role/list', data, 'POST')
 // 添加角色
-export const reqAddRole = (name) => ajax(BASE + 'device', {name} , 'POST')
+export const reqAddRole = data => ajax(BASE + 'sys/role/add', data , 'POST')
+// 编辑角色
+export const reqEditRole = data => ajax(BASE + 'sys/role/update', data , 'POST')
+// 删除角色
+export const reqDeleteRole = id => ajax(BASE + 'sys/role/delete', {id} , 'POST')
+
+export const getDeviceDetils = (deviceId) => ajax(BASE + `deviceId/${deviceId}`)
+
 // 获取账号列表
 export const reqAccount = data => ajax(BASE + 'device/search', data, 'POST')
 // 添加账号

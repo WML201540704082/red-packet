@@ -93,7 +93,7 @@ class Header extends Component {
 
         const {currentTime} = this.state
 
-        const username = memoryUtils.user.userName
+        const account = memoryUtils.user.account
 
         // 得到当前需要显示的title
         const title = this.getTitle()
@@ -101,7 +101,7 @@ class Header extends Component {
         return (
             <div className="header">
                 <div className="header-top">
-                    <span>欢迎，{username}</span>
+                    <span>欢迎，{account}</span>
                     {/* <span style={{cursor:'pointer'}} onClick={this.Loginout}>退出</span> */}
                     <LinkButton onClick={this.Loginout}>退出</LinkButton>
                 </div>

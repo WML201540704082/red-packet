@@ -12,6 +12,7 @@ export default class Login extends Component {
     // 对密码进行自定义验证
     validatorPwd = (rule, value, callback) => {
         if (!value) {
+            // return Promise.resolve
             callback('请输入密码')
         } else if (value.length < 4) {
             callback('密码长度不能小于4位')
@@ -26,31 +27,29 @@ export default class Login extends Component {
     render () {
         // 如果用户已经登陆，自动跳转到管理洁面
         const user = memoryUtils.user
-        if (user && user.id) {
+        if (user && user.userId) {
             return <Redirect to='/'/>
         }
 
         // async 和 await 以同步编码(没有回调函数了)方式实现异步流程
         const onFinish = async (values) => {
             // console.log('Received values of form: ', values);
-            const { username, password } = values
-            // reqLogin(username, password).then(response => {
-            //     console.log('成功了',response.data)
-            // }).catch(error => {
-            //     console.log('失败了', error);
-            // })
+            const { account, passWord } = values
             try {
-                const result = await reqLogin(username, password)
-                if (result.code === 200) {
+                let params = {
+                    account,
+                    passWord
+                }
+                const result = await reqLogin(params)
+                if (result.code === 0) {
                     message.success('登陆成功')
-
                     // 保存user
                     const user = result.data
                     memoryUtils.user = user //保存在内存中
                     storageUtils.saveUser(user)
 
                     // 跳转到管理页面(不需要会退到登陆用replace，需要会退到登陆用push)
-                    this.props.history.push('/')
+                    // this.props.history.push('/')
                 } else {
                     message.error(result.message)
                 }
@@ -75,7 +74,7 @@ export default class Login extends Component {
                         onFinish={onFinish}
                         >
                         <Form.Item
-                            name="username"
+                            name="account"
                             // 生命式验证：直接使用别人定义好的验证规则进行验证
                             rules={[
                                 {   required: true, whitespace: true,  message: '用户名必须输入!'   },
@@ -90,7 +89,7 @@ export default class Login extends Component {
                             />
                         </Form.Item>
                         <Form.Item
-                            name="password"
+                            name="passWord"
                             rules={[
                                 {
                                     validator: this.validatorPwd
@@ -99,7 +98,7 @@ export default class Login extends Component {
                         >
                             <Input
                                 prefix={<LockOutlined className="site-form-item-icon" />}
-                                type="password"
+                                type="passWord"
                                 placeholder="密码"
                             />
                         </Form.Item>
