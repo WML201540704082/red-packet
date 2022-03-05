@@ -3,6 +3,7 @@ import { Card, Table, Button, message, Input, Modal } from 'antd'
 import { PlusCircleOutlined } from '@ant-design/icons'
 import {reqRoles, reqDeleteRole} from '../../api'
 import AddModal from './add-form'
+import Menu from './menu'
 
 // 商品分类路由
 export default class Role extends Component {
@@ -15,6 +16,7 @@ export default class Role extends Component {
 			role: {}, // 选中的role
 			isModalVisible: false,
             isDeleteVisible: false,
+			isMenulVisible: false,
 			pageNumber: 1,
 			pageSize: 5,
 		}
@@ -80,6 +82,14 @@ export default class Role extends Component {
 			message.error('获取分类列表失败')
 		}
     }
+	// 菜单权限
+	menuPermission = (id) => {
+		this.setState({
+			id,
+			isMenulVisible: true,
+		})
+
+	}
 
 	componentWillUpdate(nextProps, nexpState) {
 		let { isModalVisible } = this.state
@@ -145,6 +155,19 @@ export default class Role extends Component {
 		}
 	}
 
+	showMenu = (flag, id, name) => {
+		if (flag) {
+			return (
+				<Menu
+					flag={flag}
+					closeModal={() => this.setState({isMenulVisible: false,})}
+					id={id}
+					name={name}
+				/>
+			)
+		}
+	}
+
 	/*
 	 为第一次render()准备数据
 	*/
@@ -167,13 +190,13 @@ export default class Role extends Component {
     render() {
 
 		// 读取状态数据
-		const {roles,loading,role,isModalVisible,pageNumber, pageSize,isDeleteVisible,id} = this.state
+		const {roles,loading,role,isModalVisible,pageNumber, pageSize,isDeleteVisible,id,isMenulVisible} = this.state
 
         // card的左侧
         const title = (
 			<span>
 				<Button type='primary' icon={<PlusCircleOutlined/>} onClick={() => this.oppModal('新增')}>添加</Button> &nbsp;&nbsp;
-				<Button type='primary' disabled={!role.id}>角色权限</Button>
+				<Button type='primary' disabled={!role.id} onClick={() => this.menuPermission(role.id)}>菜单权限</Button>
 			</span>
 		)
         // card的右侧
@@ -208,6 +231,7 @@ export default class Role extends Component {
                         <span>确认删除角色吗?</span>
 				</Modal>
 				{this.showModal(isModalVisible, roles)}
+				{this.showMenu(isMenulVisible, role.id,role.name)}
             </Card>
         )
     }

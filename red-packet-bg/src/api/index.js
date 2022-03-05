@@ -16,6 +16,12 @@ export const reqAddRole = data => ajax(BASE + 'sys/role/add', data , 'POST')
 export const reqEditRole = data => ajax(BASE + 'sys/role/update', data , 'POST')
 // 删除角色
 export const reqDeleteRole = id => ajax(BASE + 'sys/role/delete', {id} , 'POST')
+// 菜单列表
+export const reqMenu = () => ajax(BASE + 'sys/menu/list', {} , 'POST')
+// 根据角色获取菜单权限
+export const reqRoleIdMenu = (roleId) => ajax(BASE + `sys/roleMenu/getByRoleMenuPermissions/${roleId}`, {})
+// 编辑角色的菜单配置
+export const reqEditRoleMenu = data => ajax(BASE + 'sys/roleMenu/menuConfig', data, 'POST')
 
 export const getDeviceDetils = (deviceId) => ajax(BASE + `deviceId/${deviceId}`)
 
