@@ -13,10 +13,13 @@ import OpenConfig from '../openConfig/openConfig'
 import Role from '../role/role'
 import Account from '../account/account'
 import User from '../user/user'
+import Basic from '../basic/basic'
 import Lottery from '../records/lottery'
 import Paid from '../records/paid'
 import Operate from '../records/operate'
 import Withdraw from '../withdraw/withdraw'
+import ProxyList from '../proxy/proxyList'
+import ProxyConfig from '../proxy/proxyConfig'
 
 // const { Footer, Sider, Content } = Layout;
 const { Sider, Content } = Layout;
@@ -44,6 +47,7 @@ export default class Admin extends Component {
                             <Route path='/home' component={Home}></Route>
                             <Route path='/role' component={Role}></Route>
                             <Route path='/account' component={Account}></Route>
+                            <Route path='/basic' component={Basic}></Route>
                             <Route path='/user' component={User}></Route>
                             <Route path='/robConfig' component={RobConfig}></Route>
                             <Route path='/openConfig' component={OpenConfig}></Route>
@@ -51,6 +55,8 @@ export default class Admin extends Component {
                             <Route path='/paid' component={Paid}></Route>
                             <Route path='/operate' component={Operate}></Route>
                             <Route path='/withdraw' component={Withdraw}></Route>
+                            <Route path='/proxyList' component={ProxyList}></Route>
+                            <Route path='/proxyConfig' component={ProxyConfig}></Route>
                             <Redirect to='/home'/>
                         </Switch>
                     </Content>

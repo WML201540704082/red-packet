@@ -22,6 +22,10 @@ export const reqMenu = () => ajax(BASE + 'sys/menu/list', {} , 'POST')
 export const reqRoleIdMenu = (roleId) => ajax(BASE + `sys/roleMenu/getByRoleMenuPermissions/${roleId}`, {})
 // 编辑角色的菜单配置
 export const reqEditRoleMenu = data => ajax(BASE + 'sys/roleMenu/menuConfig', data, 'POST')
+// 进入首页获取权限
+export const reqGetPermission = data => ajax(BASE + 'sys/home/getPermission', data, 'POST')
+// 退出登录
+export const reqQuit = () => ajax(BASE + 'sys/home/quit', {}, 'POST')
 
 export const getDeviceDetils = (deviceId) => ajax(BASE + `deviceId/${deviceId}`)
 

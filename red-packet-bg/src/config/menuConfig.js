@@ -19,8 +19,13 @@ const menuList =[
         icon: <ContainerOutlined />, 
     },
     {
-        title: '账号管理', 
+        title: '账户管理', 
         key: '/account', 
+        icon: <DesktopOutlined />, 
+    },
+    {
+        title: '基本指标', 
+        key: '/basic', 
         icon: <DesktopOutlined />, 
     },
     {
@@ -29,43 +34,49 @@ const menuList =[
         icon: <UserOutlined />, 
     },
     {
-        title: '配置',
-        key: '/config',
+        title: '抢红包配置', 
+        key: '/robConfig', 
+        icon: <MailOutlined />, 
+    },
+    {
+        title: '拆红包设置', 
+        key: '/openConfig', 
+        icon: <MailOutlined />, 
+    },
+    {
+        title: '开奖记录', 
+        key: '/lottery', 
+        icon: <AppstoreOutlined />, 
+    },
+    {
+        title: '提现列表', 
+        key: '/withdraw', 
+        icon: <SwapOutlined />, 
+    },
+    {
+        title: '充值记录', 
+        key: '/paid', 
+        icon: <AppstoreOutlined />, 
+    },
+    {
+        title: '操作记录', 
+        key: '/operate', 
+        icon: <AppstoreOutlined />, 
+    },
+    {
+        title: '代理管理',
+        key: '/proxy',
         icon: <MailOutlined />,
         children: [ // 子菜单路由
             {
-                title: '抢红包配置', 
-                key: '/robConfig', 
+                title: '代理列表', 
+                key: '/proxyList', 
             },
             {
-                title: '拆红包设置', 
-                key: '/openConfig', 
+                title: '代理配置', 
+                key: '/proxyConfig', 
             },
         ]
-    },
-    {
-        title: '记录',
-        key: '/records',
-        icon: <AppstoreOutlined />,
-        children: [
-            {
-                title: '开奖记录', 
-                key: '/lottery', 
-            },
-            {
-                title: '充值记录', 
-                key: '/paid', 
-            },
-            {
-                title: '操作记录', 
-                key: '/operate', 
-            },
-        ]
-    },
-    {
-        title: '提现管理', 
-        key: '/withdraw', 
-        icon: <SwapOutlined />, 
     },
 ]
 

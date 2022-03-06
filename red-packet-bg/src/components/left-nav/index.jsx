@@ -1,10 +1,12 @@
 import React, { Component } from 'react'
 import { Link, withRouter } from 'react-router-dom'
-import { Menu } from 'antd';
+import { Menu, message } from 'antd';
 // import logo from '../../assets/images/logo.png'
 import menuList from '../../config/menuConfig'
 import './index.less'
 import Sider from 'antd/lib/layout/Sider';
+import { reqGetPermission } from '../../api'
+import { PieChartOutlined } from '@ant-design/icons';
 
 const { SubMenu } = Menu;
 
@@ -12,6 +14,41 @@ class leftNav extends Component {
     state = {
         collapsed: false,
     };
+    /*
+        在第一次render()之前执行一次
+        为第一个render()准备数据(必须同步的)
+    */
+    componentWillMount() {
+        this.getMenuList()
+    }
+    getMenuList = async () => {
+        const result = await reqGetPermission()
+		if (result.code === 0) {
+			const portMenuList = result.data.list
+			this.setState({
+				portMenuList
+			})
+            let intersection = [{
+                title: "首页",
+                key: "/home",
+                icon: <PieChartOutlined />
+            }]
+            for (let i = 1; i < menuList.length; i++) {
+                for (let j = 0; j < portMenuList.length; j++) {
+                    if (menuList[i].title === portMenuList[j].name) {
+                        intersection.push(menuList[i])
+                    }
+                }
+            }
+            this.setState({
+                menuList: intersection
+            })
+            this.menuNodes = this.getMenuNodes(this.state.menuList)
+            this.forceUpdate()
+		} else {
+			message.error('获取分类列表失败')
+		}
+    }
 
     toggleCollapsed = () => {
         this.setState({
@@ -74,14 +111,6 @@ class leftNav extends Component {
         }, [])
     }
 
-    /*
-        在第一次render()之前执行一次
-        为第一个render()准备数据(必须同步的)
-    */
-    componentWillMount() {
-        this.menuNodes = this.getMenuNodes(menuList)
-    }
-
     render() {
         // 得到当前请求的路由路径
         const path = this.props.location.pathname
@@ -99,16 +128,16 @@ class leftNav extends Component {
                     <h1>红包抽奖后台管理系统</h1>
                     {/* <h1>AIOTEdge</h1> */}
                 </Link>
-                <Menu
-                    selectedKeys={[path]}
-                    defaultOpenKeys={[openKey]}
-                    mode="inline"
-                    theme="dark"
+                    <Menu
+                        selectedKeys={[path]}
+                        defaultOpenKeys={[openKey]}
+                        mode="inline"
+                        theme="dark"
                     >
                         {
                             this.menuNodes
                         }
-                </Menu>
+                    </Menu>
             </Sider>
         )
     }

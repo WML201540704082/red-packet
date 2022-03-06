@@ -9,6 +9,7 @@ import memoryUtils from '../../utils/memoryUtils'
 import storageUtils from '../../utils/storageUtils'
 import './index.less'
 import LinkButton from '../link-button'
+import { reqQuit } from '../../api'
 
 class Header extends Component {
 
@@ -52,7 +53,13 @@ class Header extends Component {
         Modal.confirm({
             title: '确定退出吗?',
             icon: <ExclamationCircleOutlined />,
-            onOk: () => {
+            onOk: async () => {
+                const result = await reqQuit()
+                if (result.code === 0) {
+                    console.log('退出调用接口成功')
+                } else {
+                    console.log('退出调用接口失败')
+                }
                 // 删除保存的user数据
                 storageUtils.removeUser()
                 memoryUtils.user = {}
