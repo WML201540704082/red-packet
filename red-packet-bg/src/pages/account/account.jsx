@@ -29,8 +29,8 @@ export default class Account extends Component {
 		this.getDataList()
 	}
 	componentWillUpdate(nextProps, nexpState) {
-		let { isModalVisible } = this.state
-		if (isModalVisible !== nexpState.isModalVisible) {
+		let { isModalVisible, isRoleConfigVisible } = this.state
+		if (isModalVisible !== nexpState.isModalVisible || isRoleConfigVisible !== nexpState.isRoleConfigVisible) {
 			this.getDataList()
 		}
 	}

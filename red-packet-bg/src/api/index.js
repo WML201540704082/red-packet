@@ -38,6 +38,15 @@ export const reqPwdReset = userId => ajax(BASE + 'sys/user/resetPaw', {userId} ,
 // 用户角色配置
 export const reqAccIdRoleConfig = data => ajax(BASE + 'sys/user/userRole', data, 'POST')
 
+// 抢红包列表
+export const reqRobList = data => ajax(BASE + 'grab/list', data, 'POST')
+// 新增抢红包配置项
+export const reqAddRob = data => ajax(BASE + 'grab/add', data, 'POST')
+// 编辑抢红包配置项
+export const reqEditRob = data => ajax(BASE + 'grab/update', data, 'POST')
+// 删除抢红包配置项
+export const reqDeleteRob = id => ajax(BASE + 'grab/delete', {id}, 'POST')
+
 export const getDeviceDetils = (deviceId) => ajax(BASE + `deviceId/${deviceId}`)
 
 // 获取开奖记录列表

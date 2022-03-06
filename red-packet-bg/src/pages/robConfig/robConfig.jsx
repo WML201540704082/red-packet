@@ -1,8 +1,8 @@
 //列表页面
 import React, { Component } from 'react'
-import { Button, Table, Card, Modal } from 'antd'
+import { Button, Table, Card, Modal, message } from 'antd'
 import { PlusCircleOutlined } from '@ant-design/icons'
-import { reqAccount } from '../../api'
+import { reqRobList, reqDeleteRob } from '../../api'
 import AddRob from './add-rob'
 
 export default class RobConfig extends Component {
@@ -13,22 +13,35 @@ export default class RobConfig extends Component {
 			dataSource: [],
 			isModalVisible: false,
 			isDeleteVisible: false,
-			deviceId: ''
+			pageNumber: 1,
+            pageSize: 5,
 		}
 	}
 	componentWillMount() {
 		this.getDataList()
 	}
+	componentWillUpdate(nextProps, nexpState) {
+		let { isModalVisible } = this.state
+		if (isModalVisible !== nexpState.isModalVisible) {
+			this.getDataList()
+		}
+	}
 	getDataList = async () => {
-		let result = await reqAccount()
-		if (result.code === 200) {
+		let { pageNumber,pageSize } = this.state
+		let params = {
+			current: pageNumber,
+			size: pageSize
+		}
+		let result = await reqRobList(params)
+		if (result.code === 0) {
 			this.setState({
-				dataSource: result.data,
+				dataSource: result.data.records,
 			})
 		}
 	}
 	render() {
-		let { dataSource, isDeleteVisible, deviceId } = this.state
+		let { dataSource, isDeleteVisible, pageNumber, pageSize,id } = this.state
+
 		// card的左侧
 		const title = (
 		<span>
@@ -42,21 +55,21 @@ export default class RobConfig extends Component {
 					bordered
 					rowKey="id"
 					dataSource={dataSource}
+					pagination={{current: pageNumber,pageSize: pageSize,showQuickJumper: true,onChange: this.onPageChange}}
 					columns={[
 						{
-							title: '序号',
-							dataIndex: 'id',
-							key: 'id',
-						},
-						{
 							title: '抢红包下注额度',
-							dataIndex: 'deviceName',
-							key: 'deviceName',
+							dataIndex: 'amount',
+							key: 'amount',
 						},
 						{
 							title: '抢红包中奖区间',
-							dataIndex: 'id',
-							key: 'addidress',
+							key: 'id',
+							render: reload =>  {
+								return (
+									<span>{reload.begin + '--' + reload.end}</span>
+								)
+							}
 						},
 						{
 							title: <span style={{ fontWeight: 700 }}>操作</span>,
@@ -66,8 +79,8 @@ export default class RobConfig extends Component {
 							render: reload => {
 								return (
 									<span>
-									<Button type={'link'} onClick={() => this.oppModal('修改', reload)}>编辑</Button>
-									<Button type={'link'} onClick={() => this.deleteModal(reload.deviceId)}>删除</Button>
+										<Button type={'link'} onClick={() => this.oppModal('修改',reload)}>编辑</Button>
+										<Button type={'link'} onClick={() => this.deleteModal(reload.id)}>删除</Button>
 									</span>
 								)
 							},
@@ -77,7 +90,7 @@ export default class RobConfig extends Component {
 				<Modal
 					title="删除"
 					visible={isDeleteVisible}
-					onOk={() => this.deleteRobConfig(deviceId)}
+					onOk={() => this.deleteRobConfig(id)}
 					onCancel={() => {this.setState({
 						isDeleteVisible: false
 					})}}
@@ -89,19 +102,24 @@ export default class RobConfig extends Component {
 		</div>
 		)
 	}
+	onPageChange = (pageNumber, pageSize) => {
+        this.setState({
+            pageNumber,
+            pageSize,
+        })
+    }
 
 	oppModal = (type, data) => {
 		if (data) {
 			// 编辑
-			let { deviceId, deviceName, pwd, confirmPwd, id } = data
+			let { id, amount, begin, end } = data
 			this.setState({
 				id: id,
 				isModalVisible: true,
 				modalType: type,
-				deviceId: deviceId,
-				deviceName: deviceName,
-				pwd: pwd,
-				confirmPwd: confirmPwd,
+				amount,
+				begin,
+				end
 			})
 		} else {
 			// 新增
@@ -112,31 +130,39 @@ export default class RobConfig extends Component {
 		}
 	}
 	showModal = (flag, data) => {
-		let { id, deviceId, deviceName, modalType } = this.state
+		let { id, amount, begin, end, modalType } = this.state
 		if (flag) {
 		return (
 			<AddRob
 				flag={flag}
 				dataSource={data}
-				dataSourceFun={value => this.setState({ dataSource: value })}
 				closeModal={() => this.setState({isModalVisible: false,})}
 				id={id}
-				deviceId={deviceId}
-				deviceName={deviceName}
+				amount={amount}
+				begin={begin}
+				end={end}
 				type={modalType}
 				/>
 			)
 		}
 	}
 	// 删除
-	deleteModal = (deviceId) => {
+	deleteModal = (id) => {
 		this.setState({
 			isDeleteVisible: true,
-			deviceId,
+			id,
 		})
 	}
-	deleteRobConfig = (deviceId) => {
-		console.log(deviceId)
-		debugger
+	deleteRobConfig = async (id) => {
+		const result = await reqDeleteRob(id)
+		if (result.code === 0) {
+			// 更新状态
+			this.setState({
+				isDeleteVisible: false
+			})
+			this.getDataList()
+		} else {
+			message.error('获取分类列表失败')
+		}
 	}
 }
