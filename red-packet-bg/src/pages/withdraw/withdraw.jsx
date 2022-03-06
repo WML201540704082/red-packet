@@ -1,7 +1,8 @@
 //列表页面
 import React, { Component } from 'react'
-import { Button, Table, Input, Select, Card, Modal } from 'antd'
-import { reqAccount } from '../../api'
+import { Button, Table, Input, Select, Card, Modal, DatePicker, message } from 'antd'
+import { reqWithdraw, reqAudit } from '../../api'
+import moment from 'moment';
 const { Option } = Select
 
 export default class Withdraw extends Component {
@@ -14,52 +15,124 @@ export default class Withdraw extends Component {
 			pageSize: 5,
 			isModalVisible: false,
 			accRow: {},
-			searchType: '',
-			searchName: '',
+			audit: null,
+			keyWord: null,
+			beginDate: null, // 开始时间
+            endDate: null, // 结束时间
 		}
 	}
 	componentWillMount() {
 		this.getDataList()
 	}
+    componentWillUpdate(nextProps, nexpState) {
+        let { isModalVisible } = this.state
+        if (isModalVisible !== nexpState.isModalVisible) {
+            this.getDataList()
+        }
+    }
 	getDataList = async () => {
-		let { searchType, searchName } = this.state
+		let { audit, keyWord, pageNumber, pageSize, beginDate, endDate } = this.state
 		let params = {
-			searchType,
-			searchName
+			audit,
+			keyWord,
+			current: pageNumber,
+            size: pageSize,
+			beginDate,
+            endDate,
 		}
-		let result = await reqAccount(params)
-		if (result.code === 200) {
+		let result = await reqWithdraw(params)
+		if (result.code === 0) {
             this.setState({
-                dataSource: result.data,
+                dataSource: result.data.records,
             })
 		}
 	}
-    pass_rejust = async (deviceId) => {
-        console.log(111111,deviceId)
-    }
+    pass_rejust = async (id) => {
+		let { type } = this.state
+		let params = {
+			id,
+			audit: type === 'pass' ? '3' : '2'
+		}
+		const result = await reqAudit(params)
+		if (result.code === 0) {
+			// 更新状态
+			this.setState({
+				isModalVisible: false
+			})
+			this.getDataList()
+		} else {
+			message.error(result.message)
+		}
+	}
+	// 开始时间选择器(监控记录日期变换)
+	handleStartDateChange = (value, dateString) => {
+		this.setState({
+			beginDate: dateString,
+		});
+	};
+
+	// 结束时间选择器(监控记录日期变换)
+	handleEndDateChange = (value, dateString) => {
+		this.setState({
+			endDate: dateString,
+		});
+	};
+
+	// 结束时间可选范围
+	handleEndDisabledDate = (current) => {
+		const { beginDate } = this.state;
+		if (beginDate !== '') {
+		// 核心逻辑: 结束日期不能多余开始日期后60天，且不能早于开始日期
+			return current > moment(beginDate).add(60, 'day') || current < moment(beginDate);
+		} else {
+			return null;
+		}
+	}
+
+	// 开始时间可选范围
+	handleStartDisabledDate = (current) => {
+		const { endDate } = this.state;
+		if (endDate !== '') {
+			// 核心逻辑: 开始日期不能晚于结束日期，且不能早于结束日期前60天
+			return current < moment(endDate).subtract(60, 'day') || current > moment(endDate);
+		} else {
+			return null;
+		}
+	}
 	render() {
-		let { dataSource, pageNumber, pageSize, isModalVisible, deviceId, searchType, searchName, type } = this.state
+		let { dataSource, pageNumber, pageSize, isModalVisible, id, audit, keyWord, type } = this.state
 		// 读取状态数据
 		// card的左侧
 		const title = (
 			<span>
 				<span style={{fontSize: '14px',fontWeight: '400'}}>状态:&nbsp;&nbsp;</span>
 				<Select 
-					value={searchType}
+					value={audit}
 					style={{width: 120}}
-					onChange={value => this.setState({searchType:value})}
+					onChange={value => this.setState({audit:value})}
 				>
-					<Option value="1">审核中</Option>
-					<Option value="2">已通过</Option>
-					<Option value="3">已拒绝</Option>
+					<Option value="1">未审核</Option>
+					<Option value="2">审核未通过</Option>
+					<Option value="3">审核通过</Option>
+					<Option value="4">审核中</Option>
 				</Select> &nbsp;&nbsp;
-				<span style={{fontSize: '14px',fontWeight: '400'}}>角色名称:</span>
 				<Input 
-					value={searchName}
+					value={keyWord}
 					placeholder='用户ID、手机号、FaceBookID、zaloID'
 					style={{width:200, margin: '0 15px'}}
-					onChange={event => this.setState({searchName:event.target.value})}
+					onChange={event => this.setState({keyWord:event.target.value})}
 				/>
+				<DatePicker
+                    onChange={this.handleStartDateChange}
+                    disabledDate={this.handleStartDisabledDate}
+                    placeholder="开始日期"
+                />
+                <span>-</span>
+                <DatePicker
+                    onChange={this.handleEndDateChange}
+                    disabledDate={this.handleEndDisabledDate}
+                    placeholder="结束日期"
+                />
 				<Button type='primary' onClick={() => this.getDataList()}>搜索</Button>
 			</span>
 		)
@@ -73,25 +146,25 @@ export default class Withdraw extends Component {
                         pagination={{current: pageNumber,pageSize: pageSize,showQuickJumper: true,onChange: this.onPageChange}}
                         columns={[
                             {
-                                title: '登录账号',
-                                dataIndex: 'deviceId',
-                                key: 'deviceId',
+                                title: '用户ID',
+                                dataIndex: 'userId',
+                                key: 'userId',
                             },
                             {
-                                title: '所属角色',
-                                dataIndex: 'deviceName',
-                                key: 'deviceName',
+                                title: '提现金额',
+                                dataIndex: 'amount',
+                                key: 'amount',
                             },
                             {
-                                title: '昵称',
-                                dataIndex: 'id',
-                                key: 'addidress',
+                                title: '提现时间',
+                                dataIndex: 'amount',
+                                key: 'amount',
                             },
                             {
                                 title: '状态',
-                                dataIndex: 'upgradeStatus',
-                                key: 'upgradeStatus',
-                                render: (upgradeStatus) =>  upgradeStatus === 0 ? '使用中' : '已禁用'
+                                dataIndex: 'audit',
+                                key: 'audit',
+                                render: (audit) =>  audit === '1' ? '未审核' : audit === '2' ? '审核未通过' : audit === '3' ? '审核通过' : '审核中'
                             },
                             {
                                 title: <span style={{ fontWeight: 700 }}>操作</span>,
@@ -100,10 +173,11 @@ export default class Withdraw extends Component {
                                 width: '20%',
                                 render: reload => {
                                     return (
-                                        <span>
-                                            <Button type={'link'} onClick={() => this.oppModal(reload.deviceId,'pass')}>通过</Button>
-                                            <Button type={'link'} onClick={() => this.oppModal(reload.deviceId,'reject')}>拒绝</Button>
-                                        </span>
+                                        (reload.audit === '1' || reload.audit === '2') ? 
+										(<span>
+                                            <Button type={'link'} onClick={() => this.oppModal(reload.id,'pass')}>通过</Button>
+                                            <Button type={'link'} onClick={() => this.oppModal(reload.id,'reject')}>拒绝</Button>
+                                        </span>) : null
                                     )
                                 },
                             },
@@ -112,7 +186,7 @@ export default class Withdraw extends Component {
                     <Modal
                         title={type === 'pass' ?  '通过' : '拒绝'}
                         visible={isModalVisible}
-                        onOk={() => this.pass_rejust(deviceId)}
+                        onOk={() => this.pass_rejust(id)}
                         onCancel={() => {
                             this.setState({isModalVisible: false})
                         }}
@@ -130,10 +204,10 @@ export default class Withdraw extends Component {
 		})
 	}
 
-	oppModal = (deviceId, type) => {
+	oppModal = (id, type) => {
         // 通过
         this.setState({
-            deviceId,
+            id,
             isModalVisible: true,
             type,
         })

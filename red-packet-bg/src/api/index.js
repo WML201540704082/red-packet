@@ -56,10 +56,19 @@ export const reqEditOpen = data => ajax(BASE + 'unpack/update', data, 'POST')
 // 删除拆红包配置项
 export const reqDeleteOpen = id => ajax(BASE + 'unpack/delete', {id}, 'POST')
 
-export const getDeviceDetils = (deviceId) => ajax(BASE + `deviceId/${deviceId}`)
-
 // 获取开奖记录列表
-export const reqLottery = data => ajax(BASE + 'device/search', data, 'POST')
+export const reqLottery = data => ajax(BASE + 'lottery/list', data, 'POST')
+// 获取充值记录列表
+export const reqPaid = data => ajax(BASE + 'recharge/list', data, 'POST')
+// 获取操作记录列表
+export const reqOperate = data => ajax(BASE + 'sys/operateRecord/list', data, 'POST')
+
+// 获取提现列表
+export const reqWithdraw = data => ajax(BASE + '/withdraw/list', data, 'POST')
+// 提现审核
+export const reqAudit = data => ajax(BASE + 'withdraw/audit', data, 'POST')
+
+export const getDeviceDetils = (deviceId) => ajax(BASE + `deviceId/${deviceId}`)
 
 
 /*

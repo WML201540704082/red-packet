@@ -1,7 +1,8 @@
 //列表页面
 import React, { Component } from 'react'
-import { Button, Table, Input, Card } from 'antd'
+import { Button, Table, Input, Card, DatePicker } from 'antd'
 import { reqLottery } from '../../api'
+import moment from 'moment';
 
 export default class Lottery extends Component {
     formRef = React.createRef()
@@ -11,38 +12,87 @@ export default class Lottery extends Component {
             dataSource: [],
             pageNumber: 1,
             pageSize: 5,
-            searchName: '',
-            deviceId: ''
+            keyWord: '',
+            beginDate: '', // 开始时间
+            endDate: '', // 结束时间
         }
     }
     componentWillMount() {
         this.getDataList()
     }
     getDataList = async () => {
-        let { searchName, pageNumber, pageSize } = this.state
+        let { keyWord, pageNumber, pageSize, beginDate, endDate } = this.state
         let params = {
-            searchName,
-            pageNumber,
-            pageSize
+            keyWord,
+            beginDate,
+            endDate,
+            current: pageNumber,
+            size: pageSize
         }
         let result = await reqLottery(params)
-        if (result.code === 200) {
+        if (result.code === 0) {
             this.setState({
-                dataSource: result.data,
+                dataSource: result.data.records,
             })
         }
     }
+    // 开始时间选择器(监控记录日期变换)
+    handleStartDateChange = (value, dateString) => {
+        this.setState({
+            beginDate: dateString,
+        });
+    };
+    
+    // 结束时间选择器(监控记录日期变换)
+    handleEndDateChange = (value, dateString) => {
+        this.setState({
+            endDate: dateString,
+        });
+    };
+
+    // 结束时间可选范围
+    handleEndDisabledDate = (current) => {
+        const { beginDate } = this.state;
+        if (beginDate !== '') {
+        // 核心逻辑: 结束日期不能多余开始日期后60天，且不能早于开始日期
+            return current > moment(beginDate).add(60, 'day') || current < moment(beginDate);
+        } else {
+            return null;
+        }
+    }
+    
+    // 开始时间可选范围
+    handleStartDisabledDate = (current) => {
+        const { endDate } = this.state;
+        if (endDate !== '') {
+            // 核心逻辑: 开始日期不能晚于结束日期，且不能早于结束日期前60天
+            return current < moment(endDate).subtract(60, 'day') || current > moment(endDate);
+        } else {
+            return null;
+        }
+    }
     render() {
-        let { dataSource, pageNumber, pageSize, searchName } = this.state
+        let { dataSource, pageNumber, pageSize, keyWord } = this.state
         // 读取状态数据
         // card的左侧
         const title = (
             <span>
                 <Input 
-                    value={searchName}
+                    value={keyWord}
                     placeholder='用户ID、手机号、FacebookID'
                     style={{width:200, margin: '0 15px'}}
-                    onChange={event => this.setState({searchName:event.target.value})}
+                    onChange={event => this.setState({keyWord:event.target.value})}
+                />
+                <DatePicker
+                    onChange={this.handleStartDateChange}
+                    disabledDate={this.handleStartDisabledDate}
+                    placeholder="开始日期"
+                />
+                <span>-</span>
+                <DatePicker
+                    onChange={this.handleEndDateChange}
+                    disabledDate={this.handleEndDisabledDate}
+                    placeholder="结束日期"
                 />
             </span>
         )
@@ -63,29 +113,29 @@ export default class Lottery extends Component {
                         columns={[
                             {
                                 title: '用户ID',
-                                dataIndex: 'deviceId',
-                                key: 'deviceId',
+                                dataIndex: 'userId',
+                                key: 'userId',
                             },
                             {
                                 title: '红包ID',
-                                dataIndex: 'deviceName',
-                                key: 'deviceName',
+                                dataIndex: 'redPacketsId',
+                                key: 'redPacketsId',
                             },
                             {
                                 title: '奖项',
-                                dataIndex: 'id',
-                                key: 'id',
+                                dataIndex: 'awards',
+                                key: 'awards',
                             },
                             {
                                 title: '中奖金额',
-                                dataIndex: 'upgradeStatus',
-                                key: 'upgradeStatus',
-                                render: upgradeStatus =>  upgradeStatus + '元'
+                                dataIndex: 'amount',
+                                key: 'amount',
+                                render: amount =>  amount + '元'
                             },
                             {
                                 title: '开奖时间',
-                                dataIndex: 'createdAt',
-                                key: 'createdAt',
+                                dataIndex: 'createDate',
+                                key: 'createDate',
                             },
                         ]}
                     />
