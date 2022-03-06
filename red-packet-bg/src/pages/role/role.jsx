@@ -88,7 +88,6 @@ export default class Role extends Component {
 			id,
 			isMenulVisible: true,
 		})
-
 	}
 
 	componentWillUpdate(nextProps, nexpState) {

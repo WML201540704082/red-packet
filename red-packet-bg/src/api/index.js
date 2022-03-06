@@ -18,7 +18,7 @@ export const reqEditRole = data => ajax(BASE + 'sys/role/update', data , 'POST')
 export const reqDeleteRole = id => ajax(BASE + 'sys/role/delete', {id} , 'POST')
 // 菜单列表
 export const reqMenu = () => ajax(BASE + 'sys/menu/list', {} , 'POST')
-// 根据角色获取菜单权限
+// 根据角色获取菜单权限列表
 export const reqRoleIdMenu = (roleId) => ajax(BASE + `sys/roleMenu/getByRoleMenuPermissions/${roleId}`, {})
 // 编辑角色的菜单配置
 export const reqEditRoleMenu = data => ajax(BASE + 'sys/roleMenu/menuConfig', data, 'POST')
@@ -27,12 +27,19 @@ export const reqGetPermission = data => ajax(BASE + 'sys/home/getPermission', da
 // 退出登录
 export const reqQuit = () => ajax(BASE + 'sys/home/quit', {}, 'POST')
 
+// 获取账户列表
+export const reqAccount = data => ajax(BASE + 'sys/user/list', data, 'POST')
+// 添加账号
+export const reqAddAccount = data => ajax(BASE + 'sys/user/createAccount', data , 'POST')
+// 编辑账号
+export const reqEditAccount = data => ajax(BASE + 'sys/user/update', data , 'POST')
+// 密码重置
+export const reqPwdReset = userId => ajax(BASE + 'sys/user/resetPaw', {userId} , 'POST')
+// 用户角色配置
+export const reqAccIdRoleConfig = data => ajax(BASE + 'sys/user/userRole', data, 'POST')
+
 export const getDeviceDetils = (deviceId) => ajax(BASE + `deviceId/${deviceId}`)
 
-// 获取账号列表
-export const reqAccount = data => ajax(BASE + 'device/search', data, 'POST')
-// 添加账号
-export const reqAddAccount = (deviceId,deviceName) => ajax(BASE + 'device', {deviceId,deviceName} , 'POST')
 // 获取开奖记录列表
 export const reqLottery = data => ajax(BASE + 'device/search', data, 'POST')
 

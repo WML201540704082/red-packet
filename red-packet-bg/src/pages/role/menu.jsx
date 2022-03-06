@@ -1,8 +1,7 @@
 //对话框表单组件
 import React, { Component } from 'react'
 import { Modal, Input, Form, message, Tree} from 'antd'
-import { reqEditRoleMenu } from '../../api'
-import { reqMenu, reqRoleIdMenu } from '../../api'
+import { reqEditRoleMenu, reqMenu, reqRoleIdMenu } from '../../api'
 const { Item } = Form
 
 export default class ModalComponent extends Component {
@@ -11,7 +10,6 @@ export default class ModalComponent extends Component {
         super(props)
         this.state = {
             flag: false,
-            type: '',
             id: 0,
         }
     }
