@@ -47,6 +47,15 @@ export const reqEditRob = data => ajax(BASE + 'grab/update', data, 'POST')
 // 删除抢红包配置项
 export const reqDeleteRob = id => ajax(BASE + 'grab/delete', {id}, 'POST')
 
+// 拆红包列表
+export const reqOpenList = data => ajax(BASE + 'unpack/list', data, 'POST')
+// 新增拆红包配置项
+export const reqAddOpen = data => ajax(BASE + 'unpack/add', data, 'POST')
+// 编辑拆红包配置项
+export const reqEditOpen = data => ajax(BASE + 'unpack/update', data, 'POST')
+// 删除拆红包配置项
+export const reqDeleteOpen = id => ajax(BASE + 'unpack/delete', {id}, 'POST')
+
 export const getDeviceDetils = (deviceId) => ajax(BASE + `deviceId/${deviceId}`)
 
 // 获取开奖记录列表

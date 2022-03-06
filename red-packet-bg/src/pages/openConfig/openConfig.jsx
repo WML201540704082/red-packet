@@ -1,8 +1,8 @@
 //列表页面
 import React, { Component } from 'react'
-import { Button, Table, Card, Modal } from 'antd'
+import { Button, Table, Card, Modal, message } from 'antd'
 import { PlusCircleOutlined } from '@ant-design/icons'
-import { reqAccount } from '../../api'
+import { reqOpenList, reqDeleteOpen } from '../../api'
 import AddOpen from './add-open'
 
 export default class OpenConfig extends Component {
@@ -13,22 +13,35 @@ export default class OpenConfig extends Component {
 			dataSource: [],
 			isModalVisible: false,
 			isDeleteVisible: false,
-			deviceId: ''
+			pageNumber: 1,
+            pageSize: 5,
 		}
 	}
 	componentWillMount() {
 		this.getDataList()
 	}
+	componentWillUpdate(nextProps, nexpState) {
+		let { isModalVisible } = this.state
+		if (isModalVisible !== nexpState.isModalVisible) {
+			this.getDataList()
+		}
+	}
 	getDataList = async () => {
-		let result = await reqAccount()
-		if (result.code === 200) {
+		let { pageNumber,pageSize } = this.state
+		let params = {
+			current: pageNumber,
+			size: pageSize
+		}
+		let result = await reqOpenList(params)
+		if (result.code === 0) {
 			this.setState({
-				dataSource: result.data,
+				dataSource: result.data.records,
 			})
 		}
 	}
 	render() {
-		let { dataSource, isDeleteVisible, deviceId } = this.state
+		let { dataSource, isDeleteVisible, pageNumber, pageSize,id } = this.state
+
 		// card的左侧
 		const title = (
 		<span>
@@ -42,26 +55,26 @@ export default class OpenConfig extends Component {
 					bordered
 					rowKey="id"
 					dataSource={dataSource}
+					pagination={{current: pageNumber,pageSize: pageSize,showQuickJumper: true,onChange: this.onPageChange}}
 					columns={[
 						{
-							title: '序号',
-							dataIndex: 'id',
-							key: 'id',
-						},
-						{
 							title: '奖项',
-							dataIndex: 'deviceName',
-							key: 'deviceName',
+							dataIndex: 'name',
+							key: 'name',
 						},
 						{
-							title: '中奖金额区间',
-							dataIndex: 'id',
-							key: 'addidress',
+							title: '抢红包中奖区间',
+							key: 'id',
+							render: reload =>  {
+								return (
+									<span>{reload.begin + '--' + reload.end}</span>
+								)
+							}
 						},
-                        {
+						{
 							title: '中奖概率',
-							dataIndex: 'appVersion',
-							key: 'appVersion',
+							dataIndex: 'probability',
+							key: 'probability',
 						},
 						{
 							title: <span style={{ fontWeight: 700 }}>操作</span>,
@@ -71,8 +84,8 @@ export default class OpenConfig extends Component {
 							render: reload => {
 								return (
 									<span>
-									<Button type={'link'} onClick={() => this.oppModal('修改', reload)}>编辑</Button>
-									<Button type={'link'} onClick={() => this.deleteModal(reload.deviceId)}>删除</Button>
+										<Button type={'link'} onClick={() => this.oppModal('修改',reload)}>编辑</Button>
+										<Button type={'link'} onClick={() => this.deleteModal(reload.id)}>删除</Button>
 									</span>
 								)
 							},
@@ -82,31 +95,37 @@ export default class OpenConfig extends Component {
 				<Modal
 					title="删除"
 					visible={isDeleteVisible}
-					onOk={() => this.deleteRobConfig(deviceId)}
+					onOk={() => this.deleteRobConfig(id)}
 					onCancel={() => {this.setState({
 						isDeleteVisible: false
 					})}}
 				>
-					<span>确认删除该项奖项吗?</span>
+					<span>确认删除该项配置吗?</span>
 				</Modal>
 			</Card>
 			{this.showModal(this.state.isModalVisible, dataSource)}
 		</div>
 		)
 	}
+	onPageChange = (pageNumber, pageSize) => {
+        this.setState({
+            pageNumber,
+            pageSize,
+        })
+    }
 
 	oppModal = (type, data) => {
 		if (data) {
 			// 编辑
-			let { deviceId, deviceName, pwd, confirmPwd, id } = data
+			let { id, name, begin, end, probability } = data
 			this.setState({
 				id: id,
 				isModalVisible: true,
 				modalType: type,
-				deviceId: deviceId,
-				deviceName: deviceName,
-				pwd: pwd,
-				confirmPwd: confirmPwd,
+				name,
+				begin,
+				end,
+				probability
 			})
 		} else {
 			// 新增
@@ -117,31 +136,40 @@ export default class OpenConfig extends Component {
 		}
 	}
 	showModal = (flag, data) => {
-		let { id, deviceId, deviceName, modalType } = this.state
+		let { id, name, begin, end, probability, modalType } = this.state
 		if (flag) {
 		return (
 			<AddOpen
 				flag={flag}
 				dataSource={data}
-				dataSourceFun={value => this.setState({ dataSource: value })}
 				closeModal={() => this.setState({isModalVisible: false,})}
 				id={id}
-				deviceId={deviceId}
-				deviceName={deviceName}
+				name={name}
+				begin={begin}
+				end={end}
+				probability={probability}
 				type={modalType}
 				/>
 			)
 		}
 	}
 	// 删除
-	deleteModal = (deviceId) => {
+	deleteModal = (id) => {
 		this.setState({
 			isDeleteVisible: true,
-			deviceId,
+			id,
 		})
 	}
-	deleteRobConfig = (deviceId) => {
-		console.log(deviceId)
-		debugger
+	deleteRobConfig = async (id) => {
+		const result = await reqDeleteOpen(id)
+		if (result.code === 0) {
+			// 更新状态
+			this.setState({
+				isDeleteVisible: false
+			})
+			this.getDataList()
+		} else {
+			message.error('获取分类列表失败')
+		}
 	}
 }

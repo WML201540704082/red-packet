@@ -39,7 +39,7 @@ const menuList =[
         icon: <MailOutlined />, 
     },
     {
-        title: '拆红包设置', 
+        title: '拆红包配置', 
         key: '/openConfig', 
         icon: <MailOutlined />, 
     },
