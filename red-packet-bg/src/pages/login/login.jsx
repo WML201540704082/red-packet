@@ -49,7 +49,7 @@ export default class Login extends Component {
                     storageUtils.saveUser(user)
 
                     // 跳转到管理页面(不需要会退到登陆用replace，需要会退到登陆用push)
-                    // this.props.history.push('/')
+                    this.props.history.push('/')
                 } else {
                     message.error(result.message)
                 }
