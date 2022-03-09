@@ -19,6 +19,7 @@ export default class Role extends Component {
 			isMenulVisible: false,
 			pageNumber: 1,
 			pageSize: 5,
+			name: null
 		}
 	}
 
@@ -101,12 +102,13 @@ export default class Role extends Component {
 	 */
 	getRoleList = async () => {
 
-		let { pageNumber, pageSize } = this.state
+		let { pageNumber, pageSize, name } = this.state
 		// 在发请求前显示Loading
 		this.setState({loading:true})
 		let params = {
 			current: pageNumber,
-			size: pageSize
+			size: pageSize,
+			name
 		}
 		// 发异步ajax请求，获取数据
 		const result = await reqRoles(params)
@@ -202,8 +204,9 @@ export default class Role extends Component {
         const extra = (
 			<span>
 				<span style={{fontSize: '14px',fontWeight: '400'}}>角色名称:</span>
-				<Input placeholder='请输入角色名称' style={{width:200, margin: '0 15px'}}/>
-				<Button type='primary'>搜索</Button>
+				<Input placeholder='请输入角色名称' style={{width:200, margin: '0 15px'}}
+					   onChange={event => this.setState({name:event.target.value})}/>
+				<Button type='primary' onClick={() => this.getRoleList()}>搜索</Button>
 			</span>
         )
           

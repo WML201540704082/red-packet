@@ -15,9 +15,9 @@ export default class User extends Component {
             isRecordsVisible: false,//抢红包记录查看
             isDetailsVisible: false,//用户详情
             isShieldVisible: false,
-            searchName: '',
+            searchName: null,
             userRow: {},
-            deviceId: ''
+            id: null
         }
     }
     componentWillMount() {
@@ -30,9 +30,11 @@ export default class User extends Component {
     //     }
     // }
     getDataList = async () => {
-        let { searchName } = this.state
+        let { searchName, pageNumber, pageSize } = this.state
         let params = {
-            searchName
+            searchName,
+            current: pageNumber,
+            size: pageSize
         }
         let result = await reqAccount(params)
         if (result.code === 200) {
@@ -42,7 +44,7 @@ export default class User extends Component {
         }
     }
     render() {
-        let { dataSource, pageNumber, pageSize, searchName, isRecordsVisible, isShieldVisible, deviceId } = this.state
+        let { dataSource, pageNumber, pageSize, searchName, isRecordsVisible, isShieldVisible, id } = this.state
         // 读取状态数据
         // card的左侧
         const title = (
@@ -72,8 +74,8 @@ export default class User extends Component {
                         columns={[
                             {
                                 title: '用户ID',
-                                dataIndex: 'deviceId',
-                                key: 'deviceId',
+                                dataIndex: 'id',
+                                key: 'id',
                             },
                             {
                                 title: '用户余额',
@@ -121,7 +123,7 @@ export default class User extends Component {
                                     return (
                                         <span>
                                             <Button type={'link'} onClick={() => this.openDetails(reload)}>用户详情</Button>
-                                            <Button type={'link'} onClick={() => this.userShield(reload.deviceId)}>拉黑</Button>
+                                            <Button type={'link'} onClick={() => this.userShield(reload.id)}>拉黑</Button>
                                         </span>
                                     )
                                 },
@@ -143,7 +145,7 @@ export default class User extends Component {
                     <Modal
                         title="拉黑"
                         visible={isShieldVisible}
-                        onOk={() => this.confirmShield(deviceId)}
+                        onOk={() => this.confirmShield(id)}
                         onCancel={() => {this.setState({
                             isShieldVisible: false
                         })}}
@@ -164,21 +166,21 @@ export default class User extends Component {
     }
 
     // 抢红包记录查看
-    recordsView = (deviceId) => {
+    recordsView = (id) => {
         this.setState({
             isRecordsVisible: true,
-            deviceId: deviceId,
+            id
         })
     }
     // 拉黑
-    userShield = (deviceId) => {
+    userShield = (id) => {
         this.setState({
             isShieldVisible: true,
-            deviceId
+            id
         })
     }
-    confirmShield = (deviceId) => {
-        console.log(deviceId)
+    confirmShield = (id) => {
+        console.log(id)
     }
     openDetails = (reload) => {
         this.setState({

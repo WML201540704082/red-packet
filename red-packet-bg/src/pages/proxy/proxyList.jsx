@@ -12,9 +12,7 @@ export default class ProxyList extends Component {
             dataSource: [],
             pageNumber: 1,
             pageSize: 5,
-            keyWord: '',
-            beginDate: '', // 开始时间
-            endDate: '', // 结束时间
+            keyWord: null,
             isDetailsVisible: false,//用户详情
         }
     }
@@ -22,13 +20,12 @@ export default class ProxyList extends Component {
         this.getDataList()
     }
     getDataList = async () => {
-        let { keyWord, pageNumber, pageSize, beginDate, endDate } = this.state
+        let { keyWord, pageNumber, pageSize } = this.state
         let params = {
             keyWord,
-            beginDate,
-            endDate,
             current: pageNumber,
-            size: pageSize
+            size: pageSize,
+            type: 1
         }
         let result = await reqProxyList(params)
         if (result.code === 0) {
@@ -74,19 +71,19 @@ export default class ProxyList extends Component {
                         pagination={{current: pageNumber,pageSize: pageSize,showQuickJumper: true,onChange: this.onPageChange}}
                         columns={[
                             {
-                                title: 'userId',
+                                title: '用户ID',
                                 dataIndex: 'userId',
                                 key: 'userId',
                             },
                             {
-                                title: '代理等级',
-                                dataIndex: 'level',
-                                key: 'level',
+                                title: '旗下用户累计充值',
+                                dataIndex: 'amount',
+                                key: 'amount',
                             },
                             {
-                                title: '分佣比例',
-                                dataIndex: 'commissionRatio',
-                                key: 'commissionRatio',
+                                title: '累计分佣收益',
+                                dataIndex: 'commissionAmount',
+                                key: 'commissionAmount',
                             },
                             {
                                 title: '旗下用户列表',
@@ -94,7 +91,7 @@ export default class ProxyList extends Component {
                                 render: reload => {
                                 return (
                                     <span>
-                                        <Button type={'link'} onClick={() => this.nextProxyDetails(reload.id)}>查看</Button>
+                                        <Button type={'link'} onClick={() => this.nextProxyDetails(reload.userId)}>查看</Button>
                                     </span>
                                 )
                                 },

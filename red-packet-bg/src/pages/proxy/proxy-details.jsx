@@ -20,18 +20,19 @@ export default class ProxyDetails extends Component {
 			flag,
 			userId,
 		})
-		this.getNextProxyList()
+		this.getNextProxyList(userId)
 	}
-	getNextProxyList = async () => {
-		let { pageNumber, pageSize } = this.state
+	getNextProxyList = async (userId) => {
+		// let { pageNumber, pageSize } = this.state
 		let params = {
-			current: pageNumber,
-			size: pageSize
+			current: 1,
+			size: 50,
+			userId
 		}
 		let result = await reqNextProxyList(params)
 		if (result.code === 0) {
 			this.setState({
-				dataSource: result.data.records,
+				dataSource: result.data,
 			})
 		}
 	}
@@ -55,6 +56,7 @@ export default class ProxyDetails extends Component {
 					bordered
 					rowKey="id"
 					dataSource={dataSource}
+					style={{'height': '500px','overflow': 'auto'}}
 					pagination={{current: pageNumber,pageSize: pageSize,showQuickJumper: true,onChange: this.onPageChange}}
 					columns={[
 						{

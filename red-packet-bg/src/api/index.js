@@ -69,10 +69,18 @@ export const reqWithdraw = data => ajax(BASE + '/withdraw/list', data, 'POST')
 export const reqAudit = data => ajax(BASE + 'withdraw/audit', data, 'POST')
 
 // 获取代理列表
-export const reqProxyList = data => ajax(BASE + 'acting/list', data, 'POST')
-
+export const reqProxyList = data => ajax(BASE + 'acting/detail/list', data, 'POST')
 // 获取下级代理列表
 export const reqNextProxyList = data => ajax(BASE + 'acting/detail/lowerLevelList', data, 'POST')
+
+// 代理配置列表
+export const reqProxyConfigList = data => ajax(BASE + 'acting/list', data, 'POST')
+// 新增代理配置项
+export const reqAddProxyConfig = data => ajax(BASE + 'acting/add', data, 'POST')
+// 编辑代理配置项
+export const reqEditProxyConfig = data => ajax(BASE + 'acting/update', data, 'POST')
+// 删除代理配置项
+export const reqDeleteProxyConfig = id => ajax(BASE + 'acting/delete', {id}, 'POST')
 
 // 获取数据统计列表
 export const reqStatistics = data => ajax(BASE + 'basic/indicators/statistics', data, 'POST')

@@ -26,7 +26,7 @@ export default class Basic extends Component {
         let result = await reqStatistics(params)
         if (result.code === 0) {
             this.setState({
-                dataSource: result.data,
+                dataSource: [result.data],
             })
         }
     }
