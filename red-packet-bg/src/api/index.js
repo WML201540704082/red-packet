@@ -68,7 +68,15 @@ export const reqWithdraw = data => ajax(BASE + '/withdraw/list', data, 'POST')
 // 提现审核
 export const reqAudit = data => ajax(BASE + 'withdraw/audit', data, 'POST')
 
-export const getDeviceDetils = (deviceId) => ajax(BASE + `deviceId/${deviceId}`)
+// 获取代理列表
+export const reqProxyList = data => ajax(BASE + 'acting/list', data, 'POST')
+
+// 获取下级代理列表
+export const reqNextProxyList = data => ajax(BASE + 'acting/detail/lowerLevelList', data, 'POST')
+
+// 获取数据统计列表
+export const reqStatistics = data => ajax(BASE + 'basic/indicators/statistics', data, 'POST')
+
 
 
 /*
