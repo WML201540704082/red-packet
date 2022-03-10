@@ -15,13 +15,12 @@ export default class ModalComponent extends Component {
         }
     }
     componentWillMount() {
-      let { flag, id, name, type, dataSource } = this.props
+        let { flag, id, name, type } = this.props
         this.setState({
             flag,
             id,
             name,
             type,
-            dataSource
         })
     }
     componentDidMount() {
@@ -60,8 +59,8 @@ export default class ModalComponent extends Component {
     }
 
     handleOk = async () => {
-        let { closeModal, dataSourceFun } = this.props
-        let { type, dataSource, id, name } = this.state
+        let { closeModal } = this.props
+        let { type, id, name } = this.state
         let params = {
             id,
             name,
@@ -70,30 +69,23 @@ export default class ModalComponent extends Component {
             if (!name) return message.info('角色名称不可以为空！')
             let result = await reqAddRole(params)
             if (result.code === 0) {
-                message.success('角色添加成功！', 1)
-                let newDataSource = [...dataSource]
-                newDataSource.unshift(result.data)
-                dataSourceFun(newDataSource)
+                message.success('角色添加成功！')
                 this.formRef.current.setFieldsValue({ name: undefined }) //给表单设置值
                 this.formRef.current.resetFields() //清空表单
             } else {
-                return message.error(result.msg, 1)
+                return message.error(result.msg)
             }
-            closeModal()
         } else {
             if (!name) return message.info('角色名称不可以为空！')
             let result = await reqEditRole(params)
             if (result.code === 0) {
-                message.success('角色编辑成功！', 1)
-                let newDataSource = [...dataSource]
-                newDataSource.unshift(result.data)
-                dataSourceFun(newDataSource)
+                message.success('角色编辑成功！')
                 this.formRef.current.setFieldsValue({ name: undefined }) //给表单设置值
                 this.formRef.current.resetFields() //清空表单
             } else {
-                return message.error(result.msg, 1)
+                return message.error(result.msg)
             }
-            closeModal()
         }
+        closeModal()
     }
 }

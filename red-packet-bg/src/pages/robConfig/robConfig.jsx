@@ -162,7 +162,7 @@ export default class RobConfig extends Component {
 			})
 			this.getDataList()
 		} else {
-			message.error('获取分类列表失败')
+			message.error(result.msg)
 		}
 	}
 }

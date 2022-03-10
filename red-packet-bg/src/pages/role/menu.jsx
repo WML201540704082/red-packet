@@ -37,7 +37,7 @@ export default class ModalComponent extends Component {
 				menuList
 			})
 		} else {
-			message.error('获取分类列表失败')
+			message.error(result.msg)
 		}
     }
     getRoleIdMenu = async (id) => {
@@ -48,12 +48,8 @@ export default class ModalComponent extends Component {
 				checkedKeys
 			})
 		} else {
-			message.error('获取分类列表失败')
+			message.error(result.msg)
 		}
-    }
-    componentDidMount() {
-        // let { name } = this.state
-        // this.formRef.current.setFieldsValue({ name })
     }
     closeClear = () => {
         let { closeModal } = this.props
@@ -64,12 +60,8 @@ export default class ModalComponent extends Component {
     render() {
         let { flag, name, checkedKeys } = this.state
         const onCheck = (checkedKeys) => {
-            console.log(checkedKeys);
            this.setState({checkedKeys})
         };
-        // const onSelect = (selectedKeys) => {
-        //     console.log(selectedKeys)
-        // };
         return (
             <Modal 
                 title="菜单权限" 
@@ -88,7 +80,6 @@ export default class ModalComponent extends Component {
                         defaultExpandAll
                         checkedKeys={checkedKeys}
                         onCheck={onCheck}
-                        // onSelect={onSelect}
                         treeData={this.state.menuList}
                     />
                 </Form>
@@ -105,11 +96,9 @@ export default class ModalComponent extends Component {
         }
         let result = await reqEditRoleMenu(params)
         if (result.code === 0) {
-            message.success('菜单配置成功！', 1)
-            // this.formRef.current.setFieldsValue({ name: undefined }) //给表单设置值
-            // this.formRef.current.resetFields() //清空表单
+            message.success('菜单配置成功！')
         } else {
-            return message.error(result.msg, 1)
+            return message.error(result.msg)
         }
         closeModal()
     }

@@ -71,7 +71,6 @@ export default class Operate extends Component {
     }
     render() {
         let { dataSource, pageNumber, pageSize } = this.state
-        // 读取状态数据
         // card的左侧
         const title = (
             <span>

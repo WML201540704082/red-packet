@@ -1,8 +1,10 @@
 //列表页面
 import React, { Component } from 'react'
-import { Button, Table, Input, Card, Modal } from 'antd'
-import { reqAccount } from '../../api'
+import { Button, Table, Input, Card, Modal, message, Select } from 'antd'
+import { reqUserList, reqShieldUser } from '../../api'
 import Details from './user-details'
+import RecordsView from './records-view'
+const { Option } = Select
 
 export default class User extends Component {
     formRef = React.createRef()
@@ -15,9 +17,9 @@ export default class User extends Component {
             isRecordsVisible: false,//抢红包记录查看
             isDetailsVisible: false,//用户详情
             isShieldVisible: false,
-            searchName: null,
-            userRow: {},
-            id: null
+            keyWord: null,
+            userId: null,
+            delFlag: null
         }
     }
     componentWillMount() {
@@ -30,34 +32,42 @@ export default class User extends Component {
     //     }
     // }
     getDataList = async () => {
-        let { searchName, pageNumber, pageSize } = this.state
+        let { keyWord, pageNumber, pageSize, delFlag } = this.state
         let params = {
-            searchName,
+            keyWord,
+            delFlag,
             current: pageNumber,
             size: pageSize
         }
-        let result = await reqAccount(params)
-        if (result.code === 200) {
+        let result = await reqUserList(params)
+        if (result.code === 0) {
             this.setState({
-                dataSource: result.data,
+                dataSource: result.data.records
             })
         }
     }
     render() {
-        let { dataSource, pageNumber, pageSize, searchName, isRecordsVisible, isShieldVisible, id } = this.state
-        // 读取状态数据
-        // card的左侧
+        let { dataSource, pageNumber, pageSize, keyWord, isShieldVisible, delFlag } = this.state
         const title = (
             <span>
                 <Input 
-                    value={searchName}
+                    value={keyWord}
                     placeholder='用户ID、手机号、FacebookID'
                     style={{width:200, margin: '0 15px'}}
-                    onChange={event => this.setState({searchName:event.target.value})}
+                    onChange={event => this.setState({keyWord:event.target.value})}
                 />
+                <span style={{fontSize: '14px',fontWeight: '400'}}>状态:&nbsp;&nbsp;</span>
+				<Select 
+					value={delFlag}
+					style={{width: 120}}
+					onChange={value => this.setState({delFlag:value})}
+				>
+					<Option>全部</Option>
+					<Option value="0">正常</Option>
+					<Option value="1">黑名单</Option>
+				</Select>
             </span>
         )
-            // card的右侧
         const extra = (
             <span>
                 <Button type='primary' onClick={() => this.getDataList()}>搜索</Button>
@@ -68,62 +78,67 @@ export default class User extends Component {
                 <Card title={title} extra={extra}>
                     <Table
                         bordered
-                        rowKey="id"
+                        rowKey="userId"
                         dataSource={dataSource}
                         pagination={{current: pageNumber,pageSize: pageSize,showQuickJumper: true,onChange: this.onPageChange}}
                         columns={[
                             {
                                 title: '用户ID',
-                                dataIndex: 'id',
-                                key: 'id',
+                                dataIndex: 'userId',
+                                key: 'userId',
                             },
                             {
                                 title: '用户余额',
-                                dataIndex: 'deviceName',
-                                key: 'deviceName',
+                                dataIndex: 'amount',
+                                key: 'amount',
                             },
                             {
                                 title: '累计充值',
-                                dataIndex: 'id',
-                                key: 'id',
+                                dataIndex: 'rechargeTotal',
+                                key: 'rechargeTotal',
                             },
                             {
                                 title: '累计收益',
-                                dataIndex: 'upgradeStatus',
-                                key: 'upgradeStatus',
-                                render: upgradeStatus =>  upgradeStatus + '元'
+                                dataIndex: 'incomeTotal',
+                                key: 'incomeTotal',
                             },
                             {
                                 title: '最近登录时间',
-                                dataIndex: 'createdAt',
-                                key: 'createdAt',
+                                dataIndex: 'endDate',
+                                key: 'endDate',
+                            },
+                            {
+                                title: '状态',
+                                dataIndex: 'delFlag',
+                                key: 'delFlag',
+                                render: delFlag => delFlag === '0' ? '正常' : '黑名单',
                             },
                             {
                                 title: '抢红包记录',
                                 align: 'center',
                                 render: reload => {
-                                return (
-                                    <span>
-                                    <Button type={'link'} onClick={() => this.recordsView()}>查看</Button>
-                                    </span>
-                                )
+                                    return (
+                                        <span>
+                                            <Button type={'link'} onClick={() => this.recordsView(reload.userId)}>查看</Button>
+                                        </span>
+                                    )
                                 },
                             },
                             {
                                 title: '登录类型',
-                                dataIndex: 'deviceModel',
-                                key: 'deviceModel',
+                                dataIndex: 'loginWay',
+                                key: 'loginWay',
                             },
                             {
                                 title: <span style={{ fontWeight: 700 }}>操作</span>,
-                                key: 'id',
+                                key: 'userId',
                                 align: 'center',
                                 width: '20%',
                                 render: reload => {
                                     return (
                                         <span>
-                                            <Button type={'link'} onClick={() => this.openDetails(reload)}>用户详情</Button>
-                                            <Button type={'link'} onClick={() => this.userShield(reload.id)}>拉黑</Button>
+                                            <Button type={'link'} onClick={() => this.openDetails(reload.userId)}>用户详情</Button>
+                                            <Button type={'link'} onClick={() => this.userShield(reload.userId, reload.delFlag)}>{reload.delFlag === '0' ? '拉黑' : '恢复'}</Button>
                                         </span>
                                     )
                                 },
@@ -131,30 +146,17 @@ export default class User extends Component {
                         ]}
                     />
                     <Modal
-                        title="抢红包记录查看"
-                        visible={isRecordsVisible}
-                        onOk={() => {this.setState({
-                            isRecordsVisible: false
-                        })}}
-                        onCancel={() => {this.setState({
-                            isRecordsVisible: false
-                        })}}
-                    >
-                        <span>123</span>
-                    </Modal>
-                    <Modal
                         title="拉黑"
                         visible={isShieldVisible}
-                        onOk={() => this.confirmShield(id)}
-                        onCancel={() => {this.setState({
-                            isShieldVisible: false
-                        })}}
+                        onOk={() => this.confirmShield()}
+                        onCancel={() => {this.setState({isShieldVisible: false})}}
                     >
-                        <span>确认拉黑用户吗?</span>
+                        <span>{delFlag === '0' ? '确认拉黑用户吗?' : '确认将该用户从黑名单中移除，恢复登录权限吗?'}</span>
                     </Modal>
                     
                 </Card>
-                {this.showDetails(this.state.isDetailsVisible, dataSource)}
+                {this.showDetails(this.state.isDetailsVisible)}
+                {this.showRecordsView(this.state.isRecordsVisible)}
             </div>
         )
     }
@@ -166,37 +168,64 @@ export default class User extends Component {
     }
 
     // 抢红包记录查看
-    recordsView = (id) => {
+    recordsView = (userId) => {
         this.setState({
             isRecordsVisible: true,
-            id
+            userId
         })
+    }
+    // 查看红包记录
+    showRecordsView = (flag) => {
+        if (flag) {
+            let { userId } = this.state
+            return (
+                <RecordsView
+                    flag={flag}
+                    userId={userId}
+                    closeView={() => {this.setState({isRecordsVisible: false})}}
+                >
+                </RecordsView>
+            )
+        }
     }
     // 拉黑
-    userShield = (id) => {
+    userShield = (userId, delFlag) => {
         this.setState({
             isShieldVisible: true,
-            id
+            userId,
+            shieldFlag: delFlag
         })
     }
-    confirmShield = (id) => {
-        console.log(id)
+    confirmShield = async () => {
+        let { userId, shieldFlag } = this.state
+        let params = {
+			userId,
+			delFlag: shieldFlag === '0' ? '1' : '0',
+		}
+		let result = await reqShieldUser(params)
+		if (result.code === 0) {
+			message.success('操作成功！')
+			this.setState({
+				isShieldVisible: false
+			})
+			this.getDataList()
+		}
     }
-    openDetails = (reload) => {
+    openDetails = (userId) => {
         this.setState({
             isDetailsVisible: true,
-            userRow: reload
+            userId
         })
     }
     // 用户详情
     showDetails = (flag) => {
         if (flag) {
-            let { userRow } = this.state
+            let { userId } = this.state
             return (
                 <Details
                     flag={flag}
-                    userRow={userRow}
-                    closeDatails={() => this.setState({isDetailsVisible: false,})}
+                    userId={userId}
+                    closeDatails={() => this.setState({isDetailsVisible: false})}
                 />
             )
         }

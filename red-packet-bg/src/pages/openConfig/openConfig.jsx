@@ -41,7 +41,6 @@ export default class OpenConfig extends Component {
 	}
 	render() {
 		let { dataSource, isDeleteVisible, pageNumber, pageSize,id } = this.state
-
 		// card的左侧
 		const title = (
 		<span>
@@ -169,7 +168,7 @@ export default class OpenConfig extends Component {
 			})
 			this.getDataList()
 		} else {
-			message.error('获取分类列表失败')
+			message.error(result)
 		}
 	}
 }

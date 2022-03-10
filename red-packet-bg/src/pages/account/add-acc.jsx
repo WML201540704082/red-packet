@@ -109,27 +109,27 @@ export default class ModalComponent extends Component {
 			}
 			let result = await reqAddAccount(params)
 			if (result.code === 0) {
-				message.success('账号添加成功！', 1)
+				message.success('账号添加成功！')
 				this.formRef.current.setFieldsValue({ account: undefined,name: undefined,passWord: null,confirmPwd: null}) //给表单设置值
 				this.formRef.current.resetFields() //清空表单
 			} else {
-				return message.error(result.msg, 1)
+				return message.error(result.msg)
 			}
 			closeModal()
 		}
 		if (type === '修改') {
-			if (!name) return message.info('name不可以为空！')
+			if (!name) return message.info('name不可以为空!')
 			let params = {
 				id,
 				name,
 			}
 			let result = await reqEditAccount(params)
 			if (result.code === 0) {
-				message.success('账号修改成功！', 1)
+				message.success('账号修改成功！')
 				this.formRef.current.setFieldsValue({ name: undefined }) //给表单设置值
 				this.formRef.current.resetFields() //清空表单
 			} else {
-				return message.error(result.msg, 1)
+				return message.error(result.msg)
 			}
 			closeModal()
 		}

@@ -73,7 +73,6 @@ export default class Paid extends Component {
     }
     render() {
         let { dataSource, pageNumber, pageSize, keyWord } = this.state
-        // 读取状态数据
         // card的左侧
         const title = (
             <span>

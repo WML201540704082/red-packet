@@ -85,6 +85,14 @@ export const reqDeleteProxyConfig = id => ajax(BASE + 'acting/delete', {id}, 'PO
 // 获取数据统计列表
 export const reqStatistics = data => ajax(BASE + 'basic/indicators/statistics', data, 'POST')
 
+// 获取用户列表
+export const reqUserList = data => ajax(BASE + 'sys/userManage/list', data, 'POST')
+// 获取用户详情
+export const reqUserDetails = id => ajax(BASE + `sys/userManage/detail/${id}`)
+// 拉黑用户
+export const reqShieldUser = data => ajax(BASE + 'sys/userManage/update', data, 'POST')
+// 用户抢红包记录明细
+export const reqRedPacketsDetails = data => ajax(BASE + 'sys/userManage/redPacketsList', data, 'POST')
 
 
 /*

@@ -2,12 +2,12 @@ import React, { Component } from 'react'
 import { Card, Table, Button, message, Input, Modal } from 'antd'
 import { PlusCircleOutlined } from '@ant-design/icons'
 import {reqRoles, reqDeleteRole} from '../../api'
-import AddModal from './add-form'
+import AddModal from './add-role'
 import Menu from './menu'
 
 // 商品分类路由
 export default class Role extends Component {
-
+	formRef = React.createRef()
 	constructor(props) {
 		super(props)
 		this.state = {
@@ -50,7 +50,7 @@ export default class Role extends Component {
 			let { name,id } = data
 			this.setState({
 				id,
-				name,
+				listName: name,
 				isModalVisible: true,
 				modalType: type,
 			})
@@ -80,7 +80,7 @@ export default class Role extends Component {
 			})
 			this.getRoleList()
 		} else {
-			message.error('获取分类列表失败')
+			message.error(result.msg)
 		}
     }
 	// 菜单权限
@@ -121,7 +121,7 @@ export default class Role extends Component {
 				roles
 			})
 		} else {
-			message.error('获取分类列表失败')
+			message.error(result.msg)
 		}
 	}
 
@@ -137,19 +137,17 @@ export default class Role extends Component {
 	}
 
 	/*
-	 添加角色
+	 添加-编辑-角色
 	 */
-	showModal = (flag, data) => {
-		let { id, name, modalType } = this.state
+	showModal = (flag) => {
+		let { id, listName, modalType } = this.state
 		if (flag) {
 			return (
 				<AddModal
 					flag={flag}
-					dataSource={data}
-					dataSourceFun={value => this.setState({ dataSource: value })}
 					closeModal={() => this.setState({isModalVisible: false,})}
 					id={id}
-					name={name}
+					name={listName}
 					type={modalType}
 				/>
 			)
@@ -223,16 +221,16 @@ export default class Role extends Component {
 					onRow={this.onRow}
 				/>
 				<Modal
-                        title="删除"
-                        visible={isDeleteVisible}
-                        onOk={() => this.confirmDelete(id)}
-                        onCancel={() => {this.setState({
-                            isDeleteVisible: false
-                        })}}
-                    >
-                        <span>确认删除角色吗?</span>
+					title="删除"
+					visible={isDeleteVisible}
+					onOk={() => this.confirmDelete(id)}
+					onCancel={() => {this.setState({
+						isDeleteVisible: false
+					})}}
+				>
+					<span>确认删除角色吗?</span>
 				</Modal>
-				{this.showModal(isModalVisible, roles)}
+				{this.showModal(isModalVisible)}
 				{this.showMenu(isMenulVisible, role.id,role.name)}
             </Card>
         )

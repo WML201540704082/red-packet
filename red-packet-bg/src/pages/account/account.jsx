@@ -56,7 +56,7 @@ export default class Account extends Component {
 		}
 		let result = await reqEditAccount(params)
 		if (result.code === 0) {
-			message.success('操作成功！', 1)
+			message.success('操作成功！')
 			this.setState({
 				isDisabledVisible: false
 			})
@@ -66,7 +66,7 @@ export default class Account extends Component {
 	confirmReset = async (id) => {
 		let result = await reqPwdReset(id)
 		if (result.code === 0) {
-			message.success('密码重置成功！', 1)
+			message.success('密码重置成功！')
 			this.setState({
 				isResetVisible: false
 			})
@@ -104,6 +104,7 @@ export default class Account extends Component {
 					style={{width: 120}}
 					onChange={value => this.setState({delFlag:value})}
 				>
+					<Option>全部</Option>
 					<Option value="0">使用中</Option>
 					<Option value="1">已禁用</Option>
 				</Select> &nbsp;&nbsp;
@@ -206,7 +207,7 @@ export default class Account extends Component {
 				id: id,
 				isModalVisible: true,
 				modalType: type,
-				name,
+				listName: name,
 			})
 		} else {
 			// 新增
@@ -250,14 +251,14 @@ export default class Account extends Component {
 		}
 	}
 	showModal = (flag) => {
-		let { id, name, modalType } = this.state
+		let { id, listName, modalType } = this.state
 		if (flag) {
 			return (
 				<AddAcc
 					flag={flag}
 					closeModal={() => this.setState({isModalVisible: false, name: ''})}
 					id={id}
-					name={name}
+					name={listName}
 					type={modalType}
 				/>
 			)
