@@ -97,6 +97,7 @@ export default class Basic extends Component {
                         bordered
                         rowKey="id"
                         dataSource={dataSource}
+                        pagination={false}
                         columns={[
                             {
                                 title: '抢红包数',

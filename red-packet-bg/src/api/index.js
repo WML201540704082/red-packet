@@ -37,6 +37,8 @@ export const reqEditAccount = data => ajax(BASE + 'sys/user/update', data , 'POS
 export const reqPwdReset = userId => ajax(BASE + 'sys/user/resetPaw', {userId} , 'POST')
 // 用户角色配置
 export const reqAccIdRoleConfig = data => ajax(BASE + 'sys/user/userRole', data, 'POST')
+// 修改密码
+export const reqEditPwd = data => ajax(BASE + 'sys/user/updatePaw', data, 'POST')
 
 // 抢红包列表
 export const reqRobList = data => ajax(BASE + 'grab/list', data, 'POST')

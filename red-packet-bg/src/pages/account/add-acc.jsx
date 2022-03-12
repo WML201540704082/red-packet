@@ -51,6 +51,7 @@ export default class ModalComponent extends Component {
 			{
 			type === '新增' ? 
 			<Form labelCol={{span: 4}} ref={this.formRef}>
+				<Input type='password' style={{position: 'absolute', top: '-999px'}} />
 				<Item name="account" label="登录账号" hasFeedback rules={[{ required: true, message: '登录账号不可以为空!' }]}>
 					<Input allowClear placeholder="请输入登录账号！" onChange={this.changeAccount} />
 				</Item>
@@ -58,10 +59,10 @@ export default class ModalComponent extends Component {
 					<Input allowClear placeholder="请输入昵称！" onChange={this.changeName} />
 				</Item>
 				<Item name="passWord" label="密码" hasFeedback rules={[{ required: true, message: '密码不可以为空!' }]}>
-					<Input allowClear placeholder="请输入密码！" onChange={this.changePwd} />
+					<Input.Password allowClear placeholder="请输入密码！" onChange={this.changePwd} />
 				</Item>
 				<Item name="confirmPwd" label="确认密码" hasFeedback rules={[{ required: true, message: '确认密码不可以为空!' }]}>
-					<Input allowClear placeholder="请输入确认密码！" onChange={this.changeConfirmPwd} />
+					<Input.Password allowClear placeholder="请输入确认密码！" onChange={this.changeConfirmPwd} />
 				</Item>
 			</Form> : 
 			<Form labelCol={{span: 4}} ref={this.formRef}>

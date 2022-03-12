@@ -1,11 +1,16 @@
 import {
     PieChartOutlined,
     ContainerOutlined,
-    DesktopOutlined,
+    AccountBookOutlined,
+    LineChartOutlined,
     UserOutlined,
     MailOutlined,
+    FolderOpenOutlined,
     AppstoreOutlined,
-    SwapOutlined
+    SwapOutlined,
+    DollarOutlined,
+    DesktopOutlined,
+    PropertySafetyOutlined
   } from '@ant-design/icons';
 const menuList =[
     {
@@ -21,12 +26,12 @@ const menuList =[
     {
         title: '账户管理', 
         key: '/account', 
-        icon: <DesktopOutlined />, 
+        icon: <AccountBookOutlined />, 
     },
     {
         title: '基本指标', 
         key: '/basic', 
-        icon: <DesktopOutlined />, 
+        icon: <LineChartOutlined />, 
     },
     {
         title: '用户管理', 
@@ -41,7 +46,7 @@ const menuList =[
     {
         title: '拆红包配置', 
         key: '/openConfig', 
-        icon: <MailOutlined />, 
+        icon: <FolderOpenOutlined />, 
     },
     {
         title: '开奖记录', 
@@ -56,17 +61,17 @@ const menuList =[
     {
         title: '充值记录', 
         key: '/paid', 
-        icon: <AppstoreOutlined />, 
+        icon: <DollarOutlined />, 
     },
     {
         title: '操作记录', 
         key: '/operate', 
-        icon: <AppstoreOutlined />, 
+        icon: <DesktopOutlined />, 
     },
     {
         title: '代理管理',
         key: '/proxy',
-        icon: <MailOutlined />,
+        icon: <PropertySafetyOutlined />,
         children: [ // 子菜单路由
             {
                 title: '代理列表', 

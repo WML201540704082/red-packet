@@ -1,8 +1,7 @@
 import React, { Component } from 'react'
 import { withRouter } from 'react-router-dom'
-import { Modal } from 'antd';
-import { ExclamationCircleOutlined } from '@ant-design/icons'
-
+import { Modal, Menu, Dropdown } from 'antd';
+import { ExclamationCircleOutlined, DownOutlined } from '@ant-design/icons'
 import menuList from '../../config/menuConfig'
 import { formateDate } from '../../utils/dateUtils'
 import memoryUtils from '../../utils/memoryUtils'
@@ -10,11 +9,13 @@ import storageUtils from '../../utils/storageUtils'
 import './index.less'
 import LinkButton from '../link-button'
 import { reqQuit } from '../../api'
+import UpdatePwd from './update-pwd'
 
 class Header extends Component {
 
     state = {
         currentTime: formateDate(Date.now()), // 当前时间字符串
+        updatePwdVisible: false,
     }
 
     getTime = () => {
@@ -72,6 +73,19 @@ class Header extends Component {
         })
     }
 
+    // 修改密码
+    showUpdatePwd = (flag) => {
+		if (flag) {
+			return (
+				<UpdatePwd
+					flag={flag}
+					closeModal={() => this.setState({updatePwdVisible: false})}
+                    exitAcc={() => this.props.history.replace('/login')}
+				/>
+			)
+		}
+	}
+
     /*
      第一次render()之后执行一次
      一般在此执行异步操作：发ajax请求/启动定时器
@@ -104,13 +118,26 @@ class Header extends Component {
 
         // 得到当前需要显示的title
         const title = this.getTitle()
+        const menu = (
+            <Menu>
+                <Menu.Item>
+                    <LinkButton onClick={this.Loginout}>退出</LinkButton>
+                </Menu.Item>
+                <Menu.Item>
+                    <LinkButton onClick={() => this.setState({updatePwdVisible: true})}>修改密码</LinkButton>
+                </Menu.Item>
+            </Menu>
+        );
 
         return (
             <div className="header">
                 <div className="header-top">
-                    <span>欢迎，{account}</span>
-                    {/* <span style={{cursor:'pointer'}} onClick={this.Loginout}>退出</span> */}
-                    <LinkButton onClick={this.Loginout}>退出</LinkButton>
+                    <span style={{'marginRight': '-5px'}}>欢迎，</span>
+                    <Dropdown overlay={menu}>
+                        <LinkButton>
+                            <span>{account}</span><DownOutlined />
+                        </LinkButton>
+                    </Dropdown>
                 </div>
                 <div className="header-bottom">
                     <div className="header-bottom-left">{title}</div>
@@ -120,6 +147,7 @@ class Header extends Component {
                         <span>晴</span> */}
                     </div>
                 </div>
+				{this.showUpdatePwd(this.state.updatePwdVisible)}
             </div>
         )
     }
