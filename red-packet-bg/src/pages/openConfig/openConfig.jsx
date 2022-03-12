@@ -36,11 +36,12 @@ export default class OpenConfig extends Component {
 		if (result.code === 0) {
 			this.setState({
 				dataSource: result.data.records,
+				dataTotal: result.data.total
 			})
 		}
 	}
 	render() {
-		let { dataSource, isDeleteVisible, pageNumber, pageSize,id } = this.state
+		let { dataSource, isDeleteVisible, pageNumber, pageSize, id, dataTotal } = this.state
 		// card的左侧
 		const title = (
 		<span>
@@ -54,7 +55,15 @@ export default class OpenConfig extends Component {
 					bordered
 					rowKey="id"
 					dataSource={dataSource}
-					pagination={{current: pageNumber,pageSize: pageSize,showQuickJumper: true,onChange: this.onPageChange}}
+					pagination={{current: pageNumber,pageSize: pageSize, 
+						showQuickJumper: false, 
+						showSizeChanger: true, 
+						pageSizeOptions: ["5","10","15","20"],
+						total: this.state.dataTotal,
+						onChange: this.onPageChange,
+						onShowSizeChange: this.onPageChange,
+						showTotal: (e) => {return `共 ${dataTotal} 条`}}}
+					scroll={{ y: '55vh' }}
 					columns={[
 						{
 							title: '奖项',
@@ -110,7 +119,9 @@ export default class OpenConfig extends Component {
         this.setState({
             pageNumber,
             pageSize,
-        })
+        },() => {
+			this.getDataList()
+		})
     }
 
 	oppModal = (type, data) => {

@@ -31,6 +31,7 @@ export default class Operate extends Component {
         if (result.code === 0) {
             this.setState({
                 dataSource: result.data.records,
+                dataTotal: result.data.total
             })
         }
     }
@@ -70,7 +71,7 @@ export default class Operate extends Component {
         }
     }
     render() {
-        let { dataSource, pageNumber, pageSize } = this.state
+        let { dataSource, pageNumber, pageSize, dataTotal } = this.state
         // card的左侧
         const title = (
             <span>
@@ -100,7 +101,15 @@ export default class Operate extends Component {
                         bordered
                         rowKey="id"
                         dataSource={dataSource}
-                        pagination={{current: pageNumber,pageSize: pageSize,showQuickJumper: true,onChange: this.onPageChange}}
+                        pagination={{current: pageNumber,pageSize: pageSize, 
+							showQuickJumper: false, 
+							showSizeChanger: true, 
+							pageSizeOptions: ["5","10","15","20"],
+							total: this.state.dataTotal,
+							onChange: this.onPageChange,
+							onShowSizeChange: this.onPageChange,
+							showTotal: () => {return `共 ${dataTotal} 条`}}}
+                        scroll={{ y: '55vh' }}
                         columns={[
                             {
                                 title: '操作模块',
@@ -132,6 +141,8 @@ export default class Operate extends Component {
         this.setState({
             pageNumber,
             pageSize,
+        },() => {
+            this.getDataList()
         })
     }
 }

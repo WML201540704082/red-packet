@@ -108,12 +108,12 @@ export default class ModalComponent extends Component {
 				probability: Number(probability)
 			}
 			let result = await reqAddOpen(params)
-			if (result.code === 0) {
+			if (result.code === 0 && result.data.code === 0) {
 				message.success('抢红包配置项添加成功！')
 				this.formRef.current.setFieldsValue({ name: undefined,begin: undefined,end: undefined,probability:undefined}) //给表单设置值
 				this.formRef.current.resetFields() //清空表单
 			} else {
-				return message.error(result.msg)
+				return message.error(result.data.msg)
 			}
 			closeModal()
 		}
@@ -130,12 +130,12 @@ export default class ModalComponent extends Component {
 				probability: Number(probability)
 			}
 			let result = await reqEditOpen(params)
-			if (result.code === 0) {
+			if (result.code === 0 && result.data.code === 0) {
 				message.success('抢红包配置项编辑成功！')
 				this.formRef.current.setFieldsValue({ name: undefined,begin: undefined,end: undefined, probability:undefined }) //给表单设置值
 				this.formRef.current.resetFields() //清空表单
 			} else {
-				return message.error(result.msg)
+				return message.error(result.data.msg)
 			}
 			closeModal()
 		}

@@ -10,8 +10,8 @@ export default class ProxyDetails extends Component {
 		this.state = {
 			flag: false,
 			userId: null,
-			current: 1,
-			size: 5
+			pageNumber: 1,
+			pageSize: 5
 		}
 	}
 	componentWillMount() {
@@ -19,20 +19,22 @@ export default class ProxyDetails extends Component {
 		this.setState({
 			flag,
 			userId,
+		},() => {
+			this.getNextProxyList()
 		})
-		this.getNextProxyList(userId)
 	}
-	getNextProxyList = async (userId) => {
-		// let { pageNumber, pageSize } = this.state
+	getNextProxyList = async () => {
+		let { pageNumber, pageSize, userId } = this.state
 		let params = {
-			current: 1,
-			size: 50,
+			current: pageNumber,
+			size: pageSize,
 			userId
 		}
 		let result = await reqNextProxyList(params)
 		if (result.code === 0) {
 			this.setState({
 				dataSource: result.data,
+				dataTotal: result.data.total
 			})
 		}
 	}
@@ -42,7 +44,7 @@ export default class ProxyDetails extends Component {
 	}
 
 	render() {
-		let { flag, dataSource, pageNumber, pageSize } = this.state
+		let { flag, dataSource, pageNumber, pageSize, dataTotal } = this.state
 		return (
 			<Modal 
 				title="代理用户列表"
@@ -57,7 +59,15 @@ export default class ProxyDetails extends Component {
 					rowKey="id"
 					dataSource={dataSource}
 					style={{'height': '500px','overflow': 'auto'}}
-					pagination={{current: pageNumber,pageSize: pageSize,showQuickJumper: true,onChange: this.onPageChange}}
+					pagination={{current: pageNumber,pageSize: pageSize, 
+						showQuickJumper: false, 
+						showSizeChanger: true, 
+						pageSizeOptions: ["5","10","15","20"],
+						total: this.state.dataTotal,
+						onChange: this.onPageChange,
+						onShowSizeChange: this.onPageChange,
+						showTotal: () => {return `共 ${dataTotal} 条`}}}
+					scroll={{ y: '55vh' }}
 					columns={[
 						{
 							title: 'userId',
@@ -93,6 +103,8 @@ export default class ProxyDetails extends Component {
         this.setState({
             pageNumber,
             pageSize,
-        })
+        },() => {
+			this.getNextProxyList()
+		})
     }
 }

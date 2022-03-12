@@ -44,6 +44,7 @@ export default class Withdraw extends Component {
 		if (result.code === 0) {
             this.setState({
                 dataSource: result.data.records,
+				dataTotal: result.data.total
             })
 		}
 	}
@@ -100,7 +101,7 @@ export default class Withdraw extends Component {
 		}
 	}
 	render() {
-		let { dataSource, pageNumber, pageSize, isModalVisible, id, audit, keyWord, type } = this.state
+		let { dataSource, pageNumber, pageSize, isModalVisible, id, audit, keyWord, type, dataTotal } = this.state
 		// 读取状态数据
 		// card的左侧
 		const title = (
@@ -144,8 +145,16 @@ export default class Withdraw extends Component {
                         bordered
                         rowKey="id"
                         dataSource={dataSource}
-                        pagination={{current: pageNumber,pageSize: pageSize,showQuickJumper: true,onChange: this.onPageChange}}
-                        columns={[
+                        pagination={{current: pageNumber,pageSize: pageSize, 
+							showQuickJumper: false, 
+							showSizeChanger: true, 
+							pageSizeOptions: ["5","10","15","20"],
+							total: this.state.dataTotal,
+							onChange: this.onPageChange,
+							onShowSizeChange: this.onPageChange,
+							showTotal: (e) => {return `共 ${dataTotal} 条`}}}
+						scroll={{ y: '55vh' }}
+						columns={[
                             {
                                 title: '用户ID',
                                 dataIndex: 'userId',
@@ -202,6 +211,8 @@ export default class Withdraw extends Component {
 		this.setState({
 			pageNumber,
 			pageSize,
+		},() => {
+			this.getDataList()
 		})
 	}
 

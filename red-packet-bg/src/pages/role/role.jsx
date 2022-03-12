@@ -118,7 +118,8 @@ export default class Role extends Component {
 			const roles = result.data.records
 			// 更新状态
 			this.setState({
-				roles
+				roles,
+				dataTotal: result.data.total
 			})
 		} else {
 			message.error(result.msg)
@@ -184,12 +185,14 @@ export default class Role extends Component {
 		this.setState({
 			pageNumber,
 			pageSize,
+		},() => {
+			this.getRoleList()
 		})
 	}
     render() {
 
 		// 读取状态数据
-		const {roles,loading,role,isModalVisible,pageNumber, pageSize,isDeleteVisible,id,isMenulVisible} = this.state
+		const {roles,loading,role,isModalVisible,pageNumber, pageSize,isDeleteVisible,id,isMenulVisible,dataTotal} = this.state
 
         // card的左侧
         const title = (
@@ -212,13 +215,21 @@ export default class Role extends Component {
             <Card title={title} extra={extra}>
                 <Table 
                     bordered
-                    rowKey='id'
+					rowKey={record => record.id}
 					loading={loading}
                     dataSource={roles}
                     columns={this.columns}
-					pagination={{current: pageNumber,pageSize: pageSize,showQuickJumper: true,onChange: this.onPageChange}}
+					pagination={{current: pageNumber,pageSize: pageSize, 
+						showQuickJumper: false, 
+						showSizeChanger: true, 
+						pageSizeOptions: ["5","10","15","20"],
+						total: this.state.dataTotal,
+						onChange: this.onPageChange,
+						onShowSizeChange: this.onPageChange,
+						showTotal: (e) => {return `共 ${dataTotal} 条`}}}
 					rowSelection={{type: 'radio',selectedRowKeys: [role.id]}}
 					onRow={this.onRow}
+					scroll={{ y: '55vh' }}
 				/>
 				<Modal
 					title="删除"

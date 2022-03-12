@@ -46,6 +46,7 @@ export default class Account extends Component {
 		if (result.code === 0) {
 			this.setState({
 				dataSource: result.data.records,
+				dataTotal: result.data.total
 			})
 		}
 	}
@@ -84,7 +85,7 @@ export default class Account extends Component {
 		}
 	}
 	render() {
-		let { dataSource, pageNumber, pageSize, accRow, delFlag, name, id,isDisabledVisible,type,isResetVisible,isRoleConfigVisible,roleId } = this.state
+		let { dataSource, pageNumber, pageSize, accRow, delFlag, name, id,isDisabledVisible,type,isResetVisible,isRoleConfigVisible,roleId,dataTotal } = this.state
 		// 读取状态数据
 		// card的左侧
 		const title = (
@@ -92,7 +93,7 @@ export default class Account extends Component {
 				<Button type={'primary'} icon={<PlusCircleOutlined/>} onClick={() => this.oppModal('新增')}>添加</Button> &nbsp;&nbsp;
 				<Button type='primary' disabled={!accRow.id} onClick={() => this.roleConfig(accRow.id,accRow.roleId || 1)}>角色配置</Button> &nbsp;&nbsp;
 				<Button type='primary' disabled={!accRow.id} onClick={() => this.pwdReset(accRow.id)}>密码重置</Button> &nbsp;&nbsp;
-				<Button type='primary' disabled={!accRow.id} onClick={() => this.disabledModal(accRow.id,'恢复')}>恢复禁用账号</Button>
+				<Button type='primary' disabled={!accRow.id || accRow.delFlag === '0'} onClick={() => this.disabledModal(accRow.id,'恢复')}>恢复禁用账号</Button>
 			</span>
 		)
 		// card的右侧
@@ -125,9 +126,17 @@ export default class Account extends Component {
 						bordered
 						rowKey="id"
 						dataSource={dataSource}
-						pagination={{current: pageNumber,pageSize: pageSize,showQuickJumper: true,onChange: this.onPageChange}}
+						pagination={{current: pageNumber,pageSize: pageSize, 
+							showQuickJumper: false, 
+							showSizeChanger: true, 
+							pageSizeOptions: ["5","10","15","20"],
+							total: this.state.dataTotal,
+							onChange: this.onPageChange,
+							onShowSizeChange: this.onPageChange,
+							showTotal: (e) => {return `共 ${dataTotal} 条`}}}
 						rowSelection={{type: 'radio',selectedRowKeys: [accRow.id]}}
 						onRow={this.onRow}
+						scroll={{ y: '55vh' }}
 						columns={[
 							{
 								title: '登录账号',
@@ -196,6 +205,8 @@ export default class Account extends Component {
 		this.setState({
 			pageNumber,
 			pageSize,
+		},() => {
+			this.getDataList()
 		})
 	}
 

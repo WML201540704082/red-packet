@@ -31,6 +31,7 @@ export default class ProxyList extends Component {
         if (result.code === 0) {
             this.setState({
                 dataSource: result.data.records,
+                dataTotal: result.data.total
             })
         }
     }
@@ -42,7 +43,7 @@ export default class ProxyList extends Component {
         })
     }
     render() {
-        let { dataSource, pageNumber, pageSize, keyWord } = this.state
+        let { dataSource, pageNumber, pageSize, keyWord, dataTotal } = this.state
         // 读取状态数据
         // card的左侧
         const title = (
@@ -68,7 +69,15 @@ export default class ProxyList extends Component {
                         bordered
                         rowKey="id"
                         dataSource={dataSource}
-                        pagination={{current: pageNumber,pageSize: pageSize,showQuickJumper: true,onChange: this.onPageChange}}
+                        pagination={{current: pageNumber,pageSize: pageSize, 
+							showQuickJumper: false, 
+							showSizeChanger: true, 
+							pageSizeOptions: ["5","10","15","20"],
+							total: this.state.dataTotal,
+							onChange: this.onPageChange,
+							onShowSizeChange: this.onPageChange,
+							showTotal: () => {return `共 ${dataTotal} 条`}}}
+                        scroll={{ y: '55vh' }}
                         columns={[
                             {
                                 title: '用户ID',
@@ -120,6 +129,8 @@ export default class ProxyList extends Component {
         this.setState({
             pageNumber,
             pageSize,
+        },() => {
+            this.getDataList()
         })
     }
 }

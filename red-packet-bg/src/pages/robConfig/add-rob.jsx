@@ -96,12 +96,12 @@ export default class ModalComponent extends Component {
 				end: Number(end)
 			}
 			let result = await reqAddRob(params)
-			if (result.code === 0) {
+			if (result.code === 0 && result.data.code === 0) {
 				message.success('抢红包配置项添加成功！')
 				this.formRef.current.setFieldsValue({ amount: undefined,begin: undefined,end: undefined }) //给表单设置值
 				this.formRef.current.resetFields() //清空表单
 			} else {
-				return message.error(result.msg)
+				return message.error(result.data.msg)
 			}
 			closeModal()
 		}
@@ -116,12 +116,12 @@ export default class ModalComponent extends Component {
 				end: Number(end)
 			}
 			let result = await reqEditRob(params)
-			if (result.code === 0) {
-				message.success('抢红包配置项编辑成功！', 1)
+			if (result.code === 0 && result.data.code === 0) {
+				message.success('抢红包配置项编辑成功！')
 				this.formRef.current.setFieldsValue({ amount: undefined,begin: undefined,end: undefined }) //给表单设置值
 				this.formRef.current.resetFields() //清空表单
 			} else {
-				return message.error(result.msg, 1)
+				return message.error(result.data.msg)
 			}
 			closeModal()
 		}
