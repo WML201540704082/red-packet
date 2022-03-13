@@ -14,18 +14,19 @@ export default class ProxyList extends Component {
             pageSize: 5,
             keyWord: null,
             isDetailsVisible: false,//用户详情
+            type: null
         }
     }
     componentWillMount() {
         this.getDataList()
     }
     getDataList = async () => {
-        let { keyWord, pageNumber, pageSize } = this.state
+        let { keyWord, pageNumber, pageSize, type } = this.state
         let params = {
             keyWord,
             current: pageNumber,
             size: pageSize,
-            type: 1
+            type
         }
         let result = await reqProxyList(params)
         if (result.code === 0) {
@@ -42,6 +43,17 @@ export default class ProxyList extends Component {
             userId,
         })
     }
+    handleTableChange = (pagination, filters, sorter) => {
+        console.log(sorter)
+        this.setState({
+            type: sorter.columnKey === 'amount' && sorter.order === 'ascend' ? 1 : 
+                  sorter.columnKey === 'amount' && sorter.order === 'descend' ? 2 :
+                  sorter.columnKey === 'commissionAmount' && sorter.order === 'ascend' ? 3 : 
+                  sorter.columnKey === 'commissionAmount' && sorter.order === 'descend' ? 4 : null
+        },()=>{
+            this.getDataList()
+        })
+    };
     render() {
         let { dataSource, pageNumber, pageSize, keyWord, dataTotal } = this.state
         // 读取状态数据
@@ -78,6 +90,7 @@ export default class ProxyList extends Component {
 							onShowSizeChange: this.onPageChange,
 							showTotal: () => {return `共 ${dataTotal} 条`}}}
                         scroll={{ y: '55vh' }}
+                        onChange={this.handleTableChange}
                         columns={[
                             {
                                 title: '用户ID',
@@ -88,11 +101,13 @@ export default class ProxyList extends Component {
                                 title: '旗下用户累计充值',
                                 dataIndex: 'amount',
                                 key: 'amount',
+                                sorter: true,
                             },
                             {
                                 title: '累计分佣收益',
                                 dataIndex: 'commissionAmount',
                                 key: 'commissionAmount',
+                                sorter: true,
                             },
                             {
                                 title: '旗下用户列表',

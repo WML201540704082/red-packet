@@ -19,6 +19,10 @@ export default class Basic extends Component {
         this.getDataList()
         this.getProbabilityList()
     }
+    getSearch = () => {
+        this.getDataList()
+        this.getProbabilityList()
+    }
     getDataList = async () => {
         let { beginDate, endDate } = this.state
         let params = {
@@ -41,105 +45,20 @@ export default class Basic extends Component {
         }
         let result = await reqProbability(params)
         if (result.code === 0) {
+            let frontArray = [{
+                name: '奖项',
+                probability: '开奖概率',
+                amount: '总额'
+            }]
+            frontArray = frontArray.concat(result.data)
             this.setState({
-                // probabilityDate: result.data,
-                probabilityDate: [
-                    {
-                        name: '奖项',
-                        probability: '开奖概率',
-                        amount: '总额'
-                    },
-                    {
-                        name: '一等奖',
-                        probability: 30,
-                        amount: 2
-                    },
-                    {
-                        name: '二等奖',
-                        probability: 30,
-                        amount: 2
-                    },
-                    {
-                        name: '三等奖',
-                        probability: 30,
-                        amount: 2
-                    },
-                    {
-                        name: '四等奖',
-                        probability: 30,
-                        amount: 2
-                    },
-                    {
-                        name: '五等奖',
-                        probability: 30,
-                        amount: 2
-                    },
-                    {
-                        name: '一等奖',
-                        probability: 30,
-                        amount: 2
-                    },
-                    {
-                        name: '二等奖',
-                        probability: 30,
-                        amount: 2
-                    },
-                    {
-                        name: '三等奖',
-                        probability: 30,
-                        amount: 2
-                    },
-                    {
-                        name: '四等奖',
-                        probability: 30,
-                        amount: 2
-                    },
-                    {
-                        name: '五等奖',
-                        probability: 30,
-                        amount: 2
-                    },
-                ]
+                probabilityDate: frontArray,
             })
         }
     }
-    // 开始时间选择器(监控记录日期变换)
-    handleStartDateChange = (value, dateString) => {
-        this.setState({
-            beginDate: dateString,
-        });
-    };
-    
-    // 结束时间选择器(监控记录日期变换)
-    handleEndDateChange = (value, dateString) => {
-        this.setState({
-            endDate: dateString,
-        });
-    };
-
-    // 结束时间可选范围
-    handleEndDisabledDate = (current) => {
-        const { beginDate } = this.state;
-        if (beginDate !== '') {
-        // 核心逻辑: 结束日期不能多余开始日期后60天，且不能早于开始日期
-            return current > moment(beginDate).add(60, 'day') || current < moment(beginDate);
-        } else {
-            return null;
-        }
-    }
-    
-    // 开始时间可选范围
-    handleStartDisabledDate = (current) => {
-        const { endDate } = this.state;
-        if (endDate !== '') {
-            // 核心逻辑: 开始日期不能晚于结束日期，且不能早于结束日期前60天
-            return current < moment(endDate).subtract(60, 'day') || current > moment(endDate);
-        } else {
-            return null;
-        }
-    }
+    // 开奖概率Dom表格
     probabilityDom = (probabilityDate) => {
-        if (probabilityDate) {
+        if (probabilityDate && probabilityDate.length>1) {
             return (
                 <table border="1" width="100%" align="center">
                     <thead>
@@ -177,6 +96,41 @@ export default class Basic extends Component {
             )
         }
     }
+    // 开始时间选择器(监控记录日期变换)
+    handleStartDateChange = (value, dateString) => {
+        this.setState({
+            beginDate: dateString,
+        });
+    };
+    
+    // 结束时间选择器(监控记录日期变换)
+    handleEndDateChange = (value, dateString) => {
+        this.setState({
+            endDate: dateString,
+        });
+    };
+
+    // 结束时间可选范围
+    handleEndDisabledDate = (current) => {
+        const { beginDate } = this.state;
+        if (beginDate !== '') {
+        // 核心逻辑: 结束日期不能多余开始日期后60天，且不能早于开始日期
+            return current > moment(beginDate).add(60, 'day') || current < moment(beginDate);
+        } else {
+            return null;
+        }
+    }
+    
+    // 开始时间可选范围
+    handleStartDisabledDate = (current) => {
+        const { endDate } = this.state;
+        if (endDate !== '') {
+            // 核心逻辑: 开始日期不能晚于结束日期，且不能早于结束日期前60天
+            return current < moment(endDate).subtract(60, 'day') || current > moment(endDate);
+        } else {
+            return null;
+        }
+    }
     render() {
         let { dataSource, probabilityDate } = this.state
         // 读取状态数据
@@ -199,7 +153,7 @@ export default class Basic extends Component {
         // card的右侧
         const extra = (
             <span>
-                <Button type='primary' onClick={() => this.getDataList()}>搜索</Button>
+                <Button type='primary' onClick={() => this.getSearch()}>搜索</Button>
             </span>
         )
         return (
