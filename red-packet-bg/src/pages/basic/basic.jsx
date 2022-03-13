@@ -1,8 +1,9 @@
 //列表页面
 import React, { Component } from 'react'
 import { Button, Table, Card, DatePicker } from 'antd'
-import { reqStatistics } from '../../api'
+import { reqStatistics,reqProbability } from '../../api'
 import moment from 'moment';
+import './basic.less'
 
 export default class Basic extends Component {
     formRef = React.createRef()
@@ -16,6 +17,7 @@ export default class Basic extends Component {
     }
     componentWillMount() {
         this.getDataList()
+        this.getProbabilityList()
     }
     getDataList = async () => {
         let { beginDate, endDate } = this.state
@@ -27,6 +29,77 @@ export default class Basic extends Component {
         if (result.code === 0) {
             this.setState({
                 dataSource: [result.data],
+            })
+        }
+    }
+    // 开奖概率
+    getProbabilityList = async () => {
+        let { beginDate, endDate } = this.state
+        let params = {
+            beginDate,
+            endDate,
+        }
+        let result = await reqProbability(params)
+        if (result.code === 0) {
+            this.setState({
+                // probabilityDate: result.data,
+                probabilityDate: [
+                    {
+                        name: '奖项',
+                        probability: '开奖概率',
+                        amount: '总额'
+                    },
+                    {
+                        name: '一等奖',
+                        probability: 30,
+                        amount: 2
+                    },
+                    {
+                        name: '二等奖',
+                        probability: 30,
+                        amount: 2
+                    },
+                    {
+                        name: '三等奖',
+                        probability: 30,
+                        amount: 2
+                    },
+                    {
+                        name: '四等奖',
+                        probability: 30,
+                        amount: 2
+                    },
+                    {
+                        name: '五等奖',
+                        probability: 30,
+                        amount: 2
+                    },
+                    {
+                        name: '一等奖',
+                        probability: 30,
+                        amount: 2
+                    },
+                    {
+                        name: '二等奖',
+                        probability: 30,
+                        amount: 2
+                    },
+                    {
+                        name: '三等奖',
+                        probability: 30,
+                        amount: 2
+                    },
+                    {
+                        name: '四等奖',
+                        probability: 30,
+                        amount: 2
+                    },
+                    {
+                        name: '五等奖',
+                        probability: 30,
+                        amount: 2
+                    },
+                ]
             })
         }
     }
@@ -65,8 +138,47 @@ export default class Basic extends Component {
             return null;
         }
     }
+    probabilityDom = (probabilityDate) => {
+        if (probabilityDate) {
+            return (
+                <table border="1" width="100%" align="center">
+                    <thead>
+                        <tr bgcolor="#FAFAFA">
+                            {
+                                probabilityDate.map(item=>{
+                                    return (
+                                        <th>{item.name}</th>
+                                    )
+                                })
+                            }
+                        </tr>
+                    </thead>
+                    <tbody align="center">
+                        <tr>
+                            {
+                                probabilityDate.map(item=>{
+                                    return (
+                                        <th style={item.amount !== '总额' ? {fontWeight: 'normal'} : {}}>{item.amount}</th>
+                                    )
+                                })
+                            }
+                        </tr>
+                        <tr>
+                            {
+                                probabilityDate.map(item=>{
+                                    return (
+                                        <th style={item.probability !== '开奖概率' ? {fontWeight: 'normal'} : {}}>{item.probability === '开奖概率' ? item.probability : item.probability + '%'}</th>
+                                    )
+                                })
+                            }
+                        </tr>
+                    </tbody>
+                </table>
+            )
+        }
+    }
     render() {
-        let { dataSource } = this.state
+        let { dataSource, probabilityDate } = this.state
         // 读取状态数据
         // card的左侧
         const title = (
@@ -98,6 +210,7 @@ export default class Basic extends Component {
                         rowKey="id"
                         dataSource={dataSource}
                         pagination={false}
+                        style={{'marginBottom': '20px'}}
                         columns={[
                             {
                                 title: '抢红包数',
@@ -151,6 +264,7 @@ export default class Basic extends Component {
                             },
                         ]}
                     />
+                    {this.probabilityDom(probabilityDate)}
                 </Card>
             </div>
         )
