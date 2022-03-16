@@ -88,6 +88,8 @@ export const reqDeleteProxyConfig = id => ajax(BASE + 'acting/delete', {id}, 'PO
 export const reqStatistics = data => ajax(BASE + 'basic/indicators/statistics', data, 'POST')
 // 开奖概率
 export const reqProbability = data => ajax(BASE + 'basic/indicators/drawProbability', data, 'POST')
+// 留存
+export const reqKeep = data => ajax(BASE + 'basic/indicators/keep', data, 'POST')
 
 // 获取用户列表
 export const reqUserList = data => ajax(BASE + 'sys/userManage/list', data, 'POST')

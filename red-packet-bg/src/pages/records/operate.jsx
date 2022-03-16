@@ -122,7 +122,7 @@ export default class Operate extends Component {
                                 key: 'content',
                             },
                             {
-                                title: 'createBy',
+                                title: '创建人',
                                 dataIndex: 'createBy',
                                 key: 'createBy',
                             },

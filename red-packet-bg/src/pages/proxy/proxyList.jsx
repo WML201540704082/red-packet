@@ -113,11 +113,11 @@ export default class ProxyList extends Component {
                                 title: '旗下用户列表',
                                 align: 'center',
                                 render: reload => {
-                                return (
-                                    <span>
-                                        <Button type={'link'} onClick={() => this.nextProxyDetails(reload.userId)}>查看</Button>
-                                    </span>
-                                )
+                                    return (
+                                        <span>
+                                            <Button type={'link'} onClick={() => this.nextProxyDetails(reload.userId)}>查看</Button>
+                                        </span>
+                                    )
                                 },
                             },
                         ]}

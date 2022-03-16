@@ -1,7 +1,7 @@
 //列表页面
 import React, { Component } from 'react'
 import { Button, Table, Card, DatePicker } from 'antd'
-import { reqStatistics,reqProbability } from '../../api'
+import { reqStatistics,reqProbability,reqKeep } from '../../api'
 import moment from 'moment';
 import './basic.less'
 
@@ -18,6 +18,7 @@ export default class Basic extends Component {
     componentWillMount() {
         this.getDataList()
         this.getProbabilityList()
+        this.keepList()
     }
     getSearch = () => {
         this.getDataList()
@@ -53,6 +54,19 @@ export default class Basic extends Component {
             frontArray = frontArray.concat(result.data)
             this.setState({
                 probabilityDate: frontArray,
+            })
+        }
+    }
+    keepList = async () => {
+        let { beginDate, endDate } = this.state
+        let params = {
+            beginDate,
+            endDate,
+        }
+        let result = await reqKeep(params)
+        if (result.code === 0) {
+            this.setState({
+                keepSource: [result.data],
             })
         }
     }
@@ -132,7 +146,7 @@ export default class Basic extends Component {
         }
     }
     render() {
-        let { dataSource, probabilityDate } = this.state
+        let { dataSource, probabilityDate, keepSource } = this.state
         // 读取状态数据
         // card的左侧
         const title = (
@@ -200,16 +214,37 @@ export default class Basic extends Component {
                                 title: '开奖总额',
                                 dataIndex: 'totalPrize',
                                 key: 'totalPrize',
+                                render: reltotalPrizeoad => {
+                                    return (
+                                        <span>
+                                            <Button type={'link'} onClick={() => this.props.history.push('/lottery')}>{reltotalPrizeoad}</Button>
+                                        </span>
+                                    )
+                                },
                             },
                             {
                                 title: '充值总额',
                                 dataIndex: 'totalRecharge',
                                 key: 'totalRecharge',
+                                render: totalRecharge => {
+                                    return (
+                                        <span>
+                                            <Button type={'link'} onClick={() => this.props.history.push('/paid')}>{totalRecharge}</Button>
+                                        </span>
+                                    )
+                                },
                             },
                             {
                                 title: '提现总额',
                                 dataIndex: 'totalWithdrawal',
                                 key: 'totalWithdrawal',
+                                render: totalWithdrawal => {
+                                    return (
+                                        <span>
+                                            <Button type={'link'} onClick={() => this.props.history.push('/withdraw')}>{totalWithdrawal}</Button>
+                                        </span>
+                                    )
+                                },
                             },
                             {
                                 title: '访客总数',
@@ -219,6 +254,48 @@ export default class Basic extends Component {
                         ]}
                     />
                     {this.probabilityDom(probabilityDate)}
+                    <Table
+                        bordered
+                        rowKey="id"
+                        dataSource={keepSource}
+                        pagination={false}
+                        style={{'marginBottom': '20px'}}
+                        columns={[
+                            {
+                                title: '用户留存',
+                                render: reload => {
+                                    return (
+                                        <span>留存用户数</span>
+                                    )
+                                },
+                            },
+                            {
+                                title: '次留',
+                                dataIndex: 'secondStay',
+                                key: 'secondStay',
+                            },
+                            {
+                                title: '3留',
+                                dataIndex: 'three',
+                                key: 'three',
+                            },
+                            {
+                                title: '7留',
+                                dataIndex: 'sevenStay',
+                                key: 'sevenStay',
+                            },
+                            {
+                                title: '15留',
+                                dataIndex: 'fifteenStay',
+                                key: 'fifteenStay',
+                            },
+                            {
+                                title: '月留',
+                                dataIndex: 'monthStay',
+                                key: 'monthStay',
+                            },
+                        ]}
+                    />
                 </Card>
             </div>
         )
