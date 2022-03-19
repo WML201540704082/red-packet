@@ -7,7 +7,6 @@ export default class Home extends Component {
         return (
             <div className="home">
                 欢迎进入红包抽奖后台管理系统
-                {/* 欢迎进入AIOTEdge */}
             </div>
         )
     }

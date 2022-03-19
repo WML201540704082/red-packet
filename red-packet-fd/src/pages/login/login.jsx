@@ -107,6 +107,7 @@ export default class Login extends Component {
         facebook登录
     */
     facebookLogin = () => {
+        debugger
         // FB.login(this.checkLoginState());
     }
     render () {
