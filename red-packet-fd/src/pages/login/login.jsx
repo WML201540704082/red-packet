@@ -4,7 +4,7 @@ import { UserOutlined, LockOutlined } from '@ant-design/icons'
 import './login.less'
 import facebook from './images/facebook.png'
 // import zalo from './images/zalo.png'
-import { reqLogin } from '../../api'
+import { reqLogin, reqFacebookLogin, reqGoogleLogin } from '../../api'
 import memoryUtils from '../../utils/memoryUtils'
 import storageUtils from '../../utils/storageUtils'
 import { Redirect } from 'react-router-dom'
@@ -38,15 +38,52 @@ export default class Login extends Component {
     /*
         Google登录
     */
-        responseGoogle = (response) => {
-            console.log(response);
+    responseGoogle = async (response) => {
+        if (response.profileObj) {
+            const { name, googleId } = response.profileObj
+            try {
+                const result = await reqGoogleLogin(name, googleId)
+                if (result.code === 200) {
+                    message.success('登陆成功')
+                    // 保存user
+                    const user = result.data
+                    memoryUtils.user = user //保存在内存中
+                    storageUtils.saveUser(user)
+                    this.props.history.push('/')
+                } else {
+                    message.error(result.message)
+                }
+            } catch (error) {
+                console.log('失败了', error);
+            }
+        } else {
+            message.warning('登录失败')
         }
+    }
     /*
         facebook登录
     */
-    responseFacebook = (response) => {
-        console.log('------',response);
-        // 调用登录接口
+    responseFacebook = async (response) => {
+        if (response.name || response.userID) {
+            const { name, userID } = response
+            try {
+                const result = await reqFacebookLogin(name, userID)
+                if (result.code === 200) {
+                    message.success('登陆成功')
+                    // 保存user
+                    const user = result.data
+                    memoryUtils.user = user //保存在内存中
+                    storageUtils.saveUser(user)
+                    this.props.history.push('/')
+                } else {
+                    message.error(result.message)
+                }
+            } catch (error) {
+                console.log('失败了', error);
+            }   
+        } else {
+            message.warning('登录失败')
+        }
     }
       
     render () {
