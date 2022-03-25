@@ -40,6 +40,7 @@
         .text_line {
             display: flex;
             align-items: center;
+            margin-bottom: 10px;
         }
         .left_line {
             width: 150px;
@@ -54,7 +55,47 @@
         img {
             width: 30px;
             height: 30px;
-            margin: 10px 40px;
+            margin: -10px 40px 0 !important;
         }
     }
+    .btnFacebook { 
+        width: 0px;
+        height:0px;  
+        border-radius: 4px;
+        background: #aa2514;
+        border:0px transparent;  
+        text-align: center;
+        margin:5px;
+        display: inline-block;
+        margin-left: 40px;
+      }
+      .btnGoogle { 
+        width: 0px;
+        height: 0px;
+        border-radius: 4px;
+        background-color: #aa2514 !important;
+        border:0px transparent;  
+        text-align: center;
+        display: inline-block;
+        div {
+            padding: 6px 6px 0px !important;
+            border-radius: 25px !important;
+            margin-left: 50px;
+        }
+        box-shadow: none !important;
+      }
+    //   .btnFacebook:hover {
+    //     background: #3b5998;
+    //     opacity: 0.6;
+    //   }
+    //   .btnGoogle:hover {
+    //     background: #db3236;
+    //     opacity: 0.6;
+    //   }
+      
+      @media only screen and (max-width : 399px) {
+        .btnFacebook,.btnGoogle{
+            width: 40%
+        }
+      }
 }

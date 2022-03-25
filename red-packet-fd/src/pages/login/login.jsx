@@ -3,13 +3,14 @@ import { Form, Input, Button, message } from 'antd'
 import { UserOutlined, LockOutlined } from '@ant-design/icons'
 import './login.less'
 import facebook from './images/facebook.png'
-import zalo from './images/zalo.png'
+// import zalo from './images/zalo.png'
 import { reqLogin } from '../../api'
 import memoryUtils from '../../utils/memoryUtils'
 import storageUtils from '../../utils/storageUtils'
 import { Redirect } from 'react-router-dom'
 import LinkButton from '../../components/link-button'
 import FacebookLogin from 'react-facebook-login'
+import { GoogleLogin } from 'react-google-login';
 
 export default class Login extends Component {
     // 对密码进行自定义验证
@@ -29,86 +30,25 @@ export default class Login extends Component {
     /*
         忘记密码
     */
-    forgotPwd = () => {
-        // 显示确认狂
-        // Modal.confirm({
-        //     title: '确定退出吗?',
-        //     icon: <ExclamationCircleOutlined />,
-        //     onOk: () => {
-        //         // 删除保存的user数据
-        //         storageUtils.removeUser()
-        //         memoryUtils.user = {}
-        //         // 跳转到Login
-        //         this.props.history.replace('/login')
-        //     },
-        //     onCancel() {
-        //       console.log('Cancel');
-        //     },
-        // })
-    }
+    forgotPwd = () => {}
     /*
         注册
     */
-    registerAccount = () => {
-
-    }
-    responseFacebook = (response) => {
-        console.log(response);
-        // setIsLoggedin(true)
-    }
-    // componentDidMount = () => {
-    //     window.fbAsyncInit = function() {
-    //       FB.init({
-    //         appId      : '346326924009220',
-    //         cookie     : true,  // enable cookies to allow the server to access
-    //                           // the session
-    //         xfbml      : true,  // parse social plugins on this page
-    //         version    : 'v2.1' // use version 2.1
-    //       });
-    //       FB.getLoginStatus(function(response) {
-    //         this.statusChangeCallback(response);
-    //       }.bind(this));
-    //     }.bind(this);
-
-    //     (function(d, s, id) {
-    //       var js, fjs = d.getElementsByTagName(s)[0];
-    //       if (d.getElementById(id)) return;
-    //       js = d.createElement(s); js.id = id;
-    //       js.src = "//connect.facebook.net/en_US/sdk.js";
-    //       fjs.parentNode.insertBefore(js, fjs);
-    //     }(document, 'script', 'facebook-jssdk'));
-    // }
-    // testAPI = () => {
-    //     console.log('Welcome!  Fetching your information.... ');
-    //     FB.api('/me', function(response) {
-    //     console.log('Successful login for: ' + response.name);
-    //     document.getElementById('status').innerHTML =
-    //       'Thanks for logging in, ' + response.name + '!';
-    //     });
-    // }
-    // statusChangeCallback = (response) => {
-    //     console.log('statusChangeCallback');
-    //     console.log(response);
-    //     if (response.status === 'connected') {
-    //     this.testAPI();
-    //     } else if (response.status === 'not_authorized') {
-    //     document.getElementById('status').innerHTML = 'Please log ' +
-    //         'into this app.';
-    //     } else {
-    //         document.getElementById('status').innerHTML = 'Please log ' + 'into Facebook.';
-    //     }
-    // }
-    // checkLoginState = () => {
-    //     FB.getLoginStatus(function(response) {
-    //         this.statusChangeCallback(response);
-    //     }.bind(this));
-    // }
+    registerAccount = () => {}
+    /*
+        Google登录
+    */
+        responseGoogle = (response) => {
+            console.log(response);
+        }
     /*
         facebook登录
     */
-    facebookLogin = () => {
-        // FB.login(this.checkLoginState());
+    responseFacebook = (response) => {
+        console.log('------',response);
+        // 调用登录接口
     }
+      
     render () {
         // 如果用户已经登陆，自动跳转到管理洁面
         const user = memoryUtils.user
@@ -198,16 +138,26 @@ export default class Login extends Component {
                         <div className='right_line'></div>
                     </span>
                     <span>
-                        {/* <img onClick={this.facebookLogin} src={facebook} alt="facebook" /> */}
-                        <img src={zalo} alt="zalo" />
+                        {/* http://localhost:3000/ */}
+                        <GoogleLogin
+                            clientId="715440772497-uuq231lpek9ek0m08o2013dvua1728jl.apps.googleusercontent.com"
+                            buttonText="Login"
+                            onSuccess={this.responseGoogle}
+                            onFailure={this.responseGoogle}
+                            cookiePolicy={'single_host_origin'}
+                            className="btnGoogle">
+                            <i className="fa fa-google-plus" /> 
+                            <span>&nbsp;</span>
+                        </GoogleLogin>
+                        {/* 346326924009220 */}
                         <FacebookLogin
                             appId="895624567779325"
                             autoLoad={true}
                             fields="name,email,picture"
                             callback={this.responseFacebook}
-                            render={renderProps => (
-                                <img onClick={this.facebookLogin} src={facebook} alt="facebook" />
-                            )}
+                            cssClass="btnFacebook"
+                            icon={<img src={facebook} alt="facebook" /> }
+                            textButton = ""
                         />
                     </span>
                 </div>
