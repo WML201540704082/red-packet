@@ -1,5 +1,5 @@
 import React, {Component} from 'react'
-import { Form, Input, Button, message, Tabs } from 'antd'
+import { Form, Input, Button, message, Tabs, Select } from 'antd'
 // import { UserOutlined, LockOutlined } from '@ant-design/icons'
 import './login.less'
 import facebook from './images/facebook.png'
@@ -11,12 +11,15 @@ import { Redirect } from 'react-router-dom'
 import LinkButton from '../../components/link-button'
 import FacebookLogin from 'react-facebook-login'
 import { GoogleLogin } from 'react-google-login';
+import countryCode from './countryCode'
 const { TabPane } = Tabs;
+const { Option } = Select;
 
 export default class Login extends Component {
     state = {
         phone: '',
 		num: 0,
+        countryNo: 84
 	}
 
     // 对密码进行自定义验证
@@ -95,10 +98,9 @@ export default class Login extends Component {
     // 发送验证码
     handleSend = async () => {
         let a = 60;
-        console.log(this.state.phone,'手机号');
         var reg_tel = /^[0-9]*$/
         if (reg_tel.test(this.state.phone)) {
-            let { phone } = this.state
+            let phone = '+' + this.state.countryNo + this.state.phone
             let result = await reqSendSms(phone)
             if (result.code === 0) {
                 message.success('发送验证码成功！')
@@ -117,7 +119,30 @@ export default class Login extends Component {
             alert('手机号格式不正确')
         }
     }
-      
+    changeCountryNo = e => {
+        this.setState({countryNo: e})
+    }
+    // 选择国家
+    selectCountry = () => {
+        return (
+            <Select
+                showSearch
+                placeholder="Select a person"
+                optionFilterProp="children"
+                onChange={this.changeCountryNo}
+                defaultValue="84"
+                style={{width: '137px'}}
+            >
+                {
+                    countryCode.map(item => {
+                        return (
+                            <Option value={item.phone_code}>{item.english_name + '(+' + item.phone_code + ')'}</Option>
+                        )
+                    })
+                }
+            </Select>
+        )
+    }
     render () {
         const {num} = this.state
 
@@ -150,9 +175,13 @@ export default class Login extends Component {
             }
         };
         const onPhoneFinish = async values => {
-            const { phone, code } = values
+            const { phone, code } = this.state
+            let params = {
+                phone: '+' + this.state.countryNo + phone,
+                code: code
+            }
             try {
-                const result = await reqPhoneLogin(phone, code)
+                const result = await reqPhoneLogin(params)
                 if (result.code === 0) {
                     message.success('登陆成功')
 
@@ -170,6 +199,7 @@ export default class Login extends Component {
                 console.log('失败了', error);
             }
         }
+
         return (
             <div className="login">
                 <section className='login-section'>
@@ -237,14 +267,16 @@ export default class Login extends Component {
                                 <Form.Item
                                     name="phone"
                                     rules={[
-                                        {   required: true, whitespace: true,  message: '手机号必须输入!'   },
-                                        {   min: 9,  message: '用户名最少9位'   },
-                                        {   max: 11,  message: '用户名最多11位'   },
-                                        {   pattern: /^[0-9]+$/,  message: '手机号必须是数字'   },
+                                        {   required: false, whitespace: true,  message: '手机号必须输入!'   },
+                                        // {   min: 9,  message: '用户名最少9位'   },
+                                        // {   max: 11,  message: '用户名最多11位'   },
+                                        // {   pattern: /^[0-9+]+$/,  message: '手机号必须是数字'},
                                     ]}
                                 >
+                                    {this.selectCountry()}
                                     <Input 
                                         placeholder="手机号"
+                                        style={{width: '180px', marginLeft: '3px'}}
                                         onChange={event => this.setState({phone:event.target.value})}
                                     />
                                     
@@ -252,15 +284,15 @@ export default class Login extends Component {
                                 <Form.Item
                                     name="code"
                                     rules={[
-                                        {   required: true, whitespace: true,  message: '验证码必须输入!'   },
+                                        {   required: false, whitespace: true,  message: '验证码必须输入!'},
                                     ]}
                                 >
                                     <Input
                                         placeholder="验证码"
-                                        style={{width: '180px'}}
-                                        // onChange={event => this.setState({code:event.target.value})}
+                                        style={{width: '250px'}}
+                                        onChange={event => this.setState({code:event.target.value})}
                                     />
-                                    <Button style={{marginLeft:'5px',color: '#FF0000'}} disabled={num!==0} onClick={this.handleSend}>{num===0?'发送':num+"秒"}</Button>
+                                    <Button style={{marginLeft:'3px',color: '#FF0000'}} disabled={num!==0} onClick={this.handleSend}>{num===0?'发送':num+"秒"}</Button>
                                 </Form.Item>
                                 <Form.Item>
                                     <Button type="primary" htmlType="submit" className="login-form-button">

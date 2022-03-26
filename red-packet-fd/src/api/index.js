@@ -15,7 +15,7 @@ export const reqFacebookLogin = (name,userId) => ajax(BASE + 'sys/front/faceBook
 export const reqGoogleLogin = (name,userId) => ajax(BASE + 'sys/front/googleLogin', {name,userId}, 'POST')
 
 // 免密登录
-export const reqPhoneLogin = (phone,code) => ajax(BASE + 'sys/front/pawFreeLogin', {phone,code}, 'POST')
+export const reqPhoneLogin = data => ajax(BASE + 'sys/front/pawFreeLogin', data, 'POST')
 
 // 发送短信
 export const reqSendSms = (phone) => ajax(BASE + 'sys/front/sendSms', {phone}, 'POST')
