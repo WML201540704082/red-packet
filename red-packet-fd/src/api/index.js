@@ -5,8 +5,8 @@
 import ajax from './axjax';
 const BASE = 'api/'
 
-// 登陆
-export const reqLogin = (username,password) => ajax(BASE + 'login', {username,password}, 'POST')
+// 账号登陆
+export const reqLogin = (account,passWord) => ajax(BASE + 'sys/front/amountLogin', {account,passWord}, 'POST')
 
 // facebook登录
 export const reqFacebookLogin = (name,userId) => ajax(BASE + 'sys/front/faceBookLogin', {name,userId}, 'POST')
@@ -14,13 +14,11 @@ export const reqFacebookLogin = (name,userId) => ajax(BASE + 'sys/front/faceBook
 // Google登录
 export const reqGoogleLogin = (name,userId) => ajax(BASE + 'sys/front/googleLogin', {name,userId}, 'POST')
 
-// 获取一级分类/二级分类列表
-export const getDeviceList = () => ajax(BASE + 'device/search', {}, 'POST')
-export const getDeviceDetils = (deviceId) => ajax(BASE + `deviceId/${deviceId}`)
+// 免密登录
+export const reqPhoneLogin = (phone,code) => ajax(BASE + 'sys/front/pawFreeLogin', {phone,code}, 'POST')
 
-/*
-json请求函数
-*/
-// export const reqWeather = (city) => {
-//     const url = `http;//api.map.baidu.com/telematics/v3/weather?location=${city}%output=json&ak=3p49MVra6urFRGOT9s8UBWr2`
-// }
+// 发送短信
+export const reqSendSms = (phone) => ajax(BASE + 'sys/front/sendSms', {phone}, 'POST')
+
+// 找回密码
+export const reqRetrievePwd = (phone) => ajax(BASE + 'sys/front/sendSms', {phone}, 'POST')
