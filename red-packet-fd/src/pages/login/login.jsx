@@ -12,6 +12,8 @@ import LinkButton from '../../components/link-button'
 import FacebookLogin from 'react-facebook-login'
 import { GoogleLogin } from 'react-google-login';
 import countryCode from './countryCode'
+import RegisterAcc from './components/register-acc'
+import RetrievePwd from './components/retrieve-pwd'
 const { TabPane } = Tabs;
 const { Option } = Select;
 
@@ -19,7 +21,8 @@ export default class Login extends Component {
     state = {
         phone: '',
 		num: 0,
-        countryNo: 84
+        countryNo: 84,
+        isModalVisible: false,
 	}
 
     // 对密码进行自定义验证
@@ -40,10 +43,6 @@ export default class Login extends Component {
         忘记密码
     */
     forgotPwd = () => {}
-    /*
-        注册
-    */
-    registerAccount = () => {}
     /*
         Google登录
     */
@@ -146,13 +145,13 @@ export default class Login extends Component {
     render () {
         const {num} = this.state
 
-        // 如果用户已经登陆，自动跳转到管理洁面
+        // 如果用户已经登陆，自动跳转到主界面
         const user = memoryUtils.user
-        if (user && user.id) {
+        if (user && user.userId) {
             return <Redirect to='/'/>
         }
 
-        // async 和 await 以同步编码(没有回调函数了)方式实现异步流程
+        // 密码登录
         const onFinish = async (values) => {
             const { account, passWord } = values
             try {
@@ -174,6 +173,7 @@ export default class Login extends Component {
                 console.log('失败了', error);
             }
         };
+        // 免密登录
         const onPhoneFinish = async values => {
             const { phone, code } = this.state
             let params = {
@@ -226,6 +226,7 @@ export default class Login extends Component {
                                     <Input 
                                         // prefix={<UserOutlined className="site-form-item-icon" />}
                                         placeholder="用户名"
+                                        onChange={e => {this.setState({account: e.target.value})}}
                                     />
                                 </Form.Item>
                                 <Form.Item
@@ -248,9 +249,9 @@ export default class Login extends Component {
                                     </Button>
                                 </Form.Item>
                                 <Form.Item className="login-form-bottom">
-                                    <LinkButton onClick={this.forgotPwd}>忘记密码？</LinkButton>
+                                    <LinkButton onClick={() => {this.setState({isPwdVisible: true})}}>忘记密码？</LinkButton>
                                     <span className="login-form-register">
-                                        <LinkButton onClick={this.registerAccount}>注册</LinkButton>
+                                        <LinkButton onClick={() => {this.setState({isModalVisible:true})}}>注册</LinkButton>
                                     </span>
                                 </Form.Item>
                             </Form>
@@ -292,7 +293,7 @@ export default class Login extends Component {
                                         style={{width: '250px'}}
                                         onChange={event => this.setState({code:event.target.value})}
                                     />
-                                    <Button style={{marginLeft:'3px',color: '#FF0000'}} disabled={num!==0} onClick={this.handleSend}>{num===0?'发送':num+"秒"}</Button>
+                                    <Button style={{marginLeft:'3px',color: '#FF0000'}} disabled={num!==0} onClick={this.handleSend}>{num===0?'发送':num+"s"}</Button>
                                 </Form.Item>
                                 <Form.Item>
                                     <Button type="primary" htmlType="submit" className="login-form-button">
@@ -333,7 +334,33 @@ export default class Login extends Component {
                         />
                     </span>
                 </div>
+                {this.showModal(this.state.isModalVisible)}
+                {this.showPwdModal(this.state.isPwdVisible)}
             </div>
         )
     }
+    // 注册
+    showModal = (flag) => {
+		if (flag) {
+			return (
+				<RegisterAcc
+					flag={flag}
+					closeModal={() => this.setState({isModalVisible: false})}
+				/>
+			)
+		}
+	}
+    // 找回密码
+    showPwdModal = (flag) => {
+        let { account } = this.state
+		if (flag) {
+			return (
+				<RetrievePwd
+					flag={flag}
+					closeModal={() => this.setState({isPwdVisible: false})}
+                    account={account}
+				/>
+			)
+		}
+	}
 }

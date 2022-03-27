@@ -20,5 +20,8 @@ export const reqPhoneLogin = data => ajax(BASE + 'sys/front/pawFreeLogin', data,
 // 发送短信
 export const reqSendSms = (phone) => ajax(BASE + 'sys/front/sendSms', {phone}, 'POST')
 
+// 注册
+export const reqRegister = data => ajax(BASE + 'sys/front/register', data, 'POST')
+
 // 找回密码
-export const reqRetrievePwd = (phone) => ajax(BASE + 'sys/front/sendSms', {phone}, 'POST')
+export const reqRetrievePwd = data => ajax(BASE + 'sys/front/retrievePaw', data, 'POST')
