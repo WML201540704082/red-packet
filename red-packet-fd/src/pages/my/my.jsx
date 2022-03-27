@@ -4,6 +4,7 @@ import { ExclamationCircleOutlined } from '@ant-design/icons'
 import memoryUtils from '../../utils/memoryUtils'
 import storageUtils from '../../utils/storageUtils'
 import LinkButton from '../../components/link-button'
+import './my.less'
 
 export default class My extends Component {
     /*
@@ -28,7 +29,7 @@ export default class My extends Component {
     }
     render() {
         return (
-            <div>
+            <div className='my'>
                 <LinkButton onClick={this.Loginout}>退出</LinkButton>
             </div>
         )

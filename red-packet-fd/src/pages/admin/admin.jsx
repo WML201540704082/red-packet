@@ -25,7 +25,8 @@ export default class Admin extends Component {
         }
         return (
             <Layout style={{width: '100%',height: '100%'}}>
-                <Content style={{margin: 5, backgroundColor: '#ff0000'}}>
+                {/*  style={{margin: 5, backgroundColor: '#ff0000'}} */}
+                <Content>
                     <Switch>
                         <Route path='/open' component={Open}></Route>
                         <Route path='/grab' component={Grab}></Route>
