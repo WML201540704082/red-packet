@@ -25,3 +25,6 @@ export const reqRegister = data => ajax(BASE + 'sys/front/register', data, 'POST
 
 // 找回密码
 export const reqRetrievePwd = data => ajax(BASE + 'sys/front/retrievePaw', data, 'POST')
+
+// 抢红包列表
+export const reqGrabList = data => ajax(BASE + '/web/grab/list', data, 'POST')
