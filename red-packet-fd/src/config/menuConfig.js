@@ -8,12 +8,12 @@ import {
 const menuList =[
     {
         title: '抢包', // 菜单标题名称
-        key: '/open', // 对应的path
+        key: '/grab', // 对应的path
         // icon: <PieChartOutlined />, // 图标名称
     },
     {
         title: '拆包',
-        key: '/grab',
+        key: '/open',
         // icon: <MailOutlined />,
         // children: [ // 子菜单路由
         //     {

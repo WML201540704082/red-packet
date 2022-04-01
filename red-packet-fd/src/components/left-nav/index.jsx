@@ -50,7 +50,7 @@ class leftNav extends Component {
     }
 
     menu_click = (val) => {
-        if (val.key === "/open") {
+        if (val.key === "/grab") {
             this.setState({
                 grabFlag: true,
                 openFlag: false,
@@ -60,7 +60,7 @@ class leftNav extends Component {
                 this.menuNodes = this.getMenuNodes(menuList)
                 this.forceUpdate()
             })
-        } else if (val.key === "/grab") {
+        } else if (val.key === "/open") {
             this.setState({
                 grabFlag: false,
                 openFlag: true,

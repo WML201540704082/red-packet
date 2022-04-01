@@ -5,8 +5,8 @@ import memoryUtils from '../../utils/memoryUtils'
 import LeftNav from '../../components/left-nav';
 
 // 引入路由
-import Open from '../open/open'
 import Grab from '../grab/grab'
+import Open from '../open/open'
 import My from '../my/my'
 import Customer from '../customer/customer'
 
@@ -27,11 +27,11 @@ export default class Admin extends Component {
             <Layout style={{width: '100%',height: '100%'}}>
                 <Content>
                     <Switch>
-                        <Route path='/open' component={Open}></Route>
                         <Route path='/grab' component={Grab}></Route>
+                        <Route path='/open' component={Open}></Route>
                         <Route path='/customer' component={Customer}></Route>
                         <Route path='/my' component={My}></Route>
-                        <Redirect to='/open'/>
+                        <Redirect to='/grab'/>
                     </Switch>
                 </Content>
                 <LeftNav/>
