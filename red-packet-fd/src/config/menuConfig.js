@@ -7,12 +7,12 @@ import {
   } from '@ant-design/icons';
 const menuList =[
     {
-        title: '拆包包', // 菜单标题名称
+        title: '抢包', // 菜单标题名称
         key: '/open', // 对应的path
         // icon: <PieChartOutlined />, // 图标名称
     },
     {
-        title: '抢包包',
+        title: '拆包',
         key: '/grab',
         // icon: <MailOutlined />,
         // children: [ // 子菜单路由
@@ -27,7 +27,7 @@ const menuList =[
         // ]
     },
     {
-        title: '在线客服', 
+        title: '客服', 
         key: '/customer', 
         // icon: <DesktopOutlined />, 
     },

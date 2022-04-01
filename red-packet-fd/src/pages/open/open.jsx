@@ -29,11 +29,17 @@ export default class Open extends Component {
     redPacketShow = (dataSource) => {
         if (dataSource && dataSource.length > 0) {
             return(
-                <div className={dataSource.length < 4 ? 'grabImgSmall' : 'grabImgBig'}>
+                <div className='grabImg'>
                     {
                         dataSource.map(item=>{
                             return (
-                                <img src={grab} alt="grab" />
+                                <div className='grabContent'>
+                                    <span className='content_img'>
+                                        <img src={grab} alt="grab"/>
+                                        <span className={item.amount<10000 ? 'span1w': item.amount<100000 ? 'span10w' : 'span100w'}>{item.amount/1000}k</span>
+                                    </span>
+                                    <span className='content_text'>最高可抢{item.end/1000}k</span>
+                                </div>
                             )
                         })
                     }

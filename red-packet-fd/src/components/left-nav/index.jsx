@@ -1,7 +1,14 @@
 import React, { Component } from 'react'
 import { Link, withRouter } from 'react-router-dom'
 import { Menu } from 'antd';
-// import logo from '../../assets/images/logo.png'
+import grab from './images/grab.png'
+import grab_hover from './images/grab_hover.png'
+import open from './images/open.png'
+import open_hover from './images/open_hover.png'
+import customer from './images/customer.png'
+import customer_hover from './images/customer_hover.png'
+import my from './images/my.png'
+import my_hover from './images/my_hover.png'
 import menuList from '../../config/menuConfig'
 import './index.less'
 
@@ -10,6 +17,10 @@ const { SubMenu } = Menu;
 class leftNav extends Component {
     state = {
         collapsed: false,
+        grabFlag: true,
+        openFlag: false,
+        customerFlag: false,
+        myFlag: false
     };
 
     toggleCollapsed = () => {
@@ -38,18 +49,75 @@ class leftNav extends Component {
         })
     }
 
+    menu_click = (val) => {
+        if (val.key === "/open") {
+            this.setState({
+                grabFlag: true,
+                openFlag: false,
+                customerFlag: false,
+                myFlag: false
+            },()=>{
+                this.menuNodes = this.getMenuNodes(menuList)
+                this.forceUpdate()
+            })
+        } else if (val.key === "/grab") {
+            this.setState({
+                grabFlag: false,
+                openFlag: true,
+                customerFlag: false,
+                myFlag: false
+            },()=>{
+                this.menuNodes = this.getMenuNodes(menuList)
+                this.forceUpdate()
+            })
+        } else if (val.key === "/customer") {
+            this.setState({
+                grabFlag: false,
+                openFlag: false,
+                customerFlag: true,
+                myFlag: false
+            },()=>{
+                this.menuNodes = this.getMenuNodes(menuList)
+                this.forceUpdate()
+            })
+        } else if (val.key === "/my") {
+            this.setState({
+                grabFlag: false,
+                openFlag: false,
+                customerFlag: false,
+                myFlag: true
+            },()=>{
+                this.menuNodes = this.getMenuNodes(menuList)
+                this.forceUpdate()
+            })
+        }
+    }
     // 根据menu的数据数组生成对应的标签数组
     // 使用reduce() + 递归调用
     getMenuNodes = (menuList) => {
         // 得到当前请求的路由路径
         const path = this.props.location.pathname
+        let { grabFlag, openFlag, customerFlag, myFlag } = this.state
         
         return menuList.reduce((pre,item) => {
             // 向pre添加<Menu.Item>
             if (!item.children) {
+                console.log(this.state)
+                // debugger
                 pre.push((
-                    <Menu.Item key={item.key} icon={item.icon}>
-                        <Link to={item.key} style={{color: '#000000'}}>{item.title}</Link>
+                    <Menu.Item key={item.key} icon={item.icon} onClick={this.menu_click}>
+                        <Link to={item.key}>{
+                            <span className='img_and_title'>
+                                <img src={(item.title === '抢包' && !grabFlag) ? grab : 
+                                          (item.title === '抢包' && grabFlag) ? grab_hover :
+                                          (item.title === '拆包' && !openFlag) ? open : 
+                                          (item.title === '拆包' && openFlag) ? open_hover :
+                                          (item.title === '客服' && !customerFlag) ? customer : 
+                                          (item.title === '客服' && customerFlag) ? customer_hover :
+                                          (item.title === '我的' && !myFlag) ? my : my_hover} alt="icon"/>
+                                {item.title}
+                            </span>
+                        }</Link>
                     </Menu.Item>
                 ))
             } else {
