@@ -3,7 +3,6 @@ import { Form, Input, Button, message, Tabs, Select } from 'antd'
 // import { UserOutlined, LockOutlined } from '@ant-design/icons'
 import './login.less'
 import facebook from './images/facebook.png'
-// import zalo from './images/zalo.png'
 import { reqLogin, reqFacebookLogin, reqGoogleLogin, reqPhoneLogin, reqSendSms } from '../../api'
 import memoryUtils from '../../utils/memoryUtils'
 import storageUtils from '../../utils/storageUtils'
@@ -14,6 +13,7 @@ import { GoogleLogin } from 'react-google-login';
 import countryCode from './countryCode'
 import RegisterAcc from './components/register-acc'
 import RetrievePwd from './components/retrieve-pwd'
+import bg_top from './images/bg_top.png'
 const { TabPane } = Tabs;
 const { Option } = Select;
 
@@ -130,7 +130,7 @@ export default class Login extends Component {
                 optionFilterProp="children"
                 onChange={this.changeCountryNo}
                 defaultValue="84"
-                style={{width: '137px'}}
+                style={{width: '124px'}}
             >
                 {
                     countryCode.map(item => {
@@ -202,6 +202,7 @@ export default class Login extends Component {
 
         return (
             <div className="login">
+                <img src={bg_top} alt="" className='img_top'/>
                 <section className='login-section'>
                     <Tabs defaultActiveKey="1" centered>
                         <TabPane tab="密码登录" key="1" className="login-content">
@@ -277,7 +278,7 @@ export default class Login extends Component {
                                     {this.selectCountry()}
                                     <Input 
                                         placeholder="手机号"
-                                        style={{width: '180px', marginLeft: '3px'}}
+                                        style={{width: '192px', marginLeft: '3px'}}
                                         onChange={event => this.setState({phone:event.target.value})}
                                     />
                                     
@@ -290,10 +291,9 @@ export default class Login extends Component {
                                 >
                                     <Input
                                         placeholder="验证码"
-                                        style={{width: '250px'}}
                                         onChange={event => this.setState({code:event.target.value})}
                                     />
-                                    <Button style={{marginLeft:'3px',color: '#FF0000'}} disabled={num!==0} onClick={this.handleSend}>{num===0?'发送':num+"s"}</Button>
+                                    <Button style={{float: 'right',margin: '-40px 2px 0 0',borderColor: '#ffffff',color: '#FF0000'}} disabled={num!==0} onClick={this.handleSend}>{num===0?'发送':num+"s"}</Button>
                                 </Form.Item>
                                 <Form.Item>
                                     <Button type="primary" htmlType="submit" className="login-form-button">
