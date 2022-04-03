@@ -54,7 +54,7 @@ export default class ModalComponent extends Component {
 				<Item name="amount" label="抢红包金额" hasFeedback rules={[{ required: true, message: '红包金额不可以为空!' }]}>
 				<Input allowClear placeholder="请输入红包金额！" onChange={this.changeAmount} />
 				</Item>
-				<Item label="红包中奖区间">
+				<Item label="红包中奖区间" style={{marginBottom: '0px'}}>
 					<Item name="begin" label="起始值" hasFeedback rules={[{ required: true, message: '起始值不可以为空!' }]}>
 						<Input allowClear placeholder="请输入起始值！" onChange={this.changeBegin} />
 					</Item>

@@ -44,7 +44,7 @@ export default class ModalComponent extends Component {
 		let { flag, type } = this.state
 		return (
 			<Modal 
-				title={type + '抢红包配置项'}
+				title={type + '奖项'}
 				visible={flag}
 				onOk={this.handleOk}
 				onCancel={() => this.closeClear()}
@@ -53,20 +53,21 @@ export default class ModalComponent extends Component {
 			>
 				{
 					<Form labelCol={{span: 5}} ref={this.formRef}>
-						<Item name="name" label="抢红包金额" hasFeedback rules={[{ required: true, message: '红包金额不可以为空!' }]}>
-							<Input allowClear placeholder="请输入红包金额！" onChange={this.changeName} />
+						<Item name="name" label="奖项" rules={[{ required: true, message: '奖项不可以为空!' }]}>
+							<Input placeholder="请输入奖项！" onChange={this.changeName} />
 						</Item>
-						<Item label="中奖金额区间">
-							<Item name="begin" label="起始值" hasFeedback rules={[{ required: true, message: '起始值不可以为空!' }]}>
-								<Input allowClear placeholder="请输入起始值！" onChange={this.changeBegin} />
+						<Item label="中奖金额区间" style={{marginBottom: '0px'}}>
+							<Item name="begin" label="起始值" rules={[{ required: true, message: '起始值不可以为空!' }]}>
+								<Input placeholder="请输入起始值！" onChange={this.changeBegin} />
 							</Item>
-							<Item name="end" label="结束值" hasFeedback rules={[{ required: true, message: '起始值不可以为空!' }]}>
-								<Input allowClear placeholder="请输入终止值！" onChange={this.changeEnd} />
+							<Item name="end" label="结束值" rules={[{ required: true, message: '起始值不可以为空!' }]}>
+								<Input placeholder="请输入终止值！" onChange={this.changeEnd} />
 							</Item>
 						</Item>
-						<Item name="probability" label="中奖概率" hasFeedback rules={[{ required: true, message: '中奖概率不可以为空!' }]}>
-							<Input allowClear placeholder="请输入中奖概率！" onChange={this.changeProbability} />
+						<Item name="probability" label="中奖概率" rules={[{ required: true, message: '中奖概率不可以为空!' }]}>
+							<Input placeholder="请输入中奖概率！" style={{width:'95%'}} onChange={this.changeProbability} />
 						</Item>
+						<div style={{float:'right',marginTop:'-50px'}}>%</div>
 					</Form>
 				}
 			</Modal>
@@ -102,18 +103,18 @@ export default class ModalComponent extends Component {
 			if (!end) return message.info('终止值不可以为空！')
 			if (!probability) return message.info('中奖概率不可以为空！')
 			let params = {
-				name: Number(name),
+				name,
 				begin: Number(begin),
 				end: Number(end),
-				probability: Number(probability)
+				probability: Math.round(probability*100)/100
 			}
 			let result = await reqAddOpen(params)
 			if (result.code === 0 && result.data.code === 0) {
-				message.success('抢红包配置项添加成功！')
+				message.success('奖项添加成功！')
 				this.formRef.current.setFieldsValue({ name: undefined,begin: undefined,end: undefined,probability:undefined}) //给表单设置值
 				this.formRef.current.resetFields() //清空表单
 			} else {
-				return message.error(result.data.msg)
+				return message.error(result.msg)
 			}
 			closeModal()
 		}
@@ -124,18 +125,18 @@ export default class ModalComponent extends Component {
 			if (!probability) return message.info('中奖概率不可以为空！')
 			let params = {
 				id,
-				name: Number(name),
+				name,
 				begin: Number(begin),
 				end: Number(end),
-				probability: Number(probability)
+				probability: Math.round(probability*100)/100
 			}
 			let result = await reqEditOpen(params)
 			if (result.code === 0 && result.data.code === 0) {
-				message.success('抢红包配置项编辑成功！')
+				message.success('奖项修改成功！')
 				this.formRef.current.setFieldsValue({ name: undefined,begin: undefined,end: undefined, probability:undefined }) //给表单设置值
 				this.formRef.current.resetFields() //清空表单
 			} else {
-				return message.error(result.data.msg)
+				return message.error(result.msg)
 			}
 			closeModal()
 		}

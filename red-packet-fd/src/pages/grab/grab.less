@@ -60,3 +60,42 @@
         }
     }
 }
+.img_show {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    &_outer {
+        background-color: #1B1B1B;
+        opacity:0.6;
+        position: absolute;
+        width: 100%;
+        height: 100%;
+    }
+    &_content {
+        position: absolute;
+        top: 25%;
+        left: 15%;
+        height: 40%;
+        width: 70%;
+        display: flex;
+        flex-direction: column;
+        background-image: url('./images/goOpen.png');
+        background-size: 100% 100%;
+        &_top {
+            height: 82%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding-top: 40%;
+            font-size: 17px;
+            color: #FEFFA7;
+        }
+        &_bottom {
+            height: 18%;
+            display: flex;
+            justify-content: center;
+            font-size: 15px;
+            color: #FF0000;
+        }
+    }
+}
