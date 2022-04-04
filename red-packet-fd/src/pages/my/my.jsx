@@ -62,9 +62,9 @@ export default class My extends Component {
                         return (
                             <div className='my_button_content' style={{marginRight: item.index !== 6 ? '3%' : ''}} key={item.index} onClick={() => this.clickButton(item)}>
                                 <span className='content_img'>
-                                    <img style={{width:'40px'}} src={item.index === 0 ? qr_code : item.index === 1 ? balance :
+                                    <img src={item.index === 0 ? qr_code : item.index === 1 ? balance :
                                               item.index === 2 ? partner : item.index === 3 ? record : details} alt="qr_code"/>
-                                    <div style={{color: '#FFEB5D',fontSize: '12px', paddingTop: '5px', width: '105%'}}>
+                                    <div>
                                         {item.index === 0 ? 'QR Code' : item.index === 1 ? 'Balance' :
                                               item.index === 2 ? 'Partner' : item.index === 3 ? 'Record' : 'Details'}
                                     </div>
@@ -106,12 +106,12 @@ export default class My extends Component {
                 </div>
                 {this.getMyButton()}
                 <div className='my_proxy'>
-                    <div style={{fontSize: '16px', fontWeight: 'bold'}}>代理说明</div>
+                    <div>代理说明</div>
                     {this.getProxyDetails()}
                 </div>
-                <div className='my_promote'>
-                    <div style={{fontSize: '16px', fontWeight: 'bold'}}>推广步骤</div>
-                    <div className='my_promote_content'>
+                <div className='my_proxy' style={{marginTop: '13px'}}>
+                    <div>推广步骤</div>
+                    <div className='my_proxy_content'>
                         1.点击推广二维码，获取你的专属二维码。<br/>
                         2.让好友扫码进入平台，即可自动绑定好友关系。<br/>
                         3.让好友参与游戏，您可以获得奖励且可直接提现

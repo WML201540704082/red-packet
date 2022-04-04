@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 import { message } from 'antd'
 import './grab.less'
 import { reqGrabList } from '../../api'
-import grab from './images/10.png'
+import grab from './images/grab.png'
 // import goOpen from './images/goOpen.png'
 import memoryUtils from '../../utils/memoryUtils'
 // 首页路由
@@ -27,7 +27,7 @@ export default class Grab extends Component {
 			this.setState({
 				dataSource: result.data.records,
 			})
-		} else if (result.code === -1 && result.msg === "token无效,请重新获取！") {
+		} else {
             this.setState({
 				dataSource: [
                     {amount: 5000,end: 20000},
