@@ -13,7 +13,6 @@ import { GoogleLogin } from 'react-google-login';
 import countryCode from './countryCode'
 import RegisterAcc from './components/register-acc'
 import RetrievePwd from './components/retrieve-pwd'
-import bg_top from './images/bg_top.png'
 const { TabPane } = Tabs;
 const { Option } = Select;
 
@@ -202,7 +201,6 @@ export default class Login extends Component {
 
         return (
             <div className="login">
-                <img src={bg_top} alt="" className='img_top'/>
                 <section className='login-section'>
                     <Tabs defaultActiveKey="1" centered>
                         <TabPane tab="密码登录" key="1" className="login-content">
@@ -223,12 +221,16 @@ export default class Login extends Component {
                                         {   max: 12,  message: '用户名最多12位'   },
                                         {   pattern: /^[a-zA-Z0-9_]+$/,  message: '用户名必须是英文、数字或下划线组成'   },
                                     ]}
+                                    style={{marginBottom: '10px'}}
                                 >
-                                    <Input 
-                                        // prefix={<UserOutlined className="site-form-item-icon" />}
-                                        placeholder="用户名"
-                                        onChange={e => {this.setState({account: e.target.value})}}
-                                    />
+                                    <div className='input_outer'>
+                                        <div className='input_text'>Account</div>
+                                        <Input 
+                                            // prefix={<UserOutlined className="site-form-item-icon" />}
+                                            placeholder="用户名"
+                                            onChange={e => {this.setState({account: e.target.value})}}
+                                        />
+                                    </div>
                                 </Form.Item>
                                 <Form.Item
                                     name="passWord"
@@ -237,12 +239,16 @@ export default class Login extends Component {
                                             validator: this.validatorPwd
                                         }
                                     ]}
+                                    style={{marginBottom: '30px'}}
                                 >
-                                    <Input
-                                        // prefix={<LockOutlined className="site-form-item-icon" />}
-                                        type="password"
-                                        placeholder="密码"
-                                    />
+                                    <div className='input_outer'>
+                                        <div className='input_text'>PassWord</div>
+                                        <Input
+                                            // prefix={<LockOutlined className="site-form-item-icon" />}
+                                            type="password"
+                                            placeholder="密码"
+                                        />
+                                    </div>
                                 </Form.Item>
                                 <Form.Item>
                                     <Button type="primary" htmlType="submit" className="login-form-button">
@@ -250,9 +256,9 @@ export default class Login extends Component {
                                     </Button>
                                 </Form.Item>
                                 <Form.Item className="login-form-bottom">
-                                    <LinkButton onClick={() => {this.setState({isPwdVisible: true})}}>忘记密码？</LinkButton>
+                                    <LinkButton style={{color: '#1F79FF'}} onClick={() => {this.setState({isPwdVisible: true})}}>忘记密码？</LinkButton>
                                     <span className="login-form-register">
-                                        <LinkButton onClick={() => {this.setState({isModalVisible:true})}}>注册</LinkButton>
+                                        <LinkButton style={{color: '#1F79FF'}} onClick={() => {this.setState({isModalVisible:true})}}>注册</LinkButton>
                                     </span>
                                 </Form.Item>
                             </Form>
@@ -274,13 +280,18 @@ export default class Login extends Component {
                                         // {   max: 11,  message: '用户名最多11位'   },
                                         // {   pattern: /^[0-9+]+$/,  message: '手机号必须是数字'},
                                     ]}
+                                    style={{marginBottom: '10px'}}
                                 >
-                                    {this.selectCountry()}
-                                    <Input 
-                                        placeholder="手机号"
-                                        style={{width: '192px', marginLeft: '3px'}}
-                                        onChange={event => this.setState({phone:event.target.value})}
-                                    />
+                                    <div className='input_outer'>
+                                        <div className='input_text'>Mobile phone no.</div>
+                                        {this.selectCountry()}
+                                        <Input 
+                                            placeholder="手机号"
+                                            style={{width: '172px', marginLeft: '3px'}}
+                                            onChange={event => this.setState({phone:event.target.value})}
+                                        />
+                                    </div>
+                                    
                                     
                                 </Form.Item>
                                 <Form.Item
@@ -288,12 +299,16 @@ export default class Login extends Component {
                                     rules={[
                                         {   required: false, whitespace: true,  message: '验证码必须输入!'},
                                     ]}
+                                    style={{marginBottom: '30px'}}
                                 >
-                                    <Input
-                                        placeholder="验证码"
-                                        onChange={event => this.setState({code:event.target.value})}
-                                    />
-                                    <Button style={{float: 'right',margin: '-40px 2px 0 0',borderColor: '#ffffff',color: '#FF0000'}} disabled={num!==0} onClick={this.handleSend}>{num===0?'发送':num+"s"}</Button>
+                                    <div className='input_outer'>
+                                        <div className='input_text'>Verification Code</div>
+                                        <Input
+                                            placeholder="验证码"
+                                            onChange={event => this.setState({code:event.target.value})}
+                                        />
+                                        <Button style={{float: 'right',margin: '-39px 3px 0 0',borderColor: '#ffffff',color: '#D32940'}} disabled={num!==0} onClick={this.handleSend}>{num===0?'发送':num+"s"}</Button>
+                                    </div>
                                 </Form.Item>
                                 <Form.Item>
                                     <Button type="primary" htmlType="submit" className="login-form-button">
