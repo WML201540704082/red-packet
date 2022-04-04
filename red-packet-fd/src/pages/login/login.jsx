@@ -1,5 +1,5 @@
 import React, {Component} from 'react'
-import { Form, Input, Button, message, Tabs, Select } from 'antd'
+import { Form, Input, Button, message, Tabs } from 'antd'
 // import { UserOutlined, LockOutlined } from '@ant-design/icons'
 import './login.less'
 import facebook from './images/facebook.png'
@@ -13,15 +13,18 @@ import { GoogleLogin } from 'react-google-login';
 import countryCode from './countryCode'
 import RegisterAcc from './components/register-acc'
 import RetrievePwd from './components/retrieve-pwd'
+import CountrySelect from './components/country-select'
+import arrows from './images/arrows.png'
 const { TabPane } = Tabs;
-const { Option } = Select;
+// const { Option } = Select;
 
 export default class Login extends Component {
     state = {
         phone: '',
 		num: 0,
-        countryNo: 84,
         isModalVisible: false,
+        countryFlag: false,
+        phoneCode: '+84'
 	}
 
     // 对密码进行自定义验证
@@ -98,7 +101,7 @@ export default class Login extends Component {
         let a = 60;
         var reg_tel = /^[0-9]*$/
         if (reg_tel.test(this.state.phone)) {
-            let phone = '+' + this.state.countryNo + this.state.phone
+            let phone = this.state.phoneCode + this.state.phone
             let result = await reqSendSms(phone)
             if (result.code === 0) {
                 message.success('发送验证码成功！')
@@ -117,32 +120,13 @@ export default class Login extends Component {
             alert('手机号格式不正确')
         }
     }
-    changeCountryNo = e => {
-        this.setState({countryNo: e})
-    }
-    // 选择国家
-    selectCountry = () => {
-        return (
-            <Select
-                showSearch
-                placeholder="Select a person"
-                optionFilterProp="children"
-                onChange={this.changeCountryNo}
-                defaultValue="84"
-                style={{width: '124px'}}
-            >
-                {
-                    countryCode.map(item => {
-                        return (
-                            <Option value={item.phone_code}>{item.english_name + '(+' + item.phone_code + ')'}</Option>
-                        )
-                    })
-                }
-            </Select>
-        )
+    selectCode = () => {
+        this.setState({
+            countryFlag: true
+        })
     }
     render () {
-        const {num} = this.state
+        const {num, countryFlag, phoneCode} = this.state
 
         // 如果用户已经登陆，自动跳转到主界面
         const user = memoryUtils.user
@@ -173,10 +157,10 @@ export default class Login extends Component {
             }
         };
         // 免密登录
-        const onPhoneFinish = async values => {
+        const onPhoneFinish = async () => {
             const { phone, code } = this.state
             let params = {
-                phone: '+' + this.state.countryNo + phone,
+                phone: this.state.phoneCode + phone,
                 code: code
             }
             try {
@@ -200,157 +184,171 @@ export default class Login extends Component {
         }
 
         return (
-            <div className="login">
-                <section className='login-section'>
-                    <Tabs defaultActiveKey="1" centered>
-                        <TabPane tab="密码登录" key="1" className="login-content">
-                            <Form
-                                name="normal_login"
-                                className="login-form"
-                                initialValues={{
-                                    remember: true,
-                                }}
-                                onFinish={onFinish}
-                                >
-                                <Form.Item
-                                    name="account"
-                                    // 生命式验证：直接使用别人定义好的验证规则进行验证
-                                    rules={[
-                                        {   required: true, whitespace: true,  message: '用户名必须输入!'   },
-                                        {   min: 4,  message: '用户名最少4位'   },
-                                        {   max: 12,  message: '用户名最多12位'   },
-                                        {   pattern: /^[a-zA-Z0-9_]+$/,  message: '用户名必须是英文、数字或下划线组成'   },
-                                    ]}
-                                    style={{marginBottom: '10px'}}
-                                >
-                                    <div className='input_outer'>
-                                        <div className='input_text'>Account</div>
-                                        <Input 
-                                            // prefix={<UserOutlined className="site-form-item-icon" />}
-                                            placeholder="用户名"
-                                            onChange={e => {this.setState({account: e.target.value})}}
-                                        />
-                                    </div>
-                                </Form.Item>
-                                <Form.Item
-                                    name="passWord"
-                                    rules={[
-                                        {
-                                            validator: this.validatorPwd
-                                        }
-                                    ]}
-                                    style={{marginBottom: '30px'}}
-                                >
-                                    <div className='input_outer'>
-                                        <div className='input_text'>PassWord</div>
-                                        <Input
-                                            // prefix={<LockOutlined className="site-form-item-icon" />}
-                                            type="password"
-                                            placeholder="密码"
-                                        />
-                                    </div>
-                                </Form.Item>
-                                <Form.Item>
-                                    <Button type="primary" htmlType="submit" className="login-form-button">
-                                        登录
-                                    </Button>
-                                </Form.Item>
-                                <Form.Item className="login-form-bottom">
-                                    <LinkButton style={{color: '#1F79FF'}} onClick={() => {this.setState({isPwdVisible: true})}}>忘记密码？</LinkButton>
-                                    <span className="login-form-register">
-                                        <LinkButton style={{color: '#1F79FF'}} onClick={() => {this.setState({isModalVisible:true})}}>注册</LinkButton>
-                                    </span>
-                                </Form.Item>
-                            </Form>
-                        </TabPane>
-                        <TabPane tab="免密登录" key="2" className="login-content">
-                            <Form
-                                name="normal_login"
-                                className="login-form"
-                                initialValues={{
-                                    remember: true,
-                                }}
-                                onFinish={onPhoneFinish}
-                            >
-                                <Form.Item
-                                    name="phone"
-                                    rules={[
-                                        {   required: false, whitespace: true,  message: '手机号必须输入!'   },
-                                        // {   min: 9,  message: '用户名最少9位'   },
-                                        // {   max: 11,  message: '用户名最多11位'   },
-                                        // {   pattern: /^[0-9+]+$/,  message: '手机号必须是数字'},
-                                    ]}
-                                    style={{marginBottom: '10px'}}
-                                >
-                                    <div className='input_outer'>
-                                        <div className='input_text'>Mobile phone no.</div>
-                                        {this.selectCountry()}
-                                        <Input 
-                                            placeholder="手机号"
-                                            style={{width: '172px', marginLeft: '3px'}}
-                                            onChange={event => this.setState({phone:event.target.value})}
-                                        />
-                                    </div>
-                                    
-                                    
-                                </Form.Item>
-                                <Form.Item
-                                    name="code"
-                                    rules={[
-                                        {   required: false, whitespace: true,  message: '验证码必须输入!'},
-                                    ]}
-                                    style={{marginBottom: '30px'}}
-                                >
-                                    <div className='input_outer'>
-                                        <div className='input_text'>Verification Code</div>
-                                        <Input
-                                            placeholder="验证码"
-                                            onChange={event => this.setState({code:event.target.value})}
-                                        />
-                                        <Button style={{float: 'right',margin: '-39px 3px 0 0',borderColor: '#ffffff',color: '#D32940'}} disabled={num!==0} onClick={this.handleSend}>{num===0?'发送':num+"s"}</Button>
-                                    </div>
-                                </Form.Item>
-                                <Form.Item>
-                                    <Button type="primary" htmlType="submit" className="login-form-button">
-                                        登录
-                                    </Button>
-                                </Form.Item>
-                                <Form.Item className="login-form-bottom"></Form.Item>
-                            </Form>
-                        </TabPane>
-                    </Tabs>
-                </section>
-                <div className='otherLogin'>
-                    <span className='text_line'>
-                        <div className='left_line'></div>
-                        其他登录方式
-                        <div className='right_line'></div>
-                    </span>
-                    <span className='login_icon'>
-                        <GoogleLogin
-                            clientId="715440772497-uuq231lpek9ek0m08o2013dvua1728jl.apps.googleusercontent.com"
-                            buttonText="Login"
-                            onSuccess={this.responseGoogle}
-                            onFailure={this.responseGoogle}
-                            cookiePolicy={'single_host_origin'}
-                            className="btnGoogle">
-                            <i className="fa fa-google-plus" /> 
-                            <span>&nbsp;</span>
-                        </GoogleLogin>
-                        {/* 346326924009220 */}
-                        <FacebookLogin
-                            appId="895624567779325"
-                            autoLoad={true}
-                            fields="name,email,picture"
-                            callback={this.responseFacebook}
-                            cssClass="btnFacebook"
-                            icon={<img src={facebook} alt="facebook" /> }
-                            textButton = ""
-                        />
-                    </span>
-                </div>
-                {this.showModal(this.state.isModalVisible)}
-                {this.showPwdModal(this.state.isPwdVisible)}
+            <div style={{width:'100%',height:'100%'}}>
+                {
+                    !countryFlag ? (
+                        <div className="login">
+                            <section className='login-section'>
+                                <Tabs defaultActiveKey="1" centered>
+                                    <TabPane tab="免密登录" key="1" className="login-content">
+                                        <Form
+                                            name="normal_login"
+                                            className="login-form"
+                                            initialValues={{
+                                                remember: true,
+                                            }}
+                                            onFinish={onPhoneFinish}
+                                        >
+                                            <Form.Item
+                                                name="phone"
+                                                rules={[
+                                                    {   required: false, whitespace: true,  message: '手机号必须输入!'   },
+                                                    // {   min: 9,  message: '用户名最少9位'   },
+                                                    // {   max: 11,  message: '用户名最多11位'   },
+                                                    // {   pattern: /^[0-9+]+$/,  message: '手机号必须是数字'},
+                                                ]}
+                                                style={{marginBottom: '10px'}}
+                                            >
+                                                <div className='input_outer'>
+                                                    <div className='input_text'>Mobile phone no.</div>
+                                                    <span onClick={()=>this.selectCode()}>
+                                                        <span style={{width:'30px',paddingLeft:'10px'}}>{phoneCode}
+                                                        <img style={{width:'15px',marginLeft:'5px'}} src={arrows} alt="arrows"/>
+                                                    </span>
+                                                    </span>
+                                                    <Input 
+                                                        placeholder="手机号"
+                                                        style={{width: '172px', marginLeft: '3px'}}
+                                                        onChange={event => this.setState({phone:event.target.value})}
+                                                    />
+                                                </div>
+                                                
+                                                
+                                            </Form.Item>
+                                            <Form.Item
+                                                name="code"
+                                                rules={[
+                                                    {   required: false, whitespace: true,  message: '验证码必须输入!'},
+                                                ]}
+                                                style={{marginBottom: '30px'}}
+                                            >
+                                                <div className='input_outer'>
+                                                    <div className='input_text'>Verification Code</div>
+                                                    <Input
+                                                        placeholder="验证码"
+                                                        onChange={event => this.setState({code:event.target.value})}
+                                                    />
+                                                    <Button style={{float: 'right',margin: '-39px 3px 0 0',borderColor: '#ffffff',color: '#D32940'}} disabled={num!==0} onClick={this.handleSend}>{num===0?'发送':num+"s"}</Button>
+                                                </div>
+                                            </Form.Item>
+                                            <Form.Item>
+                                                <Button type="primary" htmlType="submit" className="login-form-button">
+                                                    登录
+                                                </Button>
+                                            </Form.Item>
+                                            <Form.Item className="login-form-bottom"></Form.Item>
+                                        </Form>
+                                    </TabPane>
+                                    <TabPane tab="密码登录" key="2" className="login-content">
+                                        <Form
+                                            name="normal_login"
+                                            className="login-form"
+                                            initialValues={{
+                                                remember: true,
+                                            }}
+                                            onFinish={onFinish}
+                                            >
+                                            <Form.Item
+                                                name="account"
+                                                // 生命式验证：直接使用别人定义好的验证规则进行验证
+                                                rules={[
+                                                    {   required: true, whitespace: true,  message: '用户名必须输入!'   },
+                                                    {   min: 4,  message: '用户名最少4位'   },
+                                                    {   max: 12,  message: '用户名最多12位'   },
+                                                    {   pattern: /^[a-zA-Z0-9_]+$/,  message: '用户名必须是英文、数字或下划线组成'   },
+                                                ]}
+                                                style={{marginBottom: '10px'}}
+                                            >
+                                                <div className='input_outer'>
+                                                    <div className='input_text'>Account</div>
+                                                    <Input 
+                                                        // prefix={<UserOutlined className="site-form-item-icon" />}
+                                                        placeholder="用户名"
+                                                        onChange={e => {this.setState({account: e.target.value})}}
+                                                    />
+                                                </div>
+                                            </Form.Item>
+                                            <Form.Item
+                                                name="passWord"
+                                                rules={[
+                                                    {
+                                                        validator: this.validatorPwd
+                                                    }
+                                                ]}
+                                                style={{marginBottom: '30px'}}
+                                            >
+                                                <div className='input_outer'>
+                                                    <div className='input_text'>PassWord</div>
+                                                    <Input
+                                                        // prefix={<LockOutlined className="site-form-item-icon" />}
+                                                        type="password"
+                                                        placeholder="密码"
+                                                    />
+                                                </div>
+                                            </Form.Item>
+                                            <Form.Item>
+                                                <Button type="primary" htmlType="submit" className="login-form-button">
+                                                    登录
+                                                </Button>
+                                            </Form.Item>
+                                            <Form.Item className="login-form-bottom">
+                                                <LinkButton style={{color: '#1F79FF'}} onClick={() => {this.setState({isPwdVisible: true})}}>忘记密码？</LinkButton>
+                                                <span className="login-form-register">
+                                                    <LinkButton style={{color: '#1F79FF'}} onClick={() => {this.setState({isModalVisible:true})}}>注册</LinkButton>
+                                                </span>
+                                            </Form.Item>
+                                        </Form>
+                                    </TabPane>
+                                </Tabs>
+                            </section>
+                            <div className='otherLogin'>
+                                <span className='text_line'>
+                                    <div className='left_line'></div>
+                                    其他登录方式
+                                    <div className='right_line'></div>
+                                </span>
+                                <span className='login_icon'>
+                                    <GoogleLogin
+                                        clientId="715440772497-uuq231lpek9ek0m08o2013dvua1728jl.apps.googleusercontent.com"
+                                        buttonText="Login"
+                                        onSuccess={this.responseGoogle}
+                                        onFailure={this.responseGoogle}
+                                        cookiePolicy={'single_host_origin'}
+                                        className="btnGoogle">
+                                        <i className="fa fa-google-plus" /> 
+                                        <span>&nbsp;</span>
+                                    </GoogleLogin>
+                                    {/* 346326924009220 */}
+                                    <FacebookLogin
+                                        appId="895624567779325"
+                                        autoLoad={true}
+                                        fields="name,email,picture"
+                                        callback={this.responseFacebook}
+                                        cssClass="btnFacebook"
+                                        icon={<img src={facebook} alt="facebook" /> }
+                                        textButton = ""
+                                    />
+                                </span>
+                            </div>
+                            {this.showModal(this.state.isModalVisible)}
+                            {this.showPwdModal(this.state.isPwdVisible)}
+                        </div>
+                    ) : (
+                        <div>
+                            {this.showCountrySelect(this.state.countryFlag)}
+                        </div>
+                    )
+                }
             </div>
         )
     }
@@ -378,4 +376,20 @@ export default class Login extends Component {
 			)
 		}
 	}
+    showCountrySelect = flag => {
+        if (flag) {
+            return (
+                <CountrySelect
+					flag={flag}
+                    countryCode={countryCode}
+					closeModal={(phone_code) => 
+                        this.setState({
+                            countryFlag: false,
+                            phoneCode: '+' + phone_code
+                        })
+                    }
+				/>
+            )
+        }
+    }
 }
