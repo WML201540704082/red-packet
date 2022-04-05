@@ -1,6 +1,5 @@
 import React, {Component} from 'react'
 import { Form, Input, Button, message, Tabs } from 'antd'
-// import { UserOutlined, LockOutlined } from '@ant-design/icons'
 import './login.less'
 import facebook from './images/facebook.png'
 import { reqLogin, reqFacebookLogin, reqGoogleLogin, reqPhoneLogin, reqSendSms } from '../../api'
@@ -222,8 +221,6 @@ export default class Login extends Component {
                                                         onChange={event => this.setState({phone:event.target.value})}
                                                     />
                                                 </div>
-                                                
-                                                
                                             </Form.Item>
                                             <Form.Item
                                                 name="code"
@@ -260,19 +257,17 @@ export default class Login extends Component {
                                             >
                                             <Form.Item
                                                 name="account"
-                                                // 生命式验证：直接使用别人定义好的验证规则进行验证
                                                 rules={[
                                                     {   required: true, whitespace: true,  message: '用户名必须输入!'   },
-                                                    {   min: 4,  message: '用户名最少4位'   },
-                                                    {   max: 12,  message: '用户名最多12位'   },
-                                                    {   pattern: /^[a-zA-Z0-9_]+$/,  message: '用户名必须是英文、数字或下划线组成'   },
+                                                    // {   min: 4,  message: '用户名最少4位'   },
+                                                    // {   max: 12,  message: '用户名最多12位'   },
+                                                    // {   pattern: /^[a-zA-Z0-9_]+$/,  message: '用户名必须是英文、数字或下划线组成'   },
                                                 ]}
                                                 style={{marginBottom: '10px'}}
                                             >
                                                 <div className='input_outer'>
                                                     <div className='input_text'>Account</div>
                                                     <Input 
-                                                        // prefix={<UserOutlined className="site-form-item-icon" />}
                                                         placeholder="用户名"
                                                         onChange={e => {this.setState({account: e.target.value})}}
                                                     />
@@ -290,7 +285,6 @@ export default class Login extends Component {
                                                 <div className='input_outer'>
                                                     <div className='input_text'>PassWord</div>
                                                     <Input
-                                                        // prefix={<LockOutlined className="site-form-item-icon" />}
                                                         type="password"
                                                         placeholder="密码"
                                                     />

@@ -28,3 +28,12 @@ export const reqRetrievePwd = data => ajax(BASE + 'sys/front/retrievePaw', data,
 
 // 抢红包列表
 export const reqGrabList = data => ajax(BASE + '/web/grab/list', data, 'POST')
+
+// 账户余额
+export const reqAccountBalance = () => ajax(BASE + '/sys/mine/accountBalance', {}, 'POST')
+
+// 银行卡列表
+export const reqCardList = data => ajax(BASE + '/web/back/crad/list', {data}, 'POST')
+
+// 我的伙伴
+export const reqPartnerList = () => ajax(BASE + '/sys/mine/partner', {}, 'POST')
