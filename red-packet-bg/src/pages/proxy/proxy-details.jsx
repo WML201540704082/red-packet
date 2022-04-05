@@ -71,26 +71,31 @@ export default class ProxyDetails extends Component {
 					columns={[
 						{
 							title: 'userId',
+							align: 'center',
 							dataIndex: 'userId',
 							key: 'userId',
 						},
 						{
 							title: '代理等级',
+							align: 'center',
 							dataIndex: 'actingLevel',
 							key: 'actingLevel',
 						},
 						{
 							title: '消费金额',
+							align: 'center',
 							dataIndex: 'amount',
 							key: 'amount',
 						},
 						{
 							title: '分佣金额',
+							align: 'center',
 							dataIndex: 'commissionAmount',
 							key: 'commissionAmount',
 						},
 						{
 							title: '注册时间',
+							align: 'center',
 							dataIndex: 'createDate',
 							key: 'createDate',
 						},

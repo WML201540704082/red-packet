@@ -93,11 +93,13 @@ export default class User extends Component {
                         columns={[
                             {
                                 title: '用户ID',
+                                align: 'center',
                                 dataIndex: 'userId',
                                 key: 'userId',
                             },
                             {
                                 title: '用户余额',
+                                align: 'center',
                                 dataIndex: 'amount',
                                 key: 'amount',
                             },
@@ -108,16 +110,19 @@ export default class User extends Component {
                             },
                             {
                                 title: '累计收益',
+                                align: 'center',
                                 dataIndex: 'incomeTotal',
                                 key: 'incomeTotal',
                             },
                             {
                                 title: '最近登录时间',
+                                align: 'center',
                                 dataIndex: 'endDate',
                                 key: 'endDate',
                             },
                             {
                                 title: '状态',
+                                align: 'center',
                                 dataIndex: 'delFlag',
                                 key: 'delFlag',
                                 render: delFlag => delFlag === '0' ? '正常' : '黑名单',
@@ -135,6 +140,7 @@ export default class User extends Component {
                             },
                             {
                                 title: '登录类型',
+                                align: 'center',
                                 dataIndex: 'loginWay',
                                 key: 'loginWay',
                             },
@@ -142,7 +148,7 @@ export default class User extends Component {
                                 title: <span style={{ fontWeight: 700 }}>操作</span>,
                                 key: 'userId',
                                 align: 'center',
-                                width: '20%',
+                                width: '16%',
                                 render: reload => {
                                     return (
                                         <span>

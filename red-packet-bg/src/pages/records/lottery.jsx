@@ -121,27 +121,32 @@ export default class Lottery extends Component {
                         columns={[
                             {
                                 title: '用户ID',
+                                align: 'center',
                                 dataIndex: 'userId',
                                 key: 'userId',
                             },
                             {
                                 title: '红包ID',
+                                align: 'center',
                                 dataIndex: 'redPacketsId',
                                 key: 'redPacketsId',
                             },
                             {
                                 title: '奖项',
+                                align: 'center',
                                 dataIndex: 'awards',
                                 key: 'awards',
                             },
                             {
                                 title: '中奖金额',
+                                align: 'center',
                                 dataIndex: 'amount',
                                 key: 'amount',
                                 render: amount =>  amount + '元'
                             },
                             {
                                 title: '开奖时间',
+                                align: 'center',
                                 dataIndex: 'createDate',
                                 key: 'createDate',
                             },

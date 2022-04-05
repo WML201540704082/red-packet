@@ -68,11 +68,13 @@ export default class RobConfig extends Component {
 					columns={[
 						{
 							title: '抢红包下注额度',
+							align: 'center',
 							dataIndex: 'amount',
 							key: 'amount',
 						},
 						{
 							title: '抢红包中奖区间',
+							align: 'center',
 							key: 'id',
 							render: reload =>  {
 								return (

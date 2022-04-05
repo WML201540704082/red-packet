@@ -68,11 +68,13 @@ export default class ProxyConfig extends Component {
 					columns={[
 						{
 							title: '代理等级',
+							align: 'center',
 							dataIndex: 'level',
 							key: 'level',
 						},
 						{
 							title: '分佣比例',
+							align: 'center',
 							dataIndex: 'commissionRatio',
 							key: 'commissionRatio'
 						},

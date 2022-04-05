@@ -182,36 +182,43 @@ export default class Basic extends Component {
                         columns={[
                             {
                                 title: '抢红包数',
+                                align: 'center',
                                 dataIndex: 'envelopesNumber',
                                 key: 'envelopesNumber',
                             },
                             {
                                 title: '拆红包数',
+                                align: 'center',
                                 dataIndex: 'envelopesRemoveNumber',
                                 key: 'envelopesRemoveNumber',
                             },
                             {
                                 title: '抢红包总额',
+                                align: 'center',
                                 dataIndex: 'envelopesTotalAmount',
                                 key: 'envelopesTotalAmount',
                             },
                             {
                                 title: '新增注册',
+                                align: 'center',
                                 dataIndex: 'newRegistration',
                                 key: 'newRegistration',
                             },
                             {
                                 title: '新增访客',
+                                align: 'center',
                                 dataIndex: 'newVisitors',
                                 key: 'newVisitors',
                             },
                             {
                                 title: '登陆总数',
+                                align: 'center',
                                 dataIndex: 'totalLogins',
                                 key: 'totalLogins',
                             },
                             {
                                 title: '开奖总额',
+                                align: 'center',
                                 dataIndex: 'totalPrize',
                                 key: 'totalPrize',
                                 render: reltotalPrizeoad => {
@@ -224,6 +231,7 @@ export default class Basic extends Component {
                             },
                             {
                                 title: '充值总额',
+                                align: 'center',
                                 dataIndex: 'totalRecharge',
                                 key: 'totalRecharge',
                                 render: totalRecharge => {
@@ -236,6 +244,7 @@ export default class Basic extends Component {
                             },
                             {
                                 title: '提现总额',
+                                align: 'center',
                                 dataIndex: 'totalWithdrawal',
                                 key: 'totalWithdrawal',
                                 render: totalWithdrawal => {
@@ -248,6 +257,7 @@ export default class Basic extends Component {
                             },
                             {
                                 title: '访客总数',
+                                align: 'center',
                                 dataIndex: 'visitorsTotalNumber',
                                 key: 'visitorsTotalNumber',
                             },
@@ -271,26 +281,31 @@ export default class Basic extends Component {
                             },
                             {
                                 title: '次留',
+                                align: 'center',
                                 dataIndex: 'secondStay',
                                 key: 'secondStay',
                             },
                             {
                                 title: '3留',
+                                align: 'center',
                                 dataIndex: 'three',
                                 key: 'three',
                             },
                             {
                                 title: '7留',
+                                align: 'center',
                                 dataIndex: 'sevenStay',
                                 key: 'sevenStay',
                             },
                             {
                                 title: '15留',
+                                align: 'center',
                                 dataIndex: 'fifteenStay',
                                 key: 'fifteenStay',
                             },
                             {
                                 title: '月留',
+                                align: 'center',
                                 dataIndex: 'monthStay',
                                 key: 'monthStay',
                             },

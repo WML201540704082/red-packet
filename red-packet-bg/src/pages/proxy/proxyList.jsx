@@ -94,17 +94,20 @@ export default class ProxyList extends Component {
                         columns={[
                             {
                                 title: '用户ID',
+                                align: 'center',
                                 dataIndex: 'userId',
                                 key: 'userId',
                             },
                             {
                                 title: '旗下用户累计充值',
+                                align: 'center',
                                 dataIndex: 'amount',
                                 key: 'amount',
                                 sorter: true,
                             },
                             {
                                 title: '累计分佣收益',
+                                align: 'center',
                                 dataIndex: 'commissionAmount',
                                 key: 'commissionAmount',
                                 sorter: true,

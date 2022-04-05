@@ -67,11 +67,13 @@ export default class OpenConfig extends Component {
 					columns={[
 						{
 							title: '奖项',
+							align: 'center',
 							dataIndex: 'name',
 							key: 'name',
 						},
 						{
 							title: '抢红包中奖区间',
+							align: 'center',
 							key: 'id',
 							render: reload =>  {
 								return (
@@ -81,6 +83,7 @@ export default class OpenConfig extends Component {
 						},
 						{
 							title: '中奖概率',
+							align: 'center',
 							dataIndex: 'probability',
 							key: 'probability',
 						},

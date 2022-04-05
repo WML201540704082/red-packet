@@ -113,21 +113,25 @@ export default class Operate extends Component {
                         columns={[
                             {
                                 title: '操作模块',
+                                align: 'center',
                                 dataIndex: 'module',
                                 key: 'module',
                             },
                             {
                                 title: '操作内容',
+                                align: 'center',
                                 dataIndex: 'content',
                                 key: 'content',
                             },
                             {
                                 title: '创建人',
+                                align: 'center',
                                 dataIndex: 'createBy',
                                 key: 'createBy',
                             },
                             {
                                 title: '操作时间',
+                                align: 'center',
                                 dataIndex: 'createDate',
                                 key: 'createDate',
                             },

@@ -140,21 +140,25 @@ export default class Account extends Component {
 						columns={[
 							{
 								title: '登录账号',
+								align: 'center',
 								dataIndex: 'account',
 								key: 'account',
 							},
 							{
 								title: '所属角色',
+								align: 'center',
 								dataIndex: 'roleName',
 								key: 'roleName',
 							},
 							{
 								title: '昵称',
+								align: 'center',
 								dataIndex: 'name',
 								key: 'name',
 							},
 							{
 								title: '状态',
+								align: 'center',
 								dataIndex: 'delFlag',
 								key: 'delFlag',
 								render: delFlag =>  delFlag === "0" ? '使用中' : '已禁用'
@@ -163,7 +167,6 @@ export default class Account extends Component {
 								title: <span style={{ fontWeight: 700 }}>操作</span>,
 								key: 'id',
 								align: 'center',
-								width: '20%',
 								render: reload => {
 									return (
 										<span>

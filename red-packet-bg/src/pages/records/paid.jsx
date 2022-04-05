@@ -121,16 +121,19 @@ export default class Paid extends Component {
                         columns={[
                             {
                                 title: '用户ID',
+                                align: 'center',
                                 dataIndex: 'userId',
                                 key: 'userId',
                             },
                             {
                                 title: '充值金额',
+                                align: 'center',
                                 dataIndex: 'amount',
                                 key: 'amount',
                             },
                             {
                                 title: '充值时间',
+                                align: 'center',
                                 dataIndex: 'createDate',
                                 key: 'createDate',
                             },

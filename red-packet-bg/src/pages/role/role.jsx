@@ -30,11 +30,13 @@ export default class Role extends Component {
 		this.columns = [
             {
               title: '角色名称',
+			  align: 'center',
               dataIndex: 'name',
               key: 'name',
             },
             {
                 title: '操作',
+				align: 'center',
                 render: reload => (
                     <span>
 						<Button type={'link'} onClick={() => this.oppModal('修改', reload)}>编辑</Button>

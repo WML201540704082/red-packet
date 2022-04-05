@@ -157,21 +157,25 @@ export default class Withdraw extends Component {
 						columns={[
                             {
                                 title: '用户ID',
+								align: 'center',
                                 dataIndex: 'userId',
                                 key: 'userId',
                             },
                             {
                                 title: '提现金额',
+								align: 'center',
                                 dataIndex: 'amount',
                                 key: 'amount',
                             },
                             {
                                 title: '提现时间',
+								align: 'center',
                                 dataIndex: 'amount',
                                 key: 'amount',
                             },
                             {
                                 title: '状态',
+								align: 'center',
                                 dataIndex: 'audit',
                                 key: 'audit',
                                 render: (audit) =>  audit === '1' ? '未审核' : audit === '2' ? '审核未通过' : audit === '3' ? '审核通过' : '审核中'
@@ -180,7 +184,6 @@ export default class Withdraw extends Component {
                                 title: <span style={{ fontWeight: 700 }}>操作</span>,
                                 key: 'id',
                                 align: 'center',
-                                width: '20%',
                                 render: reload => {
                                     return (
                                         (reload.audit === '1' || reload.audit === '2') ? 
