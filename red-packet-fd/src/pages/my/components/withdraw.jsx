@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import goback from '../images/goback.png'
-import { reqCardList } from '../../../api'
+import { reqCardList, reqAddCard } from '../../../api'
 import { message } from 'antd'
 import './withdraw.less'
 
@@ -50,8 +50,23 @@ export default class Withdrawal extends Component {
         }   
     }
     // 添加银行卡
-    addBackCard = () => {
-
+    addBackCard = async () => {
+        let { name, bankName, bankNo } = this.state
+        let params = {
+            backName: bankName,//银行名称
+            cardNum: bankNo,//银行卡号
+            cardSerialNum: 1,//银行编号
+            collectionName: name,//收款人姓名
+        }
+        let result = await reqAddCard(params)
+        if (result.code === 0) {
+            message.success('添加成功')
+            this.setState({
+                newCardFlag:false
+            },()=>{
+                this.getCardList()
+            })
+        }
     }
 	render() {
 		return (

@@ -35,5 +35,8 @@ export const reqAccountBalance = () => ajax(BASE + '/sys/mine/accountBalance', {
 // 银行卡列表
 export const reqCardList = data => ajax(BASE + '/web/back/crad/list', {data}, 'POST')
 
+// 新增银行卡
+export const reqAddCard = data => ajax(BASE + '/web/back/crad/add', {data}, 'POST')
+
 // 我的伙伴
 export const reqPartnerList = () => ajax(BASE + '/sys/mine/partner', {}, 'POST')
