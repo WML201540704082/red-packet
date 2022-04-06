@@ -19,3 +19,68 @@
         padding-top: 40px;
     }
 }
+.winner {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    z-index: 1;
+    &_outer {
+        background-color: #1B1B1B;
+        opacity:0.6;
+        position: absolute;
+        width: 100%;
+        height: 100%;
+    }
+    &_content {
+        position: absolute;
+        top: 25%;
+        left: 15%;
+        height: 40%;
+        width: 70%;
+        display: flex;
+        flex-direction: column;
+        border-radius: 10px;
+        background-color: #ffffff;
+        background-size: 100% 100%;
+        &_top {
+            width:100%;
+            height: 30%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+            color: #99640E;
+        }
+        &_middle {
+            width: 100%;
+            height: 40%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+        &_bottom {
+            width: 100%;
+            height: 30%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+        .winner_button {
+            width: 80%;
+            height: 60%;
+            border-radius: 20px;
+            font-size: 18px;
+            color: #ffffff;
+            background-color: #C99D3F;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+    }
+    @media screen and (min-width: 1000px) {
+        &_content {
+            width: 20%;
+            left: 40%;
+        }
+    }
+}

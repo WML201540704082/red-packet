@@ -32,6 +32,15 @@ export const reqGrabList = data => ajax(BASE + '/web/grab/list', data, 'POST')
 // 账户余额
 export const reqAccountBalance = () => ajax(BASE + '/web/user/account/accountBalance', {}, 'POST')
 
+// 充值
+export const reqRechargePay = data => ajax(BASE + '/web/recharge/pay', data, 'POST')
+
+// 抢红包下注
+export const reqGrabBet = data => ajax(BASE + '/web/grab/bet', data, 'POST')
+
+// 拆红包
+export const reqUnpackLottery = () => ajax(BASE + '/web/unpack/lottery', {}, 'POST')
+
 // 银行卡列表
 export const reqCardList = data => ajax(BASE + '/web/back/crad/list', {data}, 'POST')
 
