@@ -14,7 +14,7 @@ export default class RobConfig extends Component {
 			isModalVisible: false,
 			isDeleteVisible: false,
 			pageNumber: 1,
-            pageSize: 5,
+            pageSize: 10,
 		}
 	}
 	componentWillMount() {
@@ -135,11 +135,16 @@ export default class RobConfig extends Component {
 				end
 			})
 		} else {
-			// 新增
-			this.setState({
-				isModalVisible: true,
-				modalType: type,
-			})
+			if (this.state.dataSource.length < 6) {
+				// 新增
+				this.setState({
+					isModalVisible: true,
+					modalType: type,
+				})
+			} else {
+				message.warning('最多只能添加6条配置项!')
+			}
+			
 		}
 	}
 	showModal = (flag, data) => {
