@@ -9,7 +9,11 @@ export default class Withdrawal extends Component {
 	constructor(props) {
 		super(props)
 		this.state = {
-            cardList: [{},{},{}]
+            cardList: [{},{},{}],
+            newCardFlag: false,
+            name:'',
+            bankName:'',
+            bankNo:''
 		}
 	}
     componentWillMount() {
@@ -43,62 +47,99 @@ export default class Withdrawal extends Component {
         } else {
             message.success('提现成功！')
             this.props.sureModal()
-        }
-        
+        }   
+    }
+    // 添加银行卡
+    addBackCard = () => {
+
     }
 	render() {
 		return (
             <div style={{position:'absolute',width:'100%',height:'100%',zIndex:2}}>
-                <div style={{height:'50px',lineHeight:'50px',background:'#ffffff',fontSize:'16px',fontWeight:'bold',display:'flex',justifyContent:'center',borderBottom:'1px solid #DCDCDC'}}>提现</div>
-                <img src={goback} onClick={()=>this.goBack()} style={{position:'absolute',top:'16px',left:'15px',width:'15px'}} alt="goback"/>
-                <div style={{position:'absolute',top:'16px',right:'15px'}}>添加账号</div>
-                <div style={{padding:'30px 20px 0',background:'#f5f5f5'}}>
-                    <div style={{paddingBottom:'10px'}}>输入提现金额</div>
-                    <div style={{background:'#ffffff',height:'110px',border:'1px solid #D53E1C',borderRadius:'5px',padding:'0 15px'}}>
-                        <div style={{height:'70px',lineHeight:'70px',display:'flex',alignContent:'center',width:'100%',borderBottom:'1px solid #DCDCDC',fontFamily:'PingFang-SC-Heavy',fontSize:'36px',fontWeight:'bold'}}>
-                            {/* <Input 
-                                style={{height:'50px',border:'1px solid #ffffff'}}
-                                // onChange={event => this.setState({phone:event.target.value})}
-                            /> */}
-                            <span>₫</span>
-                            <input value={this.state.money}
-                                   onChange={event => this.setState({money:event.target.value})}
-                                   style={{height:'50px',width:'90%',fontSize:'40px',margin:'12px 5px 0',
-                                   fontWeight:'500',border:'1px solid #ffffff'}} type="text" />
-                        </div>
-                        <div style={{height:'40px',lineHeight:'40px',color:'#666666',fontSize:'12px'}}>
-                            可提现金额：{this.state.balanceAmount || 10000}
-                        </div>
-                    </div>
-                    <div style={{height:'calc(100vh - 280px)',paddingTop:'10px'}}>
-                        {
-                            <div style={{width:'100%',height:'100%'}}>
-                                <div style={{height:'40px',lineHeight:'40px',color:'#0F0F0F'}}>
-                                    请选择账号
+                {
+                    !this.state.newCardFlag ? (
+                        <div style={{width:'100%',height:'100%'}}>
+                            <div style={{height:'50px',lineHeight:'50px',background:'#ffffff',fontSize:'16px',fontWeight:'bold',display:'flex',justifyContent:'center',borderBottom:'1px solid #DCDCDC'}}>提现</div>
+                            <img src={goback} onClick={()=>this.goBack()} style={{position:'absolute',top:'16px',left:'15px',width:'15px'}} alt="goback"/>
+                            <div onClick={()=>this.setState({newCardFlag:true})} style={{position:'absolute',top:'16px',right:'15px'}}>添加账号</div>
+                            <div style={{padding:'30px 20px 0',background:'#f5f5f5'}}>
+                                <div style={{paddingBottom:'10px'}}>输入提现金额</div>
+                                <div style={{background:'#ffffff',height:'110px',border:'1px solid #D53E1C',borderRadius:'5px',padding:'0 15px'}}>
+                                    <div style={{height:'70px',lineHeight:'70px',display:'flex',alignContent:'center',width:'100%',borderBottom:'1px solid #DCDCDC',fontFamily:'PingFang-SC-Heavy',fontSize:'36px',fontWeight:'bold'}}>
+                                        <span>₫</span>
+                                        <input value={this.state.money}
+                                            onChange={event => this.setState({money:event.target.value})}
+                                            style={{height:'50px',width:'90%',fontSize:'40px',margin:'12px 5px 0',
+                                            fontWeight:'500',border:'1px solid #ffffff'}} type="text" />
+                                    </div>
+                                    <div style={{height:'40px',lineHeight:'40px',color:'#666666',fontSize:'12px'}}>
+                                        可提现金额：{this.state.balanceAmount || 10000}
+                                    </div>
                                 </div>
-                                <div style={{width:'100%',height:'calc(100vh - 250px)',overflowY:'scroll'}}>
+                                <div style={{height:'calc(100vh - 280px)',paddingTop:'10px'}}>
                                     {
-                                        this.state.cardList.map((item,index)=>{
-                                            return (
-                                                <div onClick={()=>this.setState({clickFlag:index})} 
-                                                    style={{color:this.state.clickFlag === index ? 'red' : '',
-                                                            border:this.state.clickFlag === index ? '1px solid red' : '',
-                                                            background:'#ffffff',height:'50px',lineHeight:'50px',
-                                                            borderRadius:'5px',marginBottom:'10px',paddingLeft:'10px'}}>
-                                                    <span>{item.name || '123'}</span>
-                                                    <span style={{marginLeft:'20px'}}>{item.phone || '12312312312'}</span>
-                                                </div>
-                                            )
-                                        })
+                                        <div style={{width:'100%',height:'100%'}}>
+                                            <div style={{height:'40px',lineHeight:'40px',color:'#0F0F0F'}}>
+                                                请选择账号
+                                            </div>
+                                            <div style={{width:'100%',height:'calc(100vh - 250px)',overflowY:'scroll'}}>
+                                                {
+                                                    this.state.cardList.map((item,index)=>{
+                                                        return (
+                                                            <div onClick={()=>this.setState({clickFlag:index})} 
+                                                                style={{color:this.state.clickFlag === index ? 'red' : '',
+                                                                        border:this.state.clickFlag === index ? '1px solid red' : '',
+                                                                        background:'#ffffff',height:'50px',lineHeight:'50px',
+                                                                        borderRadius:'5px',marginBottom:'10px',paddingLeft:'10px'}}>
+                                                                <span>{item.name || '123'}</span>
+                                                                <span style={{marginLeft:'20px'}}>{item.phone || '12312312312'}</span>
+                                                            </div>
+                                                        )
+                                                    })
+                                                }
+                                            </div>
+                                        </div>
                                     }
                                 </div>
+                                <div style={{width:'100%',height:'80px'}}>
+                                    <div onClick={()=>this.widthdraw()} style={{width:'100%',height:'40px',lineHeight:'40px',borderRadius:'10px',backgroundColor:'#D53E1C',color:'#ffffff',display:'flex',justifyContent:'center'}}>提现</div>
+                                </div>
                             </div>
-                        }
-                    </div>
-                    <div style={{width:'100%',height:'80px'}}>
-                        <div onClick={()=>this.widthdraw()} style={{width:'100%',height:'40px',lineHeight:'40px',borderRadius:'10px',backgroundColor:'#D53E1C',color:'#ffffff',display:'flex',justifyContent:'center'}}>提现</div>
-                    </div>
-                </div>
+                        </div>
+                    ) : (
+                        <div style={{width:'100%',height:'100%'}}>
+                            <div style={{height:'50px',lineHeight:'50px',background:'#ffffff',fontSize:'16px',fontWeight:'bold',display:'flex',justifyContent:'center',borderBottom:'1px solid #DCDCDC'}}>添加银行卡</div>
+                            <img src={goback} onClick={()=>this.setState({newCardFlag:false})} style={{position:'absolute',top:'16px',left:'15px',width:'15px'}} alt="goback"/>
+                            <div style={{padding:'20px 20px 0',background:'#f5f5f5'}}>
+                                <div style={{background:'#ffffff',height:'180px',border:'1px solid #D53E1C',borderRadius:'5px',padding:'0 15px'}}>
+                                    <div style={{height:'60px',lineHeight:'60px',display:'flex',alignContent:'center',width:'100%',borderBottom:'1px solid #DCDCDC',fontFamily:'PingFang-SC-Heavy'}}>
+                                        <span style={{width:'120px',color:'#666666',paddingLeft:'10px',fontSize:'16px'}}>姓名</span>
+                                        <input value={this.state.name} placeholder='特朗普'
+                                            onChange={event => this.setState({name:event.target.value})}
+                                            style={{height:'40px',width:'90%',color:'#333333',fontSize:'16px',marginTop:'10px',border:'1px solid #ffffff'}} type="text" />
+                                    </div>
+                                    <div style={{height:'60px',lineHeight:'60px',display:'flex',alignContent:'center',width:'100%',borderBottom:'1px solid #DCDCDC',fontFamily:'PingFang-SC-Heavy'}}>
+                                        <span style={{width:'120px',color:'#666666',paddingLeft:'10px',fontSize:'16px'}}>银行名称</span>
+                                        <input value={this.state.bankName} placeholder='渣打银行'
+                                            onChange={event => this.setState({bankName:event.target.value})}
+                                            style={{height:'40px',width:'90%',color:'#333333',fontSize:'16px',marginTop:'10px',border:'1px solid #ffffff'}} type="text" />
+                                    </div>
+                                    <div style={{height:'60px',lineHeight:'60px',display:'flex',alignContent:'center',width:'100%',fontFamily:'PingFang-SC-Heavy'}}>
+                                        <span style={{width:'120px',color:'#666666',paddingLeft:'10px',fontSize:'16px'}}>银行卡号</span>
+                                        <input value={this.state.bankNo} placeholder='1234567890'
+                                            onChange={event => this.setState({bankNo:event.target.value})}
+                                            style={{height:'40px',width:'90%',color:'#333333',fontSize:'16px',marginTop:'10px',border:'1px solid #ffffff'}} type="text" />
+                                    </div>
+                                </div>
+                                <div style={{height:'calc(100vh - 250px)',paddingTop:'10px'}}>
+                                    <div style={{width:'100%',height:'80px',paddingTop:'20px'}}>
+                                        <div onClick={()=>this.addBackCard()} style={{width:'100%',height:'40px',lineHeight:'40px',borderRadius:'10px',backgroundColor:'#D53E1C',color:'#ffffff',display:'flex',justifyContent:'center'}}>添加</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    )
+                }
             </div>
 		)
 	}
