@@ -30,7 +30,7 @@ export const reqRetrievePwd = data => ajax(BASE + 'sys/front/retrievePaw', data,
 export const reqGrabList = data => ajax(BASE + '/web/grab/list', data, 'POST')
 
 // 账户余额
-export const reqAccountBalance = () => ajax(BASE + '/sys/mine/accountBalance', {}, 'POST')
+export const reqAccountBalance = () => ajax(BASE + '/web/user/account/accountBalance', {}, 'POST')
 
 // 银行卡列表
 export const reqCardList = data => ajax(BASE + '/web/back/crad/list', {data}, 'POST')
@@ -39,4 +39,10 @@ export const reqCardList = data => ajax(BASE + '/web/back/crad/list', {data}, 'P
 export const reqAddCard = data => ajax(BASE + '/web/back/crad/add', {data}, 'POST')
 
 // 我的伙伴
-export const reqPartnerList = () => ajax(BASE + '/sys/mine/partner', {}, 'POST')
+export const reqPartnerList = () => ajax(BASE + '/web/user/account/partner', {}, 'POST')
+
+// 提现记录
+export const reqRecordsList = () => ajax(BASE + '/web/user/account/withdrawDetail', {}, 'POST')
+
+// 分佣明细
+export const reqDetailsList = () => ajax(BASE + '/web/user/account/commissionDetails', {}, 'POST')

@@ -9,8 +9,10 @@ import balance from './images/balance.png'
 import partner from './images/partner.png'
 import record from './images/record.png'
 import details from './images/details.png'
-import Partner from './components/partner'
-import Withdraw from './components/withdraw'
+import Partner from './components/partner'//合伙人
+import Withdraw from './components/withdraw'//余额中的提现
+import Records from './components/records'//提现记录
+import Details from './components/details'//分佣明细
 import { reqAccountBalance } from '../../api'
 
 import './my.less'
@@ -25,6 +27,7 @@ export default class My extends Component {
             withdrawFlag: false,//提现
             partnerFlag: false,//我的合伙人
             recordFlag: false,//提现记录
+            detailFlag: false,//分佣明细
 		}
 	}
     componentWillMount() {
@@ -42,12 +45,6 @@ export default class My extends Component {
         if (result.code === 0) {
             this.setState({
                 balanceObject: result.data
-            })
-        } else {
-            this.setState({
-                balanceObject: {
-                    amount: 100
-                }
             })
         }
     }
@@ -87,6 +84,11 @@ export default class My extends Component {
             // 提现记录
             this.setState({
                 recordFlag: true
+            })
+        } else if (item.index === 4) {
+            // 分佣明细
+            this.setState({
+                detailFlag: true
             })
         }
     }
@@ -137,12 +139,12 @@ export default class My extends Component {
         )
     }
     render() {
-        let { id, balanceFlag, partnerFlag, withdrawFlag } = this.state
+        let { id, balanceFlag, partnerFlag, withdrawFlag, recordFlag, detailFlag } = this.state
         return (
             <div style={{width:'100%',height:'100%'}}>
                 {balanceFlag ? this.showBalance() : null}
                 {
-                    (!partnerFlag && !withdrawFlag) ? (
+                    (!partnerFlag && !withdrawFlag && !recordFlag && !detailFlag) ? (
                         <div className='my'>
                             <div className='my_top'>
                                 <span style={{color:'#ffffff'}}>ID:{id}</span>
@@ -166,6 +168,8 @@ export default class My extends Component {
                 }
                 {partnerFlag ? this.showPartner() : null}
                 {withdrawFlag ? this.showWithdraw() : null}
+                {recordFlag ? this.showRecords() : null}
+                {detailFlag ? this.showDetails() : null}
             </div>
         )
     }
@@ -216,6 +220,22 @@ export default class My extends Component {
                 balanceAmount={this.state.balanceObject.amount}
                 closeModal={() => this.setState({balanceFlag: true,withdrawFlag: false})}
                 sureModal={() => this.setState({balanceFlag: false,withdrawFlag: false})}
+            />
+        )
+    }
+    // 提现记录
+    showRecords = () => {
+        return (
+            <Records
+                closeModal={() => this.setState({recordFlag: false})}
+            />
+        )
+    }
+    // 分佣明细
+    showDetails = () => {
+        return (
+            <Details
+                closeModal={() => this.setState({detailFlag: false})}
             />
         )
     }

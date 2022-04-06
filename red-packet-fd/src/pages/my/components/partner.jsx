@@ -27,7 +27,7 @@ export default class Partner extends Component {
  
 	render() {
 		return (
-            <div style={{background:'#ffffff'}}>
+            <div style={{background:'#ffffff',position:'absolute',width:'100%',height:'100%',zIndex:2}}>
                 <div style={{height:'50px',lineHeight:'50px',fontSize:'16px',fontWeight:'bold',display:'flex',justifyContent:'center',borderBottom:'1px solid #DCDCDC'}}>我的伙伴</div>
                 <img src={goback} onClick={()=>this.goBack()} style={{position:'absolute',top:'16px',left:'15px',width:'15px'}} alt="goback"/>
                 <div style={{height:'calc(100vh - 50px)',padding:'0 20px',overflowY:'scroll'}}>
