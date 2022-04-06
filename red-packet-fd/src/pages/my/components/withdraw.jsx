@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import goback from '../images/goback.png'
 import { reqCardList } from '../../../api'
-import { Input, message } from 'antd'
+import { message } from 'antd'
 import './withdraw.less'
 
 export default class Withdrawal extends Component {
@@ -15,7 +15,8 @@ export default class Withdrawal extends Component {
     componentWillMount() {
         let { balanceAmount } = this.props
         this.setState({
-            balanceAmount
+            balanceAmount,
+            money: balanceAmount,
         })
 		this.getCardList()
 	}
@@ -32,16 +33,20 @@ export default class Withdrawal extends Component {
     }
     // 提现
     widthdraw = () => {
-        message.success('提现成功！')
-        this.props.sureModal()
+        let { clickFlag, money, balanceAmount } = this.state
+        if (clickFlag !==0 && !clickFlag) {
+            message.warning('请选择账号！')
+        } else if (!money) {
+            message.warning('请输入提现金额！')
+        } else if (money > balanceAmount) {
+            message.warning('提现金额需小于余额！')
+        } else {
+            message.success('提现成功！')
+            this.props.sureModal()
+        }
+        
     }
 	render() {
-        var linkStyle;
-        if (this.state.hover) {
-            linkStyle = {borderColor:'#ffffff'}
-        } else {
-            linkStyle = {borderColor:'#ffffff'}
-        }
 		return (
             <div style={{position:'absolute',width:'100%',height:'100%',zIndex:2}}>
                 <div style={{height:'50px',lineHeight:'50px',background:'#ffffff',fontSize:'16px',fontWeight:'bold',display:'flex',justifyContent:'center',borderBottom:'1px solid #DCDCDC'}}>提现</div>
@@ -50,14 +55,16 @@ export default class Withdrawal extends Component {
                 <div style={{padding:'30px 20px 0',background:'#f5f5f5'}}>
                     <div style={{paddingBottom:'10px'}}>输入提现金额</div>
                     <div style={{background:'#ffffff',height:'110px',border:'1px solid #D53E1C',borderRadius:'5px',padding:'0 15px'}}>
-                        <div style={{height:'70px',lineHeight:'70px',width:'100%',borderBottom:'1px solid #DCDCDC'}}>
-                            <Input 
-                                onMouseEnter={() => this.setState({hover: !this.state.hover})} 
-                                onMouseLeave={() => this.setState({hover: !this.state.hover})}
-                                style={linkStyle}
-                                // style={{height:'50px',border:'1px solid #ffffff'}}
+                        <div style={{height:'70px',lineHeight:'70px',display:'flex',alignContent:'center',width:'100%',borderBottom:'1px solid #DCDCDC',fontFamily:'PingFang-SC-Heavy',fontSize:'36px',fontWeight:'bold'}}>
+                            {/* <Input 
+                                style={{height:'50px',border:'1px solid #ffffff'}}
                                 // onChange={event => this.setState({phone:event.target.value})}
-                            />
+                            /> */}
+                            <span>₫</span>
+                            <input value={this.state.money}
+                                   onChange={event => this.setState({money:event.target.value})}
+                                   style={{height:'50px',width:'90%',fontSize:'40px',margin:'12px 5px 0',
+                                   fontWeight:'500',border:'1px solid #ffffff'}} type="text" />
                         </div>
                         <div style={{height:'40px',lineHeight:'40px',color:'#666666',fontSize:'12px'}}>
                             可提现金额：{this.state.balanceAmount || 10000}
