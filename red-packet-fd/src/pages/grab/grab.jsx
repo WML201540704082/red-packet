@@ -86,21 +86,24 @@ export default class Grab extends Component {
         if (dataSource && dataSource.length > 0) {
             return(
                 <div>
-                    <div style={{position:'absolute',top:'80px',left:'30px',padding:'3px 8px',borderRadius:'5px',display:'flex',justifyContent:'center',backgroundColor:'#ffffff',color:'#AC2A22',fontSize:'12px'}}>账户余额:{this.state.amount/1000}k</div>
-                    <div className='grabImg'>
-                        {
-                            dataSource.map(item=>{
-                                return (
-                                    <div className='grabContent' key={item.id} onClick={() => this.grabRedPacket(item)}>
-                                        <span className='content_img'>
-                                            <img src={grab} alt="grab"/>
-                                            <span className={item.amount<10000 ? 'span1w': item.amount<100000 ? 'span10w' : 'span100w'}>{item.amount/1000}k</span>
-                                        </span>
-                                        <span className='content_text'>最高可抢{item.end/1000}k</span>
-                                    </div>
-                                )
-                            })
-                        }
+                    <div style={{position:'absolute',top:'70px',left:'30px',padding:'3px 8px',borderRadius:'5px',display:'flex',justifyContent:'center',backgroundColor:'#ffffff',color:'#AC2A22',fontSize:'12px'}}>账户余额:{this.state.amount/1000}k</div>
+                    <div style={{display:'flex',flexDirection:'column',marginTop:'-50px'}}>
+                        <div style={{display:'flex',justifyContent:'center',color:'#333333',fontSize:'32px'}}>2022最给力必赚平台</div>
+                        <div className='grabImg'>
+                            {
+                                dataSource.map(item=>{
+                                    return (
+                                        <div className='grabContent' key={item.id} onClick={() => this.grabRedPacket(item)}>
+                                            <span className='content_img'>
+                                                <img src={grab} alt="grab"/>
+                                                <span className={item.amount<10000 ? 'span1w': item.amount<100000 ? 'span10w' : 'span100w'}>{item.amount/1000}k</span>
+                                            </span>
+                                            <span className='content_text'>最高可抢{item.end/1000}k</span>
+                                        </div>
+                                    )
+                                })
+                            }
+                        </div>
                     </div>
                 </div>
             )

@@ -7,14 +7,16 @@ export default class Open extends Component {
     constructor(props) {
 		super(props)
 		this.state = {
-            rechargeFlag: false
+            winningFlag: false,
+            winnerObject: {}
 		}
 	}
     oepnRedPacket = async () => {
         let result = await reqUnpackLottery()
         if (result.code === 0) {
             this.setState({
-                winningFlag: true
+                winningFlag: true,
+                winnerObject: result.data
             })
         }
     }
@@ -41,6 +43,7 @@ export default class Open extends Component {
     }
     // 中奖结果弹框
     showWinning = () => {
+        let { winnerObject } = this.state
         return (
            <div className='winner'>
                 <div className='winner_outer' onClick={() => this.setState({winnerFlag: false})}></div>
@@ -49,7 +52,7 @@ export default class Open extends Component {
                         <div style={{fontSize:'20px'}}>恭喜您中奖了</div>
                     </div>
                     <div className='winner_content_middle'>
-                        <div>1888</div>
+                        <div>{winnerObject.name}:{winnerObject.amount}</div>
                     </div>
                     <div className='balance_content_bottom'>
                         <div className='winner_button' onClick={() => this.setState({winningFlag:false})}>确定</div>
