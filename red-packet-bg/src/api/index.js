@@ -65,17 +65,17 @@ export const reqAddRecharge = data => ajax(BASE + 'recharge/config/add', data, '
 // 编辑充值配置项
 export const reqEditRecharge = data => ajax(BASE + 'recharge/config/update', data, 'POST')
 // 删除充值配置项
-export const reqDeleteRecharge = id => ajax(BASE + '/recharge/config/delete', {id}, 'POST')
+export const reqDeleteRecharge = id => ajax(BASE + 'recharge/config/delete', {id}, 'POST')
 
 // 获取开奖记录列表
-export const reqLottery = data => ajax(BASE + 'lottery/list', data, 'POST')
+export const reqLottery = data => ajax(BASE + 'sys/account/lotteryList', data, 'POST')
 // 获取充值记录列表
 export const reqPaid = data => ajax(BASE + 'recharge/list', data, 'POST')
 // 获取操作记录列表
 export const reqOperate = data => ajax(BASE + 'sys/operateRecord/list', data, 'POST')
 
 // 获取提现列表
-export const reqWithdraw = data => ajax(BASE + '/withdraw/list', data, 'POST')
+export const reqWithdraw = data => ajax(BASE + 'sys/account/withdrawList', data, 'POST')
 // 提现审核
 export const reqAudit = data => ajax(BASE + 'withdraw/audit', data, 'POST')
 

@@ -114,7 +114,7 @@ export default class ModalComponent extends Component {
 				this.formRef.current.setFieldsValue({ name: undefined,begin: undefined,end: undefined,probability:undefined}) //给表单设置值
 				this.formRef.current.resetFields() //清空表单
 			} else {
-				return message.error(result.msg)
+				return message.error(result.data.msg)
 			}
 			closeModal()
 		}
@@ -136,7 +136,7 @@ export default class ModalComponent extends Component {
 				this.formRef.current.setFieldsValue({ name: undefined,begin: undefined,end: undefined, probability:undefined }) //给表单设置值
 				this.formRef.current.resetFields() //清空表单
 			} else {
-				return message.error(result.msg)
+				return message.error(result.data.msg)
 			}
 			closeModal()
 		}
