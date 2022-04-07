@@ -55,9 +55,9 @@ export default class Grab extends Component {
     grabRedPacket = async (item) => {
         const user = memoryUtils.user
         if (user && user.userId) {
-            // if (this.state.amount < item.amount) {
-            //     message.warning('余额不足，请先充值！')
-            // } else {
+            if (this.state.amount < item.amount) {
+                message.warning('余额不足，请先充值！')
+            } else {
                 // 抢红包
                 let params = {
                     id: item.id
@@ -73,7 +73,7 @@ export default class Grab extends Component {
                 this.setState({
                     imgFlag: true
                 })
-            // }
+            }
         } else {
             message.warning('请先登录！')
             this.props.history.push("/login")

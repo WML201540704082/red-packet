@@ -13,7 +13,7 @@ import Partner from './components/partner'//合伙人
 import Withdraw from './components/withdraw'//余额中的提现
 import Records from './components/records'//提现记录
 import Details from './components/details'//分佣明细
-import { reqAccountBalance, reqRechargePay } from '../../api'
+import { reqAccountBalance, reqRechargeConfigList, reqRechargePay } from '../../api'
 
 import './my.less'
 
@@ -23,14 +23,16 @@ export default class My extends Component {
 		this.state = {
 			id: null,
             balanceObject: {},
+            rechargeConfigList: [],
             balanceFlag: false,//余额
             withdrawFlag: false,//提现
             rechargeFlag: false,//充值
             partnerFlag: false,//我的合伙人
             recordFlag: false,//提现记录
             detailFlag: false,//分佣明细
-            money:100000,
-            clickFlag: 0
+            moneyId: null,
+            clickFlag: 0,
+            type: '1',
 		}
 	}
     componentWillMount() {
@@ -42,12 +44,28 @@ export default class My extends Component {
         }
         // 获取账户余额
         this.getAccountBalance()
+        // 获取充值配置项列表
+        this.getRechargeConfigList()
     }
     getAccountBalance = async () => {
         let result = await reqAccountBalance()
         if (result.code === 0) {
             this.setState({
                 balanceObject: result.data
+            })
+        } else {
+            message.error(result.msg)
+        }
+    }
+    getRechargeConfigList = async () => {
+        let params = {
+            current: 0,
+	        size: 10
+        }
+        let result = await reqRechargeConfigList(params)
+        if (result.code === 0) {
+            this.setState({
+                rechargeConfigList: result.data.records
             })
         } else {
             message.error(result.msg)
@@ -218,6 +236,7 @@ export default class My extends Component {
 	}
     // 充值
     showRecharge = () => {
+        let { rechargeConfigList } = this.state
         let payList = [{
             type: '1',
             name: 'zalo',
@@ -234,8 +253,21 @@ export default class My extends Component {
                     </div>
                     <div className='recharge_content_middle'>
                         <div className='recharge_content_middle_top'>
-                            <span>充值金额：</span>
-                            <span>100000</span>
+                            {
+                                rechargeConfigList.map((item,index)=>{
+                                    return (
+                                        <div className='recharge_amount' 
+                                             onClick={()=>this.setState({clickMoneyFlag:index,moneyId:item.id})} 
+                                            style={{color:this.state.clickMoneyFlag === index ? '#ffffff' : '#333333',
+                                                    border:this.state.clickMoneyFlag === index ? '1px solid #C99D3F' : '1px solid #333333',
+                                                    background:this.state.clickMoneyFlag === index ? '#C99D3F' : '#ffffff',
+                                                    width:'30%',height:'45px',lineHeight:'42px',fontFamily:'PingFang-SC-Heavy',
+                                                    display:'flex',justifyContent:'center',alignContent:'center',
+                                                    borderRadius:'5px'}}>
+                                        {item.amount/1000}k</div>
+                                    )
+                                })
+                            }
                         </div>
                         <div className='recharge_content_middle_bottom'>
                             {
@@ -263,18 +295,20 @@ export default class My extends Component {
         )
     }
     pay = async () => {
-        let { money, type } = this.state
-        if (!money) {
+        let { moneyId, type } = this.state
+        if (!moneyId) {
            message.warning('请先选择充值金额')
            return 
         } else {
             let params = {
                 type: type,
-                amount: this.state.money.toString()
+                id: moneyId
             }
             let result = await reqRechargePay(params)
             if (result.code === 0) {
                 message.success('充值成功！')
+                const w=window.open('about:blank');
+                w.location.href=result.data
                 this.setState({
                     rechargeFlag: false
                 })
