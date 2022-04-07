@@ -1,4 +1,5 @@
 import React, { Component } from 'react'
+import { message } from 'antd'
 import open from './images/open.png'
 import { reqUnpackLottery } from '../../api'
 import './open.less'
@@ -18,6 +19,8 @@ export default class Open extends Component {
                 winningFlag: true,
                 winnerObject: result.data
             })
+        } else {
+            message.error(result.msg)
         }
     }
     openShow = () => {

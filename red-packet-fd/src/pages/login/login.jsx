@@ -323,6 +323,7 @@ export default class Login extends Component {
                                         <span>&nbsp;</span>
                                     </GoogleLogin>
                                     {/* 346326924009220 */}
+                                    {/* 895624567779325 */}
                                     <FacebookLogin
                                         appId="895624567779325"
                                         autoLoad={true}

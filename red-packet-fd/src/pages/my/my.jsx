@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { Modal } from 'antd';
+import { Modal, message } from 'antd';
 import { ExclamationCircleOutlined } from '@ant-design/icons'
 import memoryUtils from '../../utils/memoryUtils'
 import storageUtils from '../../utils/storageUtils'
@@ -13,7 +13,7 @@ import Partner from './components/partner'//合伙人
 import Withdraw from './components/withdraw'//余额中的提现
 import Records from './components/records'//提现记录
 import Details from './components/details'//分佣明细
-import { reqAccountBalance } from '../../api'
+import { reqAccountBalance, reqRechargePay } from '../../api'
 
 import './my.less'
 
@@ -25,9 +25,12 @@ export default class My extends Component {
             balanceObject: {},
             balanceFlag: false,//余额
             withdrawFlag: false,//提现
+            rechargeFlag: false,//充值
             partnerFlag: false,//我的合伙人
             recordFlag: false,//提现记录
             detailFlag: false,//分佣明细
+            money:100000,
+            clickFlag: 0
 		}
 	}
     componentWillMount() {
@@ -46,6 +49,8 @@ export default class My extends Component {
             this.setState({
                 balanceObject: result.data
             })
+        } else {
+            message.error(result.msg)
         }
     }
     /*
@@ -81,11 +86,16 @@ export default class My extends Component {
                 partnerFlag: true
             })
         } else if (item.index === 3) {
+            // 充值
+            this.setState({
+                rechargeFlag: true
+            })
+        } else if (item.index === 4) {
             // 提现记录
             this.setState({
                 recordFlag: true
             })
-        } else if (item.index === 4) {
+        } else if (item.index === 5) {
             // 分佣明细
             this.setState({
                 detailFlag: true
@@ -94,7 +104,7 @@ export default class My extends Component {
     }
     getMyButton = () => {
         let list = [];
-        for (let i = 0; i < 5; i++) {
+        for (let i = 0; i < 6; i++) {
             list.push({index:i})
         }
         return(
@@ -105,10 +115,10 @@ export default class My extends Component {
                             <div className='my_button_content' style={{marginRight: item.index !== 6 ? '3%' : ''}} key={item.index} onClick={() => this.clickButton(item)}>
                                 <span className='content_img'>
                                     <img src={item.index === 0 ? qr_code : item.index === 1 ? balance :
-                                              item.index === 2 ? partner : item.index === 3 ? record : details} alt="qr_code"/>
+                                              item.index === 2 ? partner : item.index === 3 ? qr_code : item.index === 4 ? record : details} alt="qr_code"/>
                                     <div>
                                         {item.index === 0 ? 'QR Code' : item.index === 1 ? 'Balance' :
-                                              item.index === 2 ? 'Partner' : item.index === 3 ? 'Record' : 'Details'}
+                                              item.index === 2 ? 'Partner' : item.index === 3 ? 'Recharge' : item.index === 4 ? 'Record' : 'Details'}
                                     </div>
                                 </span>
                             </div>
@@ -139,10 +149,11 @@ export default class My extends Component {
         )
     }
     render() {
-        let { id, balanceFlag, partnerFlag, withdrawFlag, recordFlag, detailFlag } = this.state
+        let { id, balanceFlag, partnerFlag, withdrawFlag, recordFlag, detailFlag, rechargeFlag } = this.state
         return (
             <div style={{width:'100%',height:'100%'}}>
                 {balanceFlag ? this.showBalance() : null}
+                {rechargeFlag ? this.showRecharge() : null}
                 {
                     (!partnerFlag && !withdrawFlag && !recordFlag && !detailFlag) ? (
                         <div className='my'>
@@ -205,6 +216,74 @@ export default class My extends Component {
            </div>
         )
 	}
+    // 充值
+    showRecharge = () => {
+        let payList = [{
+            type: '1',
+            name: 'zalo',
+        },{
+            type: '2',
+            name: 'momo'
+        }]
+        return (
+           <div className='recharge'>
+                <div className='recharge_outer' onClick={() => this.setState({rechargeFlag: false})}></div>
+                <div className='recharge_content'>
+                    <div className='recharge_content_top'>
+                        <span>充值</span>
+                    </div>
+                    <div className='recharge_content_middle'>
+                        <div className='recharge_content_middle_top'>
+                            <span>充值金额：</span>
+                            <span>100000</span>
+                        </div>
+                        <div className='recharge_content_middle_bottom'>
+                            {
+                                payList.map((item,index)=>{
+                                    return (
+                                        <div onClick={()=>this.setState({clickFlag:index,type:item.type})} 
+                                            style={{color:this.state.clickFlag === index ? '#ffffff' : '#333333',
+                                                    border:this.state.clickFlag === index ? '1px solid #C99D3F' : '1px solid #333333',
+                                                    background:this.state.clickFlag === index ? '#C99D3F' : '#ffffff',
+                                                    width:'30%',height:'45px',lineHeight:'42px',fontFamily:'PingFang-SC-Heavy',
+                                                    display:'flex',justifyContent:'center',alignContent:'center',
+                                                    borderRadius:'5px'}}>
+                                            <span>{item.name}</span>
+                                        </div>
+                                    )
+                                })
+                            }
+                        </div>
+                    </div>
+                    <div className='recharge_content_bottom'>
+                        <div className='recharge_button' onClick={() => this.pay()}>确定</div>
+                    </div>
+               </div>
+           </div>
+        )
+    }
+    pay = async () => {
+        let { money, type } = this.state
+        if (!money) {
+           message.warning('请先选择充值金额')
+           return 
+        } else {
+            let params = {
+                type: type,
+                amount: this.state.money.toString()
+            }
+            let result = await reqRechargePay(params)
+            if (result.code === 0) {
+                message.success('充值成功！')
+                this.setState({
+                    rechargeFlag: false
+                })
+                this.getAccountBalance()
+            } else {
+                message.error(result.msg)
+            }
+        }
+    }
     // 合伙人
     showPartner = () => {
         return (

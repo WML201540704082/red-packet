@@ -115,7 +115,7 @@ class leftNav extends Component {
                                           (item.title === '客服' && !customerFlag) ? customer : 
                                           (item.title === '客服' && customerFlag) ? customer_hover :
                                           (item.title === '我的' && !myFlag) ? my : my_hover} 
-                                    style={{marginBottom: '-15px',marginTop:'3px'}} alt="icon"/>
+                                    style={{marginBottom: '-10px',marginTop:'7px'}} alt="icon"/>
                                 <span style={{marginBottom: '-12px'}}>{item.title}</span>
                             </span>
                         }</Link>
