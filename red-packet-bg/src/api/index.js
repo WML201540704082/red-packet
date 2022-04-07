@@ -58,6 +58,15 @@ export const reqEditOpen = data => ajax(BASE + 'unpack/update', data, 'POST')
 // 删除拆红包配置项
 export const reqDeleteOpen = id => ajax(BASE + 'unpack/delete', {id}, 'POST')
 
+// 充值列表
+export const reqRechargeList = data => ajax(BASE + 'recharge/config/list', data, 'POST')
+// 新增充值配置项
+export const reqAddRecharge = data => ajax(BASE + 'recharge/config/add', data, 'POST')
+// 编辑充值配置项
+export const reqEditRecharge = data => ajax(BASE + 'recharge/config/update', data, 'POST')
+// 删除充值配置项
+export const reqDeleteRecharge = id => ajax(BASE + '/recharge/config/delete', {id}, 'POST')
+
 // 获取开奖记录列表
 export const reqLottery = data => ajax(BASE + 'lottery/list', data, 'POST')
 // 获取充值记录列表

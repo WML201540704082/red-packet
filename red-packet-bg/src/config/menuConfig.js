@@ -6,6 +6,7 @@ import {
     UserOutlined,
     MailOutlined,
     FolderOpenOutlined,
+    RedEnvelopeOutlined,
     AppstoreOutlined,
     SwapOutlined,
     DollarOutlined,
@@ -47,6 +48,11 @@ const menuList =[
         title: '拆红包配置', 
         key: '/openConfig', 
         icon: <FolderOpenOutlined />, 
+    },
+    {
+        title: '充值配置', 
+        key: '/recharge', 
+        icon: <RedEnvelopeOutlined />, 
     },
     {
         title: '开奖记录', 
