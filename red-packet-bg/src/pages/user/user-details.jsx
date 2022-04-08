@@ -51,6 +51,7 @@ export default class ModalComponent extends Component {
 					<Item label="账号">{userDetails.account}</Item>
 					<Item label="昵称">{userDetails.name}</Item>
 					<Item label="手机号">{userDetails.phone}</Item>
+					<Item label="IP">{userDetails.ip}</Item>
 					<Item label="最后登录时间">{userDetails.date}</Item>
 				</Form> 
 			}

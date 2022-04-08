@@ -1,7 +1,7 @@
 //列表页面
 import React, { Component } from 'react'
 import { Button, Table, Input, Card, DatePicker } from 'antd'
-import { reqLottery } from '../../api'
+import { reqPaid } from '../../api'
 import moment from 'moment';
 
 export default class Paid extends Component {
@@ -29,7 +29,7 @@ export default class Paid extends Component {
             current: pageNumber,
             size: pageSize
         }
-        let result = await reqLottery(params)
+        let result = await reqPaid(params)
         if (result.code === 0) {
             this.setState({
                 dataSource: result.data.records,
@@ -137,6 +137,11 @@ export default class Paid extends Component {
                                 dataIndex: 'createDate',
                                 key: 'createDate',
                             },
+                            {
+                                title: '状态',
+                                align: 'center',
+                                render: states => states === '1' ? '待支付' : states === '2' ? '已支付' : '取消支付',
+                            }
                         ]}
                     />
                 </Card>

@@ -1,9 +1,10 @@
 //列表页面
 import React, { Component } from 'react'
-import { Button, Table, Input, Card, Modal, message, Select } from 'antd'
+import { Button, Table, Input, Card, Modal, message, Select, DatePicker } from 'antd'
 import { reqUserList, reqShieldUser } from '../../api'
 import Details from './user-details'
 import RecordsView from './records-view'
+import moment from 'moment';
 const { Option } = Select
 
 export default class User extends Component {
@@ -19,7 +20,10 @@ export default class User extends Component {
             isShieldVisible: false,
             keyWord: null,
             userId: null,
-            delFlag: null
+            delFlag: null,
+            beginDate: '', // 开始时间
+            endDate: '', // 结束时间
+            type: null
         }
     }
     componentWillMount() {
@@ -32,12 +36,15 @@ export default class User extends Component {
     //     }
     // }
     getDataList = async () => {
-        let { keyWord, pageNumber, pageSize, delFlag } = this.state
+        let { keyWord, pageNumber, pageSize, delFlag, beginDate, endDate, type } = this.state
         let params = {
             keyWord,
             delFlag,
+            beginDate,
+            endDate,
             current: pageNumber,
-            size: pageSize
+            size: pageSize,
+            type
         }
         let result = await reqUserList(params)
         if (result.code === 0) {
@@ -47,6 +54,53 @@ export default class User extends Component {
             })
         }
     }
+    // 开始时间选择器(监控记录日期变换)
+    handleStartDateChange = (value, dateString) => {
+        this.setState({
+            beginDate: dateString,
+        });
+    };
+    
+    // 结束时间选择器(监控记录日期变换)
+    handleEndDateChange = (value, dateString) => {
+        this.setState({
+            endDate: dateString,
+        });
+    };
+
+    // 结束时间可选范围
+    handleEndDisabledDate = (current) => {
+        const { beginDate } = this.state;
+        if (beginDate !== '') {
+        // 核心逻辑: 结束日期不能多余开始日期后60天，且不能早于开始日期
+            return current > moment(beginDate).add(60, 'day') || current < moment(beginDate);
+        } else {
+            return null;
+        }
+    }
+    
+    // 开始时间可选范围
+    handleStartDisabledDate = (current) => {
+        const { endDate } = this.state;
+        if (endDate !== '') {
+            // 核心逻辑: 开始日期不能晚于结束日期，且不能早于结束日期前60天
+            return current < moment(endDate).subtract(60, 'day') || current > moment(endDate);
+        } else {
+            return null;
+        }
+    }
+    handleTableChange = (pagination, filters, sorter) => {
+        this.setState({
+            type: sorter.columnKey === 'amount' && sorter.order === 'ascend' ? 1 : 
+                  sorter.columnKey === 'amount' && sorter.order === 'descend' ? 2 :
+                  sorter.columnKey === 'rechargeTotal' && sorter.order === 'ascend' ? 3 : 
+                  sorter.columnKey === 'rechargeTotal' && sorter.order === 'descend' ? 4 :
+                  sorter.columnKey === 'incomeTotal' && sorter.order === 'ascend' ? 5 : 
+                  sorter.columnKey === 'incomeTotal' && sorter.order === 'descend' ? 6 : null
+        },()=>{
+            this.getDataList()
+        })
+    };
     render() {
         let { dataSource, pageNumber, pageSize, keyWord, isShieldVisible, delFlag, dataTotal } = this.state
         const title = (
@@ -57,7 +111,18 @@ export default class User extends Component {
                     style={{width:200, margin: '0 15px'}}
                     onChange={event => this.setState({keyWord:event.target.value})}
                 />
-                <span style={{fontSize: '14px',fontWeight: '400'}}>状态:&nbsp;&nbsp;</span>
+                <DatePicker
+                    onChange={this.handleStartDateChange}
+                    disabledDate={this.handleStartDisabledDate}
+                    placeholder="开始日期"
+                />
+                <span>-</span>
+                <DatePicker
+                    onChange={this.handleEndDateChange}
+                    disabledDate={this.handleEndDisabledDate}
+                    placeholder="结束日期"
+                />
+                <span style={{fontSize: '14px',fontWeight: '400',marginLeft:'16px'}}>状态:&nbsp;&nbsp;</span>
 				<Select 
 					value={delFlag}
 					style={{width: 120}}
@@ -90,35 +155,42 @@ export default class User extends Component {
 							onShowSizeChange: this.onPageChange,
 							showTotal: (e) => {return `共 ${dataTotal} 条`}}}
                         scroll={{ y: '55vh' }}
+                        onChange={this.handleTableChange}
                         columns={[
                             {
                                 title: '用户ID',
                                 align: 'center',
                                 dataIndex: 'userId',
                                 key: 'userId',
+                                width:'160px'
                             },
                             {
                                 title: '用户余额',
                                 align: 'center',
                                 dataIndex: 'amount',
                                 key: 'amount',
+                                sorter: true,
                             },
                             {
                                 title: '累计充值',
+                                align: 'center',
                                 dataIndex: 'rechargeTotal',
                                 key: 'rechargeTotal',
+                                sorter: true,
                             },
                             {
                                 title: '累计收益',
                                 align: 'center',
                                 dataIndex: 'incomeTotal',
                                 key: 'incomeTotal',
+                                sorter: true,
                             },
                             {
                                 title: '最近登录时间',
                                 align: 'center',
                                 dataIndex: 'endDate',
                                 key: 'endDate',
+                                width:'160px'
                             },
                             {
                                 title: '状态',
@@ -143,6 +215,8 @@ export default class User extends Component {
                                 align: 'center',
                                 dataIndex: 'loginWay',
                                 key: 'loginWay',
+                                render: loginWay => loginWay === '1' ? '账号' : loginWay === '2' ? 'Facebook' :
+                                                    loginWay === '3' ? 'Google' : '手机',
                             },
                             {
                                 title: <span style={{ fontWeight: 700 }}>操作</span>,

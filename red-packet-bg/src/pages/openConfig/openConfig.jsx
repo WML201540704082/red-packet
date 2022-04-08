@@ -72,20 +72,24 @@ export default class OpenConfig extends Component {
 							key: 'name',
 						},
 						{
-							title: '抢红包中奖区间',
+							title: '拆红包中奖区间',
 							align: 'center',
 							key: 'id',
 							render: reload =>  {
 								return (
-									<span>{reload.begin + '--' + reload.end}</span>
+									<span>{'[' + reload.begin + ',' + reload.end + ']'}</span>
 								)
 							}
 						},
 						{
 							title: '中奖概率',
 							align: 'center',
-							dataIndex: 'probability',
-							key: 'probability',
+							key: 'id',
+							render: reload =>  {
+								return (
+									<span>{reload.probability + '%'}</span>
+								)
+							}
 						},
 						{
 							title: <span style={{ fontWeight: 700 }}>操作</span>,

@@ -78,7 +78,7 @@ export default class RobConfig extends Component {
 							key: 'id',
 							render: reload =>  {
 								return (
-									<span>{reload.begin + '--' + reload.end}</span>
+									<span>{'[' + reload.begin + ',' + reload.end + ']'}</span>
 								)
 							}
 						},
