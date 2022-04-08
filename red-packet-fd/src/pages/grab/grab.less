@@ -8,6 +8,10 @@
     background-size: 100% 100%;
     font-size: 30px;
 }
+.top_text {
+    background-color: #E8A95B;
+    background-clip: text;
+}
 .grabImg {
     display: flex;
     flex-wrap: wrap;
@@ -17,10 +21,12 @@
         width: 28%;
         padding-top: 20px;
         .content_img {
+            display: flex;
+            justify-content: center;
+            align-items: center;
             .span1w {
                 position: absolute;
-                margin-top: 9.5%;
-                margin-left: -22%;
+                margin-left: -7.5%;
                 transform: rotate(-30deg);
                 font-size: 26px;
                 font-weight: bold;
@@ -29,8 +35,7 @@
             }
             .span10w {
                 position: absolute;
-                margin-top: 10.5%;
-                margin-left: -23.5%;
+                margin-left: -8%;
                 transform: rotate(-30deg);
                 font-size: 24px;
                 font-weight: bold;
@@ -39,8 +44,7 @@
             }
             .span100w {
                 position: absolute;
-                margin-top: 11.5%;
-                margin-left: -24%;
+                margin-left: -8%;
                 transform: rotate(-30deg);
                 font-size: 20px;
                 font-weight: bold;
@@ -154,45 +158,49 @@
     }
 }
 @media screen and (min-width: 750px) {
+    .content_text_outer {
+        width: 80%;
+        margin: 0 auto;
+        margin-left: 15%;
+    }
     .grabImg .grabContent .content_img .span1w {
-        margin-top: 8%;
-        margin-left: -14.5%;
+        margin-left: -5.5%;
     }
     .grabImg .grabContent .content_img .span10w {
-        margin-top: 9%;
-        margin-left: -15%;
+        margin-left: -5.5%;
     }
     .grabImg .grabContent .content_img .span100w {
-        margin-top: 9%;
-        margin-left: -15%;
+        margin-left: -5%;
     }
 }
 @media screen and (min-width: 950px) {
+    .content_text_outer {
+        width: 70%;
+        margin: 0 auto;
+    }
     .grabImg .grabContent .content_img .span1w {
-        margin-top: 7%;
-        margin-left: -12%;
+        margin-left: -4%;
     }
     .grabImg .grabContent .content_img .span10w {
-        margin-top: 7%;
-        margin-left: -13%;
+        margin-left: -5%;
     }
     .grabImg .grabContent .content_img .span100w {
-        margin-top: 7%;
-        margin-left: -13%;
+        margin-left: -5%;
     }
 }
 
 @media screen and (min-width: 1110px) {
+    .content_text_outer {
+        width: 60%;
+        margin: 0 auto;
+    }
     .grabImg .grabContent .content_img .span1w {
-        margin-top: 4.6%;
-        margin-left: -8.5%;
+        margin-left: -3.5%;
     }
     .grabImg .grabContent .content_img .span10w {
-        margin-top: 5%;
-        margin-left: -8.7%;
+        margin-left: -3%;
     }
     .grabImg .grabContent .content_img .span100w {
-        margin-top: 5%;
-        margin-left: -8.7%;
+        margin-left: -3%;
     }
 }

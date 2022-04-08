@@ -1,13 +1,14 @@
 import React, { Component } from 'react'
 import goback from '../images/goback.png'
 import { reqPartnerList } from '../../../api'
+import { message } from 'antd'
 
 export default class Partner extends Component {
     formRef = React.createRef()
 	constructor(props) {
 		super(props)
 		this.state = {
-            partnerList: [{},{},{}]
+            partnerList: []
 		}
 	}
     componentWillMount() {
@@ -17,8 +18,10 @@ export default class Partner extends Component {
         let result = await reqPartnerList()
         if (result.code === 0) {
             this.setState({
-                partnerList: result.data.records
+                partnerList: result.data
             })
+        } else {
+            message.error(result.msg)
         }
     }
     goBack = () => {
@@ -26,6 +29,7 @@ export default class Partner extends Component {
     }
  
 	render() {
+        let { partnerList } = this.state
 		return (
             <div style={{background:'#ffffff',position:'absolute',width:'100%',height:'100%',zIndex:2}}>
                 <div style={{height:'50px',lineHeight:'50px',fontSize:'16px',fontWeight:'bold',display:'flex',justifyContent:'center',borderBottom:'1px solid #DCDCDC'}}>我的伙伴</div>
@@ -34,25 +38,29 @@ export default class Partner extends Component {
                     {
                         <div style={{width:'100%',height:'100%'}}>
                             <div style={{height:'40px',lineHeight:'40px',color:'#0F0F0F'}}>
-                            合计：36人
+                            合计：{partnerList.length}人
                             </div>
                             <div>
                                 <table width="100%" align="center">
                                     <thead>
                                         <tr style={{height:'30px',fontSize:'14px'}}>
                                             <th style={{fontWeight:'normal'}}>序号</th>
-                                            <th style={{fontWeight:'normal'}}>账号</th>
+                                            <th style={{fontWeight:'normal'}}>用户Id</th>
                                             <th style={{fontWeight:'normal'}}>级别</th>
+                                            <th style={{fontWeight:'normal'}}>消费金额</th>
+                                            <th style={{fontWeight:'normal'}}>分佣金额</th>
                                         </tr>
                                     </thead>
                                     <tbody align="center">
                                         {
-                                            this.state.partnerList.map((item,index)=>{
+                                            partnerList.map((item,index)=>{
                                                 return (
                                                     <tr style={{height:'30px',fontSize:'12px',fontWeight:'normal'}}>
                                                         <th style={{fontWeight:'normal'}}>{index+1}</th>
                                                         <th style={{fontWeight:'normal'}}>{item.userId}</th>
                                                         <th style={{fontWeight:'normal'}}>{item.actingLevel}</th>
+                                                        <th style={{fontWeight:'normal'}}>{item.amount/1000}k</th>
+                                                        <th style={{fontWeight:'normal'}}>{item.commissionAmount/1000}k</th>
                                                     </tr>
                                                 )
                                             })
