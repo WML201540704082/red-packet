@@ -33,7 +33,7 @@ export default class Lottery extends Component {
         if (result.code === 0) {
             this.setState({
                 dataSource: result.data.records,
-                dataTotal: result.data.msg
+                dataTotal: result.data.total
             })
         }
     }
@@ -142,7 +142,6 @@ export default class Lottery extends Component {
                                 align: 'center',
                                 dataIndex: 'amount',
                                 key: 'amount',
-                                render: amount =>  amount + '元'
                             },
                             {
                                 title: '开奖时间',
