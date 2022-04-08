@@ -66,13 +66,11 @@ export default class Grab extends Component {
                 if (result.code === 0) {
                     this.setState({
                         dataSource: result.data.records,
+                        imgFlag: true
                     })
                 } else {
                     message.error(result.msg)
                 }
-                this.setState({
-                    imgFlag: true
-                })
             }
         } else {
             message.warning('请先登录！')

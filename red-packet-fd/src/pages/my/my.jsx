@@ -217,13 +217,13 @@ export default class My extends Component {
                         <div className='balance_content_middle_content' style={{borderRight: '1px solid #E5E5E5'}}>
                             <div>
                                 <div>分佣：</div>
-                                <div>{balanceObject.commissionBalanceAmount || 8000000}</div>
+                                <div>{balanceObject.commissionBalanceAmount}</div>
                             </div>
                         </div>
                         <div className='balance_content_middle_content'>
                             <div>
                                 <div>红包：</div>
-                                <div>{balanceObject.redEnvelopeAmount || 1000000}</div>
+                                <div>{balanceObject.redEnvelopeAmount}</div>
                             </div>
                         </div>
                     </div>
