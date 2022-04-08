@@ -9,7 +9,7 @@ export default class Withdrawal extends Component {
 	constructor(props) {
 		super(props)
 		this.state = {
-            cardList: [{},{},{}],
+            cardList: [],
             newCardFlag: false,
             name:'',
             bankName:'',
@@ -25,7 +25,11 @@ export default class Withdrawal extends Component {
 		this.getCardList()
 	}
     getCardList = async () => {
-        let result = await reqCardList()
+        let params = {
+			current: 0,
+			size: 100,
+		}
+        let result = await reqCardList(params)
         if (result.code === 0) {
             this.setState({
                 cardList: result.data.records
@@ -88,7 +92,7 @@ export default class Withdrawal extends Component {
                                             fontWeight:'500',border:'1px solid #ffffff'}} type="text" />
                                     </div>
                                     <div style={{height:'40px',lineHeight:'40px',color:'#666666',fontSize:'12px'}}>
-                                        可提现金额：{this.state.balanceAmount || 10000}
+                                        可提现金额：{this.state.balanceAmount}
                                     </div>
                                 </div>
                                 <div style={{height:'calc(100vh - 280px)',paddingTop:'10px'}}>
@@ -106,8 +110,8 @@ export default class Withdrawal extends Component {
                                                                         border:this.state.clickFlag === index ? '1px solid red' : '',
                                                                         background:'#ffffff',height:'50px',lineHeight:'50px',
                                                                         borderRadius:'5px',marginBottom:'10px',paddingLeft:'10px'}}>
-                                                                <span>{item.name || '123'}</span>
-                                                                <span style={{marginLeft:'20px'}}>{item.phone || '12312312312'}</span>
+                                                                <span>{item.backName}</span>
+                                                                <span style={{marginLeft:'20px'}}>{item.cardNum}</span>
                                                             </div>
                                                         )
                                                     })

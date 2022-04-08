@@ -8,17 +8,26 @@ export default class Records extends Component {
 	constructor(props) {
 		super(props)
 		this.state = {
-            recordsList: [{},{},{}]
+            recordsList: []
 		}
 	}
     componentWillMount() {
 		this.getRecordsList()
 	}
     getRecordsList = async () => {
-        let result = await reqRecordsList()
+        let params = {
+			current: 0,
+			size: 100,
+		}
+        let result = await reqRecordsList(params)
         if (result.code === 0) {
+            let sum = 0
+            for (let i = 0; i < result.data.records.length; i++) {
+                sum += result.data.records[i].amount
+            }
             this.setState({
-                recordsList: result.data.records
+                recordsList: result.data.records,
+                sum
             })
         }
     }
@@ -37,7 +46,7 @@ export default class Records extends Component {
                             <div className='records_top' style={{height:'50px',lineHeight:'50px',display:'flex'}}>
                                 <div style={{width:'50%'}}></div>
                                 <div style={{width:'50%',color:'#FFFFFF'}}>
-                                    <span style={{float:'right',paddingRight:'20px'}}>合计:100000</span>
+                                    <span style={{float:'right',paddingRight:'20px'}}>合计:&nbsp;&nbsp;{this.state.sum}</span>
                                 </div>
                             </div>
                             <div style={{padding:'0 10px'}}>
@@ -47,11 +56,11 @@ export default class Records extends Component {
                                             <div style={{ borderBottom:'1px solid #EFEFEF',height:'50px',lineHeight:'50px',
                                                         marginTop:'10px',paddingLeft:'10px',display:'flex'}}>
                                                 <span style={{width:'50%',height:'100%',display:'flex',flexDirection:'column'}}>
-                                                    <span style={{height:'30px',lineHeight:'30px'}}>{item.name || '现金提现'}</span>
-                                                    <span style={{height:'12px',lineHeight:'12px',fontSize:'15px',color:'#999999'}}>{item.name || '123'}</span>
+                                                    <span style={{height:'30px',lineHeight:'30px'}}>{item.audit === '1' ? '未审核' : item.audit === '2' ? '审核未通过' : ' 审核通过'}</span>
+                                                    <span style={{height:'12px',lineHeight:'12px',fontSize:'15px',color:'#999999'}}>{item.createDate}</span>
                                                 </span>
                                                 <span style={{width:'50%'}}>
-                                                    <span style={{float:'right',paddingRight:'10px',color:'#333333',fontSize:'24px',fontFamily:'PingFang-SC-Heavy',fontWeight:'bold'}}>{item.phone || '30000'}</span>
+                                                    <span style={{float:'right',paddingRight:'10px',color:'#333333',fontSize:'24px',fontFamily:'PingFang-SC-Heavy',fontWeight:'bold'}}>{item.createDate}</span>
                                                 </span>
                                             </div>
                                         )

@@ -8,17 +8,26 @@ export default class Records extends Component {
 	constructor(props) {
 		super(props)
 		this.state = {
-            detailsList: [{},{},{}]
+            detailsList: []
 		}
 	}
     componentWillMount() {
 		this.getDetailsList()
 	}
     getDetailsList = async () => {
-        let result = await reqDetailsList()
+        let params = {
+			current: 0,
+			size: 100,
+		}
+        let result = await reqDetailsList(params)
         if (result.code === 0) {
+            let sum = 0
+            for (let i = 0; i < result.data.records.length; i++) {
+                sum += result.data.records[i].amount
+            }
             this.setState({
-                detailsList: result.data.records
+                detailsList: result.data.records,
+                sum
             })
         }
     }
@@ -37,7 +46,7 @@ export default class Records extends Component {
                             <div className='records_top' style={{height:'50px',lineHeight:'50px',display:'flex'}}>
                                 <div style={{width:'50%'}}></div>
                                 <div style={{width:'50%',color:'#FFFFFF'}}>
-                                    <span style={{float:'right',paddingRight:'20px'}}>合计:100000</span>
+                                    <span style={{float:'right',paddingRight:'20px'}}>合计:&nbsp;&nbsp;{this.state.sum}</span>
                                 </div>
                             </div>
                             <div style={{padding:'0 10px'}}>
