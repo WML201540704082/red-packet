@@ -313,7 +313,8 @@ export default class Login extends Component {
                                 </span>
                                 <span className='login_icon'>
                                     <GoogleLogin
-                                        clientId="715440772497-uuq231lpek9ek0m08o2013dvua1728jl.apps.googleusercontent.com"
+                                        // clientId="715440772497-uuq231lpek9ek0m08o2013dvua1728jl.apps.googleusercontent.com"
+                                        clientId="927698055570-nevn1mcsm2u7ijjgghdi5ijn7t0i8ehh.apps.googleusercontent.com"
                                         buttonText="Login"
                                         onSuccess={this.responseGoogle}
                                         onFailure={this.responseGoogle}
@@ -322,10 +323,9 @@ export default class Login extends Component {
                                         <i className="fa fa-google-plus" /> 
                                         <span>&nbsp;</span>
                                     </GoogleLogin>
-                                    {/* 346326924009220 */}
-                                    {/* 895624567779325 */}
                                     <FacebookLogin
-                                        appId="895624567779325"
+                                        // appId="895624567779325"
+                                        appId="346326924009220"
                                         autoLoad={true}
                                         fields="name,email,picture"
                                         callback={this.responseFacebook}
