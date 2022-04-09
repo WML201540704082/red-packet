@@ -26,6 +26,9 @@ export default class Login extends Component {
         phoneCode: '+84'
 	}
 
+    componentWillMount() {
+        console.log('-----------shareId:',this.props.location.state.shareId)
+    }
     // 对密码进行自定义验证
     validatorPwd = (rule, value, callback) => {
         if (!value) {

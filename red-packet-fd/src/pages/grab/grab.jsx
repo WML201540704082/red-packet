@@ -16,6 +16,13 @@ export default class Grab extends Component {
 		}
 	}
     componentWillMount() {
+        let aaa = this.props.location.search
+        // let aaa = "?id=123"
+        if (aaa) {
+            this.setState({
+                shareId: aaa.substring(4)
+            })
+        }
         // 账户余额
         this.getAccountBalance()
         // 抢红包配置列表
@@ -53,6 +60,7 @@ export default class Grab extends Component {
         }
 	}
     grabRedPacket = async (item) => {
+        let { shareId } = this.state
         const user = memoryUtils.user
         if (user && user.userId) {
             if (this.state.amount < item.amount) {
@@ -74,7 +82,12 @@ export default class Grab extends Component {
             }
         } else {
             message.warning('请先登录！')
-            this.props.history.push("/login")
+            this.props.history.push({
+                pathname:'/login',
+                state:{
+                    shareId
+                }
+            })
         }
     }
         
