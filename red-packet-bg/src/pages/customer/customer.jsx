@@ -15,7 +15,7 @@ const Customer = () => {
 
     useEffect(() => {
         getCustomerDetail();
-    });
+    }, []);
 
     const getCustomerDetail = async () => {
         let result = await reqCustomerDetail()
@@ -69,7 +69,6 @@ const Customer = () => {
     };
     const teleAccountConfig = e => {
         setTeleAccount(e.target.value)
-        // teleAccount = e.target.value
     }
     const saveOk = async () => {
         let params = {
