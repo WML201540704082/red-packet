@@ -58,3 +58,6 @@ export const reqRecordsList = data => ajax(BASE + 'web/user/account/withdrawDeta
 
 // 分佣明细
 export const reqDetailsList = data => ajax(BASE + 'web/user/account/commissionDetails', data, 'POST')
+
+// 客服
+export const reqCustomerImg = data => ajax(BASE + 'web/customer/detail')

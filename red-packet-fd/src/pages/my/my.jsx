@@ -24,6 +24,7 @@ export default class My extends Component {
 			id: null,
             balanceObject: {},
             rechargeConfigList: [],
+            shareFlag: false,//分享
             balanceFlag: false,//余额
             withdrawFlag: false,//提现
             rechargeFlag: false,//充值
@@ -92,7 +93,12 @@ export default class My extends Component {
         })
     }
     clickButton = (item) => {
-        if (item.index === 1) {
+        if (item.index === 0) {
+            // 分享
+            this.setState({
+                shareFlag: true
+            })
+        } else if (item.index === 1) {
             // 余额
             this.setState({
                 balanceFlag: true
@@ -167,9 +173,10 @@ export default class My extends Component {
         )
     }
     render() {
-        let { id, balanceFlag, partnerFlag, withdrawFlag, recordFlag, detailFlag, rechargeFlag } = this.state
+        let { id, shareFlag, balanceFlag, partnerFlag, withdrawFlag, recordFlag, detailFlag, rechargeFlag } = this.state
         return (
             <div style={{width:'100%',height:'100%'}}>
+                {shareFlag ? this.showShare() : null}
                 {balanceFlag ? this.showBalance() : null}
                 {rechargeFlag ? this.showRecharge() : null}
                 {
@@ -199,6 +206,23 @@ export default class My extends Component {
                 {withdrawFlag ? this.showWithdraw() : null}
                 {recordFlag ? this.showRecords() : null}
                 {detailFlag ? this.showDetails() : null}
+            </div>
+        )
+    }
+    showShare = () => {
+        let { id } = this.state
+        return (
+            <div className='share'>
+                <div className='share_outer' onClick={() => this.setState({shareFlag: false})}></div>
+                <div className='share_content'>
+                    <div className='share_content_top'>分享连接，请复制</div>
+                    <div className='share_content_middle'>
+                        {'http://www.redpz.com/#/grab?userId=' + id} 
+                    </div>
+                    <div className='share_content_bottom'>
+                        <div className='share_button' onClick={() => this.setState({shareFlag:false})}>确定</div>
+                    </div>
+                </div>
             </div>
         )
     }

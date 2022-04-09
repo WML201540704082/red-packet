@@ -82,7 +82,7 @@ export default class Grab extends Component {
         if (dataSource && dataSource.length > 0) {
             return(
                 <div>
-                    <div style={{position:'absolute',top:'70px',left:'30px',padding:'3px 8px',borderRadius:'5px',display:'flex',justifyContent:'center',backgroundColor:'#ffffff',color:'#AC2A22',fontSize:'12px'}}>账户余额:{this.state.amount/1000}k</div>
+                    <div style={{position:'absolute',top:'70px',left:'30px',padding:'3px 8px',borderRadius:'5px',display:'flex',justifyContent:'center',backgroundColor:'#ffffff',color:'#AC2A22',fontSize:'12px'}}>账户余额:{this.state.amount}</div>
                     <div style={{display:'flex',flexDirection:'column',marginTop:'-50px'}}>
                         <div style={{display:'flex',justifyContent:'center',color:'#FEFFA7',fontSize:'32px',fontFamily:'FZZDHJW--GB1-0'}}>2022最给力必赚平台</div>
                         <div className='grabImg'>
@@ -92,7 +92,7 @@ export default class Grab extends Component {
                                         <div className='grabContent' key={item.id} onClick={() => this.grabRedPacket(item)}>
                                             <span className='content_img'>
                                                 <img src={grab} alt="grab"/>
-                                                <span className={item.amount<10000 ? 'span1w': item.amount<100000 ? 'span10w' : 'span100w'}>{item.amount/1000}k</span>
+                                                <span className={item.amount<10000 ? 'span1w': item.amount<100000 ? 'span10w' : item.amount<1000000 ? 'span100w' : 'span1000w'}>{item.amount/1000}k</span>
                                             </span>
                                             <div className='content_text_outer'>
                                                 <span className='content_text'>最高可抢{item.end/1000}k</span>
