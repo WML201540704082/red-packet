@@ -135,7 +135,7 @@ export default class Withdraw extends Component {
                     disabledDate={this.handleEndDisabledDate}
                     placeholder="结束日期"
                 />
-				<Button type='primary' onClick={() => this.getDataList()}>搜索</Button>
+				<Button type='primary' style={{float:'right'}} onClick={() => this.getDataList()}>搜索</Button>
 			</span>
 		)
 		return (
@@ -155,6 +155,12 @@ export default class Withdraw extends Component {
 							showTotal: (e) => {return `共 ${dataTotal} 条`}}}
 						scroll={{ y: '55vh' }}
 						columns={[
+							{
+                                title: 'ID',
+								align: 'center',
+                                dataIndex: 'id',
+                                key: 'id',
+                            },
                             {
                                 title: '用户ID',
 								align: 'center',

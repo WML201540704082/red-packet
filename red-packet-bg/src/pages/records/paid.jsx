@@ -120,6 +120,12 @@ export default class Paid extends Component {
                         scroll={{ y: '55vh' }}
                         columns={[
                             {
+                                title: 'ID',
+                                align: 'center',
+                                dataIndex: 'id',
+                                key: 'id',
+                            },
+                            {
                                 title: '用户ID',
                                 align: 'center',
                                 dataIndex: 'userId',

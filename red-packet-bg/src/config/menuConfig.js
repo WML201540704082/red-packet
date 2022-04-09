@@ -7,6 +7,7 @@ import {
     MailOutlined,
     FolderOpenOutlined,
     RedEnvelopeOutlined,
+    CustomerServiceOutlined,
     AppstoreOutlined,
     SwapOutlined,
     DollarOutlined,
@@ -53,6 +54,11 @@ const menuList =[
         title: '充值配置', 
         key: '/recharge', 
         icon: <RedEnvelopeOutlined />, 
+    },
+    {
+        title: '客服配置', 
+        key: '/customer', 
+        icon: <CustomerServiceOutlined />,
     },
     {
         title: '开奖记录', 

@@ -67,6 +67,11 @@ export const reqEditRecharge = data => ajax(BASE + 'recharge/config/update', dat
 // 删除充值配置项
 export const reqDeleteRecharge = id => ajax(BASE + 'recharge/config/delete', {id}, 'POST')
 
+// 客服设置新增or修改
+export const reqAddCustomer = data => ajax(BASE + 'customer/addOrUpdate', data, 'POST')
+// 客服配置详情
+export const reqCustomerDetail = data => ajax(BASE + 'customer/detail')
+
 // 获取开奖记录列表
 export const reqLottery = data => ajax(BASE + 'sys/account/lotteryList', data, 'POST')
 // 获取充值记录列表

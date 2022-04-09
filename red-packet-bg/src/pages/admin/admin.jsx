@@ -11,6 +11,7 @@ import Home from '../home/home'
 import RobConfig from '../robConfig/robConfig'
 import OpenConfig from '../openConfig/openConfig'
 import Recharge from '../recharge/recharge'
+import Customer from '../customer/customer'
 import Role from '../role/role'
 import Account from '../account/account'
 import User from '../user/user'
@@ -53,6 +54,7 @@ export default class Admin extends Component {
                             <Route path='/robConfig' component={RobConfig}></Route>
                             <Route path='/openConfig' component={OpenConfig}></Route>
                             <Route path='/recharge' component={Recharge}></Route>
+                            <Route path='/customer' component={Customer}></Route>
                             <Route path='/lottery' component={Lottery}></Route>
                             <Route path='/paid' component={Paid}></Route>
                             <Route path='/operate' component={Operate}></Route>
