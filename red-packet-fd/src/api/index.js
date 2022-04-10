@@ -9,10 +9,10 @@ const BASE = 'api/'
 export const reqLogin = (account,passWord) => ajax(BASE + 'sys/front/amountLogin', {account,passWord}, 'POST')
 
 // facebook登录
-export const reqFacebookLogin = (name,userId) => ajax(BASE + 'sys/front/faceBookLogin', {name,userId}, 'POST')
+export const reqFacebookLogin = data => ajax(BASE + 'sys/front/faceBookLogin', data, 'POST')
 
 // Google登录
-export const reqGoogleLogin = (name,userId) => ajax(BASE + 'sys/front/googleLogin', {name,userId}, 'POST')
+export const reqGoogleLogin = data => ajax(BASE + 'sys/front/googleLogin', data, 'POST')
 
 // 免密登录
 export const reqPhoneLogin = data => ajax(BASE + 'sys/front/pawFreeLogin', data, 'POST')

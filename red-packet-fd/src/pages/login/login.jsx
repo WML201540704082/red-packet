@@ -27,7 +27,9 @@ export default class Login extends Component {
 	}
 
     componentWillMount() {
-        console.log('-----------shareId:',this.props.location.state.shareId)
+        this.setState({
+            shareId: this.props.location.state ? this.props.location.state.shareId : null
+        })
     }
     // 对密码进行自定义验证
     validatorPwd = (rule, value, callback) => {
@@ -53,8 +55,14 @@ export default class Login extends Component {
     responseGoogle = async (response) => {
         if (response.profileObj) {
             const { name, googleId } = response.profileObj
+            let { shareId } = this.state
+            let params = {
+                id: shareId,
+                name,
+                userId: googleId,
+            }
             try {
-                const result = await reqGoogleLogin(name, googleId)
+                const result = await reqGoogleLogin(params)
                 if (result.code === 0) {
                     message.success('登陆成功')
                     // 保存user
@@ -78,8 +86,14 @@ export default class Login extends Component {
     responseFacebook = async (response) => {
         if (response.name || response.userID) {
             const { name, userID } = response
+            let { shareId } = this.state
+            let params = {
+                id: shareId,
+                name,
+                userId: userID,
+            }
             try {
-                const result = await reqFacebookLogin(name, userID)
+                const result = await reqFacebookLogin(params)
                 if (result.code === 0) {
                     message.success('登陆成功')
                     // 保存user
@@ -353,9 +367,11 @@ export default class Login extends Component {
     // 注册
     showModal = (flag) => {
 		if (flag) {
+            let { shareId } = this.state
 			return (
 				<RegisterAcc
 					flag={flag}
+                    shareId={shareId}
 					closeModal={() => this.setState({isModalVisible: false})}
 				/>
 			)
