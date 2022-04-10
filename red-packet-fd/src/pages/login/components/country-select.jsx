@@ -24,7 +24,7 @@ export default class CountrySelect extends Component {
 		return (
             <div>
                 <div style={{height:'45px',lineHeight:'45px',fontSize:'16px',fontWeight:'bold',display:'flex',justifyContent:'center',background:'#ffffff'}}>选择国家区码</div>
-                <img src={goback} style={{position:'absolute',top:'16px',left:'15px',width:'15px'}} alt="goback"/>
+                <img onClick={()=>this.props.goBackModal()} src={goback} style={{position:'absolute',top:'16px',left:'15px',width:'15px'}} alt="goback"/>
                 <div style={{height:'calc(100vh - 45px)',overflowY:'scroll'}}>
                     <div style={{height:'10px',background:'rgb(243 243 243)'}}></div>
                     {

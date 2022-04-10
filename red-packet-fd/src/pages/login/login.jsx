@@ -229,8 +229,8 @@ export default class Login extends Component {
                                                     <div className='input_text'>Mobile phone no.</div>
                                                     <span onClick={()=>this.selectCode()}>
                                                         <span style={{width:'30px',paddingLeft:'10px'}}>{phoneCode}
-                                                        <img style={{width:'15px',marginLeft:'5px'}} src={arrows} alt="arrows"/>
-                                                    </span>
+                                                            <img style={{width:'15px',marginLeft:'5px'}} src={arrows} alt="arrows"/>
+                                                        </span>
                                                     </span>
                                                     <Input 
                                                         placeholder="手机号"
@@ -396,6 +396,7 @@ export default class Login extends Component {
                 <CountrySelect
 					flag={flag}
                     countryCode={countryCode}
+                    goBackModal={()=>this.setState({countryFlag: false})}
 					closeModal={(phone_code) => 
                         this.setState({
                             countryFlag: false,

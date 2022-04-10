@@ -44,11 +44,17 @@ export const reqGrabBet = data => ajax(BASE + 'web/grab/bet', data, 'POST')
 // 拆红包
 export const reqUnpackLottery = () => ajax(BASE + 'web/unpack/lottery', {}, 'POST')
 
-// 银行卡列表
-export const reqCardList = data => ajax(BASE + 'web/back/crad/list', data, 'POST')
+// 银行列表
+export const reqBankList = data => ajax(BASE + 'web/back/crad/list', data, 'POST')
+
+// 用户银行卡列表
+export const reqUserCardList = data => ajax(BASE + 'web/user/back/list', data, 'POST')
 
 // 新增银行卡
-export const reqAddCard = data => ajax(BASE + 'web/back/crad/add', data, 'POST')
+export const reqAddCard = data => ajax(BASE + 'web/user/back/add', data, 'POST')
+
+// 删除银行卡
+export const reqDeleteCard = id => ajax(BASE + 'web/user/back/delete', {id}, 'POST')
 
 // 我的伙伴
 export const reqPartnerList = () => ajax(BASE + 'web/user/account/partner', {}, 'POST')
