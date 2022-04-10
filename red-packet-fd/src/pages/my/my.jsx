@@ -217,7 +217,7 @@ export default class My extends Component {
                 <div className='share_content'>
                     <div className='share_content_top'>分享连接，请复制</div>
                     <div className='share_content_middle'>
-                        {'http://www.redpz.com/#/grab?userId=' + id} 
+                        {'http://www.redpz.com/#/grab?sign=' + id} 
                     </div>
                     <div className='share_content_bottom'>
                         <div className='share_button' onClick={() => this.setState({shareFlag:false})}>确定</div>

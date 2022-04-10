@@ -20,7 +20,7 @@ export default class Grab extends Component {
         // let aaa = "?id=123"
         if (aaa) {
             this.setState({
-                shareId: aaa.substring(4)
+                shareId: aaa.substring(6)
             })
         }
         // 账户余额
