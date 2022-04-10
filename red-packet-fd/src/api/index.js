@@ -53,6 +53,9 @@ export const reqUserCardList = data => ajax(BASE + 'web/user/back/list', data, '
 // 新增银行卡
 export const reqAddCard = data => ajax(BASE + 'web/user/back/add', data, 'POST')
 
+// 修改银行卡
+export const reqUpdateCard = data => ajax(BASE + 'web/user/back/update', data, 'POST')
+
 // 删除银行卡
 export const reqDeleteCard = id => ajax(BASE + 'web/user/back/delete', {id}, 'POST')
 

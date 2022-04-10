@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import goback from '../images/goback.png'
-import { reqUserCardList, reqAddCard, reqDeleteCard } from '../../../api'
+import { reqUserCardList, reqAddCard, reqUpdateCard, reqDeleteCard } from '../../../api'
 import { message } from 'antd'
 import BankList from './bank-list'
 import arrows from './arrows.png'
@@ -13,10 +13,13 @@ export default class Withdrawal extends Component {
 		this.state = {
             cardList: [],
             newCardFlag: false,
-            name:'',
+            cardName:'',
             bankName:'',
-            bankNo:'',
-            bankNameFlag: false
+            cardNo:'',
+            id:'',
+            bankId:'',
+            bankNameFlag: false,
+            type:null
 		}
 	}
     componentWillMount() {
@@ -59,22 +62,24 @@ export default class Withdrawal extends Component {
     }
     // 添加银行卡
     addBankCard = async () => {
-        let { name, bankId, bankNo } = this.state
+        let { cardName, id, cardNo, type, bankId } = this.state
         let params = {
-            cardName: name,//收款人姓名
-            cardNo: bankNo,//银行卡号
-            id: bankId,//银行编号
+            cardName,//收款人姓名
+            cardNo,//银行卡号
+            id,//用户银行列表id
+            bankId: type === 'update' ? bankId : null
         }
-        let result = await reqAddCard(params)
-        if (result.data.code === 0) {
-            message.success('添加成功')
+        debugger
+        let result = type === 'update'? await reqUpdateCard(params) : await reqAddCard(params)
+        if (result.code === 0 && result.data.code === 0) {
+            message.success(type === 'update' ? '修改成功' : '添加成功')
             this.setState({
                 newCardFlag:false
             },()=>{
                 this.getUserCardList()
             })
         } else {
-            message.error(result.data.msg)
+            message.error(result.data ? result.data.msg : result.msg)
         }
     }
     // 删除银行卡
@@ -95,16 +100,16 @@ export default class Withdrawal extends Component {
     showBankName = () => {
         return (
             <BankList
-                closeModal={(bankId,bankName) => this.setState({bankNameFlag: false,bankId,bankName})}
+                closeModal={(id,bankId,bankName) => this.setState({bankNameFlag: false,id,bankId,bankName})}
             />
         )
     }
 	render() {
-        let { bankNameFlag } = this.state
+        let { newCardFlag,type,bankNameFlag } = this.state
 		return (
             <div style={{position:'absolute',width:'100%',height:'100%',zIndex:2}}>
                 {
-                    !this.state.newCardFlag ? (
+                    !newCardFlag ? (
                         <div style={{width:'100%',height:'100%'}}>
                             <div style={{height:'50px',lineHeight:'50px',background:'#ffffff',fontSize:'16px',fontWeight:'bold',display:'flex',justifyContent:'center',borderBottom:'1px solid #DCDCDC'}}>提现</div>
                             <img src={goback} onClick={()=>this.goBack()} style={{position:'absolute',top:'16px',left:'15px',width:'15px'}} alt="goback"/>
@@ -141,9 +146,10 @@ export default class Withdrawal extends Component {
                                                                             borderRadius:'5px',marginBottom:'10px',paddingLeft:'10px',
                                                                             width:'calc(100vw - 110px)'}}>
                                                                     <span>{item.backName}</span>
-                                                                    <span style={{marginLeft:'20px'}}>{item.cardNum}</span>
+                                                                    <span style={{marginLeft:'20px'}}>{item.cardNo}</span>
                                                                 </div>
-                                                                <div style={{width:'40px',height:'40px',lineHeight:'40px',textAlign:'center',background:'#2878ff',marginLeft:'4px',color:'#ffffff',borderRadius:'5px'}}>编辑</div>
+                                                                <div onClick={()=>this.setState({newCardFlag:true,type:'update',cardName:item.cardName,bankName:item.backName,id:item.id,bankId:item.bankId,cardNo:item.cardNo})}
+                                                                     style={{width:'40px',height:'40px',lineHeight:'40px',textAlign:'center',background:'#2878ff',marginLeft:'4px',color:'#ffffff',borderRadius:'5px'}}>编辑</div>
                                                                 <div onClick={()=>this.deleteBankCard(item.id)} style={{width:'40px',height:'40px',lineHeight:'40px',textAlign:'center',background:'#ff3029',marginLeft:'4px',color:'#ffffff',borderRadius:'5px'}}>删除</div>
                                                             </div>
                                                         )
@@ -160,14 +166,14 @@ export default class Withdrawal extends Component {
                         </div>
                     ) : (
                         <div style={{width:'100%',height:'100%'}}>
-                            <div style={{height:'50px',lineHeight:'50px',background:'#ffffff',fontSize:'16px',fontWeight:'bold',display: bankNameFlag ? 'none' : 'flex',justifyContent:'center',borderBottom:'1px solid #DCDCDC'}}>添加银行卡</div>
+                            <div style={{height:'50px',lineHeight:'50px',background:'#ffffff',fontSize:'16px',fontWeight:'bold',display: bankNameFlag ? 'none' : 'flex',justifyContent:'center',borderBottom:'1px solid #DCDCDC'}}>{type==='update'?'修改银行卡':'新增银行卡'}</div>
                             <img src={goback} onClick={()=>this.setState({newCardFlag:false})} style={{position:'absolute',top:'16px',left:'15px',width:'15px',display: bankNameFlag ? 'none' : ''}} alt="goback"/>
                             <div style={{padding:'20px 20px 0',background:'#f5f5f5',display: bankNameFlag ? 'none' : ''}}>
                                 <div style={{background:'#ffffff',height:'180px',border:'1px solid #D53E1C',borderRadius:'5px',padding:'0 15px'}}>
                                     <div style={{height:'60px',lineHeight:'60px',display:'flex',alignContent:'center',width:'100%',borderBottom:'1px solid #DCDCDC',fontFamily:'PingFang-SC-Heavy'}}>
                                         <span style={{width:'120px',color:'#666666',paddingLeft:'10px',fontSize:'16px'}}>姓名</span>
-                                        <input value={this.state.name} placeholder='特朗普'
-                                            onChange={event => this.setState({name:event.target.value})}
+                                        <input value={this.state.cardName} placeholder=''
+                                            onChange={event => this.setState({cardName:event.target.value})}
                                             style={{height:'40px',width:'90%',color:'#333333',fontSize:'16px',marginTop:'10px',border:'1px solid #ffffff'}} type="text" />
                                     </div>
                                     <div style={{height:'60px',lineHeight:'60px',display:'flex',alignContent:'center',width:'100%',borderBottom:'1px solid #DCDCDC',fontFamily:'PingFang-SC-Heavy'}}>
@@ -179,14 +185,14 @@ export default class Withdrawal extends Component {
                                     </div>
                                     <div style={{height:'60px',lineHeight:'60px',display:'flex',alignContent:'center',width:'100%',fontFamily:'PingFang-SC-Heavy'}}>
                                         <span style={{width:'120px',color:'#666666',paddingLeft:'10px',fontSize:'16px'}}>银行卡号</span>
-                                        <input value={this.state.bankNo} placeholder='1234567890'
-                                            onChange={event => this.setState({bankNo:event.target.value})}
+                                        <input value={this.state.cardNo} placeholder=''
+                                            onChange={event => this.setState({cardNo:event.target.value})}
                                             style={{height:'40px',width:'90%',color:'#333333',fontSize:'16px',marginTop:'10px',border:'1px solid #ffffff'}} type="text" />
                                     </div>
                                 </div>
                                 <div style={{height:'calc(100vh - 250px)',paddingTop:'10px'}}>
                                     <div style={{width:'100%',height:'80px',paddingTop:'20px'}}>
-                                        <div onClick={()=>this.addBankCard()} style={{width:'100%',height:'40px',lineHeight:'40px',borderRadius:'10px',backgroundColor:'#D53E1C',color:'#ffffff',display:'flex',justifyContent:'center'}}>添加</div>
+                                        <div onClick={()=>this.addBankCard()} style={{width:'100%',height:'40px',lineHeight:'40px',borderRadius:'10px',backgroundColor:'#D53E1C',color:'#ffffff',display:'flex',justifyContent:'center'}}>{type==='update'?'修改':'添加'}</div>
                                     </div>
                                 </div>
                             </div>

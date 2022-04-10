@@ -32,14 +32,14 @@ export default class BankList extends Component {
         }
     }
     sureCountry = (item) => {
-        this.props.closeModal(item.bankId,item.backName)
+        this.props.closeModal(item.id,item.bankId,item.backName)
     }
  
 	render() {
 		return (
             <div style={{background:'#ffffff'}}>
                 <div style={{height:'45px',lineHeight:'45px',fontSize:'16px',fontWeight:'bold',display:'flex',justifyContent:'center'}}>银行列表</div>
-                <img onClick={()=>this.props.goBackModal()} src={goback} style={{position:'absolute',top:'16px',left:'15px',width:'15px'}} alt="goback"/>
+                <img onClick={()=>this.props.closeModal()} src={goback} style={{position:'absolute',top:'16px',left:'15px',width:'15px'}} alt="goback"/>
                 <div style={{height:'50px',padding:'7px 15px'}}>
                     <Input 
                         placeholder="请输入银行名称"
