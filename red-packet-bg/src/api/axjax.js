@@ -10,9 +10,10 @@
 */
 import axios from "axios"
 import { message } from "antd";
+import storageUtils from '../utils/storageUtils'
 import memoryUtils from '../utils/memoryUtils'
 
-export default function ajax(url, data={}, type='GET') {
+const ajax = (url, data={}, type='GET') => {
 
     axios.defaults.headers['Authorization'] = memoryUtils.user.token
 
@@ -28,7 +29,14 @@ export default function ajax(url, data={}, type='GET') {
         }
         // 2.如果成功了，调用resolve(value)
         promise.then(response => {
-            resolve(response.data)
+            if (response.data.code === -1 && response.data.msg === "The token is invalid, please get it again") {
+                message.error('身份过期，请重新登录！')
+                storageUtils.removeUser()
+                memoryUtils.user = {}
+                window.location.href = '/#/login'
+            } else {
+                resolve(response.data)
+            }
         // 3,如果失败了，不调用reject(reason)，而是提示异常信息
         }).catch(error => {
             // reject(error)
@@ -36,3 +44,5 @@ export default function ajax(url, data={}, type='GET') {
         })
     })
 }
+
+export default ajax
