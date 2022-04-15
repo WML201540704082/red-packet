@@ -331,7 +331,7 @@ export default class Login extends Component {
                                 <span className='login_icon'>
                                     <GoogleLogin
                                         // clientId="715440772497-uuq231lpek9ek0m08o2013dvua1728jl.apps.googleusercontent.com"
-                                        clientId="927698055570-nevn1mcsm2u7ijjgghdi5ijn7t0i8ehh.apps.googleusercontent.com"
+                                        clientId="927698055570-ro09m0gba7vbfp77ggp4hu12sq6l9uk6.apps.googleusercontent.com"
                                         buttonText="Login"
                                         onSuccess={this.responseGoogle}
                                         onFailure={this.responseGoogle}

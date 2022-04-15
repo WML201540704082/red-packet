@@ -34,6 +34,8 @@ export default function ajax(url, data={}, type='GET') {
                 storageUtils.removeUser()
                 memoryUtils.user = {}
                 window.location.href = '/#/login'
+            } else if (response.data.code === -1) {
+                message.error(response.data.msg)
             } else {
                 resolve(response.data)
             }
