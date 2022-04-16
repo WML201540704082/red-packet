@@ -2,6 +2,7 @@ import React, {Component} from 'react'
 import { Form, Input, Button, message, Tabs } from 'antd'
 import './login.less'
 import facebook from './images/facebook.png'
+import google from './images/google.png'
 import { reqLogin, reqFacebookLogin, reqGoogleLogin, reqPhoneLogin, reqSendSms } from '../../api'
 import memoryUtils from '../../utils/memoryUtils'
 import storageUtils from '../../utils/storageUtils'
@@ -28,7 +29,8 @@ export default class Login extends Component {
 
     componentWillMount() {
         this.setState({
-            shareId: this.props.location.state ? this.props.location.state.shareId : null
+            shareId: this.props.location.state ? this.props.location.state.shareId : null,
+            containerHeight: window.innerHeight, // 解决软键盘问题
         })
     }
     // 对密码进行自定义验证
@@ -122,7 +124,7 @@ export default class Login extends Component {
             let a = 60;
             var reg_tel = /^[0-9]*$/
             if (reg_tel.test(this.state.phone)) {
-                let phone = this.state.phoneCode + this.state.phone
+                let phone = this.state.phoneCode.substring(1) + this.state.phone
                 let result = await reqSendSms(phone)
                 if (result.code === 0) {
                     message.success('发送验证码成功！')
@@ -182,7 +184,7 @@ export default class Login extends Component {
         const onPhoneFinish = async () => {
             const { phone, code } = this.state
             let params = {
-                phone: this.state.phoneCode + phone,
+                phone: this.state.phoneCode.substring(1) + phone,
                 code: code
             }
             try {
@@ -206,7 +208,9 @@ export default class Login extends Component {
         }
 
         return (
-            <div style={{width:'100%',height:'100%'}}>
+            // 解决软键盘问题
+            <div style={{width:'100%', height: this.state.containerHeight + 'px',
+                        position: 'absolute',left: 0,right: 0,bottom: 0,overflow: 'hidden'}}>
                 {
                     !countryFlag ? (
                         <div className="login">
@@ -342,6 +346,9 @@ export default class Login extends Component {
                                         onSuccess={this.responseGoogle}
                                         onFailure={this.responseGoogle}
                                         cookiePolicy={'single_host_origin'}
+                                        render={renderProps => (
+                                            <img onClick={renderProps.onClick} src={google} style={{width:'26px',height:'26px'}} alt="facebook" />
+                                        )}
                                         className="btnGoogle">
                                         <i className="fa fa-google-plus" /> 
                                         <span>&nbsp;</span>
@@ -353,7 +360,7 @@ export default class Login extends Component {
                                         fields="name,email,picture"
                                         callback={this.responseFacebook}
                                         cssClass="btnFacebook"
-                                        icon={<img src={facebook} style={{width:'26px',height:'26px'}} alt="facebook" /> }
+                                        icon={<img src={facebook} style={{width:'36px',height:'36px'}} alt="facebook" /> }
                                         textButton = ""
                                     />
                                 </span>
@@ -406,7 +413,7 @@ export default class Login extends Component {
 					closeModal={(phone_code) => 
                         this.setState({
                             countryFlag: false,
-                            phoneCode: phone_code
+                            phoneCode: '+' + phone_code
                         })
                     }
 				/>
