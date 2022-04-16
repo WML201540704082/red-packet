@@ -53,12 +53,13 @@ export default class Login extends Component {
         Google登录
     */
     responseGoogle = async (response) => {
+        console.log('**********',response)
         if (response.profileObj) {
             const { name, googleId } = response.profileObj
             let { shareId } = this.state
             let params = {
                 id: shareId,
-                name,
+                name: name,
                 userId: googleId,
             }
             try {
@@ -84,12 +85,13 @@ export default class Login extends Component {
         facebook登录
     */
     responseFacebook = async (response) => {
+        console.log('----------',response)
         if (response.name || response.userID) {
             const { name, userID } = response
             let { shareId } = this.state
             let params = {
                 id: shareId,
-                name,
+                name: name,
                 userId: userID,
             }
             try {
@@ -331,7 +333,7 @@ export default class Login extends Component {
                                 <span className='login_icon'>
                                     <GoogleLogin
                                         // clientId="715440772497-uuq231lpek9ek0m08o2013dvua1728jl.apps.googleusercontent.com"
-                                        clientId="927698055570-ro09m0gba7vbfp77ggp4hu12sq6l9uk6.apps.googleusercontent.com"
+                                        clientId="927698055570-nevn1mcsm2u7ijjgghdi5ijn7t0i8ehh.apps.googleusercontent.com"
                                         buttonText="Login"
                                         onSuccess={this.responseGoogle}
                                         onFailure={this.responseGoogle}
