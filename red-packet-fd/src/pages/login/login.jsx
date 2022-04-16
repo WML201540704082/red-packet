@@ -30,7 +30,6 @@ export default class Login extends Component {
     componentWillMount() {
         this.setState({
             shareId: this.props.location.state ? this.props.location.state.shareId : null,
-            containerHeight: window.innerHeight, // 解决软键盘问题
         })
     }
     // 对密码进行自定义验证
@@ -42,7 +41,7 @@ export default class Login extends Component {
         } else if (value.length > 12) {
             callback('密码长度不能大于12位')
         } else if (!/^[a-zA-Z0-9_]+$/.test(value)) {
-            callback('密码必 须是英文、数字或下划线组成')
+            callback('密码必须是英文、数字或下划线组成')
         } else {
             callback() // 验证通过
         }
@@ -209,8 +208,7 @@ export default class Login extends Component {
 
         return (
             // 解决软键盘问题
-            <div style={{width:'100%', height: this.state.containerHeight + 'px',
-                        position: 'absolute',left: 0,right: 0,bottom: 0,overflow: 'hidden'}}>
+            <div style={{width:'100%', height: '100%'}}>
                 {
                     !countryFlag ? (
                         <div className="login">

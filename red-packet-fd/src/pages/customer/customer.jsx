@@ -25,7 +25,7 @@ export default class Customer extends Component {
         return (
             <div className='customer'>
                 {/* 'http://admin.redpz.com/img/6.jpeg' */}
-                <img src={img} width="200px" alt="" />
+                <img style={{marginTop:'18%'}} src={img} alt="" />
             </div>
         )
     }

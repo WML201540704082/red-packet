@@ -136,7 +136,7 @@ export default class My extends Component {
                 {
                     list.map(item=>{
                         return (
-                            <div className='my_button_content' style={{marginRight: item.index !== 6 ? '3%' : ''}} key={item.index} onClick={() => this.clickButton(item)}>
+                            <div className='my_button_content' key={item.index} onClick={() => this.clickButton(item)}>
                                 <span className='content_img'>
                                     <img src={item.index === 0 ? qr_code : item.index === 1 ? balance :
                                               item.index === 2 ? partner : item.index === 3 ? qr_code : item.index === 4 ? record : details} alt="qr_code"/>
