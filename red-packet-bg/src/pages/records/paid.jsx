@@ -146,7 +146,7 @@ export default class Paid extends Component {
                             {
                                 title: '状态',
                                 align: 'center',
-                                render: states => states === '1' ? '待支付' : states === '2' ? '已支付' : '取消支付',
+                                render: reload =>  reload.status === "1" ? '待支付' : reload.status === "2" ? '已支付' : '取消支付'
                             }
                         ]}
                     />
