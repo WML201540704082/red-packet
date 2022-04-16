@@ -24,9 +24,41 @@ export default class Login extends Component {
 		num: 0,
         isModalVisible: false,
         countryFlag: false,
-        phoneCode: '+84'
+        phoneCode: '+84',
+        clientHeight: 0,
+        pop: false
 	}
+    componentDidMount() {
+        let clientHeight = document.documentElement.clientHeight || document.body.clientHeight
+        this.setState({ clientHeight })
+        window.addEventListener('resize', this.resize)
+    }
+    
+    componentWillUnmount() {
+        window.removeEventListener('resize', this.resize) // 移除监听
+    }
 
+    resize = () => {
+        let clientHeight = document.documentElement.clientHeight || document.body.clientHeight
+        if (this.state.clientHeight > clientHeight) { // 键盘弹出
+            // this.inputClickHandle()
+            this.setState({
+                pop: true
+            })
+        } else { // 键盘收起
+            // this.inputBlurHandle()
+            this.setState({
+                pop: false
+            })
+        }
+    }
+
+    // inputClickHandle = () => {
+    //     // 这里处理键盘弹出的事件
+    // }
+    // inputBlurHandle = () => {
+    //     // 这里处理键盘收起的事件
+    // }
     componentWillMount() {
         this.setState({
             shareId: this.props.location.state ? this.props.location.state.shareId : null,
@@ -214,7 +246,7 @@ export default class Login extends Component {
                         <div className="login">
                             <section className='login-section'>
                                 <Tabs defaultActiveKey="1" centered>
-                                    <TabPane tab="免密登录" key="1" className="login-content">
+                                    <TabPane tab="免密登录" key="1" className="login-content" style={{top: !this.state.pop ? '50%' : '60%'}}>
                                         <Form
                                             name="normal_login"
                                             className="login-form"
@@ -242,6 +274,8 @@ export default class Login extends Component {
                                                     </span>
                                                     <Input 
                                                         placeholder="手机号"
+                                                        // onClick={this.inputClickHandle}
+                                                        // onBlur={this.inputBlurHandle}
                                                         style={{width: '172px', marginLeft: '3px'}}
                                                         onChange={event => this.setState({phone:event.target.value})}
                                                     />
@@ -252,7 +286,7 @@ export default class Login extends Component {
                                                 rules={[
                                                     {   required: false, whitespace: true,  message: '验证码必须输入!'},
                                                 ]}
-                                                style={{marginBottom: '30px'}}
+                                                style={{marginBottom: !this.state.pop ? '30px' : '20px'}}
                                             >
                                                 <div className='input_outer'>
                                                     <div className='input_text'>Verification Code</div>
@@ -271,7 +305,7 @@ export default class Login extends Component {
                                             <Form.Item className="login-form-bottom"></Form.Item>
                                         </Form>
                                     </TabPane>
-                                    <TabPane tab="密码登录" key="2" className="login-content">
+                                    <TabPane tab="密码登录" key="2" className="login-content" style={{top: !this.state.pop ? '50%' : '60%'}}>
                                         <Form
                                             name="normal_login"
                                             className="login-form"
@@ -305,7 +339,7 @@ export default class Login extends Component {
                                                         validator: this.validatorPwd
                                                     }
                                                 ]}
-                                                style={{marginBottom: '30px'}}
+                                                style={{marginBottom: !this.state.pop ? '30px' : '10px'}}
                                             >
                                                 <div className='input_outer'>
                                                     <div className='input_text'>PassWord</div>
