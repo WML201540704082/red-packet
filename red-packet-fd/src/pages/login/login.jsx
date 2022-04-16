@@ -349,7 +349,7 @@ export default class Login extends Component {
                                         fields="name,email,picture"
                                         callback={this.responseFacebook}
                                         cssClass="btnFacebook"
-                                        icon={<img src={facebook} alt="facebook" /> }
+                                        icon={<img src={facebook} style={{width:'26px',height:'26px'}} alt="facebook" /> }
                                         textButton = ""
                                     />
                                 </span>
