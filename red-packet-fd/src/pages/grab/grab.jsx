@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import { message } from 'antd'
 import './grab.less'
-import { reqGrabList, reqAccountBalance, reqGrabBet } from '../../api'
+import { reqGrabList, reqAccountBalance, reqGrabBet, reqRechargePay, reqRechargeConfigList } from '../../api'
 import grab from './images/grab.png'
 // import goOpen from './images/goOpen.png'
 import memoryUtils from '../../utils/memoryUtils'
@@ -13,6 +13,8 @@ export default class Grab extends Component {
 			dataSource: [],
             imgFlag: false,
             amount: null,
+            rechargeFlag: false,
+            rechargeConfigList: [],
 		}
 	}
     componentWillMount() {
@@ -27,6 +29,8 @@ export default class Grab extends Component {
         this.getAccountBalance()
         // 抢红包配置列表
         this.getGrabList()
+        // 获取充值金额列表
+        this.getRechargeConfigList()
     }
     getAccountBalance = async () => {
         let result = await reqAccountBalance()
@@ -59,12 +63,29 @@ export default class Grab extends Component {
 			})
         }
 	}
+    getRechargeConfigList = async () => {
+        let params = {
+            current: 0,
+	        size: 10
+        }
+        let result = await reqRechargeConfigList(params)
+        if (result.code === 0) {
+            this.setState({
+                rechargeConfigList: result.data.records
+            })
+        } else {
+            message.error(result.msg)
+        }
+    }
     grabRedPacket = async (item) => {
         let { shareId } = this.state
         const user = memoryUtils.user
         if (user && user.userId) {
             if (this.state.amount < item.amount) {
                 message.warning('余额不足，请先充值！')
+                this.setState({
+                    rechargeFlag: true
+                })
             } else {
                 // 抢红包
                 let params = {
@@ -120,7 +141,90 @@ export default class Grab extends Component {
             )
         }
     }
-
+    // 充值
+    showRecharge = () => {
+        let { rechargeConfigList } = this.state
+        let payList = [{
+            type: '1',
+            name: 'zalo',
+        },{
+            type: '2',
+            name: 'momo'
+        }]
+        return (
+           <div className='recharge'>
+                <div className='recharge_outer' onClick={() => this.setState({rechargeFlag: false})}></div>
+                <div className='recharge_content'>
+                    <div className='recharge_content_top'>
+                        <span>充值</span>
+                    </div>
+                    <div className='recharge_content_middle'>
+                        <div className='recharge_content_middle_top'>
+                            {
+                                rechargeConfigList.map((item,index)=>{
+                                    return (
+                                        <div className='recharge_amount' 
+                                             onClick={()=>this.setState({clickMoneyFlag:index,moneyId:item.id})} 
+                                            style={{color:this.state.clickMoneyFlag === index ? '#ffffff' : '#333333',
+                                                    border:this.state.clickMoneyFlag === index ? '1px solid #C99D3F' : '1px solid #333333',
+                                                    background:this.state.clickMoneyFlag === index ? '#C99D3F' : '#ffffff',
+                                                    width:'30%',height:'45px',lineHeight:'42px',fontFamily:'PingFang-SC-Heavy',
+                                                    display:'flex',justifyContent:'center',alignContent:'center',
+                                                    borderRadius:'5px'}}>
+                                        {item.amount/1000}k</div>
+                                    )
+                                })
+                            }
+                        </div>
+                        <div className='recharge_content_middle_bottom'>
+                            {
+                                payList.map((item,index)=>{
+                                    return (
+                                        <div onClick={()=>this.setState({clickFlag:index,type:item.type})} 
+                                            style={{color:this.state.clickFlag === index ? '#ffffff' : '#333333',
+                                                    border:this.state.clickFlag === index ? '1px solid #C99D3F' : '1px solid #333333',
+                                                    background:this.state.clickFlag === index ? '#C99D3F' : '#ffffff',
+                                                    width:'30%',height:'45px',lineHeight:'42px',fontFamily:'PingFang-SC-Heavy',
+                                                    display:'flex',justifyContent:'center',alignContent:'center',
+                                                    borderRadius:'5px',fontSize:'18px'}}>
+                                            <span>{item.name}</span>
+                                        </div>
+                                    )
+                                })
+                            }
+                        </div>
+                    </div>
+                    <div className='recharge_content_bottom'>
+                        <div className='recharge_button' onClick={() => this.pay()}>确定</div>
+                    </div>
+               </div>
+           </div>
+        )
+    }
+    pay = async () => {
+        let { moneyId, type } = this.state
+        if (!moneyId) {
+           message.warning('请先选择充值金额')
+           return 
+        } else {
+            let params = {
+                type: type,
+                id: moneyId
+            }
+            let result = await reqRechargePay(params)
+            if (result.code === 0) {
+                message.success('充值成功！')
+                const w=window.open('about:blank');
+                w.location.href=result.data
+                this.setState({
+                    rechargeFlag: false
+                })
+                this.getAccountBalance()
+            } else {
+                message.error(result.msg)
+            }
+        }
+    }
     showImg = () => {
         let { imgFlag } = this.state
         if (imgFlag) {
@@ -138,11 +242,12 @@ export default class Grab extends Component {
     }
 
     render() {
-        let { dataSource } = this.state
+        let { dataSource, rechargeFlag } = this.state
         return (
             <div className="grab">
                 {this.redPacketShow(dataSource)}
                 {this.showImg()}
+                {rechargeFlag ? this.showRecharge() : null}
             </div>
         )
     }
