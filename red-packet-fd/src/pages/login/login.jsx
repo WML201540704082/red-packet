@@ -78,7 +78,7 @@ export default class Login extends Component {
                 console.log('失败了', error);
             }
         } else {
-            message.warning('登录失败')
+            // message.warning('登录失败')
         }
     }
     /*
@@ -110,32 +110,36 @@ export default class Login extends Component {
                 console.log('失败了', error);
             }   
         } else {
-            message.warning('登录失败')
+            // message.warning('登录失败')
         }
     }
 
     // 发送验证码
     handleSend = async () => {
-        let a = 60;
-        var reg_tel = /^[0-9]*$/
-        if (reg_tel.test(this.state.phone)) {
-            let phone = this.state.phoneCode + this.state.phone
-            let result = await reqSendSms(phone)
-            if (result.code === 0) {
-                message.success('发送验证码成功！')
-            } else {
-                message.error('发送验证码失败！')
-            }
-            this.setState({num: a})
-            const t1 = setInterval(()=>{
-                a=a-1
-                this.setState({num: a})
-                if(a === 0){
-                    clearInterval(t1)
+        if (!this.state.phone) {
+            message.warning('请先输入手机号')
+        } else {
+            let a = 60;
+            var reg_tel = /^[0-9]*$/
+            if (reg_tel.test(this.state.phone)) {
+                let phone = this.state.phoneCode + this.state.phone
+                let result = await reqSendSms(phone)
+                if (result.code === 0) {
+                    message.success('发送验证码成功！')
+                } else {
+                    message.error('发送验证码失败！')
                 }
-            },1000)
-        }else {
-            alert('手机号格式不正确')
+                this.setState({num: a})
+                const t1 = setInterval(()=>{
+                    a=a-1
+                    this.setState({num: a})
+                    if(a === 0){
+                        clearInterval(t1)
+                    }
+                },1000)
+            }else {
+                message.warning('手机号格式不正确')
+            }
         }
     }
     selectCode = () => {
@@ -402,7 +406,7 @@ export default class Login extends Component {
 					closeModal={(phone_code) => 
                         this.setState({
                             countryFlag: false,
-                            phoneCode: '+' + phone_code
+                            phoneCode: phone_code
                         })
                     }
 				/>
