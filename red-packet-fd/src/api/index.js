@@ -35,6 +35,9 @@ export const reqAccountBalance = () => ajax(BASE + 'web/user/account/accountBala
 // 充值
 export const reqRechargePay = data => ajax(BASE + 'web/recharge/pay', data, 'POST')
 
+// 充值获取支付订单信息
+export const reqPayOrderInfo = data => ajax(BASE + 'web/recharge/selectOrder', data, 'POST')
+
 // 充值配置项列表
 export const reqRechargeConfigList = data => ajax(BASE + 'web/recharge/config/list', data, 'POST')
 

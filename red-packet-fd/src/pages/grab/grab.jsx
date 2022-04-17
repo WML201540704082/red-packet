@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import { message, Radio } from 'antd'
 import './grab.less'
-import { reqGrabList, reqAccountBalance, reqGrabBet, reqRechargePay } from '../../api'
+import { reqGrabList, reqAccountBalance, reqGrabBet, reqRechargePay, reqPayOrderInfo } from '../../api'
 import grab from './images/grab.png'
 import zalo from './images/zalo.png'
 import momo from './images/momo.png'
@@ -17,7 +17,8 @@ export default class Grab extends Component {
             amount: null,
             rechargeFlag: false,
             type: '1',
-            rechargeAmount: 0
+            rechargeAmount: 0,
+            redPacketId: null
 		}
 	}
     componentWillMount() {
@@ -72,7 +73,8 @@ export default class Grab extends Component {
                 message.warning('余额不足，请先充值！')
                 this.setState({
                     rechargeFlag: true,
-                    rechargeAmount: item.amount
+                    rechargeAmount: item.amount,
+                    redPacketId: item.id
                 })
             } else {
                 // 抢红包
@@ -168,7 +170,7 @@ export default class Grab extends Component {
         )
     }
     pay = async () => {
-        let { type, rechargeAmount } = this.state
+        let { type, rechargeAmount, redPacketId } = this.state
         let params = {
             type: type,
             id: null,
@@ -176,13 +178,54 @@ export default class Grab extends Component {
         }
         let result = await reqRechargePay(params)
         if (result.code === 0) {
-            message.success('充值成功！')
-            const w=window.open('about:blank');
-            w.location.href=result.data
+            // this.timer = setInterval(() => {
+                this.getPayOrderInfo(redPacketId, result.data.ticket)
+            // },1500)
+            var u = navigator.userAgent;
+            var isAndroid = u.indexOf("Android") > -1 || u.indexOf("Adr") > -1; //android终端
+            var isiOS = !!u.match(/\(i[^;]+;( U;)? CPU.+Mac OS X/); //ios终端
+            if(isAndroid) {  //android终端
+                let url = result.data.pageurl
+                window.open(url);
+            } else if(isiOS) {   //ios终端
+                window.location.href = result.data.pageurl
+            } else {
+                const w=window.open('about:blank');
+                w.location.href=result.data.pageurl
+            }
             this.setState({
                 rechargeFlag: false
             })
             this.getAccountBalance()
+        } else {
+            message.error(result.msg)
+        }
+    }
+    // 获取支付订单信息
+    getPayOrderInfo = async (redPacketId, ticket) => {
+        let params = {
+            id: redPacketId,
+            ticket: ticket
+        }
+        let result = await reqPayOrderInfo(params)
+        if (result.code === 0) {
+            if (result.data) {
+                this.paySuccess()
+            } else {
+                this.getPayOrderInfo(redPacketId, ticket)
+            }
+        }
+    }
+    paySuccess = async (redPacketId) => {
+        let params = {
+            id: redPacketId
+        }
+        let result = await reqGrabBet(params)
+        if (result.code === 0) {
+            this.setState({
+                dataSource: result.data.records,
+                imgFlag: true
+            })
         } else {
             message.error(result.msg)
         }
