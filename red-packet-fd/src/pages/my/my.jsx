@@ -330,9 +330,15 @@ export default class My extends Component {
             }
             let result = await reqRechargePay(params)
             if (result.code === 0) {
-                message.success('充值成功！')
-                const w=window.open('about:blank');
-                w.location.href=result.data
+                var u = navigator.userAgent;
+                var isAndroid = u.indexOf("Android") > -1 || u.indexOf("Adr") > -1; //android终端
+                var isiOS = !!u.match(/\(i[^;]+;( U;)? CPU.+Mac OS X/); //ios终端
+                if(isAndroid) {  //android终端
+                    let url = result.data
+                    window.open(url);
+                }else if(isiOS) {   //ios终端
+                    window.location.href = result.data
+                }
                 this.setState({
                     rechargeFlag: false
                 })
