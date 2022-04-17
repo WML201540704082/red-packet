@@ -68,27 +68,27 @@ export default class Grab extends Component {
         let { shareId } = this.state
         const user = memoryUtils.user
         if (user && user.userId) {
-            // if (this.state.amount < item.amount) {
+            if (this.state.amount < item.amount) {
                 message.warning('余额不足，请先充值！')
                 this.setState({
                     rechargeFlag: true,
                     rechargeAmount: item.amount
                 })
-            // } else {
-            //     // 抢红包
-            //     let params = {
-            //         id: item.id
-            //     }
-            //     let result = await reqGrabBet(params)
-            //     if (result.code === 0) {
-            //         this.setState({
-            //             dataSource: result.data.records,
-            //             imgFlag: true
-            //         })
-            //     } else {
-            //         message.error(result.msg)
-            //     }
-            // }
+            } else {
+                // 抢红包
+                let params = {
+                    id: item.id
+                }
+                let result = await reqGrabBet(params)
+                if (result.code === 0) {
+                    this.setState({
+                        dataSource: result.data.records,
+                        imgFlag: true
+                    })
+                } else {
+                    message.error(result.msg)
+                }
+            }
         } else {
             message.warning('请先登录！')
             this.props.history.push({
@@ -169,7 +169,6 @@ export default class Grab extends Component {
     }
     pay = async () => {
         let { type, rechargeAmount } = this.state
-        debugger
         let params = {
             type: type,
             id: null,
@@ -195,7 +194,6 @@ export default class Grab extends Component {
                 <div className='img_show'>
                     <div className='img_show_outer' onClick={() => this.setState({imgFlag: false})}></div>
                     <div className='img_show_content'>
-                        {/* <img src={goOpen} alt="img"/> */}
                         <div className='img_show_content_top'>恭喜您获得一个红包</div>
                         <div className='img_show_content_bottom' onClick={() => this.props.history.push("/open")}>去拆红包</div>
                     </div>
