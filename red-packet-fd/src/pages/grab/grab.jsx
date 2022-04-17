@@ -224,7 +224,7 @@ export default class Grab extends Component {
         if (imgFlag) {
             return(
                 <div className='img_show'>
-                    <div className='img_show_outer' onClick={() => this.setState({imgFlag: false})}></div>
+                    <div className='img_show_outer'></div>
                     <div className='img_show_content'>
                         <img src={close} style={{width:'20px',height:'20px',position:'absolute',top:'-12px',right:'28px'}} onClick={() => this.setState({imgFlag: false})} alt="" />
                         <div className='img_show_content_top'>恭喜您获得一个红包</div>
