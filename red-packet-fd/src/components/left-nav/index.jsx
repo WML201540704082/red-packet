@@ -48,7 +48,21 @@ class leftNav extends Component {
             }
         })
     }
-
+    componentDidMount() {
+        // 监听路由的变化,如果路由发生变化则进行相应操作
+        this.props.history.listen(location => {
+            // 最新路由的 location 对象，可以通过比较 pathname 是否相同来判断路由的变化情况
+            if (this.props.location.pathname !== location.pathname) {
+                // 路由发生了变化
+                if (location.pathname === '/open') {
+                    let params = {
+                        key: '/open'
+                    }
+                    this.menu_click(params)             
+                }
+            }
+        })
+    }
     menu_click = (val) => {
         if (val.key === "/grab") {
             this.setState({
