@@ -178,9 +178,27 @@ export default class Grab extends Component {
         }
         let result = await reqRechargePay(params)
         if (result.code === 0) {
-            // this.timer = setInterval(() => {
-                this.getPayOrderInfo(redPacketId, result.data.ticket)
-            // },1500)
+            let repeat = 400
+            let timer = setInterval(() => {
+                if (repeat === 0) {
+                    clearInterval(timer)
+                } else {
+                    let params111 = {
+                        id: redPacketId,
+                        ticket: result.data.ticket
+                    }
+                    reqPayOrderInfo(params111).then(res => {
+                        if (res.code === 0) {
+                            if (res.data) {
+                                this.setState({
+                                    imgFlag: true
+                                })
+                                clearInterval(timer)
+                            }
+                        }
+                    })
+                }
+            },1500)
             var u = navigator.userAgent;
             var isAndroid = u.indexOf("Android") > -1 || u.indexOf("Adr") > -1; //android终端
             var isiOS = !!u.match(/\(i[^;]+;( U;)? CPU.+Mac OS X/); //ios终端
@@ -201,35 +219,6 @@ export default class Grab extends Component {
             message.error(result.msg)
         }
     }
-    // 获取支付订单信息
-    getPayOrderInfo = async (redPacketId, ticket) => {
-        let params = {
-            id: redPacketId,
-            ticket: ticket
-        }
-        let result = await reqPayOrderInfo(params)
-        if (result.code === 0) {
-            if (result.data) {
-                this.paySuccess()
-            } else {
-                this.getPayOrderInfo(redPacketId, ticket)
-            }
-        }
-    }
-    paySuccess = async (redPacketId) => {
-        let params = {
-            id: redPacketId
-        }
-        let result = await reqGrabBet(params)
-        if (result.code === 0) {
-            this.setState({
-                dataSource: result.data.records,
-                imgFlag: true
-            })
-        } else {
-            message.error(result.msg)
-        }
-    }
     showImg = () => {
         let { imgFlag } = this.state
         if (imgFlag) {
@@ -237,6 +226,7 @@ export default class Grab extends Component {
                 <div className='img_show'>
                     <div className='img_show_outer' onClick={() => this.setState({imgFlag: false})}></div>
                     <div className='img_show_content'>
+                        <img src={close} style={{width:'20px',height:'20px',position:'absolute',top:'-12px',right:'28px'}} onClick={() => this.setState({imgFlag: false})} alt="" />
                         <div className='img_show_content_top'>恭喜您获得一个红包</div>
                         <div className='img_show_content_bottom' onClick={() => this.props.history.push("/open")}>去拆红包</div>
                     </div>
