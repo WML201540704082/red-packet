@@ -1,9 +1,11 @@
 import React, { Component } from 'react'
-import { message } from 'antd'
+import { message, Radio } from 'antd'
 import './grab.less'
-import { reqGrabList, reqAccountBalance, reqGrabBet, reqRechargePay, reqRechargeConfigList } from '../../api'
+import { reqGrabList, reqAccountBalance, reqGrabBet, reqRechargePay } from '../../api'
 import grab from './images/grab.png'
-// import goOpen from './images/goOpen.png'
+import zalo from './images/zalo.png'
+import momo from './images/momo.png'
+import close from './images/close.png'
 import memoryUtils from '../../utils/memoryUtils'
 // 首页路由
 export default class Grab extends Component {
@@ -14,7 +16,8 @@ export default class Grab extends Component {
             imgFlag: false,
             amount: null,
             rechargeFlag: false,
-            rechargeConfigList: [],
+            type: '1',
+            rechargeAmount: 0
 		}
 	}
     componentWillMount() {
@@ -29,8 +32,6 @@ export default class Grab extends Component {
         this.getAccountBalance()
         // 抢红包配置列表
         this.getGrabList()
-        // 获取充值金额列表
-        this.getRechargeConfigList()
     }
     getAccountBalance = async () => {
         let result = await reqAccountBalance()
@@ -63,44 +64,31 @@ export default class Grab extends Component {
 			})
         }
 	}
-    getRechargeConfigList = async () => {
-        let params = {
-            current: 0,
-	        size: 10
-        }
-        let result = await reqRechargeConfigList(params)
-        if (result.code === 0) {
-            this.setState({
-                rechargeConfigList: result.data.records
-            })
-        } else {
-            message.error(result.msg)
-        }
-    }
     grabRedPacket = async (item) => {
         let { shareId } = this.state
         const user = memoryUtils.user
         if (user && user.userId) {
-            if (this.state.amount < item.amount) {
+            // if (this.state.amount < item.amount) {
                 message.warning('余额不足，请先充值！')
                 this.setState({
-                    rechargeFlag: true
+                    rechargeFlag: true,
+                    rechargeAmount: item.amount
                 })
-            } else {
-                // 抢红包
-                let params = {
-                    id: item.id
-                }
-                let result = await reqGrabBet(params)
-                if (result.code === 0) {
-                    this.setState({
-                        dataSource: result.data.records,
-                        imgFlag: true
-                    })
-                } else {
-                    message.error(result.msg)
-                }
-            }
+            // } else {
+            //     // 抢红包
+            //     let params = {
+            //         id: item.id
+            //     }
+            //     let result = await reqGrabBet(params)
+            //     if (result.code === 0) {
+            //         this.setState({
+            //             dataSource: result.data.records,
+            //             imgFlag: true
+            //         })
+            //     } else {
+            //         message.error(result.msg)
+            //     }
+            // }
         } else {
             message.warning('请先登录！')
             this.props.history.push({
@@ -143,7 +131,6 @@ export default class Grab extends Component {
     }
     // 充值
     showRecharge = () => {
-        let { rechargeConfigList } = this.state
         let payList = [{
             type: '1',
             name: 'zalo',
@@ -152,77 +139,53 @@ export default class Grab extends Component {
             name: 'momo'
         }]
         return (
-           <div className='recharge'>
-                <div className='recharge_outer' onClick={() => this.setState({rechargeFlag: false})}></div>
-                <div className='recharge_content'>
-                    <div className='recharge_content_top'>
-                        <span>充值</span>
+           <div className='recharge_show'>
+                <div className='recharge_show_outer'></div>
+                <div className='recharge_show_content'>
+                    <img src={close} style={{width:'20px',height:'20px',position:'absolute',top:'-40px',right:'5px'}} onClick={() => this.setState({rechargeFlag: false})} alt="" />
+                    <div className='recharge_show_content_top'>
+                        <div style={{fontSize:'20px',fontWeight:'bold'}}>充值</div>
+                        <div style={{fontSize:'16px',fontFamily:'PingFang-SC-Regular'}}>请选择支付通道</div>
                     </div>
-                    <div className='recharge_content_middle'>
-                        <div className='recharge_content_middle_top'>
+                    <div className='recharge_show_content_middle'>
+                        <Radio.Group defaultValue={'1'}>
                             {
-                                rechargeConfigList.map((item,index)=>{
+                                payList.map(item=>{
                                     return (
-                                        <div className='recharge_amount' 
-                                             onClick={()=>this.setState({clickMoneyFlag:index,moneyId:item.id})} 
-                                            style={{color:this.state.clickMoneyFlag === index ? '#ffffff' : '#333333',
-                                                    border:this.state.clickMoneyFlag === index ? '1px solid #C99D3F' : '1px solid #333333',
-                                                    background:this.state.clickMoneyFlag === index ? '#C99D3F' : '#ffffff',
-                                                    width:'30%',height:'45px',lineHeight:'42px',fontFamily:'PingFang-SC-Heavy',
-                                                    display:'flex',justifyContent:'center',alignContent:'center',
-                                                    borderRadius:'5px'}}>
-                                        {item.amount/1000}k</div>
+                                        <Radio style={{paddingRight: item.type === '1' ? '20px' : '',paddingLeft: item.type === '2' ? '20px' : ''}} onChange={()=>this.setState({type:item.type})} value={item.type}>
+                                            <img src={item.type === '1' ? zalo : momo} style={{width:'40px',height:'40px'}} alt="" />
+                                        </Radio>
                                     )
                                 })
                             }
-                        </div>
-                        <div className='recharge_content_middle_bottom'>
-                            {
-                                payList.map((item,index)=>{
-                                    return (
-                                        <div onClick={()=>this.setState({clickFlag:index,type:item.type})} 
-                                            style={{color:this.state.clickFlag === index ? '#ffffff' : '#333333',
-                                                    border:this.state.clickFlag === index ? '1px solid #C99D3F' : '1px solid #333333',
-                                                    background:this.state.clickFlag === index ? '#C99D3F' : '#ffffff',
-                                                    width:'30%',height:'45px',lineHeight:'42px',fontFamily:'PingFang-SC-Heavy',
-                                                    display:'flex',justifyContent:'center',alignContent:'center',
-                                                    borderRadius:'5px',fontSize:'18px'}}>
-                                            <span>{item.name}</span>
-                                        </div>
-                                    )
-                                })
-                            }
-                        </div>
+                        </Radio.Group>
                     </div>
-                    <div className='recharge_content_bottom'>
-                        <div className='recharge_button' onClick={() => this.pay()}>确定</div>
+                    <div className='recharge_show_content_bottom'>
+                        <div className='recharge_button' onClick={() => this.pay()}>去充值</div>
                     </div>
                </div>
            </div>
         )
     }
     pay = async () => {
-        let { moneyId, type } = this.state
-        if (!moneyId) {
-           message.warning('请先选择充值金额')
-           return 
+        let { type, rechargeAmount } = this.state
+        debugger
+        let params = {
+            type: type,
+            id: null,
+            amount: rechargeAmount
+        }
+        let result = await reqRechargePay(params)
+        if (result.code === 0) {
+            message.success('充值成功！')
+            const w=window.open('about:blank');
+            w.location.href=result.data
+            this.setState({
+                rechargeFlag: false
+            })
+            this.getAccountBalance()
         } else {
-            let params = {
-                type: type,
-                id: moneyId
-            }
-            let result = await reqRechargePay(params)
-            if (result.code === 0) {
-                message.success('充值成功！')
-                const w=window.open('about:blank');
-                w.location.href=result.data
-                this.setState({
-                    rechargeFlag: false
-                })
-                this.getAccountBalance()
-            } else {
-                message.error(result.msg)
-            }
+            message.error(result.msg)
         }
     }
     showImg = () => {

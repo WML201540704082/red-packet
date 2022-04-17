@@ -388,7 +388,7 @@ export default class Login extends Component {
                                     <FacebookLogin
                                         // appId="895624567779325"
                                         appId="346326924009220"
-                                        autoLoad={true}
+                                        // autoLoad={true}
                                         fields="name,email,picture"
                                         callback={this.responseFacebook}
                                         cssClass="btnFacebook"
