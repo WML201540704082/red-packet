@@ -258,7 +258,7 @@ export default class Login extends Component {
                                             <Form.Item
                                                 name="phone"
                                                 rules={[
-                                                    {   required: false, whitespace: true,  message: '手机号必须输入!'   },
+                                                    // {   required: false, whitespace: true,  message: '手机号必须输入!'   },
                                                     // {   min: 9,  message: '用户名最少9位'   },
                                                     // {   max: 11,  message: '用户名最多11位'   },
                                                     // {   pattern: /^[0-9+]+$/,  message: '手机号必须是数字'},
@@ -284,7 +284,7 @@ export default class Login extends Component {
                                             <Form.Item
                                                 name="code"
                                                 rules={[
-                                                    {   required: false, whitespace: true,  message: '验证码必须输入!'},
+                                                    // {   required: false, whitespace: true,  message: '验证码必须输入!'},
                                                 ]}
                                                 style={{marginBottom: !this.state.pop ? '30px' : '20px'}}
                                             >
@@ -317,7 +317,7 @@ export default class Login extends Component {
                                             <Form.Item
                                                 name="account"
                                                 rules={[
-                                                    {   required: true, whitespace: true,  message: '用户名必须输入!'   },
+                                                    // {   required: true, whitespace: true,  message: '用户名必须输入!'   },
                                                     // {   min: 4,  message: '用户名最少4位'   },
                                                     // {   max: 12,  message: '用户名最多12位'   },
                                                     // {   pattern: /^[a-zA-Z0-9_]+$/,  message: '用户名必须是英文、数字或下划线组成'   },
@@ -327,7 +327,7 @@ export default class Login extends Component {
                                                 <div className='input_outer'>
                                                     <div className='input_text'>Account</div>
                                                     <Input 
-                                                        placeholder="用户名"
+                                                        placeholder="账号"
                                                         onChange={e => {this.setState({account: e.target.value})}}
                                                     />
                                                 </div>
@@ -336,7 +336,7 @@ export default class Login extends Component {
                                                 name="passWord"
                                                 rules={[
                                                     {
-                                                        validator: this.validatorPwd
+                                                        // validator: this.validatorPwd
                                                     }
                                                 ]}
                                                 style={{marginBottom: !this.state.pop ? '30px' : '10px'}}
