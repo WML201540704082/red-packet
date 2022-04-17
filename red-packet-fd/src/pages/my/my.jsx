@@ -336,8 +336,11 @@ export default class My extends Component {
                 if(isAndroid) {  //android终端
                     let url = result.data
                     window.open(url);
-                }else if(isiOS) {   //ios终端
+                } else if(isiOS) {   //ios终端
                     window.location.href = result.data
+                } else {
+                    const w=window.open('about:blank');
+                    w.location.href=result.data
                 }
                 this.setState({
                     rechargeFlag: false
