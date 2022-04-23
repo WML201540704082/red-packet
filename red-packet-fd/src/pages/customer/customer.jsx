@@ -1,4 +1,5 @@
 import React, { Component } from 'react'
+import { message } from 'antd';
 import './customer.less'
 import { reqCustomerImg } from '../../api'
 
@@ -17,7 +18,7 @@ export default class Customer extends Component {
 				img: result.data.url
 			})
 		} else {
-        
+            message.error(result.msg)
         }
     }
     render() {

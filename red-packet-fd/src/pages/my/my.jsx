@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { Modal, message } from 'antd';
+import { Modal, message, Radio } from 'antd';
 import { ExclamationCircleOutlined } from '@ant-design/icons'
 import memoryUtils from '../../utils/memoryUtils'
 import storageUtils from '../../utils/storageUtils'
@@ -14,6 +14,9 @@ import Withdraw from './components/withdraw'//余额中的提现
 import Records from './components/records'//提现记录
 import Details from './components/details'//分佣明细
 import { reqAccountBalance, reqRechargeConfigList, reqRechargePay } from '../../api'
+import zalo from '../grab/images/zalo.png'
+import momo from '../grab/images/momo.png'
+import close from '../grab/images/close.png'
 
 import './my.less'
 
@@ -263,29 +266,31 @@ export default class My extends Component {
         let { rechargeConfigList } = this.state
         let payList = [{
             type: '1',
-            name: 'zalo',
+            name: 'Zalo Pay',
         },{
             type: '2',
-            name: 'momo'
+            name: 'MoMo Pay'
         }]
         return (
            <div className='recharge'>
-                <div className='recharge_outer' onClick={() => this.setState({rechargeFlag: false})}></div>
+                <div className='recharge_outer'></div>
                 <div className='recharge_content'>
+                    <img src={close} style={{width:'20px',height:'20px',position:'absolute',top:'-40px',right:'5px'}} onClick={() => this.setState({rechargeFlag: false})} alt="" />
                     <div className='recharge_content_top'>
                         <span>充值</span>
                     </div>
                     <div className='recharge_content_middle'>
+                        <div style={{padding:'15px 15px 0'}}>请选择充值金额</div>
                         <div className='recharge_content_middle_top'>
                             {
                                 rechargeConfigList.map((item,index)=>{
                                     return (
                                         <div className='recharge_amount' 
                                              onClick={()=>this.setState({clickMoneyFlag:index,moneyId:item.id})} 
-                                            style={{color:this.state.clickMoneyFlag === index ? '#ffffff' : '#333333',
+                                            style={{color:this.state.clickMoneyFlag === index ? '#D53E1C' : '#333333',
                                                     border:this.state.clickMoneyFlag === index ? '1px solid #C99D3F' : '1px solid #333333',
-                                                    background:this.state.clickMoneyFlag === index ? '#C99D3F' : '#ffffff',
-                                                    width:'30%',height:'45px',lineHeight:'42px',fontFamily:'PingFang-SC-Heavy',
+                                                    background:this.state.clickMoneyFlag === index ? '#FBE4DE' : '#ffffff',
+                                                    width:'30%',fontFamily:'PingFang-SC-Heavy',
                                                     display:'flex',justifyContent:'center',alignContent:'center',
                                                     borderRadius:'5px'}}>
                                         {item.amount/1000}k</div>
@@ -293,8 +298,9 @@ export default class My extends Component {
                                 })
                             }
                         </div>
+                        <div style={{padding:'0 15px'}}>请选择支付方式</div>
                         <div className='recharge_content_middle_bottom'>
-                            {
+                            {/* {
                                 payList.map((item,index)=>{
                                     return (
                                         <div onClick={()=>this.setState({clickFlag:index,type:item.type})} 
@@ -308,11 +314,23 @@ export default class My extends Component {
                                         </div>
                                     )
                                 })
-                            }
+                            } */}
+                            <Radio.Group defaultValue={'1'} style={{width:'100%'}}>
+                                {
+                                    payList.map(item=>{
+                                        return (
+                                            <Radio style={{width: '100%',padding:'10px 10px 0'}} onChange={()=>this.setState({type:item.type})} value={item.type}>
+                                                <img src={item.type === '1' ? zalo : momo} style={{width:'40px',height:'40px'}} alt="" />
+                                                <span style={{paddingLeft:'20px'}}>{item.name}</span>
+                                            </Radio>
+                                        )
+                                    })
+                                }
+                            </Radio.Group>
                         </div>
                     </div>
                     <div className='recharge_content_bottom'>
-                        <div className='recharge_button' onClick={() => this.pay()}>确定</div>
+                        <div className='recharge_button' onClick={() => this.pay()}>充值</div>
                     </div>
                </div>
            </div>

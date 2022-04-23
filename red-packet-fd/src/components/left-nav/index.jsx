@@ -59,6 +59,16 @@ class leftNav extends Component {
                         key: '/open'
                     }
                     this.menu_click(params)             
+                } else if (location.pathname === '/customer') {
+                    let params = {
+                        key: '/customer'
+                    }
+                    this.menu_click(params)             
+                }  else if (location.pathname === '/my') {
+                    let params = {
+                        key: '/my'
+                    }
+                    this.menu_click(params)             
                 }
             }
         })

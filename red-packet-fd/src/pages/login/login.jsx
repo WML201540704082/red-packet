@@ -244,9 +244,9 @@ export default class Login extends Component {
                 {
                     !countryFlag ? (
                         <div className="login">
-                            <section className='login-section'>
+                            <section className='login-section' style={{height: !this.state.pop ? '' : '43%'}}>
                                 <Tabs defaultActiveKey="1" centered>
-                                    <TabPane tab="免密登录" key="1" className="login-content" style={{top: !this.state.pop ? '50%' : '60%'}}>
+                                    <TabPane tab="免密登录" key="1" className="login-content" style={{top: !this.state.pop ? '50%' : '57%'}}>
                                         <Form
                                             name="normal_login"
                                             className="login-form"
@@ -305,7 +305,7 @@ export default class Login extends Component {
                                             <Form.Item className="login-form-bottom"></Form.Item>
                                         </Form>
                                     </TabPane>
-                                    <TabPane tab="密码登录" key="2" className="login-content" style={{top: !this.state.pop ? '50%' : '60%'}}>
+                                    <TabPane tab="密码登录" key="2" className="login-content" style={{top: !this.state.pop ? '50%' : '57%'}}>
                                         <Form
                                             name="normal_login"
                                             className="login-form"
@@ -364,8 +364,8 @@ export default class Login extends Component {
                                     </TabPane>
                                 </Tabs>
                             </section>
-                            <div className='otherLogin'>
-                                <span className='text_line'>
+                            <div className='otherLogin' style={{height: !this.state.pop ? '90px' : '75px'}}>
+                                <span className='text_line' style={{marginBottom: !this.state.pop ? '15px' : '0px'}}>
                                     <div className='left_line'></div>
                                     其他登录方式
                                     <div className='right_line'></div>
