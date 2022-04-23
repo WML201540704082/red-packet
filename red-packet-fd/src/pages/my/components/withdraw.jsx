@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import goback from '../images/goback.png'
-import { reqUserCardList, reqAddCard, reqUpdateCard, reqDeleteCard } from '../../../api'
+import { reqUserCardList, reqAddCard, reqUpdateCard, reqDeleteCard, reqWithdraw } from '../../../api'
 import { message } from 'antd'
 import BankList from './bank-list'
 import arrows from './arrows.png'
@@ -18,6 +18,7 @@ export default class Withdrawal extends Component {
             cardNo:'',
             id:'',
             bankId:'',
+            bankCardId: '',
             bankNameFlag: false,
             type:null
 		}
@@ -47,8 +48,8 @@ export default class Withdrawal extends Component {
         this.props.closeModal()
     }
     // 提现
-    widthdraw = () => {
-        let { clickFlag, money, balanceAmount } = this.state
+    widthdraw = async () => {
+        let { clickFlag, money, balanceAmount, bankCardId } = this.state
         if (clickFlag !==0 && !clickFlag) {
             message.warning('请选择账号！')
         } else if (!money) {
@@ -56,8 +57,17 @@ export default class Withdrawal extends Component {
         } else if (money > balanceAmount) {
             message.warning('提现金额需小于余额！')
         } else {
-            message.success('提现成功！')
-            this.props.sureModal()
+            let params = {
+                bankCardId: bankCardId,
+                amount: money,
+            }
+            let result = await reqWithdraw(params)
+            if (result.code === 0) {
+                message.success('提现成功！')
+                this.props.sureModal()
+            } else {
+                message.error(result.data.msg)
+            }
         }   
     }
     // 添加银行卡
@@ -69,7 +79,6 @@ export default class Withdrawal extends Component {
             id,//用户银行列表id
             bankId: type === 'update' ? bankId : null
         }
-        debugger
         let result = type === 'update'? await reqUpdateCard(params) : await reqAddCard(params)
         if (result.code === 0 && result.data.code === 0) {
             message.success(type === 'update' ? '修改成功' : '添加成功')
@@ -118,7 +127,6 @@ export default class Withdrawal extends Component {
                                 <div style={{height:'30px'}}>输入提现金额</div>
                                 <div style={{background:'#ffffff',height:'110px',border:'1px solid #D53E1C',borderRadius:'5px',padding:'0 15px'}}>
                                     <div style={{height:'70px',lineHeight:'70px',display:'flex',alignContent:'center',width:'100%',borderBottom:'1px solid #DCDCDC',fontFamily:'PingFang-SC-Heavy',fontSize:'36px',fontWeight:'bold'}}>
-                                        <span>₫</span>
                                         <input value={this.state.money}
                                             onChange={event => this.setState({money:event.target.value})}
                                             style={{height:'50px',width:'90%',fontSize:'40px',margin:'12px 5px 0',
@@ -139,14 +147,14 @@ export default class Withdrawal extends Component {
                                                     this.state.cardList.map((item,index)=>{
                                                         return (
                                                             <div style={{width:'100%',display:'flex'}}>
-                                                                <div onClick={()=>this.setState({clickFlag:index})} 
+                                                                <div onClick={()=>this.setState({clickFlag:index,bankCardId:item.bankId})} 
                                                                     style={{color:this.state.clickFlag === index ? 'red' : '',
                                                                             border:this.state.clickFlag === index ? '1px solid red' : '',
                                                                             background:'#ffffff',height:'40px',lineHeight:'40px',
                                                                             borderRadius:'5px',marginBottom:'10px',paddingLeft:'10px',
-                                                                            width:'calc(100vw - 110px)'}}>
-                                                                    <span>{item.backName}</span>
-                                                                    <span style={{marginLeft:'20px'}}>{item.cardNo}</span>
+                                                                            width:'calc(100vw - 125px)',display:'flex'}}>
+                                                                    <div style={{width:'50%',overflow:'hidden',textOverflow:'ellipsis',whiteSpace:'nowrap'}}>{item.backName}</div>
+                                                                    <div style={{width:'50%',marginLeft:'20px',overflow:'hidden',textOverflow:'ellipsis',whiteSpace:'nowrap'}}>{item.cardNo}</div>
                                                                 </div>
                                                                 <div onClick={()=>this.setState({newCardFlag:true,type:'update',cardName:item.cardName,bankName:item.backName,id:item.id,bankId:item.bankId,cardNo:item.cardNo})}
                                                                      style={{width:'40px',height:'40px',lineHeight:'40px',textAlign:'center',background:'#2878ff',marginLeft:'4px',color:'#ffffff',borderRadius:'5px'}}>编辑</div>
@@ -179,7 +187,7 @@ export default class Withdrawal extends Component {
                                     <div style={{height:'60px',lineHeight:'60px',display:'flex',alignContent:'center',width:'100%',borderBottom:'1px solid #DCDCDC',fontFamily:'PingFang-SC-Heavy'}}>
                                         <div style={{width:'120px',color:'#666666',paddingLeft:'10px',fontSize:'16px'}}>银行名称</div>
                                         <div onClick={()=>this.selectBankName()} style={{width:'calc(100vw - 120px)',display:'flex'}}>
-                                            <span style={{width:'calc(100vw - 165px)',paddingLeft:'10px'}}>{this.state.bankName}</span>
+                                            <span style={{width:'calc(100vw - 165px)',paddingLeft:'5px',overflow:'hidden',textOverflow:'ellipsis',whiteSpace:'nowrap'}}>{this.state.bankName}</span>
                                             <img style={{width:'15px',height:'15px',marginTop:'22px',marginLeft:'5px'}} src={arrows} alt="arrows"/>
                                         </div>
                                     </div>

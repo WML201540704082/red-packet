@@ -68,6 +68,9 @@ export const reqPartnerList = () => ajax(BASE + 'web/user/account/partner', {}, 
 // 提现记录
 export const reqRecordsList = data => ajax(BASE + 'web/user/account/withdrawDetail', data, 'POST')
 
+// 提现
+export const reqWithdraw = data => ajax(BASE + 'web/user/account/withdraw', data, 'POST')
+
 // 分佣明细
 export const reqDetailsList = data => ajax(BASE + 'web/user/account/commissionDetails', data, 'POST')
 
