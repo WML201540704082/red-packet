@@ -1,10 +1,12 @@
 //对话框表单组件
 import React, { Component } from 'react'
-import { Modal, Input, Form, message, Button, Select } from 'antd'
+import { Modal, Input, Form, message, Button } from 'antd'
 import { reqSendSms, reqRegister } from '../../../api'
 import countryCode from '../countryCode'
+import arrows from '../images/arrows.png'
+import CountrySelect from './country-select'
+import './retrieve-pwd.less'
 const { Item } = Form
-const { Option } = Select;
 
 export default class ModalComponent extends Component {
 	formRef = React.createRef()
@@ -13,7 +15,8 @@ export default class ModalComponent extends Component {
 		this.state = {
 			flag: false,
             num: 0,
-            countryNo: 84,
+            phoneCode: '+84',
+            countryFlag: false,
 		}
 	}
 	componentWillMount() {
@@ -35,33 +38,12 @@ export default class ModalComponent extends Component {
 		this.formRef.current.resetFields() //清空表单
 		closeModal()
 	}
-     // 选择国家
-     selectCountry = () => {
-        return (
-            <Select
-                showSearch
-                placeholder="Select a person"
-                optionFilterProp="children"
-                onChange={this.changeCountryNo}
-                defaultValue="84"
-                style={{width: '135px'}}
-            >
-                {
-                    countryCode.map(item => {
-                        return (
-                            <Option value={item.phone_code}>{item.english_name + '(+' + item.phone_code + ')'}</Option>
-                        )
-                    })
-                }
-            </Select>
-        )
-    }
     // 发送验证码
     handleSend = async () => {
         let a = 60;
         var reg_tel = /^[0-9]*$/
         if (reg_tel.test(this.state.phone)) {
-            let phone = '+' + this.state.countryNo + this.state.phone
+            let phone = this.state.phoneCode.substring(1) + this.state.phone
             let result = await reqSendSms(phone)
             if (result.code === 0) {
                 message.success('发送验证码成功！')
@@ -80,39 +62,83 @@ export default class ModalComponent extends Component {
             alert('手机号格式不正确')
         }
     }
+    // 选择国家代码
+    selectCode = () => {
+        this.setState({
+            countryFlag: true
+        })
+    }
+    showCountrySelect = flag => {
+        if (flag) {
+            return (
+                <CountrySelect
+					flag={flag}
+                    countryCode={countryCode}
+                    goBackModal={()=>this.setState({countryFlag: false})}
+					closeModal={(phone_code) => 
+                        this.setState({
+                            countryFlag: false,
+                            phoneCode: '+' + phone_code
+                        })
+                    }
+				/>
+            )
+        }
+    }
 	render() {
-		let { flag, num } = this.state
+		let { flag, num, phoneCode, countryFlag } = this.state
 		return (
-		<Modal 
-			title="注册" 
-			visible={flag} 
-			onOk={this.handleOk} 
-			onCancel={() => this.closeClear()} 
-			cancelText="取消" 
-			okText="确定"
-		>
-			<Form labelCol={{span: 4}} ref={this.formRef}>
-				<Input type='password' style={{position: 'absolute', top: '-999px'}} />
-				<Item name="account" label="登录账号" hasFeedback rules={[{required:true, message:'登录账号不可以为空!'}]}>
-					<Input allowClear placeholder="请输入登录账号！" onChange={e => {this.setState({account: e.target.value})}}/>
-				</Item>
-				<Item name="passWord" label="密码" hasFeedback rules={[{required: true, message: '密码不可以为空!' }]}>
-					<Input.Password allowClear placeholder="请输入密码！" onChange={e => {this.setState({passWord: e.target.value})}}/>
-				</Item>
-                <Item name="phone" label="手机号" hasFeedback rules={[{required:true, message:'手机号不可以为空!'}]}>
-                    {this.selectCountry()}
-                    <Input allowClear placeholder="请输入手机号！" style={{width: '50%', marginLeft: '3px'}} onChange={e => {this.setState({phone: e.target.value})}}/>
-				</Item>
-                <Item name="code" label="验证码" hasFeedback  rules={[{required:true, message: '验证码必须输入!'}]}>
-                    <Input
-                        placeholder="验证码"
-                        style={{width: '75%'}}
-                        onChange={event => this.setState({code:event.target.value})}
-                    />
-                    <Button style={{marginLeft:'3px',color: '#FF0000'}} disabled={num!==0} onClick={this.handleSend}>{num===0?'发送':num+"s"}</Button>
-                </Item>
-			</Form>
-		</Modal>
+            <div className='retrieve-pwd'>
+                {
+                    !countryFlag ? (
+                        <Modal 
+                            title="注册" 
+                            visible={flag}
+                            closable={false}
+                            onOk={this.handleOk}
+                            onCancel={() => this.closeClear()} 
+                            cancelText="取消" 
+                            okText="确定"
+                        >
+                            <Form labelCol={{span: 4}} ref={this.formRef}>
+                                <Input type='password' style={{position: 'absolute', top: '-999px'}} />
+                                <Item name="account" label="登录账号" hasFeedback rules={[{required:true, message:'登录账号不可以为空!'}]}>
+                                    <Input allowClear placeholder="请输入登录账号！" onChange={e => {this.setState({account: e.target.value})}}/>
+                                </Item>
+                                <Item name="passWord" label="密码" hasFeedback rules={[{required: true, message: '密码不可以为空!' }]}>
+                                    <Input.Password allowClear placeholder="请输入密码！" onChange={e => {this.setState({passWord: e.target.value})}}/>
+                                </Item>
+                                <Item name="phone" label="手机号" hasFeedback rules={[{required:true, message:'手机号不可以为空!'}]}>
+                                    <div className='input_outer'>
+                                        <span onClick={()=>this.selectCode()}>
+                                            <span style={{width:'30px',paddingLeft:'10px'}}>{phoneCode}
+                                                <img style={{width:'15px',marginLeft:'5px'}} src={arrows} alt="arrows"/>
+                                            </span>
+                                        </span>
+                                        <Input 
+                                            placeholder="手机号"
+                                            onChange={event => this.setState({phone:event.target.value})}
+                                        />
+                                    </div>
+                                </Item>
+                                <Item name="code" label="验证码" hasFeedback  rules={[{required:true, message: '验证码必须输入!'}]}>
+                                    <div className='input_outer'>
+                                        <Input
+                                            placeholder="验证码"
+                                            onChange={event => this.setState({code:event.target.value})}
+                                        />
+                                        <Button style={{float: 'right',marginRight: '3px',borderColor: '#ffffff',color: '#D32940'}} disabled={num!==0} onClick={this.handleSend}>{num===0?'发送':num+"s"}</Button>
+                                    </div>
+                                </Item>
+                            </Form>
+                        </Modal>
+                    ) : (
+                        <div>
+                            {this.showCountrySelect(this.state.countryFlag)}
+                        </div>
+                    )
+                }
+            </div>
 		)
 	}
 	handleOk = async () => {

@@ -354,13 +354,13 @@ export default class Login extends Component {
                                                     登录
                                                 </Button>
                                             </Form.Item>
-                                            <Form.Item className="login-form-bottom">
-                                                <LinkButton style={{color: '#1F79FF'}} onClick={() => {this.setState({isPwdVisible: true})}}>忘记密码？</LinkButton>
-                                                <span className="login-form-register">
-                                                    <LinkButton style={{color: '#1F79FF'}} onClick={() => {this.setState({isModalVisible:true})}}>注册</LinkButton>
-                                                </span>
-                                            </Form.Item>
                                         </Form>
+                                        <div className="login-form-bottom">
+                                            <LinkButton style={{color: '#1F79FF'}} onClick={() => {this.setState({isPwdVisible: true})}}>忘记密码？</LinkButton>
+                                            <span className="login-form-register">
+                                                <LinkButton style={{color: '#1F79FF',float: 'right'}} onClick={() => {this.setState({isModalVisible:true})}}>注册</LinkButton>
+                                            </span>
+                                        </div>
                                     </TabPane>
                                 </Tabs>
                             </section>
