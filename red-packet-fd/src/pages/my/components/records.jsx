@@ -60,7 +60,7 @@ export default class Records extends Component {
                                                     <span style={{height:'12px',lineHeight:'12px',fontSize:'15px',color:'#999999'}}>{item.createDate}</span>
                                                 </span>
                                                 <span style={{width:'50%'}}>
-                                                    <span style={{float:'right',paddingRight:'10px',color:'#333333',fontSize:'24px',fontFamily:'PingFang-SC-Heavy',fontWeight:'bold'}}>{item.createDate}</span>
+                                                    <span style={{float:'right',paddingRight:'10px',color:'#333333',fontSize:'24px',fontFamily:'PingFang-SC-Heavy',fontWeight:'bold'}}>{item.amount}</span>
                                                 </span>
                                             </div>
                                         )
