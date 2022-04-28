@@ -20,9 +20,34 @@ export default class Withdrawal extends Component {
             bankId:'',
             bankCardId: '',
             bankNameFlag: false,
-            type:null
+            type:null,
+            pop: false
 		}
 	}
+    componentDidMount() {
+        let clientHeight = document.documentElement.clientHeight || document.body.clientHeight
+        this.setState({ clientHeight })
+        window.addEventListener('resize', this.resize)
+    }
+    
+    componentWillUnmount() {
+        window.removeEventListener('resize', this.resize) // 移除监听
+    }
+
+    resize = () => {
+        let clientHeight = document.documentElement.clientHeight || document.body.clientHeight
+        if (this.state.clientHeight > clientHeight) { // 键盘弹出
+            // this.inputClickHandle()
+            this.setState({
+                pop: true
+            })
+        } else { // 键盘收起
+            // this.inputBlurHandle()
+            this.setState({
+                pop: false
+            })
+        }
+    }
     componentWillMount() {
         let { balanceAmount } = this.props
         this.setState({
@@ -138,37 +163,43 @@ export default class Withdrawal extends Component {
                                 </div>
                                 <div style={{height:'calc(100vh - 340px)',paddingTop:'10px'}}>
                                     {
-                                        <div style={{width:'100%',height:'100%'}}>
-                                            <div style={{height:'40px',lineHeight:'40px',color:'#0F0F0F'}}>
-                                                请选择账号
-                                            </div>
-                                            <div style={{width:'100%',height:'calc(100vh - 410px)',overflowY:'scroll'}}>
-                                                {
-                                                    this.state.cardList.map((item,index)=>{
-                                                        return (
-                                                            <div style={{width:'100%',display:'flex'}}>
-                                                                <div onClick={()=>this.setState({clickFlag:index,bankCardId:item.bankId})} 
-                                                                    style={{color:this.state.clickFlag === index ? 'red' : '',
-                                                                            border:this.state.clickFlag === index ? '1px solid red' : '',
-                                                                            background:'#ffffff',height:'40px',lineHeight:'40px',
-                                                                            borderRadius:'5px',marginBottom:'10px',paddingLeft:'10px',
-                                                                            width:'calc(100vw - 125px)',display:'flex'}}>
-                                                                    <div style={{width:'50%',overflow:'hidden',textOverflow:'ellipsis',whiteSpace:'nowrap'}}>{item.backName}</div>
-                                                                    <div style={{width:'50%',marginLeft:'20px',overflow:'hidden',textOverflow:'ellipsis',whiteSpace:'nowrap'}}>{item.cardNo}</div>
+                                        !this.state.pop ? (
+                                            <div style={{width:'100%',height:'100%'}}>
+                                                <div style={{height:'40px',lineHeight:'40px',color:'#0F0F0F'}}>
+                                                    请选择账号
+                                                </div>
+                                                <div style={{width:'100%',height:'calc(100vh - 410px)',overflowY:'scroll'}}>
+                                                    {
+                                                        this.state.cardList.map((item,index)=>{
+                                                            return (
+                                                                <div style={{width:'100%',display:'flex'}}>
+                                                                    <div onClick={()=>this.setState({clickFlag:index,bankCardId:item.bankId})} 
+                                                                        style={{color:this.state.clickFlag === index ? 'red' : '',
+                                                                                border:this.state.clickFlag === index ? '1px solid red' : '',
+                                                                                background:'#ffffff',height:'40px',lineHeight:'40px',
+                                                                                borderRadius:'5px',marginBottom:'10px',paddingLeft:'10px',
+                                                                                width:'calc(100vw - 125px)',display:'flex'}}>
+                                                                        <div style={{width:'35%',overflow:'hidden',textOverflow:'ellipsis',whiteSpace:'nowrap'}}>{item.cardName}</div>
+                                                                        <div style={{width:'65%',marginLeft:'20px',overflow:'hidden',textOverflow:'ellipsis',whiteSpace:'nowrap'}}>{item.cardNo}</div>
+                                                                    </div>
+                                                                    <div onClick={()=>this.setState({newCardFlag:true,type:'update',cardName:item.cardName,bankName:item.backName,id:item.id,bankId:item.bankId,cardNo:item.cardNo})}
+                                                                        style={{width:'40px',height:'40px',lineHeight:'40px',textAlign:'center',background:'#2878ff',marginLeft:'4px',color:'#ffffff',borderRadius:'5px'}}>编辑</div>
+                                                                    <div onClick={()=>this.deleteBankCard(item.id)} style={{width:'40px',height:'40px',lineHeight:'40px',textAlign:'center',background:'#ff3029',marginLeft:'4px',color:'#ffffff',borderRadius:'5px'}}>删除</div>
                                                                 </div>
-                                                                <div onClick={()=>this.setState({newCardFlag:true,type:'update',cardName:item.cardName,bankName:item.backName,id:item.id,bankId:item.bankId,cardNo:item.cardNo})}
-                                                                     style={{width:'40px',height:'40px',lineHeight:'40px',textAlign:'center',background:'#2878ff',marginLeft:'4px',color:'#ffffff',borderRadius:'5px'}}>编辑</div>
-                                                                <div onClick={()=>this.deleteBankCard(item.id)} style={{width:'40px',height:'40px',lineHeight:'40px',textAlign:'center',background:'#ff3029',marginLeft:'4px',color:'#ffffff',borderRadius:'5px'}}>删除</div>
-                                                            </div>
-                                                        )
-                                                    })
-                                                }
+                                                            )
+                                                        })
+                                                    }
+                                                </div>
                                             </div>
-                                        </div>
+                                        ) : null
                                     }
                                 </div>
                                 <div style={{width:'100%',height:'80px'}}>
-                                    <div onClick={()=>this.widthdraw()} style={{width:'100%',height:'40px',lineHeight:'40px',borderRadius:'10px',backgroundColor:'#D53E1C',color:'#ffffff',display:'flex',justifyContent:'center'}}>提现</div>
+                                    {
+                                        !this.state.pop ? (
+                                            <div onClick={()=>this.widthdraw()} style={{width:'100%',height:'40px',lineHeight:'40px',borderRadius:'10px',backgroundColor:'#D53E1C',color:'#ffffff',display:'flex',justifyContent:'center'}}>提现</div>
+                                        ) : null
+                                    }
                                 </div>
                             </div>
                         </div>
