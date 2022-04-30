@@ -26,14 +26,14 @@
     z-index: 2;
 }
 .redpack {
-    height: 450px;
+    height: 390px;
     background: #f4543e;
-    width: 300px;
+    width: 270px;
     left: 0;
     top: 0;
     border-radius: 10px;
     margin: 0 auto;
-    margin-top: 45%;
+    margin-top: 50%;
     &_top {
         width:100%;
         height: 40%;
@@ -54,7 +54,7 @@
     }
 }
 .topcontent {
-    height: 300px;
+    height: 275px;
     border: 1px solid #f36151;
     background-color: #f36151;
     // border-radius: 10px 10px 50% 50% / 10px 10px 15% 15%;
@@ -76,15 +76,15 @@
     }
 }
 #redpack-open {
-    width: 100px;
-    height: 100px;
+    width: 90px;
+    height: 90px;
     border: 1px solid #ffa73a;
     background-color: #ffa73a;
     border-radius: 50%;
     font-size: 28px;
     display: inline-block;
     margin-top: -50px;
-    margin-left: 100px;
+    margin-left: 90px;
     box-shadow: 0px 4px 0px 0px rgba(0, 0, 0, 0.2);
     display: flex;
     justify-content: center;
@@ -95,4 +95,14 @@
 }
 .rotate:hover {
     transform:rotateY(360deg)
+}
+@media screen and (max-height: 700px) {
+    .redpack{
+        margin-top: 40%;
+    }
+}
+@media screen and (min-height: 850px) {
+    .redpack{
+        margin-top: 60%;
+    }
 }

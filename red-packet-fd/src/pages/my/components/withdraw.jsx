@@ -21,7 +21,8 @@ export default class Withdrawal extends Component {
             bankCardId: '',
             bankNameFlag: false,
             type:null,
-            pop: false
+            pop: false,
+            money: 0
 		}
 	}
     componentDidMount() {
@@ -52,7 +53,6 @@ export default class Withdrawal extends Component {
         let { balanceAmount } = this.props
         this.setState({
             balanceAmount,
-            money: balanceAmount,
         })
 		this.getUserCardList()
 	}
@@ -90,6 +90,7 @@ export default class Withdrawal extends Component {
             if (result.code === 0) {
                 message.success('提现成功！')
                 this.props.sureModal()
+                this.props.sureModal2()
             } else {
                 message.error(result.data.msg)
             }

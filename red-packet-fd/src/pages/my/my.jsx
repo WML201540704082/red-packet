@@ -7,6 +7,7 @@ import LinkButton from '../../components/link-button'
 import qr_code from './images/qr_code.png'
 import balance from './images/balance.png'
 import partner from './images/partner.png'
+import recharge from './images/recharge.png'
 import record from './images/record.png'
 import details from './images/details.png'
 import Partner from './components/partner'//合伙人
@@ -142,7 +143,7 @@ export default class My extends Component {
                             <div className='my_button_content' key={item.index} onClick={() => this.clickButton(item)}>
                                 <span className='content_img'>
                                     <img src={item.index === 0 ? qr_code : item.index === 1 ? balance :
-                                              item.index === 2 ? partner : item.index === 3 ? qr_code : item.index === 4 ? record : details} alt="qr_code"/>
+                                              item.index === 2 ? partner : item.index === 3 ? recharge : item.index === 4 ? record : details} alt="qr_code"/>
                                     <div>
                                         {item.index === 0 ? 'QR Code' : item.index === 1 ? 'Balance' :
                                               item.index === 2 ? 'Partner' : item.index === 3 ? 'Recharge' : item.index === 4 ? 'Record' : 'Details'}
@@ -238,7 +239,7 @@ export default class My extends Component {
                 <div className='balance_content'>
                     <div className='balance_content_top'>
                         <div style={{fontSize:'20px'}}>当前余额</div>
-                        <div style={{fontWeight:'bold',fontSize:'26px',fontFamily:'PingFang-SC-Heavy'}}>{balanceObject.amount || 9000000}</div>
+                        <div style={{fontWeight:'bold',fontSize:'26px',fontFamily:'PingFang-SC-Heavy'}}>{balanceObject.amount}</div>
                     </div>
                     <div className='balance_content_middle'>
                         <div className='balance_content_middle_content' style={{borderRight: '1px solid #E5E5E5'}}>
@@ -319,7 +320,7 @@ export default class My extends Component {
                                 {
                                     payList.map(item=>{
                                         return (
-                                            <Radio style={{width: '100%',padding:'10px 10px 0'}} onChange={()=>this.setState({type:item.type})} value={item.type}>
+                                            <Radio style={{width: '100%',padding:'10px 10px 7px'}} onChange={()=>this.setState({type:item.type})} value={item.type}>
                                                 <img src={item.type === '1' ? zalo : momo} style={{width:'40px',height:'40px'}} alt="" />
                                                 <span style={{paddingLeft:'20px'}}>{item.name}</span>
                                             </Radio>
@@ -384,6 +385,7 @@ export default class My extends Component {
                 balanceAmount={this.state.balanceObject.amount}
                 closeModal={() => this.setState({balanceFlag: true,withdrawFlag: false})}
                 sureModal={() => this.setState({balanceFlag: false,withdrawFlag: false})}
+                sureModal2={() => this.getAccountBalance()}
             />
         )
     }

@@ -244,9 +244,9 @@ export default class Login extends Component {
                 {
                     !countryFlag ? (
                         <div className="login">
-                            <section className='login-section' style={{height: !this.state.pop ? '' : '43%'}}>
+                            <section className='login-section'>
                                 <Tabs defaultActiveKey="1" centered>
-                                    <TabPane tab="免密登录" key="1" className="login-content" style={{top: !this.state.pop ? '50%' : '57%'}}>
+                                    <TabPane tab="免密登录" key="1" className="login-content">
                                         <Form
                                             name="normal_login"
                                             className="login-form"
@@ -286,7 +286,6 @@ export default class Login extends Component {
                                                 rules={[
                                                     // {   required: false, whitespace: true,  message: '验证码必须输入!'},
                                                 ]}
-                                                style={{marginBottom: !this.state.pop ? '30px' : '20px'}}
                                             >
                                                 <div className='input_outer'>
                                                     <div className='input_text'>Verification Code</div>
@@ -305,7 +304,7 @@ export default class Login extends Component {
                                             <Form.Item className="login-form-bottom"></Form.Item>
                                         </Form>
                                     </TabPane>
-                                    <TabPane tab="密码登录" key="2" className="login-content" style={{top: !this.state.pop ? '50%' : '57%'}}>
+                                    <TabPane tab="密码登录" key="2" className="login-content">
                                         <Form
                                             name="normal_login"
                                             className="login-form"
@@ -339,7 +338,6 @@ export default class Login extends Component {
                                                         // validator: this.validatorPwd
                                                     }
                                                 ]}
-                                                style={{marginBottom: !this.state.pop ? '30px' : '10px'}}
                                             >
                                                 <div className='input_outer'>
                                                     <div className='input_text'>PassWord</div>
@@ -355,48 +353,57 @@ export default class Login extends Component {
                                                 </Button>
                                             </Form.Item>
                                         </Form>
-                                        <div className="login-form-bottom">
-                                            <LinkButton style={{color: '#1F79FF'}} onClick={() => {this.setState({isPwdVisible: true})}}>忘记密码？</LinkButton>
-                                            <span className="login-form-register">
-                                                <LinkButton style={{color: '#1F79FF',float: 'right'}} onClick={() => {this.setState({isModalVisible:true})}}>注册</LinkButton>
-                                            </span>
-                                        </div>
+                                        {
+                                            !this.state.pop ? (
+                                                <div className="login-form-bottom">
+                                                    <LinkButton style={{color: '#1F79FF'}} onClick={() => {this.setState({isPwdVisible: true})}}>忘记密码？</LinkButton>
+                                                    <span className="login-form-register">
+                                                        <LinkButton style={{color: '#1F79FF',float: 'right'}} onClick={() => {this.setState({isModalVisible:true})}}>注册</LinkButton>
+                                                    </span>
+                                                </div>
+                                            ) : null
+                                        }
+                                        <Form.Item className="login-form-bottom"></Form.Item>
                                     </TabPane>
                                 </Tabs>
                             </section>
-                            <div className='otherLogin' style={{height: !this.state.pop ? '90px' : '75px'}}>
-                                <span className='text_line' style={{marginBottom: !this.state.pop ? '15px' : '0px'}}>
-                                    <div className='left_line'></div>
-                                    其他登录方式
-                                    <div className='right_line'></div>
-                                </span>
-                                <span className='login_icon'>
-                                    <GoogleLogin
-                                        // clientId="715440772497-uuq231lpek9ek0m08o2013dvua1728jl.apps.googleusercontent.com"
-                                        clientId="927698055570-nevn1mcsm2u7ijjgghdi5ijn7t0i8ehh.apps.googleusercontent.com"
-                                        buttonText="Login"
-                                        onSuccess={this.responseGoogle}
-                                        onFailure={this.responseGoogle}
-                                        cookiePolicy={'single_host_origin'}
-                                        render={renderProps => (
-                                            <img onClick={renderProps.onClick} src={google} style={{width:'26px',height:'26px'}} alt="facebook" />
-                                        )}
-                                        className="btnGoogle">
-                                        <i className="fa fa-google-plus" /> 
-                                        <span>&nbsp;</span>
-                                    </GoogleLogin>
-                                    <FacebookLogin
-                                        // appId="895624567779325"
-                                        appId="346326924009220"
-                                        // autoLoad={true}
-                                        fields="name,email,picture"
-                                        callback={this.responseFacebook}
-                                        cssClass="btnFacebook"
-                                        icon={<img src={facebook} style={{width:'36px',height:'36px'}} alt="facebook" /> }
-                                        textButton = ""
-                                    />
-                                </span>
-                            </div>
+                            {
+                                !this.state.pop ? (
+                                    <div className='otherLogin'>
+                                        <span className='text_line'>
+                                            <div className='left_line'></div>
+                                            其他登录方式
+                                            <div className='right_line'></div>
+                                        </span>
+                                        <span className='login_icon'>
+                                            <GoogleLogin
+                                                // clientId="715440772497-uuq231lpek9ek0m08o2013dvua1728jl.apps.googleusercontent.com"
+                                                clientId="927698055570-nevn1mcsm2u7ijjgghdi5ijn7t0i8ehh.apps.googleusercontent.com"
+                                                buttonText="Login"
+                                                onSuccess={this.responseGoogle}
+                                                onFailure={this.responseGoogle}
+                                                cookiePolicy={'single_host_origin'}
+                                                render={renderProps => (
+                                                    <img onClick={renderProps.onClick} src={google} style={{width:'26px',height:'26px'}} alt="facebook" />
+                                                )}
+                                                className="btnGoogle">
+                                                <i className="fa fa-google-plus" /> 
+                                                <span>&nbsp;</span>
+                                            </GoogleLogin>
+                                            <FacebookLogin
+                                                // appId="895624567779325"
+                                                appId="346326924009220"
+                                                // autoLoad={true}
+                                                fields="name,email,picture"
+                                                callback={this.responseFacebook}
+                                                cssClass="btnFacebook"
+                                                icon={<img src={facebook} style={{width:'36px',height:'36px'}} alt="facebook" /> }
+                                                textButton = ""
+                                            />
+                                        </span>
+                                    </div>
+                                ) : null
+                            }
                             {this.showModal(this.state.isModalVisible)}
                             {this.showPwdModal(this.state.isPwdVisible)}
                         </div>
