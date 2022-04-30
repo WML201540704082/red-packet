@@ -301,7 +301,6 @@ export default class Login extends Component {
                                                     登录
                                                 </Button>
                                             </Form.Item>
-                                            <Form.Item className="login-form-bottom"></Form.Item>
                                         </Form>
                                     </TabPane>
                                     <TabPane tab="密码登录" key="2" className="login-content">
@@ -363,7 +362,6 @@ export default class Login extends Component {
                                                 </div>
                                             ) : null
                                         }
-                                        <Form.Item className="login-form-bottom"></Form.Item>
                                     </TabPane>
                                 </Tabs>
                             </section>

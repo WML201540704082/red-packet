@@ -109,20 +109,19 @@ export default class ModalComponent extends Component {
                                     <Input.Password placeholder="请输入密码！" onChange={e => {this.setState({passWord: e.target.value})}}/>
                                 </Item>
                                 <Item name="phone" label="手机号" hasFeedback rules={[{required:true, message:'手机号不可以为空!'}]}>
-                                    <div className='input_outer'>
-                                        <span onClick={()=>this.selectCode()}>
-                                            <span style={{width:'30px',paddingLeft:'10px'}}>{phoneCode}
-                                                <img style={{width:'15px',marginLeft:'5px'}} src={arrows} alt="arrows"/>
-                                            </span>
-                                        </span>
-                                        <Input 
-                                            placeholder="手机号"
-                                            onChange={event => this.setState({phone:event.target.value})}
-                                        />
+                                    <div className='input_outer' style={{display:'flex'}}>
+                                        <div className='input_outer' style={{display:'flex'}}>
+                                            <span style={{paddingLeft:'10px',marginTop:'4px',}} onClick={()=>this.selectCode()}>{phoneCode}</span>
+                                            <img onClick={()=>this.selectCode()} style={{width:'13px',height:'13px',marginTop:'9px',marginLeft:'5px'}} src={arrows} alt="arrows"/>
+                                            <Input 
+                                                placeholder="手机号"
+                                                onChange={event => this.setState({phone:event.target.value})}
+                                            />
+                                        </div>
                                     </div>
                                 </Item>
                                 <Item name="code" label="验证码" hasFeedback rules={[{required:true, message: '验证码必须输入!'}]}>
-                                    <div className='input_outer'>
+                                    <div className='input_outer' style={{display:'flex'}}>
                                         <Input
                                             placeholder="验证码"
                                             onChange={event => this.setState({code:event.target.value})}
