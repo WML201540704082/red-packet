@@ -6,6 +6,7 @@ import grab from './images/grab.png'
 import zalo from './images/zalo.png'
 import momo from './images/momo.png'
 import close from './images/close.png'
+import tag from './images/tag.png'
 import memoryUtils from '../../utils/memoryUtils'
 // 首页路由
 export default class Grab extends Component {
@@ -127,6 +128,12 @@ export default class Grab extends Component {
                                 })
                             }
                         </div>
+                    </div>
+                    <div style={{width:'40px'}} onClick={() => this.props.history.push("/open")}>
+                        <div style={{width:'20px',height:'20px',lineHeight:'20px',backgroundColor:'red',
+                            borderRadius:'10px',position:'absolute',bottom:'100px',right:'40px',zIndex:'2',
+                            color:'#ffffff',fontSize:'17px',textAlign:'center'}}>9</div>
+                        <img style={{width:'40px',position:'absolute',bottom:'70px',right:'20px'}} src={tag} alt="tag"/>
                     </div>
                 </div>
             )
