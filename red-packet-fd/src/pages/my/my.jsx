@@ -18,6 +18,7 @@ import { reqAccountBalance, reqRechargeConfigList, reqRechargePay } from '../../
 import zalo from '../grab/images/zalo.png'
 import momo from '../grab/images/momo.png'
 import close from '../grab/images/close.png'
+import QRCode from 'qrcode.react'
 
 import './my.less'
 
@@ -217,15 +218,18 @@ export default class My extends Component {
         let { id } = this.state
         return (
             <div className='share'>
-                <div className='share_outer' onClick={() => this.setState({shareFlag: false})}></div>
                 <div className='share_content'>
-                    <div className='share_content_top'>分享连接，请复制</div>
-                    <div className='share_content_middle'>
-                        {'http://www.redpz.com/#/grab?sign=' + id} 
-                    </div>
-                    <div className='share_content_bottom'>
-                        <div className='share_button' onClick={() => this.setState({shareFlag:false})}>确定</div>
-                    </div>
+                    <img src={close} style={{width:'20px',height:'20px',position:'absolute',right:'17%',marginTop:'35px'}} onClick={() => this.setState({shareFlag: false})} alt="" />
+                    <QRCode
+                        id="qrCode"
+                        value={'http://www.redpz.com/#/grab?sign=' + id}  //地址
+                        size={200} // 二维码的大小
+                        fgColor="#000000" // 二维码的颜色
+                        style={{ margin: 'auto' }}
+                    />
+                </div>
+                <div className='share_bottom'>
+                    {'http://www.redpz.com/#/grab?sign=' + id} 
                 </div>
             </div>
         )

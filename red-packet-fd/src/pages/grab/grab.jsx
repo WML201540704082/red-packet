@@ -107,8 +107,9 @@ export default class Grab extends Component {
             return(
                 <div>
                     <div style={{position:'absolute',top:'5%',left:'30px',padding:'3px 8px',borderRadius:'5px',display:'flex',justifyContent:'center',backgroundColor:'#ffffff',color:'#AC2A22',fontSize:'12px'}}>账户余额:{this.state.amount}</div>
-                    <div style={{display:'flex',flexDirection:'column',marginTop:'-50px'}}>
-                        <div style={{display:'flex',justifyContent:'center',color:'#FEFFA7',fontSize:'32px',fontFamily:'FZZDHJW--GB1-0'}}>2022最给力必赚平台</div>
+                    <div style={{display:'flex',flexDirection:'column',marginTop:'30%'}}>
+                        {/* <div style={{display:'flex',justifyContent:'center',color:'#FEFFA7',fontSize:'32px',fontFamily:'FZZDHJW--GB1-0'}}>2022最给力必赚平台</div> */}
+                        <div style={{display:'flex',justifyContent:'center',color:'#FEFFA7',fontSize:'32px',fontFamily:'FZZDHJW--GB1-0'}}></div>
                         <div className='grabImg'>
                             {
                                 dataSource.map(item=>{
