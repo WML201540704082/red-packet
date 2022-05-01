@@ -117,8 +117,9 @@ export default class Grab extends Component {
                                     return (
                                         <div className='grabContent' key={item.id} onClick={() => this.grabRedPacket(item)}>
                                             <span className='content_img'>
-                                                <img src={grab} alt="grab"/>
-                                                <span className={item.amount<10000 ? 'span1w': item.amount<100000 ? 'span10w' : item.amount<1000000 ? 'span100w' : 'span1000w'}>{item.amount/1000}k</span>
+                                                <img style={{width:'90px'}} src={grab} alt="grab"/>
+                                                {/* <span className={item.amount<10000 ? 'span1w': item.amount<100000 ? 'span10w' : item.amount<1000000 ? 'span100w' : 'span1000w'}>{item.amount/1000}k</span> */}
+                                                <span className="grab_span">{item.amount/1000}k</span>
                                             </span>
                                             <div className='content_text_outer'>
                                                 <span className='content_text'>最高可抢{item.end/1000}k</span>
@@ -129,12 +130,12 @@ export default class Grab extends Component {
                             }
                         </div>
                     </div>
-                    <div style={{width:'40px'}} onClick={() => this.props.history.push("/open")}>
+                    {/* <div style={{width:'40px'}} onClick={() => this.props.history.push("/open")}> */}
                         <div style={{width:'20px',height:'20px',lineHeight:'20px',backgroundColor:'red',
                             borderRadius:'10px',position:'absolute',bottom:'100px',right:'40px',zIndex:'2',
                             color:'#ffffff',fontSize:'17px',textAlign:'center'}}>9</div>
                         <img style={{width:'40px',position:'absolute',bottom:'70px',right:'20px'}} src={tag} alt="tag"/>
-                    </div>
+                    {/* </div> */}
                 </div>
             )
         }
