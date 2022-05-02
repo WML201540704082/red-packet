@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import { message, Radio } from 'antd'
 import './grab.less'
-import { reqGrabList, reqAccountBalance, reqGrabBet, reqRechargePay, reqPayOrderInfo } from '../../api'
+import { reqGrabList, reqAccountBalance, reqGrabBet, reqRechargePay, reqPayOrderInfo, reqGrabCount } from '../../api'
 import grab from './images/grab.png'
 import zalo from './images/zalo.png'
 import momo from './images/momo.png'
@@ -19,7 +19,8 @@ export default class Grab extends Component {
             rechargeFlag: false,
             type: '1',
             rechargeAmount: 0,
-            redPacketId: null
+            redPacketId: null,
+            redPacketAmount: null
 		}
 	}
     componentWillMount() {
@@ -34,7 +35,10 @@ export default class Grab extends Component {
         this.getAccountBalance()
         // 抢红包配置列表
         this.getGrabList()
+        // 获取已抢红包个数
+        this.getGrabCount()
     }
+    // 账户余额
     getAccountBalance = async () => {
         let result = await reqAccountBalance()
         if (result.code === 0) {
@@ -43,6 +47,7 @@ export default class Grab extends Component {
             })
         }
     }
+    // 抢红包配置列表
     getGrabList = async () => {
 		let params = {
 			current: 0,
@@ -66,6 +71,15 @@ export default class Grab extends Component {
 			})
         }
 	}
+    // 获取已抢红包个数
+    getGrabCount = async () => {
+        let result = await reqGrabCount()
+        if (result.code === 0) {
+            this.setState({
+                redPacketAmount: result.data
+            })
+        }
+    }
     grabRedPacket = async (item) => {
         let { shareId } = this.state
         const user = memoryUtils.user
@@ -130,12 +144,16 @@ export default class Grab extends Component {
                             }
                         </div>
                     </div>
-                    {/* <div style={{width:'40px'}} onClick={() => this.props.history.push("/open")}> */}
-                        <div style={{width:'20px',height:'20px',lineHeight:'20px',backgroundColor:'red',
-                            borderRadius:'10px',position:'absolute',bottom:'100px',right:'40px',zIndex:'2',
-                            color:'#ffffff',fontSize:'17px',textAlign:'center'}}>9</div>
-                        <img style={{width:'40px',position:'absolute',bottom:'70px',right:'20px'}} src={tag} alt="tag"/>
-                    {/* </div> */}
+                    {
+                        this.state.redPacketAmount > 0 ? (
+                            <div style={{width:'40px'}} onClick={() => this.props.history.push("/open")}>
+                                <div style={{width:'20px',height:'20px',lineHeight:'20px',backgroundColor:'red',
+                                    borderRadius:'10px',position:'absolute',bottom:'100px',right:'40px',zIndex:'2',
+                                    color:'#ffffff',fontSize:this.state.redPacketAmount>9?'15px':'17px',textAlign:'center'}}>{this.state.redPacketAmount}</div>
+                                <img style={{width:'40px',position:'absolute',bottom:'70px',right:'20px'}} src={tag} alt="tag"/>
+                            </div>
+                        ) : null
+                    }
                 </div>
             )
         }

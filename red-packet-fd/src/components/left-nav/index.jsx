@@ -54,7 +54,12 @@ class leftNav extends Component {
             // 最新路由的 location 对象，可以通过比较 pathname 是否相同来判断路由的变化情况
             if (this.props.location.pathname !== location.pathname) {
                 // 路由发生了变化
-                if (location.pathname === '/open') {
+                if (location.pathname === '/grab') {
+                    let params = {
+                        key: '/grab'
+                    }
+                    this.menu_click(params)             
+                } else if (location.pathname === '/open') {
                     let params = {
                         key: '/open'
                     }

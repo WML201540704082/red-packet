@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import { message } from 'antd'
 import open from './images/open.png'
-import { reqUnpackLottery } from '../../api'
+import { reqUnpackLottery, reqGrabCount } from '../../api'
 import close from '../grab/images/close.png'
 import './open.less'
 
@@ -12,39 +12,76 @@ export default class Open extends Component {
             redPacketShow: false,
             winnerObject: {},
             animation: false,
-            status: 0  // 0: 等待拆开 1: 拆开后
+            status: 0,  // 0: 等待拆开 1: 拆开后
+            redPacketAmount: null,
+            amountFlag: false,
 		}
 	}
+    componentWillMount() {
+        // 获取已抢红包个数
+        this.getGrabCount()
+    }
+    // 获取已抢红包个数
+    getGrabCount = async () => {
+        let result = await reqGrabCount()
+        if (result.code === 0) {
+            this.setState({
+                redPacketAmount: result.data,
+                amountFlag: result.data ? false : true
+            })
+        }
+    }
     oepnRedPacket = () => {
-        let { winnerObject } = this.state
-        if (this.state.status === 0) {
+        let { winnerObject, redPacketAmount, amountFlag, status } = this.state
+        if (amountFlag) {
             return(
-                <div className='redpack_outer'>
-                    <div className='redpack'>
-                        <div className='topcontent' style={{borderRadius: '10px 10px 50% 50% / 10px 10px 15% 15%'}}>恭喜发财，大吉大利</div>
-                        <div id='redpack-open' className={this.state.animation ? 'rotate' : ''} onClick={this.openRedPacket.bind(this)}>開</div>
-                    </div>
-                    <div className='bottom_close'>
-                        <img src={close} onClick={() => this.setState({redPacketShow: false})} alt="" />
+                <div className='go_grab_outer'>
+                    <div className='shadow' onClick={() => this.setState({redPacketShow: false})}></div>
+                    <div className='go_grab'>
+                        <div className='go_grab_top'>
+                            <div className='go_grab_top_top'>温馨提示！</div>
+                            <div className='go_grab_top_bottom'>
+                                <div className='go_grab_top_bottom_inner'>您没有未拆红包请先抢红包</div>
+                            </div>
+                        </div>
+                        <div className='go_grab_bottom'>
+                            <div className='go_grab_button' onClick={() => this.props.history.push("/grab")}>马上去抢</div>
+                        </div>
                     </div>
                 </div>
             )
         } else {
-            return(
-                <div className='redpack_outer'>
-                    <div className='redpack'>
-                        <div className='redpack_top'>
-                            <div>恭喜您中奖了</div>
+            if (redPacketAmount) {
+                if (status === 0) {
+                    return(
+                        <div className='redpack_outer'>
+                            <div className='redpack'>
+                                <div className='topcontent' style={{borderRadius: '10px 10px 50% 50% / 10px 10px 15% 15%'}}>恭喜发财，大吉大利</div>
+                                <div id='redpack-open' className={this.state.animation ? 'rotate' : ''} onClick={this.openRedPacket.bind(this)}>開</div>
+                            </div>
+                            <div className='bottom_close'>
+                                <img src={close} onClick={() => this.setState({redPacketShow: false})} alt="" />
+                            </div>
                         </div>
-                        <div className='redpack_middle'>
-                            <div>{winnerObject.name}:{winnerObject.amount}</div>
+                    )
+                } else {
+                    return(
+                        <div className='redpack_outer'>
+                            <div className='redpack'>
+                                <div className='redpack_top'>
+                                    <div>恭喜您中奖了</div>
+                                </div>
+                                <div className='redpack_middle'>
+                                    <div>{winnerObject.name}:{winnerObject.amount}</div>
+                                </div>
+                            </div>
+                            <div className='bottom_close'>
+                                <img src={close} onClick={() => this.setState({redPacketShow: false, status: 0})} alt="" />
+                            </div>
                         </div>
-                    </div>
-                    <div className='bottom_close'>
-                        <img src={close} onClick={() => this.setState({redPacketShow: false, status: 0})} alt="" />
-                    </div>
-                </div>
-            )
+                    )
+                }
+            }
         }
     }
     openRedPacket = async () => {

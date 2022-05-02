@@ -148,17 +148,17 @@ export default class ModalComponent extends Component {
         let params = {
             account,
             passWord,
-            phone,
+            phone: this.state.phoneCode.substring(1) + phone,
             code,
             userId: shareId
         }
         let result = await reqRegister(params)
-        if (result.code === 0) {
+        if (result.code === 0 && result.data.code === 0) {
             message.success('账号添加成功！')
             this.formRef.current.setFieldsValue({ account: null,passWord: null,phone: null,code: null}) //给表单设置值
             this.formRef.current.resetFields() //清空表单
         } else {
-            return message.error(result.msg)
+            return message.error(result.data.msg)
         }
         closeModal()
 	}

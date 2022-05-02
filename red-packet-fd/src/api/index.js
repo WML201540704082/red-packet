@@ -29,6 +29,9 @@ export const reqRetrievePwd = data => ajax(BASE + 'sys/front/retrievePaw', data,
 // 抢红包列表
 export const reqGrabList = data => ajax(BASE + 'web/grab/list', data, 'POST')
 
+// 获取红包个数
+export const reqGrabCount = () => ajax(BASE + 'web/user/account/envelopeCount')
+
 // 账户余额
 export const reqAccountBalance = () => ajax(BASE + 'web/user/account/accountBalance', {}, 'POST')
 

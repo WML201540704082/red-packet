@@ -244,9 +244,9 @@ export default class Login extends Component {
                 {
                     !countryFlag ? (
                         <div className="login">
-                            <section className='login-section'>
+                            <section className='login-section' style={{height: !this.state.pop ? '' : '43%'}}>
                                 <Tabs defaultActiveKey="1" centered>
-                                    <TabPane tab="免密登录" key="1" className="login-content">
+                                    <TabPane tab="免密登录" key="1" className="login-content" style={{top: !this.state.pop ? '50%' : '57%'}}>
                                         <Form
                                             name="normal_login"
                                             className="login-form"
@@ -303,7 +303,7 @@ export default class Login extends Component {
                                             </Form.Item>
                                         </Form>
                                     </TabPane>
-                                    <TabPane tab="密码登录" key="2" className="login-content">
+                                    <TabPane tab="密码登录" key="2" className="login-content" style={{top: !this.state.pop ? '50%' : '57%'}}>
                                         <Form
                                             name="normal_login"
                                             className="login-form"
