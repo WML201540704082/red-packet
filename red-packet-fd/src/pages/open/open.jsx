@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
-import { message } from 'antd'
+import { Carousel, message } from 'antd'
 import open from './images/open.png'
-import { reqUnpackLottery, reqGrabCount } from '../../api'
+import { reqUnpackLottery, reqGrabCount, reqCarouselInfo } from '../../api'
 import close from '../grab/images/close.png'
 import './open.less'
 
@@ -15,11 +15,14 @@ export default class Open extends Component {
             status: 0,  // 0: 等待拆开 1: 拆开后
             redPacketAmount: null,
             amountFlag: false,
+            carouselList: [123,234,567]
 		}
 	}
     componentWillMount() {
         // 获取已抢红包个数
         this.getGrabCount()
+        // 获取轮番图信息
+        this.getCarouselInfo()
     }
     // 获取已抢红包个数
     getGrabCount = async () => {
@@ -28,6 +31,24 @@ export default class Open extends Component {
             this.setState({
                 redPacketAmount: result.data,
                 amountFlag: result.data ? false : true
+            })
+        }
+    }
+    // 获取轮番图信息
+    getCarouselInfo = async () => {
+        let result = await reqCarouselInfo({flag:false})
+        if (result.code === 0) {
+            this.setState({
+                carouselList: [result.data.amount]
+            })
+            this.getCarouselInfo_2()
+        }
+    }
+    getCarouselInfo_2 = async () => {
+        let result = await reqCarouselInfo({flag:true})
+        if (result.code === 0) {
+            this.setState({
+                carouselList: (result.data.disResp || result.data.grabResp) ? result.data.disResp.concat(result.data.grabResp) : result.data.randomResp
             })
         }
     }
@@ -104,23 +125,39 @@ export default class Open extends Component {
         this.setState({status: 1});
     }
     openShow = () => {
+        let { carouselList } = this.state
         let list = [];
         for (let i = 0; i < 15; i++) {
             list.push({index:i})
         }
         return(
-            <div className='openImg'>
-                {
-                    list.map(item=>{
-                        return (
-                            <div className='openContent' key={item.index} onClick={() => this.setState({redPacketShow: true})}>
-                                <span className='content_img'>
-                                    <img src={open} alt="open"/>
-                                </span>
-                            </div>
-                        )
-                    })
-                }
+            <div>
+                <div className='carousel'>
+                    <div className='carousel_content'>
+                        <Carousel autoplay effect='fade' dotPosition='right'>
+                            {
+                                carouselList.map(item=>{
+                                    return(
+                                        <div className='content_item'>{item}</div>
+                                    )
+                                })
+                            }
+                        </Carousel>
+                    </div>
+                </div>
+                <div className='openImg'>
+                    {
+                        list.map(item=>{
+                            return (
+                                <div className='openContent' key={item.index} onClick={() => this.setState({redPacketShow: true})}>
+                                    <span className='content_img'>
+                                        <img src={open} alt="open"/>
+                                    </span>
+                                </div>
+                            )
+                        })
+                    }
+                </div>
             </div>
         )
     }

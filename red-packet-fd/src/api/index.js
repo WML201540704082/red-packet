@@ -50,6 +50,9 @@ export const reqGrabBet = data => ajax(BASE + 'web/grab/bet', data, 'POST')
 // 拆红包
 export const reqUnpackLottery = () => ajax(BASE + 'web/unpack/lottery', {}, 'POST')
 
+// 获取轮番图信息
+export const reqCarouselInfo = data => ajax(BASE + 'web/unpack/broadcast', data)
+
 // 银行列表
 export const reqBankList = data => ajax(BASE + 'web/back/crad/list', data, 'POST')
 
