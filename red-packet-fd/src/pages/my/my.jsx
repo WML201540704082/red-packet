@@ -19,6 +19,7 @@ import zalo from '../grab/images/zalo.png'
 import momo from '../grab/images/momo.png'
 import close from '../grab/images/close.png'
 import QRCode from 'qrcode.react'
+import copy from 'copy-to-clipboard'
 
 import './my.less'
 
@@ -228,11 +229,19 @@ export default class My extends Component {
                         style={{ margin: 'auto' }}
                     />
                 </div>
+                <div className='share_text'>
+                    您的专属二维码
+                </div>
                 <div className='share_bottom'>
-                    {'http://www.redpz.com/#/grab?sign=' + id} 
+                    <div className='share_bottom_content' onClick={() => this.copyUrl()}>复制链接</div>
                 </div>
             </div>
         )
+    }
+    copyUrl = () => {
+        let url = 'http://www.redpz.com/#/grab?sign=' + this.state.id
+        copy(url)
+        message.success('复制成功')
     }
     // 余额
     showBalance = () => {

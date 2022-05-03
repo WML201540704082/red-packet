@@ -244,9 +244,9 @@ export default class Login extends Component {
                 {
                     !countryFlag ? (
                         <div className="login">
-                            <section className='login-section' style={{height: !this.state.pop ? '' : '43%'}}>
+                            <section className='login-section' style={{height: !this.state.pop ? '' : '50%'}}>
                                 <Tabs defaultActiveKey="1" centered>
-                                    <TabPane tab="免密登录" key="1" className="login-content" style={{top: !this.state.pop ? '50%' : '57%'}}>
+                                    <TabPane tab="免密登录" key="1" className="login-content" style={{top: !this.state.pop ? '50%' : '70%'}}>
                                         <Form
                                             name="normal_login"
                                             className="login-form"
@@ -303,7 +303,7 @@ export default class Login extends Component {
                                             </Form.Item>
                                         </Form>
                                     </TabPane>
-                                    <TabPane tab="密码登录" key="2" className="login-content" style={{top: !this.state.pop ? '50%' : '57%'}}>
+                                    <TabPane tab="密码登录" key="2" className="login-content" style={{top: !this.state.pop ? '50%' : '70%'}}>
                                         <Form
                                             name="normal_login"
                                             className="login-form"
@@ -352,16 +352,12 @@ export default class Login extends Component {
                                                 </Button>
                                             </Form.Item>
                                         </Form>
-                                        {
-                                            !this.state.pop ? (
-                                                <div className="login-form-bottom">
-                                                    <LinkButton style={{color: '#1F79FF'}} onClick={() => {this.setState({isPwdVisible: true})}}>忘记密码？</LinkButton>
-                                                    <span className="login-form-register">
-                                                        <LinkButton style={{color: '#1F79FF',float: 'right'}} onClick={() => {this.setState({isModalVisible:true})}}>注册</LinkButton>
-                                                    </span>
-                                                </div>
-                                            ) : null
-                                        }
+                                        <div className="login-form-bottom">
+                                            <LinkButton style={{color: '#1F79FF'}} onClick={() => {this.setState({isPwdVisible: true})}}>忘记密码？</LinkButton>
+                                            <span className="login-form-register">
+                                                <LinkButton style={{color: '#1F79FF',float: 'right'}} onClick={() => {this.setState({isModalVisible:true})}}>注册</LinkButton>
+                                            </span>
+                                        </div>
                                     </TabPane>
                                 </Tabs>
                             </section>
