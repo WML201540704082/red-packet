@@ -15,6 +15,8 @@ import RegisterAcc from './components/register-acc'
 import RetrievePwd from './components/retrieve-pwd'
 import CountrySelect from './components/country-select'
 import arrows from './images/arrows.png'
+import NProgress from 'nprogress'
+import 'nprogress/nprogress.css'
 const { TabPane } = Tabs;
 // const { Option } = Select;
 
@@ -191,6 +193,7 @@ export default class Login extends Component {
 
         // 密码登录
         const onFinish = async (values) => {
+            NProgress.start() // 显示滚动条
             const { account, passWord } = values
             try {
                 const result = await reqLogin(account, passWord)
@@ -210,6 +213,7 @@ export default class Login extends Component {
             } catch (error) {
                 console.log('失败了', error);
             }
+            NProgress.done() // 关闭滚动条
         };
         // 免密登录
         const onPhoneFinish = async () => {
