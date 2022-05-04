@@ -3,6 +3,7 @@ import { Carousel, message } from 'antd'
 import open from './images/open.png'
 import { reqUnpackLottery, reqGrabCount, reqCarouselInfo } from '../../api'
 import close from '../grab/images/close.png'
+import memoryUtils from '../../utils/memoryUtils'
 import './open.less'
 
 export default class Open extends Component {
@@ -15,7 +16,7 @@ export default class Open extends Component {
             status: 0,  // 0: 等待拆开 1: 拆开后
             redPacketAmount: null,
             amountFlag: false,
-            carouselList: [123,234,567]
+            carouselList: []
 		}
 	}
     componentWillMount() {
@@ -36,19 +37,39 @@ export default class Open extends Component {
     }
     // 获取轮番图信息
     getCarouselInfo = async () => {
-        let result = await reqCarouselInfo({flag:false})
+        let result = await reqCarouselInfo({flag:true})
         if (result.code === 0) {
             this.setState({
-                carouselList: [result.data.amount]
+                carouselList: [{
+                    type: result.data.type,
+                    amount: result.data.amount,
+                    userId: result.data.userId.substring(0,4)+'****'+result.data.userId.substring(result.data.userId.length-4,result.data.userId.length),
+                }]
             })
             this.getCarouselInfo_2()
         }
     }
     getCarouselInfo_2 = async () => {
-        let result = await reqCarouselInfo({flag:true})
+        let result = await reqCarouselInfo({flag:false})
         if (result.code === 0) {
             this.setState({
-                carouselList: (result.data.disResp || result.data.grabResp) ? result.data.disResp.concat(result.data.grabResp) : result.data.randomResp
+                carouselList: (result.data.disResp || result.data.grabResp) ? 
+                               result.data.disResp.map(item=>{
+                                   return {
+                                       ...item,
+                                       userId: item.userId.substring(0,4)+'****'+item.userId.substring(item.userId.length-4,item.userId.length)
+                                   }
+                               }).concat(result.data.grabResp).map(item=>{
+                                    return {
+                                        ...item,
+                                        userId: item.userId.substring(0,4)+'****'+item.userId.substring(item.userId.length-4,item.userId.length)
+                                    }
+                               }) : result.data.randomResp.map(item=>{
+                                    return {
+                                        ...item,
+                                        userId: item.userId.substring(0,4)+'****'+item.userId.substring(item.userId.length-4,item.userId.length)
+                                    }
+                               })
             })
         }
     }
@@ -109,7 +130,15 @@ export default class Open extends Component {
         let result = await reqUnpackLottery()
         if (result.code === 0) {
             this.setState({
-                winnerObject: result.data
+                winnerObject: result.data,
+                carouselList: [{
+                    type: '0',
+                    amount: result.data.amount,
+                    userId: memoryUtils.user.userId.substring(0,4)+'****'+memoryUtils.user.userId.substring(memoryUtils.user.userId.length-4,memoryUtils.user.userId.length),
+                }]
+            },()=>{
+                // 重新获取轮番图信息
+                this.getCarouselInfo()
             })
             this.setState({animation: true});
             setTimeout(this.stopAnimation.bind(this), 2000);
@@ -136,11 +165,13 @@ export default class Open extends Component {
                     <div className='carousel_content'>
                         <Carousel autoplay effect='fade' dotPosition='right'>
                             {
-                                carouselList.map(item=>{
+                                carouselList ? carouselList.map(item=>{
                                     return(
-                                        <div className='content_item'>{item}</div>
+                                        <div className='content_item'>
+                                            {item.userId + (item.type === 0 ? '拆到' : item.type === 1 ? '抢到' : '拆到') + item.amount}
+                                        </div>
                                     )
-                                })
+                                }) : null
                             }
                         </Carousel>
                     </div>
