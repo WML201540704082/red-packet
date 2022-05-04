@@ -11,24 +11,27 @@ export default class Basic extends Component {
         super(props)
         this.state = {
             dataSource: [],
-            beginDate: '', // 开始时间
-            endDate: '', // 结束时间
+            beginDate1: '', // 开始时间
+            endDate1: '', // 结束时间
+            beginDate2: '', // 开始时间
+            endDate2: '', // 结束时间
+            beginDate3: '', // 开始时间
         }
     }
     componentWillMount() {
+        // 获取数据统计列表
         this.getDataList()
+        // 获取开奖概率
         this.getProbabilityList()
+        // 获取留存数据
         this.keepList()
     }
-    getSearch = () => {
-        this.getDataList()
-        this.getProbabilityList()
-    }
+    // 获取数据统计列表
     getDataList = async () => {
-        let { beginDate, endDate } = this.state
+        let { beginDate1, endDate1 } = this.state
         let params = {
-            beginDate,
-            endDate,
+            beginDate: beginDate1,
+            endDate: endDate1,
         }
         let result = await reqStatistics(params)
         if (result.code === 0) {
@@ -39,10 +42,10 @@ export default class Basic extends Component {
     }
     // 开奖概率
     getProbabilityList = async () => {
-        let { beginDate, endDate } = this.state
+        let { beginDate2, endDate2 } = this.state
         let params = {
-            beginDate,
-            endDate,
+            beginDate: beginDate2,
+            endDate: endDate2,
         }
         let result = await reqProbability(params)
         if (result.code === 0) {
@@ -58,10 +61,9 @@ export default class Basic extends Component {
         }
     }
     keepList = async () => {
-        let { beginDate, endDate } = this.state
+        let { beginDate3 } = this.state
         let params = {
-            beginDate,
-            endDate,
+            beginDate: beginDate3,
         }
         let result = await reqKeep(params)
         if (result.code === 0) {
@@ -74,7 +76,7 @@ export default class Basic extends Component {
     probabilityDom = (probabilityDate) => {
         if (probabilityDate && probabilityDate.length>1) {
             return (
-                <table border="1" width="100%" align="center">
+                <table border="1" width="100%" align="center" style={{marginBottom:'15px'}}>
                     <thead>
                         <tr bgcolor="#FAFAFA">
                             {
@@ -110,69 +112,149 @@ export default class Basic extends Component {
             )
         }
     }
+
+    // ***********************************第一个*****************************************
     // 开始时间选择器(监控记录日期变换)
-    handleStartDateChange = (value, dateString) => {
+    handleStartDateChange1 = (value, dateString) => {
         this.setState({
-            beginDate: dateString,
+            beginDate1: dateString,
         });
     };
     
     // 结束时间选择器(监控记录日期变换)
-    handleEndDateChange = (value, dateString) => {
+    handleEndDateChange1 = (value, dateString) => {
         this.setState({
-            endDate: dateString,
+            endDate1: dateString,
         });
     };
 
     // 结束时间可选范围
-    handleEndDisabledDate = (current) => {
-        const { beginDate } = this.state;
-        if (beginDate !== '') {
+    handleEndDisabledDate1 = (current) => {
+        const { beginDate1 } = this.state;
+        if (beginDate1 !== '') {
         // 核心逻辑: 结束日期不能多余开始日期后60天，且不能早于开始日期
-            return current > moment(beginDate).add(60, 'day') || current < moment(beginDate);
+            return current > moment(beginDate1).add(60, 'day') || current < moment(beginDate1);
         } else {
             return null;
         }
     }
     
     // 开始时间可选范围
-    handleStartDisabledDate = (current) => {
-        const { endDate } = this.state;
-        if (endDate !== '') {
+    handleStartDisabledDate1 = (current) => {
+        const { endDate1 } = this.state;
+        if (endDate1 !== '') {
             // 核心逻辑: 开始日期不能晚于结束日期，且不能早于结束日期前60天
-            return current < moment(endDate).subtract(60, 'day') || current > moment(endDate);
+            return current < moment(endDate1).subtract(60, 'day') || current > moment(endDate1);
         } else {
             return null;
         }
     }
+
+    // ***********************************第二个*****************************************
+    // 开始时间选择器(监控记录日期变换)
+    handleStartDateChange2 = (value, dateString) => {
+        this.setState({
+            beginDate2: dateString,
+        });
+    };
+    
+    // 结束时间选择器(监控记录日期变换)
+    handleEndDateChange2 = (value, dateString) => {
+        this.setState({
+            endDate2: dateString,
+        });
+    };
+
+    // 结束时间可选范围
+    handleEndDisabledDate2 = (current) => {
+        const { beginDate2 } = this.state;
+        if (beginDate2 !== '') {
+        // 核心逻辑: 结束日期不能多余开始日期后60天，且不能早于开始日期
+            return current > moment(beginDate2).add(60, 'day') || current < moment(beginDate2);
+        } else {
+            return null;
+        }
+    }
+    
+    // 开始时间可选范围
+    handleStartDisabledDate2 = (current) => {
+        const { endDate2 } = this.state;
+        if (endDate2 !== '') {
+            // 核心逻辑: 开始日期不能晚于结束日期，且不能早于结束日期前60天
+            return current < moment(endDate2).subtract(60, 'day') || current > moment(endDate2);
+        } else {
+            return null;
+        }
+    }
+
+    // ***********************************第三个*****************************************
+    // 开始时间选择器(监控记录日期变换)
+    handleStartDateChange3 = (value, dateString) => {
+        this.setState({
+            beginDate3: dateString,
+        });
+    };
     render() {
         let { dataSource, probabilityDate, keepSource } = this.state
         // 读取状态数据
         // card的左侧
-        const title = (
+        const title1 = (
             <span>
                 <DatePicker
-                    onChange={this.handleStartDateChange}
-                    disabledDate={this.handleStartDisabledDate}
+                    onChange={this.handleStartDateChange1}
+                    disabledDate={this.handleStartDisabledDate1}
                     placeholder="开始日期"
                 />
                 <span>-</span>
                 <DatePicker
-                    onChange={this.handleEndDateChange}
-                    disabledDate={this.handleEndDisabledDate}
+                    onChange={this.handleEndDateChange1}
+                    disabledDate={this.handleEndDisabledDate1}
                     placeholder="结束日期"
                 />
             </span>
         )
-        // card的右侧
-        const extra = (
+        const title2 = (
             <span>
-                <Button type='primary' onClick={() => this.getSearch()}>搜索</Button>
+                <DatePicker
+                    onChange={this.handleStartDateChange2}
+                    disabledDate={this.handleStartDisabledDate2}
+                    placeholder="开始日期"
+                />
+                <span>-</span>
+                <DatePicker
+                    onChange={this.handleEndDateChange2}
+                    disabledDate={this.handleEndDisabledDate2}
+                    placeholder="结束日期"
+                />
+            </span>
+        )
+        const title3 = (
+            <span>
+                <DatePicker
+                    onChange={this.handleStartDateChange3}
+                    placeholder="开始日期"
+                />
+            </span>
+        )
+        // card的右侧
+        const extra1 = (
+            <span>
+                <Button type='primary' onClick={() => this.getDataList()}>搜索</Button>
+            </span>
+        )
+        const extra2 = (
+            <span>
+                <Button type='primary' onClick={() => this.getProbabilityList()}>搜索</Button>
+            </span>
+        )
+        const extra3 = (
+            <span>
+                <Button type='primary' onClick={() => this.keepList()}>搜索</Button>
             </span>
         )
         return (
-            <div>
-                <Card title={title} extra={extra}>
+            <div className='basic'>
+                <Card title={title1} extra={extra1}>
                     <Table
                         bordered
                         rowKey="id"
@@ -263,13 +345,17 @@ export default class Basic extends Component {
                             },
                         ]}
                     />
+                </Card>
+                <Card title={title2} extra={extra2}>
                     {this.probabilityDom(probabilityDate)}
+                </Card>
+                <Card title={title3} extra={extra3}>
                     <Table
                         bordered
                         rowKey="id"
                         dataSource={keepSource}
                         pagination={false}
-                        style={{'marginBottom': '20px'}}
+                        style={{'marginTop':'0px',marginBottom:'15px'}}
                         columns={[
                             {
                                 title: '用户留存',

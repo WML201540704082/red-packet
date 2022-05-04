@@ -176,8 +176,8 @@ export default class Withdraw extends Component {
                             {
                                 title: '提现时间',
 								align: 'center',
-                                dataIndex: 'amount',
-                                key: 'amount',
+                                dataIndex: 'createDate',
+                                key: 'createDate',
                             },
                             {
                                 title: '状态',
