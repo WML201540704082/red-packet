@@ -62,9 +62,16 @@ export default class Login extends Component {
     //     // 这里处理键盘收起的事件
     // }
     componentWillMount() {
-        this.setState({
-            shareId: this.props.location.state ? this.props.location.state.shareId : null,
-        })
+        let aaa = this.props.location.search
+        // let aaa = "?id=123"
+        if (aaa) {
+            this.setState({
+                shareId: aaa.substring(6)
+            })
+        }
+        // this.setState({
+        //     shareId: this.props.location.state ? this.props.location.state.shareId : null,
+        // })
     }
     // 对密码进行自定义验证
     validatorPwd = (rule, value, callback) => {

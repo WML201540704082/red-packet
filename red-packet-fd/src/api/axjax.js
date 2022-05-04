@@ -30,10 +30,12 @@ export default function ajax(url, data={}, type='GET') {
         // 2.如果成功了，调用resolve(value)
         promise.then(response => {
             if (response.data.code === -1 && response.data.msg === "The token is invalid, please get it again") {
+                let index=window.location.hash.lastIndexOf("?")
+                let obj=window.location.hash.substring(index,window.location.hash.length)
                 message.error('身份过期，请重新登录！')
                 storageUtils.removeUser()
                 memoryUtils.user = {}
-                window.location.href = '/#/login'
+                window.location.href = '/#/login' + obj
             } else if (response.data.code === -1) {
                 message.error(response.data.msg)
             } else {
