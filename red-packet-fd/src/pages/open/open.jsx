@@ -108,22 +108,34 @@ export default class Open extends Component {
                     )
                 } else {
                     return(
-                        <div className='redpack_outer'>
-                            <div className='redpack'>
-                                <div className='redpack_top'>
+                        <div className='winner_outer'>
+                            <div className='winner'>
+                                <div className='winner_top'>
                                     <div>恭喜您中奖了</div>
                                 </div>
-                                <div className='redpack_middle'>
-                                    <div>{winnerObject.name}:{winnerObject.amount}</div>
+                                <div className='winner_middle'>
+                                    <div>{winnerObject.amount}</div>
                                 </div>
-                            </div>
-                            <div className='bottom_close'>
-                                <img src={close} onClick={() => this.setState({redPacketShow: false, status: 0})} alt="" />
+                                <div className='winner_bottom'>
+                                    <div className='winner_bottom_content' onClick={() => this.nextOne()}>再来一次》</div>
+                                </div>
                             </div>
                         </div>
                     )
                 }
             }
+        }
+    }
+    nextOne = async () => {
+        let result = await reqGrabCount()
+        if (result.code === 0) {
+            this.setState({
+                redPacketAmount: result.data,
+                amountFlag: result.data ? false : true,
+                status: 0
+            },()=>{
+                this.oepnRedPacket()
+            })
         }
     }
     openRedPacket = async () => {

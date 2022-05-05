@@ -99,7 +99,6 @@ export default class Grab extends Component {
                 let result = await reqGrabBet(params)
                 if (result.code === 0) {
                     this.setState({
-                        dataSource: result.data.records,
                         imgFlag: true
                     })
                 } else {
@@ -247,27 +246,24 @@ export default class Grab extends Component {
         }
     }
     showImg = () => {
-        let { imgFlag } = this.state
-        if (imgFlag) {
-            return(
-                <div className='img_show'>
-                    <div className='img_show_outer'></div>
-                    <div className='img_show_content'>
-                        <img src={close} style={{width:'20px',height:'20px',position:'absolute',top:'-12px',right:'28px'}} onClick={() => this.setState({imgFlag: false})} alt="" />
-                        <div className='img_show_content_top'>恭喜您获得一个红包</div>
-                        <div className='img_show_content_bottom' onClick={() => this.props.history.push("/open")}>去拆红包</div>
-                    </div>
+        return(
+            <div className='img_show'>
+                <div className='img_show_outer'></div>
+                <div className='img_show_content'>
+                    <img src={close} style={{width:'20px',height:'20px',position:'absolute',top:'-12px',right:'28px'}} onClick={() => this.setState({imgFlag: false})} alt="" />
+                    <div className='img_show_content_top'>恭喜您获得一个红包</div>
+                    <div className='img_show_content_bottom' onClick={() => this.props.history.push("/open")}>去拆红包</div>
                 </div>
-            )
-        }
+            </div>
+        )
     }
 
     render() {
-        let { dataSource, rechargeFlag } = this.state
+        let { dataSource, rechargeFlag, imgFlag } = this.state
         return (
             <div className="grab">
                 {this.redPacketShow(dataSource)}
-                {this.showImg()}
+                {imgFlag ? this.showImg() : null}
                 {rechargeFlag ? this.showRecharge() : null}
             </div>
         )

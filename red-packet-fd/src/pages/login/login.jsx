@@ -17,6 +17,7 @@ import CountrySelect from './components/country-select'
 import arrows from './images/arrows.png'
 import NProgress from 'nprogress'
 import 'nprogress/nprogress.css'
+import bg_2 from './images/bg_2.png';
 const { TabPane } = Tabs;
 // const { Option } = Select;
 
@@ -254,7 +255,7 @@ export default class Login extends Component {
             <div style={{width:'100%', height: '100%'}}>
                 {
                     !countryFlag ? (
-                        <div className="login">
+                        <div className="login" style={{ backgroundImage: `url("${bg_2}")`}}>
                             <section className='login-section' style={{height: !this.state.pop ? '' : '60%'}}>
                                 <Tabs defaultActiveKey="1" centered>
                                     <TabPane tab="免密登录" key="1" className="login-content" style={{top: !this.state.pop ? '50%' : '70%'}}>
