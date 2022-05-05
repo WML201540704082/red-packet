@@ -163,7 +163,7 @@ export default class Open extends Component {
             <div>
                 <div className='carousel'>
                     <div className='carousel_content'>
-                        <Carousel autoplay effect='fade' dotPosition='right'>
+                        <Carousel autoplay effect='scrollx' dotPosition='right' dots={false} autoplaySpeed={4000} speed={2000}>
                             {
                                 carouselList ? carouselList.map(item=>{
                                     return(

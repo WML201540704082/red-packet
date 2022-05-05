@@ -220,11 +220,11 @@ export default class My extends Component {
         return (
             <div className='share'>
                 <div className='share_content'>
-                    <img src={close} style={{width:'20px',height:'20px',position:'absolute',right:'17%',marginTop:'35px'}} onClick={() => this.setState({shareFlag: false})} alt="" />
+                    <img src={close} style={{width:'18px',height:'18px',position:'absolute',right:'20%',marginTop:'31px'}} onClick={() => this.setState({shareFlag: false})} alt="" />
                     <QRCode
                         id="qrCode"
                         value={'http://www.redpz.com/#/grab?sign=' + id}  //地址
-                        size={200} // 二维码的大小
+                        size={180} // 二维码的大小
                         fgColor="#000000" // 二维码的颜色
                         style={{ margin: 'auto' }}
                     />
@@ -249,29 +249,31 @@ export default class My extends Component {
         return (
            <div className='balance'>
                 <div className='balance_outer' onClick={() => this.setState({balanceFlag: false})}></div>
-                <div className='balance_content'>
-                    <div className='balance_content_top'>
-                        <div style={{fontSize:'20px'}}>当前余额</div>
-                        <div style={{fontWeight:'bold',fontSize:'26px',fontFamily:'PingFang-SC-Heavy'}}>{balanceObject.amount}</div>
-                    </div>
-                    <div className='balance_content_middle'>
-                        <div className='balance_content_middle_content' style={{borderRight: '1px solid #E5E5E5'}}>
-                            <div>
-                                <div>分佣：</div>
-                                <div>{balanceObject.commissionBalanceAmount}</div>
+                <div className='balance_content_outer'>
+                    <div className='balance_content'>
+                        <div className='balance_content_top'>
+                            <div style={{fontSize:'20px'}}>当前余额</div>
+                            <div style={{fontWeight:'bold',fontSize:'26px',fontFamily:'PingFang-SC-Heavy'}}>{balanceObject.amount}</div>
+                        </div>
+                        <div className='balance_content_middle'>
+                            <div className='balance_content_middle_content' style={{borderRight: '1px solid #E5E5E5'}}>
+                                <div>
+                                    <div>分佣：</div>
+                                    <div>{balanceObject.commissionBalanceAmount}</div>
+                                </div>
+                            </div>
+                            <div className='balance_content_middle_content'>
+                                <div>
+                                    <div>红包：</div>
+                                    <div>{balanceObject.redEnvelopeAmount}</div>
+                                </div>
                             </div>
                         </div>
-                        <div className='balance_content_middle_content'>
-                            <div>
-                                <div>红包：</div>
-                                <div>{balanceObject.redEnvelopeAmount}</div>
-                            </div>
+                        <div className='balance_content_bottom'>
+                            <div className='withdrawal_button' onClick={() => this.setState({balanceFlag:false,withdrawFlag:true})}>去提现</div>
                         </div>
                     </div>
-                    <div className='balance_content_bottom'>
-                        <div className='withdrawal_button' onClick={() => this.setState({balanceFlag:false,withdrawFlag:true})}>去提现</div>
-                    </div>
-               </div>
+                </div>
            </div>
         )
 	}
