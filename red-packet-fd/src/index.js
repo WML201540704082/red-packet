@@ -6,6 +6,7 @@ import reportWebVitals from './reportWebVitals';
 import storageUtils from './utils/storageUtils'
 import memoryUtils from './utils/memoryUtils'
 import {  message } from 'antd';
+import './i18n/config';
 
 message.config({
   duration: 1.5,// 持续时间

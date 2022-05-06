@@ -137,13 +137,13 @@ class leftNav extends Component {
                     <Menu.Item key={item.key} icon={item.icon} onClick={this.menu_click}>
                         <Link to={item.key}>{
                             <span className='img_and_title'>
-                                <img src={(item.title === '抢包' && !grabFlag) ? grab : 
-                                          (item.title === '抢包' && grabFlag) ? grab_hover :
-                                          (item.title === '拆包' && !openFlag) ? open : 
-                                          (item.title === '拆包' && openFlag) ? open_hover :
-                                          (item.title === '客服' && !customerFlag) ? customer : 
-                                          (item.title === '客服' && customerFlag) ? customer_hover :
-                                          (item.title === '我的' && !myFlag) ? my : my_hover} 
+                                <img src={(item.key === '/grab' && !grabFlag) ? grab : 
+                                          (item.key === '/grab' && grabFlag) ? grab_hover :
+                                          (item.key === '/open' && !openFlag) ? open : 
+                                          (item.key === '/open' && openFlag) ? open_hover :
+                                          (item.key === '/customer' && !customerFlag) ? customer : 
+                                          (item.key === '/customer' && customerFlag) ? customer_hover :
+                                          (item.key === '/my' && !myFlag) ? my : my_hover} 
                                     style={{marginBottom: '-10px',marginTop:'7px'}} alt="icon"/>
                                 <span style={{marginBottom: '-12px'}}>{item.title}</span>
                             </span>

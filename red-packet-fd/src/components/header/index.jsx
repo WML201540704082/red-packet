@@ -9,6 +9,7 @@ import memoryUtils from '../../utils/memoryUtils'
 import storageUtils from '../../utils/storageUtils'
 import './index.less'
 import LinkButton from '../link-button'
+import { t } from 'i18next';
 
 class Header extends Component {
 
@@ -50,7 +51,7 @@ class Header extends Component {
     Loginout = () => {
         // 显示确认狂
         Modal.confirm({
-            title: '确定退出吗?',
+            title: t('my.confirm_exit'),
             icon: <ExclamationCircleOutlined />,
             onOk: () => {
                 // 删除保存的user数据
@@ -62,6 +63,8 @@ class Header extends Component {
             onCancel() {
               console.log('Cancel');
             },
+            okText: t('my.sure'),
+            cancelText: t('my.cancel')
         })
     }
 

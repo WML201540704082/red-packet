@@ -20,8 +20,8 @@ import momo from '../grab/images/momo.png'
 import close from '../grab/images/close.png'
 import QRCode from 'qrcode.react'
 import copy from 'copy-to-clipboard'
-
 import './my.less'
+import { t } from 'i18next'
 
 export default class My extends Component {
     constructor(props) {
@@ -84,7 +84,7 @@ export default class My extends Component {
     Loginout = () => {
         // 显示确认狂
         Modal.confirm({
-            title: '确定退出吗?',
+            title: t('my.confirm_exit'),
             icon: <ExclamationCircleOutlined />,
             onOk: () => {
                 // 删除保存的user数据
@@ -96,6 +96,8 @@ export default class My extends Component {
             onCancel() {
               console.log('Cancel');
             },
+            okText: t('my.sure'),
+            cancelText: t('my.cancel')
         })
     }
     clickButton = (item) => {
@@ -147,8 +149,8 @@ export default class My extends Component {
                                     <img src={item.index === 0 ? qr_code : item.index === 1 ? balance :
                                               item.index === 2 ? partner : item.index === 3 ? recharge : item.index === 4 ? record : details} alt="qr_code"/>
                                     <div>
-                                        {item.index === 0 ? 'QR Code' : item.index === 1 ? 'Balance' :
-                                              item.index === 2 ? 'Partner' : item.index === 3 ? 'Recharge' : item.index === 4 ? 'Record' : 'Details'}
+                                        {item.index === 0 ? t('my.qr_code') : item.index === 1 ? t('my.balance') :
+                                              item.index === 2 ? t('my.partner') : item.index === 3 ? t('my.recharge') : item.index === 4 ? t('my.withdrawal_record') : t('my.commission_details')}
                                     </div>
                                 </span>
                             </div>
@@ -160,11 +162,11 @@ export default class My extends Component {
     }
     getProxyDetails = () => {
         let proxyDetails = [
-            {index: 1, name: '一级代理', percent: 5},
-            {index: 2, name: '二级代理', percent: 4},
-            {index: 3, name: '三级代理', percent: 3},
-            {index: 4, name: '四级代理', percent: 2},
-            {index: 5, name: '五级代理', percent: 1},
+            {index: 1, name: t('my.first-level_proxy'), percent: 5},
+            {index: 2, name: t('my.second-level_proxy'), percent: 4},
+            {index: 3, name: t('my.third-level_proxy'), percent: 3},
+            {index: 4, name: t('my.fourth-level_proxy'), percent: 2},
+            {index: 5, name: t('my.fifth-level_proxy'), percent: 1},
         ];
         return(
             <div className='my_proxy_content'>
@@ -190,19 +192,19 @@ export default class My extends Component {
                         <div className='my'>
                             <div className='my_top'>
                                 <span style={{color:'#ffffff'}}>ID:{id}</span>
-                                <LinkButton onClick={this.Loginout} style={{position: 'absolute', right: '20px'}}>退出</LinkButton>
+                                <LinkButton onClick={this.Loginout} style={{position: 'absolute', right: '20px'}}>{t('my.exit')}</LinkButton>
                             </div>
                             {this.getMyButton()}
                             <div className='my_proxy'>
-                                <div>代理说明</div>
+                                <div>{t('my.proxy_describe')}</div>
                                 {this.getProxyDetails()}
                             </div>
                             <div className='my_proxy' style={{marginTop: '13px'}}>
                                 <div>推广步骤</div>
                                 <div className='my_proxy_content'>
-                                    1.点击推广二维码，获取你的专属二维码。<br/>
-                                    2.让好友扫码进入平台，即可自动绑定好友关系。<br/>
-                                    3.让好友参与游戏，您可以获得奖励且可直接提现
+                                    1.{t('my.Click the promotion QR code to get your own QR code')}<br/>
+                                    2.{t('my.Let your friends scan the code to enter the platform, and you can automatically bind your friend relationship')}<br/>
+                                    3.{t('my.If you let your friends participate in the game, you can get rewards and withdraw cash directly')}
                                 </div>
                             </div>
                         </div>
@@ -230,10 +232,10 @@ export default class My extends Component {
                     />
                 </div>
                 <div className='share_text'>
-                    您的专属二维码
+                    {t('my.your own QR code')}
                 </div>
                 <div className='share_bottom'>
-                    <div className='share_bottom_content' onClick={() => this.copyUrl()}>复制链接</div>
+                    <div className='share_bottom_content' onClick={() => this.copyUrl()}>{t('my.copy_link')}</div>
                 </div>
             </div>
         )
@@ -241,7 +243,7 @@ export default class My extends Component {
     copyUrl = () => {
         let url = 'http://www.redpz.com/#/grab?sign=' + this.state.id
         copy(url)
-        message.success('复制成功')
+        message.success(t('my.copy_success'))
     }
     // 余额
     showBalance = () => {
@@ -252,25 +254,25 @@ export default class My extends Component {
                 <div className='balance_content_outer'>
                     <div className='balance_content'>
                         <div className='balance_content_top'>
-                            <div style={{fontSize:'20px'}}>当前余额</div>
+                            <div style={{fontSize:'20px'}}>{t('my.current_balance')}</div>
                             <div style={{fontWeight:'bold',fontSize:'26px',fontFamily:'PingFang-SC-Heavy'}}>{balanceObject.amount}</div>
                         </div>
                         <div className='balance_content_middle'>
                             <div className='balance_content_middle_content' style={{borderRight: '1px solid #E5E5E5'}}>
                                 <div>
-                                    <div>分佣：</div>
+                                    <div>{t('my.commission')}：</div>
                                     <div>{balanceObject.commissionBalanceAmount}</div>
                                 </div>
                             </div>
                             <div className='balance_content_middle_content'>
                                 <div>
-                                    <div>红包：</div>
+                                    <div>{t('my.red_packet')}：</div>
                                     <div>{balanceObject.redEnvelopeAmount}</div>
                                 </div>
                             </div>
                         </div>
                         <div className='balance_content_bottom'>
-                            <div className='withdrawal_button' onClick={() => this.setState({balanceFlag:false,withdrawFlag:true})}>去提现</div>
+                            <div className='withdrawal_button' onClick={() => this.setState({balanceFlag:false,withdrawFlag:true})}>{t('my.withdraw_cash')}</div>
                         </div>
                     </div>
                 </div>
@@ -293,10 +295,10 @@ export default class My extends Component {
                 <div className='recharge_content'>
                     <img src={close} style={{width:'20px',height:'20px',position:'absolute',top:'-40px',right:'5px'}} onClick={() => this.setState({rechargeFlag: false})} alt="" />
                     <div className='recharge_content_top'>
-                        <span>充值</span>
+                        <span>{t('my.recharge')}</span>
                     </div>
                     <div className='recharge_content_middle'>
-                        <div style={{padding:'15px 15px 0'}}>请选择充值金额</div>
+                        <div style={{padding:'15px 15px 0'}}>{t('my.Please select recharge amount')}</div>
                         <div className='recharge_content_middle_top'>
                             {
                                 rechargeConfigList.map((item,index)=>{
@@ -314,7 +316,7 @@ export default class My extends Component {
                                 })
                             }
                         </div>
-                        <div style={{padding:'0 15px'}}>请选择支付方式</div>
+                        <div style={{padding:'0 15px'}}>{t('my.Please select payment method')}</div>
                         <div className='recharge_content_middle_bottom'>
                             {/* {
                                 payList.map((item,index)=>{
@@ -346,7 +348,7 @@ export default class My extends Component {
                         </div>
                     </div>
                     <div className='recharge_content_bottom'>
-                        <div className='recharge_button' onClick={() => this.pay()}>充值</div>
+                        <div className='recharge_button' onClick={() => this.pay()}>{t('my.recharge')}</div>
                     </div>
                </div>
            </div>
@@ -355,7 +357,7 @@ export default class My extends Component {
     pay = async () => {
         let { moneyId, type } = this.state
         if (!moneyId) {
-           message.warning('请先选择充值金额')
+           message.warning(t('my.Please select recharge amount'))
            return 
         } else {
             let params = {

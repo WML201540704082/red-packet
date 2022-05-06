@@ -1,0 +1,18 @@
+{
+    "header": {
+      "register": "Register",
+      "signin": "Sign In",
+      "home": "Home"
+    },
+    "footer": {
+      "detail": "All rights reserved @ React"
+    },
+    "home": {
+      "mainTip": "Im login page"
+    },
+    "content": {
+      "description": "this is a chinese graph"
+    }
+  }
+  
+  

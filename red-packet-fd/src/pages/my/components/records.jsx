@@ -2,6 +2,7 @@ import React, { Component } from 'react'
 import goback from '../images/goback.png'
 import { reqRecordsList } from '../../../api'
 import './withdraw.less'
+import { t } from 'i18next'
 
 export default class Records extends Component {
     formRef = React.createRef()
@@ -38,7 +39,7 @@ export default class Records extends Component {
 	render() {
 		return (
             <div style={{background:'#ffffff',position:'absolute',width:'100%',height:'100%',fontSize:'16px',zIndex:2}}>
-                <div style={{height:'50px',lineHeight:'50px',fontSize:'18px',color:'#333333',display:'flex',justifyContent:'center',borderBottom:'1px solid #DCDCDC'}}>提现明细</div>
+                <div style={{height:'50px',lineHeight:'50px',fontSize:'18px',color:'#333333',display:'flex',justifyContent:'center',borderBottom:'1px solid #DCDCDC'}}>{t('my.withdrawal_record')}</div>
                 <img src={goback} onClick={()=>this.goBack()} style={{position:'absolute',top:'16px',left:'15px',width:'15px'}} alt="goback"/>
                 <div style={{height:'calc(100vh - 50px)',overflowY:'scroll'}}>
                     {
@@ -46,7 +47,7 @@ export default class Records extends Component {
                             <div className='records_top' style={{height:'50px',lineHeight:'50px',display:'flex'}}>
                                 <div style={{width:'50%'}}></div>
                                 <div style={{width:'50%',color:'#FFFFFF'}}>
-                                    <span style={{float:'right',paddingRight:'20px'}}>合计:&nbsp;&nbsp;{this.state.sum}</span>
+                                    <span style={{float:'right',paddingRight:'20px'}}>{t('my.sum')}:&nbsp;&nbsp;{this.state.sum}</span>
                                 </div>
                             </div>
                             <div style={{padding:'0 10px'}}>
@@ -56,7 +57,7 @@ export default class Records extends Component {
                                             <div style={{ borderBottom:'1px solid #EFEFEF',height:'50px',lineHeight:'50px',
                                                         marginTop:'10px',paddingLeft:'10px',display:'flex'}}>
                                                 <span style={{width:'50%',height:'100%',display:'flex',flexDirection:'column'}}>
-                                                    <span style={{height:'30px',lineHeight:'30px'}}>{item.audit === '1' ? '未审核' : item.audit === '2' ? '审核未通过' : ' 审核通过'}</span>
+                                                    <span style={{height:'30px',lineHeight:'30px'}}>{item.audit === '1' ? t('my.not_audited') : item.audit === '2' ? t('my.audit_failed') : t('my.audit_pass')}</span>
                                                     <span style={{height:'12px',lineHeight:'12px',fontSize:'15px',color:'#999999'}}>{item.createDate}</span>
                                                 </span>
                                                 <span style={{width:'50%'}}>

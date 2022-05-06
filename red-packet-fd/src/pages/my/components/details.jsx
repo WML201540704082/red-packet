@@ -2,6 +2,7 @@ import React, { Component } from 'react'
 import goback from '../images/goback.png'
 import { reqDetailsList } from '../../../api'
 import './withdraw.less'
+import { t } from 'i18next'
 
 export default class Records extends Component {
     formRef = React.createRef()
@@ -38,7 +39,7 @@ export default class Records extends Component {
 	render() {
 		return (
             <div style={{background:'#ffffff',position:'absolute',width:'100%',height:'100%',fontSize:'16px',zIndex:2}}>
-                <div style={{height:'50px',lineHeight:'50px',fontSize:'18px',color:'#333333',display:'flex',justifyContent:'center',borderBottom:'1px solid #DCDCDC'}}>分佣明细</div>
+                <div style={{height:'50px',lineHeight:'50px',fontSize:'18px',color:'#333333',display:'flex',justifyContent:'center',borderBottom:'1px solid #DCDCDC'}}>{t('my.commission_details')}</div>
                 <img src={goback} onClick={()=>this.goBack()} style={{position:'absolute',top:'16px',left:'15px',width:'15px'}} alt="goback"/>
                 <div style={{height:'calc(100vh - 50px)',overflowY:'scroll'}}>
                     {
@@ -46,7 +47,7 @@ export default class Records extends Component {
                             <div className='records_top' style={{height:'50px',lineHeight:'50px',display:'flex'}}>
                                 <div style={{width:'50%'}}></div>
                                 <div style={{width:'50%',color:'#FFFFFF'}}>
-                                    <span style={{float:'right',paddingRight:'20px'}}>合计:&nbsp;&nbsp;{this.state.sum}</span>
+                                    <span style={{float:'right',paddingRight:'20px'}}>{t('my.sum')}:&nbsp;&nbsp;{this.state.sum}</span>
                                 </div>
                             </div>
                             <div style={{padding:'0 10px'}}>

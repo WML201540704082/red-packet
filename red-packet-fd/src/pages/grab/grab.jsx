@@ -8,6 +8,7 @@ import momo from './images/momo.png'
 import close from './images/close.png'
 import tag from './images/tag.png'
 import memoryUtils from '../../utils/memoryUtils'
+import { t } from 'i18next'
 // 首页路由
 export default class Grab extends Component {
     constructor(props) {
@@ -120,7 +121,7 @@ export default class Grab extends Component {
         if (dataSource && dataSource.length > 0) {
             return(
                 <div>
-                    <div style={{position:'absolute',top:'5%',left:'30px',padding:'3px 8px',borderRadius:'5px',display:'flex',justifyContent:'center',backgroundColor:'#ffffff',color:'#AC2A22',fontSize:'12px'}}>账户余额:{this.state.amount}</div>
+                    <div style={{position:'absolute',top:'5%',left:'30px',padding:'3px 8px',borderRadius:'5px',display:'flex',justifyContent:'center',backgroundColor:'#ffffff',color:'#AC2A22',fontSize:'12px'}}>{t('grab.account_balance')}:{this.state.amount}</div>
                     <div style={{display:'flex',flexDirection:'column',marginTop:'30%'}}>
                         {/* <div style={{display:'flex',justifyContent:'center',color:'#FEFFA7',fontSize:'32px',fontFamily:'FZZDHJW--GB1-0'}}>2022最给力必赚平台</div> */}
                         <div style={{display:'flex',justifyContent:'center',color:'#FEFFA7',fontSize:'32px',fontFamily:'FZZDHJW--GB1-0'}}></div>
@@ -135,7 +136,7 @@ export default class Grab extends Component {
                                                 <span className="grab_span">{item.amount/1000}k</span>
                                             </span>
                                             <div className='content_text_outer'>
-                                                <span className='content_text'>最高可抢{item.end/1000}k</span>
+                                                <span className='content_text'>{t('grab.max_grab')}{item.end/1000}k</span>
                                             </div>
                                         </div>
                                     )
@@ -172,8 +173,8 @@ export default class Grab extends Component {
                 <div className='recharge_show_content'>
                     <img src={close} style={{width:'20px',height:'20px',position:'absolute',top:'-40px',right:'5px'}} onClick={() => this.setState({rechargeFlag: false})} alt="" />
                     <div className='recharge_show_content_top'>
-                        <div style={{fontSize:'20px',fontWeight:'bold'}}>充值</div>
-                        <div style={{fontSize:'16px',fontFamily:'PingFang-SC-Regular'}}>请选择支付通道</div>
+                        <div style={{fontSize:'20px',fontWeight:'bold'}}>{t('grab.recharge')}</div>
+                        <div style={{fontSize:'16px',fontFamily:'PingFang-SC-Regular'}}>{t('grab.please_select_payment_channel')}</div>
                     </div>
                     <div className='recharge_show_content_middle'>
                         <Radio.Group defaultValue={'1'}>
@@ -189,7 +190,7 @@ export default class Grab extends Component {
                         </Radio.Group>
                     </div>
                     <div className='recharge_show_content_bottom'>
-                        <div className='recharge_button' onClick={() => this.pay()}>去充值</div>
+                        <div className='recharge_button' onClick={() => this.pay()}>{t('grab.go_recharget')}</div>
                     </div>
                </div>
            </div>
@@ -251,8 +252,8 @@ export default class Grab extends Component {
                 <div className='img_show_outer'></div>
                 <div className='img_show_content'>
                     <img src={close} style={{width:'20px',height:'20px',position:'absolute',top:'-12px',right:'28px'}} onClick={() => this.setState({imgFlag: false})} alt="" />
-                    <div className='img_show_content_top'>恭喜您获得一个红包</div>
-                    <div className='img_show_content_bottom' onClick={() => this.props.history.push("/open")}>去拆红包</div>
+                    <div className='img_show_content_top'>{t('grab.congratulations_on_getting_a_red_envelope')}</div>
+                    <div className='img_show_content_bottom' onClick={() => this.props.history.push("/open")}>{t('grab.go_open_ed_envelope')}</div>
                 </div>
             </div>
         )

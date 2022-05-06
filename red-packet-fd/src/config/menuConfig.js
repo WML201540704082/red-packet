@@ -1,60 +1,22 @@
-import {
-    // AppstoreOutlined,
-    // PieChartOutlined,
-    // DesktopOutlined,
-    // ContainerOutlined,
-    // MailOutlined,
-  } from '@ant-design/icons';
+import '../i18n/config';
+import { t } from 'i18next'
 const menuList =[
     {
-        title: '抢包', // 菜单标题名称
+        title: t('navigation.red_envelope_lucky_draw'), // 菜单标题名称
         key: '/grab', // 对应的path
-        // icon: <PieChartOutlined />, // 图标名称
     },
     {
-        title: '拆包',
+        title: t('navigation.remove_the_red_envelope'),
         key: '/open',
-        // icon: <MailOutlined />,
-        // children: [ // 子菜单路由
-        //     {
-        //         title: '品类管理', 
-        //         key: '/category', 
-        //     },
-        //     {
-        //         title: '商品管理', 
-        //         key: '/product', 
-        //     },
-        // ]
     },
     {
-        title: '客服', 
+        title: t('navigation.customer_service'), 
         key: '/customer', 
-        // icon: <DesktopOutlined />, 
     },
     {
-        title: '我的', 
+        title: t('navigation.my'), 
         key: '/my', 
-        // icon: <ContainerOutlined />, 
     },
-    // {
-    //     title: '图形图表',
-    //     key: '/charts',
-    //     icon: <AppstoreOutlined />,
-    //     children: [
-    //         {
-    //             title: '柱形图', 
-    //             key: '/charts/bar', 
-    //         },
-    //         {
-    //             title: '折线图', 
-    //             key: '/charts/line', 
-    //         },
-    //         {
-    //             title: '饼图', 
-    //             key: '/charts/pie', 
-    //         },
-    //     ]
-    // },
 ]
 
 export default menuList

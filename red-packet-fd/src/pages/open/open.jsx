@@ -5,6 +5,7 @@ import { reqUnpackLottery, reqGrabCount, reqCarouselInfo } from '../../api'
 import close from '../grab/images/close.png'
 import memoryUtils from '../../utils/memoryUtils'
 import './open.less'
+import { t } from 'i18next'
 
 export default class Open extends Component {
     constructor(props) {
@@ -43,7 +44,7 @@ export default class Open extends Component {
                 carouselList: [{
                     type: result.data.type,
                     amount: result.data.amount,
-                    userId: result.data.userId.substring(0,4)+'****'+result.data.userId.substring(result.data.userId.length-4,result.data.userId.length),
+                    userId: result.data.userId.substring(0,3)+'****'+result.data.userId.substring(result.data.userId.length-4,result.data.userId.length),
                 }]
             })
             this.getCarouselInfo_2()
@@ -57,17 +58,17 @@ export default class Open extends Component {
                                result.data.disResp.map(item=>{
                                    return {
                                        ...item,
-                                       userId: item.userId.substring(0,4)+'****'+item.userId.substring(item.userId.length-4,item.userId.length)
+                                       userId: item.userId.substring(0,3)+'****'+item.userId.substring(item.userId.length-4,item.userId.length)
                                    }
                                }).concat(result.data.grabResp).map(item=>{
                                     return {
                                         ...item,
-                                        userId: item.userId.substring(0,4)+'****'+item.userId.substring(item.userId.length-4,item.userId.length)
+                                        userId: item.userId.substring(0,3)+'****'+item.userId.substring(item.userId.length-4,item.userId.length)
                                     }
                                }) : result.data.randomResp.map(item=>{
                                     return {
                                         ...item,
-                                        userId: item.userId.substring(0,4)+'****'+item.userId.substring(item.userId.length-4,item.userId.length)
+                                        userId: item.userId.substring(0,3)+'****'+item.userId.substring(item.userId.length-4,item.userId.length)
                                     }
                                })
             })
@@ -81,13 +82,13 @@ export default class Open extends Component {
                     <div className='shadow' onClick={() => this.setState({redPacketShow: false})}></div>
                     <div className='go_grab'>
                         <div className='go_grab_top'>
-                            <div className='go_grab_top_top'>温馨提示！</div>
+                            <div className='go_grab_top_top'>{t('open.reminder')}</div>
                             <div className='go_grab_top_bottom'>
-                                <div className='go_grab_top_bottom_inner'>您没有未拆红包请先抢红包</div>
+                                <div className='go_grab_top_bottom_inner'>{t('open.you_do_not_have_an_unopened_red envelope,please_grab_the_red_envelope_first')}</div>
                             </div>
                         </div>
                         <div className='go_grab_bottom'>
-                            <div className='go_grab_button' onClick={() => this.props.history.push("/grab")}>马上去抢</div>
+                            <div className='go_grab_button' onClick={() => this.props.history.push("/grab")}>{t('open.immediately_go_grab')}</div>
                         </div>
                     </div>
                 </div>
@@ -98,7 +99,7 @@ export default class Open extends Component {
                     return(
                         <div className='redpack_outer'>
                             <div className='redpack'>
-                                <div className='topcontent' style={{borderRadius: '10px 10px 50% 50% / 10px 10px 15% 15%'}}>恭喜发财，大吉大利</div>
+                                <div className='topcontent' style={{borderRadius: '10px 10px 50% 50% / 10px 10px 15% 15%'}}>{t('open.wish_you_become_rich,wish_you_auspicious_and_propitious_in_the_new_year')}</div>
                                 <div id='redpack-open' className={this.state.animation ? 'rotate' : ''} onClick={this.openRedPacket.bind(this)}>開</div>
                             </div>
                             <div className='bottom_close'>
@@ -111,13 +112,13 @@ export default class Open extends Component {
                         <div className='winner_outer'>
                             <div className='winner'>
                                 <div className='winner_top'>
-                                    <div>恭喜您中奖了</div>
+                                    <div>{t('open.congratulations!You_have_won_a_big_prize')}</div>
                                 </div>
                                 <div className='winner_middle'>
                                     <div>{winnerObject.amount}</div>
                                 </div>
                                 <div className='winner_bottom'>
-                                    <div className='winner_bottom_content' onClick={() => this.nextOne()}>再来一次》</div>
+                                    <div className='winner_bottom_content' onClick={() => this.nextOne()}>{t('open.once_more')}》</div>
                                 </div>
                             </div>
                         </div>
@@ -146,7 +147,7 @@ export default class Open extends Component {
                 carouselList: [{
                     type: '0',
                     amount: result.data.amount,
-                    userId: memoryUtils.user.userId.substring(0,4)+'****'+memoryUtils.user.userId.substring(memoryUtils.user.userId.length-4,memoryUtils.user.userId.length),
+                    userId: memoryUtils.user.userId.substring(0,3)+'****'+memoryUtils.user.userId.substring(memoryUtils.user.userId.length-4,memoryUtils.user.userId.length),
                 }]
             },()=>{
                 // 重新获取轮番图信息
@@ -180,7 +181,7 @@ export default class Open extends Component {
                                 carouselList ? carouselList.map(item=>{
                                     return(
                                         <div className='content_item'>
-                                            {item.userId + (item.type === 0 ? '拆到' : item.type === 1 ? '抢到' : '拆到') + item.amount}
+                                            {item.userId + (item.type === "0" ? t('open.unpack') : item.type === "1" ? t('open.grab') : t('open.unpack')) + item.amount}
                                         </div>
                                     )
                                 }) : null

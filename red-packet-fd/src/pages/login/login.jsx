@@ -9,7 +9,7 @@ import storageUtils from '../../utils/storageUtils'
 import { Redirect } from 'react-router-dom'
 import LinkButton from '../../components/link-button'
 import FacebookLogin from 'react-facebook-login'
-import { GoogleLogin } from 'react-google-login';
+import { GoogleLogin } from 'react-google-login'
 import countryCode from './countryCode'
 import RegisterAcc from './components/register-acc'
 import RetrievePwd from './components/retrieve-pwd'
@@ -17,7 +17,8 @@ import CountrySelect from './components/country-select'
 import arrows from './images/arrows.png'
 import NProgress from 'nprogress'
 import 'nprogress/nprogress.css'
-import bg_2 from './images/bg_2.png';
+import bg_2 from './images/bg_2.png'
+import { t } from 'i18next'
 const { TabPane } = Tabs;
 // const { Option } = Select;
 
@@ -108,7 +109,7 @@ export default class Login extends Component {
             try {
                 const result = await reqGoogleLogin(params)
                 if (result.code === 0) {
-                    message.success('登陆成功')
+                    message.success(t('login.login_success'))
                     // 保存user
                     const user = result.data
                     memoryUtils.user = user //保存在内存中
@@ -140,7 +141,7 @@ export default class Login extends Component {
             try {
                 const result = await reqFacebookLogin(params)
                 if (result.code === 0) {
-                    message.success('登陆成功')
+                    message.success(t('login.login_success'))
                     // 保存user
                     const user = result.data
                     memoryUtils.user = user //保存在内存中
@@ -160,7 +161,7 @@ export default class Login extends Component {
     // 发送验证码
     handleSend = async () => {
         if (!this.state.phone) {
-            message.warning('请先输入手机号')
+            message.warning(t('login.Please enter your mobile number'))
         } else {
             let a = 60;
             var reg_tel = /^[0-9]*$/
@@ -168,20 +169,19 @@ export default class Login extends Component {
                 let phone = this.state.phoneCode.substring(1) + this.state.phone
                 let result = await reqSendSms(phone)
                 if (result.code === 0) {
-                    message.success('发送验证码成功！')
-                } else {
-                    message.error('发送验证码失败！')
-                }
-                this.setState({num: a})
-                const t1 = setInterval(()=>{
-                    a=a-1
                     this.setState({num: a})
-                    if(a === 0){
-                        clearInterval(t1)
-                    }
-                },1000)
+                    const t1 = setInterval(()=>{
+                        a=a-1
+                        this.setState({num: a})
+                        if(a === 0){
+                            clearInterval(t1)
+                        }
+                    },1000)
+                } else {
+                    message.error(result.data.msg)
+                }
             }else {
-                message.warning('手机号格式不正确')
+                message.warning(t('login.mobile_number_format_error'))
             }
         }
     }
@@ -201,27 +201,31 @@ export default class Login extends Component {
 
         // 密码登录
         const onFinish = async (values) => {
-            NProgress.start() // 显示滚动条
             const { account, passWord } = values
-            try {
-                const result = await reqLogin(account, passWord)
-                if (result.code === 0) {
-                    message.success('登陆成功')
-
-                    // 保存user
-                    const user = result.data
-                    memoryUtils.user = user //保存在内存中
-                    storageUtils.saveUser(user)
-
-                    // 跳转到管理页面(不需要会退到登陆用replace，需要会退到登陆用push)
-                    this.props.history.push('/')
-                } else {
-                    message.error(result.message)
+            if (!account) {
+                message.warning(t('login.Please enter the account'))
+            } else if (!passWord) {
+                message.warning(t('login.Please enter the password'))
+            } else {
+                NProgress.start() // 显示滚动条
+                try {
+                    const result = await reqLogin(account, passWord)
+                    if (result.code === 0) {
+                        message.success(t('login.login_success'))
+                        // 保存user
+                        const user = result.data
+                        memoryUtils.user = user //保存在内存中
+                        storageUtils.saveUser(user)
+                        // 跳转到管理页面(不需要会退到登陆用replace，需要会退到登陆用push)
+                        this.props.history.push('/')
+                    } else {
+                        message.error(result.message)
+                    }
+                } catch (error) {
+                    console.log('失败了', error);
                 }
-            } catch (error) {
-                console.log('失败了', error);
+                NProgress.done() // 关闭滚动条
             }
-            NProgress.done() // 关闭滚动条
         };
         // 免密登录
         const onPhoneFinish = async () => {
@@ -233,7 +237,7 @@ export default class Login extends Component {
             try {
                 const result = await reqPhoneLogin(params)
                 if (result.code === 0) {
-                    message.success('登陆成功')
+                    message.success(t('login.login_success'))
 
                     // 保存user
                     const user = result.data
@@ -258,7 +262,7 @@ export default class Login extends Component {
                         <div className="login" style={{ backgroundImage: !this.state.pop ? '' : `url("${bg_2}")`}}>
                             <section className='login-section' style={{height: !this.state.pop ? '' : '60%'}}>
                                 <Tabs defaultActiveKey="1" centered>
-                                    <TabPane tab="免密登录" key="1" className="login-content" style={{top: !this.state.pop ? '50%' : '70%'}}>
+                                    <TabPane tab={t('login.passwordless_login')} key="1" className="login-content" style={{top: !this.state.pop ? '50%' : '70%'}}>
                                         <Form
                                             name="normal_login"
                                             className="login-form"
@@ -285,7 +289,7 @@ export default class Login extends Component {
                                                         </span>
                                                     </span>
                                                     <Input 
-                                                        placeholder="手机号"
+                                                        placeholder={t('login.phone_number')}
                                                         // onClick={this.inputClickHandle}
                                                         // onBlur={this.inputBlurHandle}
                                                         style={{width: '172px', marginLeft: '3px'}}
@@ -302,20 +306,20 @@ export default class Login extends Component {
                                                 <div className='input_outer'>
                                                     <div className='input_text'>Verification Code</div>
                                                     <Input
-                                                        placeholder="验证码"
+                                                        placeholder={t('login.verification_code')}
                                                         onChange={event => this.setState({code:event.target.value})}
                                                     />
-                                                    <Button style={{float: 'right',margin: '-39px 3px 0 0',borderColor: '#ffffff',color: '#D32940'}} disabled={num!==0} onClick={this.handleSend}>{num===0?'发送':num+"s"}</Button>
+                                                    <Button style={{float: 'right',margin: '-39px 3px 0 0',borderColor: '#ffffff',color: '#D32940'}} disabled={num!==0} onClick={this.handleSend}>{num===0 ? t('login.send') : num + "s"}</Button>
                                                 </div>
                                             </Form.Item>
                                             <Form.Item>
                                                 <Button type="primary" htmlType="submit" className="login-form-button">
-                                                    登录
+                                                    {t('login.login')}
                                                 </Button>
                                             </Form.Item>
                                         </Form>
                                     </TabPane>
-                                    <TabPane tab="密码登录" key="2" className="login-content" style={{top: !this.state.pop ? '50%' : '70%'}}>
+                                    <TabPane tab={t('login.password_login')} key="2" className="login-content" style={{top: !this.state.pop ? '50%' : '70%'}}>
                                         <Form
                                             name="normal_login"
                                             className="login-form"
@@ -337,7 +341,7 @@ export default class Login extends Component {
                                                 <div className='input_outer'>
                                                     <div className='input_text'>Account</div>
                                                     <Input 
-                                                        placeholder="账号"
+                                                        placeholder={t('login.account')}
                                                         onChange={e => {this.setState({account: e.target.value})}}
                                                     />
                                                 </div>
@@ -353,21 +357,21 @@ export default class Login extends Component {
                                                 <div className='input_outer'>
                                                     <div className='input_text'>PassWord</div>
                                                     <Input
-                                                        type="password"
+                                                        type={t('login.password')}
                                                         placeholder="密码"
                                                     />
                                                 </div>
                                             </Form.Item>
                                             <Form.Item>
                                                 <Button type="primary" htmlType="submit" className="login-form-button">
-                                                    登录
+                                                    {t('login.login')}
                                                 </Button>
                                             </Form.Item>
                                         </Form>
                                         <div className="login-form-bottom">
-                                            <LinkButton style={{color: '#1F79FF'}} onClick={() => {this.setState({isPwdVisible: true})}}>忘记密码？</LinkButton>
+                                            <LinkButton style={{color: '#1F79FF'}} onClick={() => {this.setState({isPwdVisible: true})}}>{t('login.forget_password')}</LinkButton>
                                             <span className="login-form-register">
-                                                <LinkButton style={{color: '#1F79FF',float: 'right'}} onClick={() => {this.setState({isModalVisible:true})}}>注册</LinkButton>
+                                                <LinkButton style={{color: '#1F79FF',float: 'right'}} onClick={() => {this.setState({isModalVisible:true})}}>{t('login.register')}</LinkButton>
                                             </span>
                                         </div>
                                     </TabPane>
@@ -378,7 +382,7 @@ export default class Login extends Component {
                                     <div className='otherLogin'>
                                         <span className='text_line'>
                                             <div className='left_line'></div>
-                                            其他登录方式
+                                            {t('login.other_login_methods')}
                                             <div className='right_line'></div>
                                         </span>
                                         <span className='login_icon'>
