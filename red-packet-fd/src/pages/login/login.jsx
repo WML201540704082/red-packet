@@ -255,7 +255,7 @@ export default class Login extends Component {
             <div style={{width:'100%', height: '100%'}}>
                 {
                     !countryFlag ? (
-                        <div className="login" style={{ backgroundImage: `url("${bg_2}")`}}>
+                        <div className="login" style={{ backgroundImage: !this.state.pop ? '' : `url("${bg_2}")`}}>
                             <section className='login-section' style={{height: !this.state.pop ? '' : '60%'}}>
                                 <Tabs defaultActiveKey="1" centered>
                                     <TabPane tab="免密登录" key="1" className="login-content" style={{top: !this.state.pop ? '50%' : '70%'}}>
