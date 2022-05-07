@@ -51,7 +51,7 @@ export default class Login extends Component {
                     // 跳转到管理页面(不需要会退到登陆用replace，需要会退到登陆用push)
                     this.props.history.push('/')
                 } else {
-                    message.error(result.message)
+                    message.error(result.msg)
                 }
             } catch (error) {
                 console.log('失败了', error);

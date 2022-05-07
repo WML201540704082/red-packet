@@ -62,7 +62,7 @@ export default class Withdraw extends Component {
 			})
 			this.getDataList()
 		} else {
-			message.error(result.message)
+			message.error(result.msg)
 		}
 	}
 	// 开始时间选择器(监控记录日期变换)
@@ -192,7 +192,7 @@ export default class Withdraw extends Component {
                                 align: 'center',
                                 render: reload => {
                                     return (
-                                        (reload.audit === '1' || reload.audit === '2') ? 
+                                        (reload.audit === '1') ? 
 										(<span>
                                             <Button type={'link'} onClick={() => this.oppModal(reload.id,'pass')}>通过</Button>
                                             <Button type={'link'} onClick={() => this.oppModal(reload.id,'reject')}>拒绝</Button>

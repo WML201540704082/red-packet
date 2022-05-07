@@ -87,7 +87,7 @@ export default class ProxyConfig extends Component {
 								return (
 									<span>
 										<Button type={'link'} onClick={() => this.oppModal('修改',reload)}>编辑</Button>
-										<Button type={'link'} onClick={() => this.deleteModal(reload.id)}>删除</Button>
+										{/* <Button type={'link'} onClick={() => this.deleteModal(reload.id)}>删除</Button> */}
 									</span>
 								)
 							},

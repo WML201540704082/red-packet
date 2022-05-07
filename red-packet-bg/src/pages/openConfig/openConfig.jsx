@@ -14,7 +14,7 @@ export default class OpenConfig extends Component {
 			isModalVisible: false,
 			isDeleteVisible: false,
 			pageNumber: 1,
-            pageSize: 5,
+            pageSize: 10,
 		}
 	}
 	componentWillMount() {

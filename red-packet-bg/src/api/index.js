@@ -82,10 +82,10 @@ export const reqOperate = data => ajax(BASE + 'sys/operateRecord/list', data, 'P
 // 获取提现列表
 export const reqWithdraw = data => ajax(BASE + 'sys/account/withdrawList', data, 'POST')
 // 提现审核
-export const reqAudit = data => ajax(BASE + 'withdraw/audit', data, 'POST')
+export const reqAudit = data => ajax(BASE + 'sys/account/withdrawAudit', data, 'POST')
 
-// 获取代理列表
-export const reqProxyList = data => ajax(BASE + 'acting/detail/list', data, 'POST')
+// 获取代理列表 
+export const reqProxyList = data => ajax(BASE + 'sys/account/commissionsList', data, 'POST')
 // 获取下级代理列表
 export const reqNextProxyList = data => ajax(BASE + 'acting/detail/lowerLevelList', data, 'POST')
 
