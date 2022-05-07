@@ -252,8 +252,10 @@ export default class Grab extends Component {
                 <div className='img_show_outer'></div>
                 <div className='img_show_content'>
                     <img src={close} style={{width:'20px',height:'20px',position:'absolute',top:'-12px',right:'28px'}} onClick={() => this.setState({imgFlag: false})} alt="" />
-                    <div className='img_show_content_top'>{t('grab.congratulations_on_getting_a_red_envelope')}</div>
-                    <div className='img_show_content_bottom' onClick={() => this.props.history.push("/open")}>{t('grab.go_open_ed_envelope')}</div>
+                    <div className='img_show_content_top'>
+                        <div className='img_show_content_top_content'>{t('grab.congratulations_on_getting_a_red_envelope')}</div>
+                    </div>
+                    <div className='img_show_content_bottom' onClick={() => this.props.history.push("/open")}>{t('grab.go_open_red_envelope')}</div>
                 </div>
             </div>
         )

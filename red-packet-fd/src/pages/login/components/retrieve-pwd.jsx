@@ -6,6 +6,7 @@ import countryCode from '../countryCode'
 import arrows from '../images/arrows.png'
 import CountrySelect from './country-select'
 import './retrieve-pwd.less'
+import { t } from 'i18next'
 const { Item } = Form
 
 export default class ModalComponent extends Component {
@@ -40,26 +41,29 @@ export default class ModalComponent extends Component {
 	}
     // 发送验证码
     handleSend = async () => {
-        let a = 60;
-        var reg_tel = /^[0-9]*$/
-        if (reg_tel.test(this.state.phone)) {
-            let phone = this.state.phoneCode.substring(1) + this.state.phone
-            let result = await reqSendSms(phone)
-            if (result.code === 0) {
-                message.success('发送验证码成功！')
-            } else {
-                message.error('发送验证码失败！')
-            }
-            this.setState({num: a})
-            const t1 = setInterval(()=>{
-                a=a-1
-                this.setState({num: a})
-                if(a === 0){
-                    clearInterval(t1)
+        if (!this.state.phone) {
+            message.warning(t('login.Please enter your mobile number'))
+        } else {
+            let a = 60;
+            var reg_tel = /^[0-9]*$/
+            if (reg_tel.test(this.state.phone)) {
+                let phone = this.state.phoneCode.substring(1) + this.state.phone
+                let result = await reqSendSms(phone)
+                if (result.code === 0) {
+                    this.setState({num: a})
+                    const t1 = setInterval(()=>{
+                        a=a-1
+                        this.setState({num: a})
+                        if(a === 0){
+                            clearInterval(t1)
+                        }
+                    },1000)
+                } else {
+                    message.error(result.data.msg)
                 }
-            },1000)
-        }else {
-            alert('手机号格式不正确')
+            }else {
+                message.warning(t('login.mobile_number_format_error'))
+            }
         }
     }
     // 选择国家代码
@@ -97,36 +101,36 @@ export default class ModalComponent extends Component {
                             closable={false}
                             onOk={this.handleOk}
                             onCancel={() => this.closeClear()} 
-                            cancelText="取消" 
-                            okText="确定"
+                            cancelText={t('my.cancel')} 
+                            okText={t('my.sure')}
                         >
                             <Form labelCol={{span: 4}} ref={this.formRef}>
                                 <Input type='password' style={{position: 'absolute', top: '-999px'}} />
-                                <Item name="account" label="登录账号" hasFeedback rules={[{required:true, message:'登录账号不可以为空!'}]}>
-                                    <Input placeholder="请输入登录账号！" onChange={e => {this.setState({account: e.target.value})}}/>
+                                <Item name="account" label={t('login.login_account')} hasFeedback rules={[{required:true, message: t('login.Please enter the account')}]}>
+                                    <Input placeholder={t('login.Please enter the account')} onChange={e => {this.setState({account: e.target.value})}}/>
                                 </Item>
-                                <Item name="passWord" label="新密码" hasFeedback rules={[{required: true, message: '密码不可以为空!' }]}>
-                                    <Input.Password placeholder="请输入密码！" onChange={e => {this.setState({passWord: e.target.value})}}/>
+                                <Item name="passWord" label={t('login.new_password')} hasFeedback rules={[{required: true, message: t('login.Please enter the password')}]}>
+                                    <Input.Password placeholder={t('login.Please enter the password')} onChange={e => {this.setState({passWord: e.target.value})}}/>
                                 </Item>
-                                <Item name="phone" label="手机号" hasFeedback rules={[{required:true, message:'手机号不可以为空!'}]}>
+                                <Item name="phone" label={t('login.phone_number')} hasFeedback rules={[{required:true, message: t('login.Please enter your mobile number')}]}>
                                     <div className='input_outer' style={{display:'flex'}}>
                                         <div className='input_outer' style={{display:'flex'}}>
                                             <span style={{paddingLeft:'10px',marginTop:'4px',}} onClick={()=>this.selectCode()}>{phoneCode}</span>
                                             <img onClick={()=>this.selectCode()} style={{width:'13px',height:'13px',marginTop:'9px',marginLeft:'5px'}} src={arrows} alt="arrows"/>
                                             <Input 
-                                                placeholder="手机号"
+                                                placeholder={t('login.phone_number')}
                                                 onChange={event => this.setState({phone:event.target.value})}
                                             />
                                         </div>
                                     </div>
                                 </Item>
-                                <Item name="code" label="验证码" hasFeedback rules={[{required:true, message: '验证码必须输入!'}]}>
+                                <Item name="code" label={t('login.verification_code')} hasFeedback rules={[{required:true, message:t('login.Please enter your verification code')}]}>
                                     <div className='input_outer' style={{display:'flex'}}>
                                         <Input
-                                            placeholder="验证码"
+                                            placeholder={t('login.verification_code')}
                                             onChange={event => this.setState({code:event.target.value})}
                                         />
-                                        <Button style={{float: 'right',marginRight: '3px',borderColor: '#ffffff',color: '#D32940'}} disabled={num!==0} onClick={this.handleSend}>{num===0?'发送':num+"s"}</Button>
+                                        <Button style={{float: 'right',marginRight: '1px',borderColor: '#ffffff',color: '#D32940'}} disabled={num!==0} onClick={this.handleSend}>{num===0 ? t('login.send') : num + "s"}</Button>
                                     </div>
                                 </Item>
                             </Form>
@@ -143,10 +147,10 @@ export default class ModalComponent extends Component {
 	handleOk = async () => {
 		let { closeModal } = this.props
 		let { account, passWord, phone, code } = this.state
-        if (!account) return message.info('账号不可以为空！')
-        if (!passWord) return message.info('密码不可以为空！')
-        if (!phone) return message.info('手机号不可以为空！')
-        if (!code) return message.info('验证码不能为空')
+        if (!account) return message.info(t('login.Please enter the account'))
+        if (!passWord) return message.info(t('login.Please enter the password'))
+        if (!phone) return message.info(t('login.Please enter your mobile number'))
+        if (!code) return message.info(t('login.Please enter your verification code'))
         let params = {
             account,
             passWord,
@@ -155,7 +159,7 @@ export default class ModalComponent extends Component {
         }
         let result = await reqRetrievePwd(params)
         if (result.code === 0 && result.data.code === 0) {
-            message.success('密码找回成功！')
+            message.success(t('login.Password retrieved successfully'))
             this.formRef.current.setFieldsValue({ account: null,passWord: null,phone: null,code: null}) //给表单设置值
             this.formRef.current.resetFields() //清空表单
         } else {

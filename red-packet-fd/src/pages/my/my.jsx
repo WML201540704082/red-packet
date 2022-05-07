@@ -150,7 +150,7 @@ export default class My extends Component {
                                               item.index === 2 ? partner : item.index === 3 ? recharge : item.index === 4 ? record : details} alt="qr_code"/>
                                     <div>
                                         {item.index === 0 ? t('my.qr_code') : item.index === 1 ? t('my.balance') :
-                                              item.index === 2 ? t('my.partner') : item.index === 3 ? t('my.recharge') : item.index === 4 ? t('my.withdrawal_record') : t('my.commission_details')}
+                                              item.index === 2 ? t('my.partner') : item.index === 3 ? t('my.recharge') : item.index === 4 ? t('my.record') : t('my.details')}
                                     </div>
                                 </span>
                             </div>
@@ -173,7 +173,7 @@ export default class My extends Component {
                 {
                     proxyDetails.map(item=>{
                         return (
-                            <div>{item.index + ' ' + item.name + ':' + item.percent + '%'}</div>
+                            <div>{item.index + '. ' + item.name + ':' + item.percent + '%'}</div>
                         )
                     })
                 }
@@ -200,11 +200,11 @@ export default class My extends Component {
                                 {this.getProxyDetails()}
                             </div>
                             <div className='my_proxy' style={{marginTop: '13px'}}>
-                                <div>推广步骤</div>
+                                <div>{t('my.promotion_steps')}</div>
                                 <div className='my_proxy_content'>
-                                    1.{t('my.Click the promotion QR code to get your own QR code')}<br/>
-                                    2.{t('my.Let your friends scan the code to enter the platform, and you can automatically bind your friend relationship')}<br/>
-                                    3.{t('my.If you let your friends participate in the game, you can get rewards and withdraw cash directly')}
+                                    1. {t('my.Click the promotion QR code to get your own QR code')}<br/>
+                                    2. {t('my.Let your friends scan the code to enter the platform, and you can automatically bind your friend relationship')}<br/>
+                                    3. {t('my.If you let your friends participate in the game, you can get rewards and withdraw cash directly')}
                                 </div>
                             </div>
                         </div>

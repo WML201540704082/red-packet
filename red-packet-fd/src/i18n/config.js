@@ -18,7 +18,7 @@ const resources = {
     translation: translation_vie
   }
 };
-
+// console.log((navigator.language) ? navigator.language : navigator.userLanguage)
 i18n.use(initReactI18next).init({
   resources,
   lng: 'zh',

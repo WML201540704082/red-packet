@@ -19,6 +19,7 @@ import NProgress from 'nprogress'
 import 'nprogress/nprogress.css'
 import bg_2 from './images/bg_2.png'
 import { t } from 'i18next'
+import i18n from 'i18next'
 const { TabPane } = Tabs;
 // const { Option } = Select;
 
@@ -382,7 +383,7 @@ export default class Login extends Component {
                                     <div className='otherLogin'>
                                         <span className='text_line'>
                                             <div className='left_line'></div>
-                                            {t('login.other_login_methods')}
+                                            <div className={i18n.language === 'zh' ? 'line_text_zh' : i18n.language === 'en' ? 'line_text_en' : 'line_text_vie'}>{t('login.other_login_methods')}</div>
                                             <div className='right_line'></div>
                                         </span>
                                         <span className='login_icon'>

@@ -1,18 +1,114 @@
 {
-    "grab": {
-      "maxGrab": "123",
-      "signin": "Sign In",
-      "home": "Home"
-    },
-    "footer": {
-      "detail": "All rights reserved @ React"
-    },
-    "home": {
-      "mainTip": "Im login page"
-    },
-    "content": {
-      "description": "this is a chinese graph"
-    }
-  }
-  
-  
+	"login": {
+		"passwordless_login": "Đăng nhập mà không cần mật khẩu",
+		"password_login": "Nhập mật khẩu",
+		"phone_number": "Số di động",
+		"verification_code": "Mật khẩu",
+		"send": "Phát ra",
+		"login": "Ký vô.",
+		"other_login_methods": "Cách khác đăng nhập",
+		"forget_password": "Quên mật khẩu?",
+		"register": "ghi",
+		"login_success": "Thành công Đăng nhập",
+		"Please enter your mobile number": "Xin hãy nhập số điện thoại.",
+		"mobile_number_format_error": "Lỗi định dạng số điện thoại di động!",
+		"account": "Số tài khoản",
+		"password": "mật khẩu",
+		"Please enter the account": "Xin hãy nhập số tài khoản.",
+		"Please enter the password": "Nhập mật khẩu đi.",
+		"login_account": "Tài khoản Đăng nhập",
+		"Please enter your verification code": "Hãy nhập mật mã kiểm tra.!",
+		"Account added successfully": "Tài khoản thêm thành công！",
+		"Password retrieved successfully": "Mật khẩu được tìm lại!",
+		"new_password": "Mật khẩu mới"
+	},
+	"grab": {
+		"max_grab": "lên để lấy",
+		"account_balance": "Tài khoản",
+		"recharge": "Nạp",
+		"please_select_payment_channel": "Hãy chọn kênh thanh toán",
+		"go_recharget": "Nạp",
+		"congratulations_on_getting_a_red_envelope": "Chúc mừng cô đã lấy được phong bì đỏ.",
+		"go_open_red_envelope": "Bỏ phong bì đỏ"
+	},
+	"open": {
+		"reminder": "nhắc!",
+		"you_do_not_have_an_unopened_red_envelope,please_grab_the_red_envelope_first": "Bạn không có phong bì màu đỏ chưa mở, xin hãy lấy phong bì đỏ trước.",
+		"immediately_go_grab": "Lấy nó đi.",
+		"wish_you_become_rich,wish_you_auspicious_and_propitious_in_the_new_year": "Chúc bạn thịnh vượng và giàu có",
+		"congratulations!You_have_won_a_big_prize": "Chúc mừng đã thắng giải",
+		"once_more": "Một lần nữa.",
+		"unpack": "Chuyển đến",
+		"grab": "Chụp"
+	},
+	"customer": {
+		"if_you_have_any_questions,please_scan_and_add_zalo_customer_service_friends": "Nếu bạn có thắc mắc gì, hãy quét và thêm bạn dịch vụ khách hàng zalo.",
+		"tele_account": "Tài khoản"
+	},
+	"my": {
+		"exit": "kí vào đây",
+		"confirm_exit": "Anh chắc chắn phải ra chứ?",
+		"sure": "xác định",
+		"cancel": "hủy",
+		"qr_code": "Bộ chia sẻ",
+		"balance": "dư",
+		"partner": "cộng",
+		"recharge": "Nạp",
+		"record": "ghi",
+		"details": "chi tiết",
+		"withdrawal_record": "Thu hồi",
+		"commission_details": "Thông tin chi tiết",
+		"proxy_describe": "Đặc vụ",
+		"first-level_proxy": "Tiểu nhân",
+		"second-level_proxy": "Nhân viên thứ hai",
+		"third-level_proxy": "Mật vụ cấp độ ba",
+		"fourth-level_proxy": "Hạng đặc vụ",
+		"fifth-level_proxy": "Đặc vụ cấp năm",
+		"promotion_steps": "Bước tiến triển",
+		"Click the promotion QR code to get your own QR code": "Nhấn vào mã QR thăng tiến để có mã QR riêng.",
+		"Let your friends scan the code to enter the platform, and you can automatically bind your friend relationship": "Hãy để bạn bè quét mật mã để vào bục, và bạn có thể tự động kết nối mối quan hệ bạn bè của bạn.",
+		"If you let your friends participate in the game, you can get rewards and withdraw cash directly":"Nếu bạn để bạn bè tham gia trò chơi, bạn có thể nhận phần thưởng và rút tiền trực tiếp",
+		"your own QR code": "Mật mã QR riêng của bạn",
+		"copy_link": "Chép liên kết",
+		"copy_success": "Chép thành công",
+		"current_balance": "Hiện tại",
+		"commission": "Ủy ban",
+		"red_packet": "Phong bì đỏ",
+		"go_withdraw_cash": "Rút tiền mặt",
+		"withdraw_cash": "Rút",
+		"add_account": "Thêm tài khoản",
+		"Please enter the withdrawal amount": "Hãy nhập số rút tiền.",
+		"cash withdrawal limit": "Số rút lui",
+		"Please select an account": "Hãy chọn một tài khoản",
+		"edit": "soạn thảo",
+		"delete": "xóa",
+		"modify_bank_card": "Sửa thẻ ngân hàng",
+		"add_bank_card": "Thẻ ngân hàng mới",
+		"name": "tên đầy đủ",
+		"bank_name": "Tên ngân hàng",
+		"bank_account_number": "Số thẻ ngân hàng",
+		"add": "thêm vào",
+		"modify": "Chỉnh:",
+		"bank_list": "Danh sách ngân hàng",
+		"Please enter the bank name": "Hãy nhập tên ngân hàng.",
+		"my_partner": "Cộng sự của tôi",
+		"sum": "Tổng",
+		"person": "người",
+		"number": "Số seri",
+		"user_id": "ID người dùng",
+		"level": "cấp",
+		"consumption_amount": "Tiêu chuẩn",
+		"commission_amount": "Nguồn gốc",
+		"Please select recharge amount": "Hãy chọn lượng gia nhập",
+		"Please select payment method": "Hãy chọn phương pháp thanh toán",
+		"not_audited": "Chưa chấp nhận",
+		"audit_failed": "Lỗi kiểm toán",
+		"audit_pass": "Duyệt"
+	},
+	"navigation": {
+		"red_envelope_lucky_draw": "lấy túi",
+		"remove_the_red_envelope": "Bỏ",
+		"customer_service": "dịch vụ khách",
+		"my": "của"
+	}
+}

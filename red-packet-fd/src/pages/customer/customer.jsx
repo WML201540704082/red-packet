@@ -3,6 +3,7 @@ import { message } from 'antd';
 import './customer.less'
 import { reqCustomerImg } from '../../api'
 import { t } from 'i18next'
+import i18n from 'i18next'
 
 export default class Customer extends Component {
     state = {
@@ -31,7 +32,7 @@ export default class Customer extends Component {
                 {/* 'http://admin.redpz.com/img/6.jpeg' */}
                 <div className='customer_top'>
                     <div className='customer_top_top'>
-                        <div className='customer_top_top_content'>{t('customer.if_you_have_any_questions,please_scan_and_add_zalo_customer_service_friends')}</div>
+                        <div className={i18n.language === 'zh' ? 'customer_top_top_content_zh' : i18n.language === 'vie' ? 'customer_top_top_content_vie' : 'customer_top_top_content_en'}>{t('customer.if_you_have_any_questions,please_scan_and_add_zalo_customer_service_friends')}</div>
                     </div>
                     <div className='customer_top_bottom'>
                         <img src={img} alt="" />

@@ -1,18 +1,114 @@
 {
-    "header": {
-      "register": "Register",
-      "signin": "Sign In",
-      "home": "Home"
-    },
-    "footer": {
-      "detail": "All rights reserved @ React"
-    },
-    "home": {
-      "mainTip": "Im login page"
-    },
-    "content": {
-      "description": "this is a chinese graph"
-    }
-  }
-  
-  
+	"login": {
+		"passwordless_login": "passwordless login",
+		"password_login": "password login",
+		"phone_number": "phone number",
+		"verification_code": "verification code",
+		"send": "send",
+		"login": "login",
+		"other_login_methods": "Other Login Methods",
+		"forget_password": "Forget password？",
+		"register": "Register",
+		"login_success": "login success",
+		"Please enter your mobile number": "Please enter your mobile number",
+		"mobile_number_format_error": "mobile number format error！",
+		"account": "account",
+		"password": "password",
+		"Please enter the account": "Please enter the account",
+		"Please enter the password": "Please enter the password",
+		"login_account": "login account",
+		"Please enter your verification code": "Please enter your verification code!",
+		"Account added successfully": "Account added successfully!",
+		"Password retrieved successfully": "Password retrieved successfully!",
+		"new_password": "new password"
+	},
+	"grab": {
+		"max_grab": "Get up to ",
+		"account_balance": "account balance",
+		"recharge": "recharge",
+		"please_select_payment_channel": "please select payment channel",
+		"go_recharget": "go recharget",
+		"congratulations_on_getting_a_red_envelope": "Congratulations on getting a red envelope",
+		"go_open_red_envelope": "Go Open"
+	},
+	"open": {
+		"reminder": "reminder",
+		"you_do_not_have_an_unopened_red_envelope,please_grab_the_red_envelope_first": "you don't have an unopened red envelope,please grab the red envelope first",
+		"immediately_go_grab": "immediately go grab",
+		"wish_you_become_rich,wish_you_auspicious_and_propitious_in_the_new_year": "wish you become rich",
+		"congratulations!You_have_won_a_big_prize": "You've won a big prize",
+		"once_more": "once more",
+		"unpack": "unpack",
+		"grab": "grab"
+	},
+	"customer": {
+		"if_you_have_any_questions,please_scan_and_add_zalo_customer_service_friends": "If you've any questions, Please scan and add zalo customer service friends",
+		"tele_account": "Tele Account"
+	},
+	"my": {
+		"exit": "Exit",
+		"confirm_exit": "Confirm exit?",
+		"sure": "sure",
+		"cancel": "cancel",
+		"qr_code": "QR Code",
+		"balance": "Balance",
+		"partner": "Partner",
+		"recharge": "Recharge",
+		"record": "Record",
+		"details": "Details",
+		"withdrawal_record": "Withdrawal Record",
+		"commission_details": "Commission Details",
+		"proxy_describe": "Proxy Describe",
+		"first-level_proxy": "First-level proxy",
+		"second-level_proxy": "Second-level proxy",
+		"third-level_proxy": "Third-level proxy",
+		"fourth-level_proxy": "Fourth-level proxy",
+		"fifth-level_proxy": "Fifth-level proxy",
+		"promotion_steps": "Promotion Steps",
+		"Click the promotion QR code to get your own QR code": "Click the promotion QR code to get your own QR code",
+		"Let your friends scan the code to enter the platform, and you can automatically bind your friend relationship": "Let your friends scan the code to enter the platform, and you can automatically bind your friend relationship",
+		"If you let your friends participate in the game, you can get rewards and withdraw cash directly":"If you let your friends participate in the game, you can get rewards and withdraw cash directly",
+		"your own QR code": "Your Own QR Code",
+		"copy_link": "Copy Link",
+		"copy_success": "Copy Success",
+		"current_balance": "Current Balance",
+		"commission": "Commission",
+		"red_packet": "Red envelope",
+		"go_withdraw_cash": "Go Withdraw Cash",
+		"withdraw_cash": "Withdraw Cash",
+		"add_account": "Add Account",
+		"Please enter the withdrawal amount": "Please enter the withdrawal amount",
+		"cash withdrawal limit": "cash withdrawal limit",
+		"Please select an account": "Please select an account",
+		"edit": "edit",
+		"delete": "del",
+		"modify_bank_card": "Modify Bank Card",
+		"add_bank_card": "Add Bank Card",
+		"name": "Name",
+		"bank_name": "Bank Name",
+		"bank_account_number": "BAN",
+		"add": "Add",
+		"modify": "Modify",
+		"bank_list": "Bank List",
+		"Please enter the bank name": "Please enter the bank name",
+		"my_partner": "My Partner",
+		"sum": "sum",
+		"person": "person",
+		"number": "number",
+		"user_id": "userId",
+		"level": "level",
+		"consumption_amount": "consumption amount",
+		"commission_amount": "commission amount",
+		"Please select recharge amount": "Please select recharge amount",
+		"Please select payment method": "Please select payment method",
+		"not_audited": "not audited",
+		"audit_failed": "audit failed",
+		"audit_pass": "audit pass"
+	},
+	"navigation": {
+		"red_envelope_lucky_draw": "draw",
+		"remove_the_red_envelope": "remove",
+		"customer_service": "CS",
+		"my": "my"
+	}
+}

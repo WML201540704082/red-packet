@@ -6,6 +6,7 @@ import BankList from './bank-list'
 import arrows from './arrows.png'
 import './withdraw.less'
 import { t } from 'i18next'
+import i18n from 'i18next';
 
 export default class Withdrawal extends Component {
     formRef = React.createRef()
@@ -212,20 +213,20 @@ export default class Withdrawal extends Component {
                             <div style={{padding:'20px 20px 0',background:'#f5f5f5',display: bankNameFlag ? 'none' : ''}}>
                                 <div style={{background:'#ffffff',height:'180px',border:'1px solid #D53E1C',borderRadius:'5px',padding:'0 15px'}}>
                                     <div style={{height:'60px',lineHeight:'60px',display:'flex',alignContent:'center',width:'100%',borderBottom:'1px solid #DCDCDC',fontFamily:'PingFang-SC-Heavy'}}>
-                                        <span style={{width:'120px',color:'#666666',paddingLeft:'10px',fontSize:'16px'}}>{t('my.name')}</span>
+                                        <span style={{width:i18n.language === 'vie'?'141px':'120px',color:'#666666',fontSize:i18n.language === 'vie'?'12px':'16px'}}>{t('my.name')}</span>
                                         <input value={this.state.cardName} placeholder=''
                                             onChange={event => this.setState({cardName:event.target.value})}
                                             style={{height:'40px',width:'90%',color:'#333333',fontSize:'16px',marginTop:'10px',border:'1px solid #ffffff'}} type="text" />
                                     </div>
                                     <div style={{height:'60px',lineHeight:'60px',display:'flex',alignContent:'center',width:'100%',borderBottom:'1px solid #DCDCDC',fontFamily:'PingFang-SC-Heavy'}}>
-                                        <div style={{width:'120px',color:'#666666',paddingLeft:'10px',fontSize:'16px'}}>{t('my.bank_name')}</div>
+                                        <div style={{width:i18n.language === 'vie'?'141px':'120px',color:'#666666',fontSize:i18n.language === 'vie'?'12px':'16px'}}>{t('my.bank_name')}</div>
                                         <div onClick={()=>this.selectBankName()} style={{width:'calc(100vw - 120px)',display:'flex'}}>
-                                            <span style={{width:'calc(100vw - 165px)',paddingLeft:'5px',overflow:'hidden',textOverflow:'ellipsis',whiteSpace:'nowrap'}}>{this.state.bankName}</span>
+                                            <span style={{width:i18n.language === 'vie'?'calc(100vw - 178px)':'calc(100vw - 168px)',paddingLeft:'5px',overflow:'hidden',textOverflow:'ellipsis',whiteSpace:'nowrap'}}>{this.state.bankName}</span>
                                             <img style={{width:'15px',height:'15px',marginTop:'22px',marginLeft:'5px'}} src={arrows} alt="arrows"/>
                                         </div>
                                     </div>
                                     <div style={{height:'60px',lineHeight:'60px',display:'flex',alignContent:'center',width:'100%',fontFamily:'PingFang-SC-Heavy'}}>
-                                        <span style={{width:'120px',color:'#666666',paddingLeft:'10px',fontSize:'16px'}}>{t('my.bank_account_number')}</span>
+                                        <span style={{width:i18n.language === 'vie'?'141px':'120px',color:'#666666',fontSize:i18n.language === 'vie'?'12px':'16px'}}>{t('my.bank_account_number')}</span>
                                         <input value={this.state.cardNo} placeholder=''
                                             onChange={event => this.setState({cardNo:event.target.value})}
                                             style={{height:'40px',width:'90%',color:'#333333',fontSize:'16px',marginTop:'10px',border:'1px solid #ffffff'}} type="text" />

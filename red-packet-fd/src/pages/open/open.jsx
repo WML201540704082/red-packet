@@ -84,7 +84,7 @@ export default class Open extends Component {
                         <div className='go_grab_top'>
                             <div className='go_grab_top_top'>{t('open.reminder')}</div>
                             <div className='go_grab_top_bottom'>
-                                <div className='go_grab_top_bottom_inner'>{t('open.you_do_not_have_an_unopened_red envelope,please_grab_the_red_envelope_first')}</div>
+                                <div className='go_grab_top_bottom_inner'>{t('open.you_do_not_have_an_unopened_red_envelope,please_grab_the_red_envelope_first')}</div>
                             </div>
                         </div>
                         <div className='go_grab_bottom'>
@@ -99,7 +99,9 @@ export default class Open extends Component {
                     return(
                         <div className='redpack_outer'>
                             <div className='redpack'>
-                                <div className='topcontent' style={{borderRadius: '10px 10px 50% 50% / 10px 10px 15% 15%'}}>{t('open.wish_you_become_rich,wish_you_auspicious_and_propitious_in_the_new_year')}</div>
+                                <div className='topcontent' style={{borderRadius: '10px 10px 50% 50% / 10px 10px 15% 15%'}}>
+                                    <div className='topcontent_content'>{t('open.wish_you_become_rich,wish_you_auspicious_and_propitious_in_the_new_year')}</div>
+                                </div>
                                 <div id='redpack-open' className={this.state.animation ? 'rotate' : ''} onClick={this.openRedPacket.bind(this)}>開</div>
                             </div>
                             <div className='bottom_close'>

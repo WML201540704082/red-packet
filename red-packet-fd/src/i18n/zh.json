@@ -10,12 +10,17 @@
 		"forget_password": "忘记密码？",
 		"register": "注册",
 		"login_success": "登录成功",
-		"Please enter your mobile number": "请输入手机号",
+		"Please enter your mobile number": "请输入手机号!",
 		"mobile_number_format_error": "手机号格式错误！",
 		"account": "账号",
 		"password": "密码",
-		"Please enter the account": "请输入账号",
-		"Please enter the password": "请输入密码"
+		"Please enter the account": "请输入账号!",
+		"Please enter the password": "请输入密码!",
+		"login_account": "登录账号",
+		"Please enter your verification code": "请输入验证码!",
+		"Account added successfully": "账号添加成功！",
+		"Password retrieved successfully": "密码找回成功！",
+		"new_password": "新密码"
 	},
 	"grab": {
 		"max_grab": "最高可抢",
@@ -24,11 +29,11 @@
 		"please_select_payment_channel": "请选择支付通道",
 		"go_recharget": "去充值",
 		"congratulations_on_getting_a_red_envelope": "恭喜您获得一个红包",
-		"go_open_ed_envelope": "去拆红包"
+		"go_open_red_envelope": "去拆红包"
 	},
 	"open": {
 		"reminder": "温馨提示！",
-		"you_do_not_have_an_unopened_red envelope,please_grab_the_red_envelope_first": "您没有未拆红包请先抢红包",
+		"you_do_not_have_an_unopened_red_envelope,please_grab_the_red_envelope_first": "您没有未拆红包请先抢红包",
 		"immediately_go_grab": "马上去抢",
 		"wish_you_become_rich,wish_you_auspicious_and_propitious_in_the_new_year": "恭喜发财，大吉大利",
 		"congratulations!You_have_won_a_big_prize": "恭喜您中奖了",
@@ -49,6 +54,8 @@
 		"balance": "余额",
 		"partner": "合伙人",
 		"recharge": "充值",
+		"record": "记录",
+		"details": "明细",
 		"withdrawal_record": "提现记录",
 		"commission_details": "分佣明细",
 		"proxy_describe": "代理说明",
@@ -57,6 +64,7 @@
 		"third-level_proxy": "三级代理",
 		"fourth-level_proxy": "四级代理",
 		"fifth-level_proxy": "五级代理",
+		"promotion_steps": "推广步骤",
 		"Click the promotion QR code to get your own QR code": "点击推广二维码，获取你的专属二维码。",
 		"Let your friends scan the code to enter the platform, and you can automatically bind your friend relationship": "让好友扫码进入平台，即可自动绑定好友关系。",
 		"If you let your friends participate in the game, you can get rewards and withdraw cash directly":"让好友参与游戏，您可以获得奖励且可直接提现",
@@ -104,4 +112,3 @@
 		"my": "我的"
 	}
 }
-
