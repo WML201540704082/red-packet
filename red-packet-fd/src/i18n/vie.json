@@ -21,7 +21,8 @@
 		"Account added successfully": "Tài khoản thêm thành công！",
 		"Password retrieved successfully": "Mật khẩu được tìm lại!",
 		"new_password": "Mật khẩu mới",
-		"retrieve_password": "truy xuất mật khẩu"
+		"retrieve_password": "truy xuất mật khẩu",
+		"please_log_in_first": "vui lòng đăng nhập trước!"
 	},
 	"grab": {
 		"max_grab": "lên để lấy",

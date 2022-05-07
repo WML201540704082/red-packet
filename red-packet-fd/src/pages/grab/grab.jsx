@@ -26,18 +26,36 @@ export default class Grab extends Component {
 	}
     componentWillMount() {
         let aaa = this.props.location.search
-        // let aaa = "?id=123"
+        const user = memoryUtils.user
         if (aaa) {
+            // 是分享过来的
             this.setState({
                 shareId: aaa.substring(6)
             })
+            if (user && user.userId) {
+                // 以前登录过
+                this.getAccountBalance() // 账户余额
+                this.getGrabList() // 抢红包配置列表
+                this.getGrabCount() // 获取已抢红包个数
+            } else {
+                // 以前没有登录过
+                this.setState({
+                    dataSource: [
+                        {amount: 5000,end: 20000},
+                        {amount: 10000,end: 100000},
+                        {amount: 20000,end: 200000},
+                        {amount: 50000,end: 500000},
+                        {amount: 80000,end: 800000},
+                        {amount: 100000,end: 1000000},
+                    ]
+                })
+            }
+        } else {
+            // 不是分享过来的
+            this.getAccountBalance() // 账户余额
+            this.getGrabList() // 抢红包配置列表
+            this.getGrabCount() // 获取已抢红包个数
         }
-        // 账户余额
-        this.getAccountBalance()
-        // 抢红包配置列表
-        this.getGrabList()
-        // 获取已抢红包个数
-        this.getGrabCount()
     }
     // 账户余额
     getAccountBalance = async () => {
@@ -107,7 +125,7 @@ export default class Grab extends Component {
                 }
             }
         } else {
-            message.warning('请先登录！')
+            message.warning(t('login.please_log_in_first'))
             this.props.history.push({
                 pathname:'/login',
                 state:{

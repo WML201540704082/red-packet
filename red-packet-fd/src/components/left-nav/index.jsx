@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import { Link, withRouter } from 'react-router-dom'
-import { Menu } from 'antd';
+import { Menu, message } from 'antd';
 import grab from './images/grab.png'
 import grab_hover from './images/grab_hover.png'
 import open from './images/open.png'
@@ -10,7 +10,9 @@ import customer_hover from './images/customer_hover.png'
 import my from './images/my.png'
 import my_hover from './images/my_hover.png'
 import menuList from '../../config/menuConfig'
+import memoryUtils from '../../utils/memoryUtils'
 import './index.less'
+import { t } from 'i18next'
 
 const { SubMenu } = Menu;
 
@@ -20,7 +22,8 @@ class leftNav extends Component {
         grabFlag: true,
         openFlag: false,
         customerFlag: false,
-        myFlag: false
+        myFlag: false,
+        shareId: ''
     };
 
     toggleCollapsed = () => {
@@ -55,70 +58,121 @@ class leftNav extends Component {
             if (this.props.location.pathname !== location.pathname) {
                 // 路由发生了变化
                 if (location.pathname === '/grab') {
-                    let params = {
-                        key: '/grab'
-                    }
-                    this.menu_click(params)             
+                    this.setState({
+                        grabFlag: true,
+                        openFlag: false,
+                        customerFlag: false,
+                        myFlag: false
+                    },()=>{
+                        this.menuNodes = this.getMenuNodes(menuList)
+                        this.forceUpdate()
+                    })            
                 } else if (location.pathname === '/open') {
-                    let params = {
-                        key: '/open'
-                    }
-                    this.menu_click(params)             
+                    this.setState({
+                        grabFlag: false,
+                        openFlag: true,
+                        customerFlag: false,
+                        myFlag: false
+                    },()=>{
+                        this.menuNodes = this.getMenuNodes(menuList)
+                        this.forceUpdate()
+                    })           
                 } else if (location.pathname === '/customer') {
-                    let params = {
-                        key: '/customer'
-                    }
-                    this.menu_click(params)             
+                    this.setState({
+                        grabFlag: false,
+                        openFlag: false,
+                        customerFlag: true,
+                        myFlag: false
+                    },()=>{
+                        this.menuNodes = this.getMenuNodes(menuList)
+                        this.forceUpdate()
+                    })           
                 }  else if (location.pathname === '/my') {
-                    let params = {
-                        key: '/my'
-                    }
-                    this.menu_click(params)             
+                    this.setState({
+                        grabFlag: false,
+                        openFlag: false,
+                        customerFlag: false,
+                        myFlag: true
+                    },()=>{
+                        this.menuNodes = this.getMenuNodes(menuList)
+                        this.forceUpdate()
+                    })            
                 }
             }
         })
     }
     menu_click = (val) => {
-        if (val.key === "/grab") {
-            this.setState({
-                grabFlag: true,
-                openFlag: false,
-                customerFlag: false,
-                myFlag: false
-            },()=>{
-                this.menuNodes = this.getMenuNodes(menuList)
-                this.forceUpdate()
-            })
-        } else if (val.key === "/open") {
-            this.setState({
-                grabFlag: false,
-                openFlag: true,
-                customerFlag: false,
-                myFlag: false
-            },()=>{
-                this.menuNodes = this.getMenuNodes(menuList)
-                this.forceUpdate()
-            })
-        } else if (val.key === "/customer") {
-            this.setState({
-                grabFlag: false,
-                openFlag: false,
-                customerFlag: true,
-                myFlag: false
-            },()=>{
-                this.menuNodes = this.getMenuNodes(menuList)
-                this.forceUpdate()
-            })
-        } else if (val.key === "/my") {
-            this.setState({
-                grabFlag: false,
-                openFlag: false,
-                customerFlag: false,
-                myFlag: true
-            },()=>{
-                this.menuNodes = this.getMenuNodes(menuList)
-                this.forceUpdate()
-            })
+        const user = memoryUtils.user
+        if (user && user.userId) {
+            // 已登录
+            if (val.key === "/grab") {
+                this.setState({
+                    grabFlag: true,
+                    openFlag: false,
+                    customerFlag: false,
+                    myFlag: false
+                },()=>{
+                    this.menuNodes = this.getMenuNodes(menuList)
+                    this.forceUpdate()
+                })
+            } else if (val.key === "/open") {
+                this.setState({
+                    grabFlag: false,
+                    openFlag: true,
+                    customerFlag: false,
+                    myFlag: false
+                },()=>{
+                    this.menuNodes = this.getMenuNodes(menuList)
+                    this.forceUpdate()
+                })
+            } else if (val.key === "/customer") {
+                this.setState({
+                    grabFlag: false,
+                    openFlag: false,
+                    customerFlag: true,
+                    myFlag: false
+                },()=>{
+                    this.menuNodes = this.getMenuNodes(menuList)
+                    this.forceUpdate()
+                })
+            } else if (val.key === "/my") {
+                this.setState({
+                    grabFlag: false,
+                    openFlag: false,
+                    customerFlag: false,
+                    myFlag: true
+                },()=>{
+                    this.menuNodes = this.getMenuNodes(menuList)
+                    this.forceUpdate()
+                })
+            }
+        } else {
+            // 未登录
+            if (val.key === "/grab") {
+                // 点击抢红包页面
+                this.setState({
+                    grabFlag: true,
+                    openFlag: false,
+                    customerFlag: false,
+                    myFlag: false
+                },()=>{
+                    this.menuNodes = this.getMenuNodes(menuList)
+                    this.forceUpdate()
+                })
+            } else {
+                // 点击非抢红包页面的其他icon
+                let { shareId } = this.state
+                if (shareId) {
+                    debugger
+                    message.warning(t('login.please_log_in_first'))
+                    this.props.history.push({
+                        pathname:'/login',
+                        state:{
+                            shareId
+                        }
+                    })   
+                }
+            }
         }
     }
     // 根据menu的数据数组生成对应的标签数组
@@ -177,6 +231,13 @@ class leftNav extends Component {
     */
     componentWillMount() {
         this.menuNodes = this.getMenuNodes(menuList)
+        let aaa = this.props.location.search
+        if (aaa) {
+            // 是分享过来的
+            this.setState({
+                shareId: aaa.substring(6)
+            })
+        }
     }
 
     render() {

@@ -21,7 +21,8 @@
 		"Account added successfully": "账号添加成功！",
 		"Password retrieved successfully": "密码找回成功！",
 		"new_password": "新密码",
-		"retrieve_password": "找回密码"
+		"retrieve_password": "找回密码",
+		"please_log_in_first": "请先登录！"
 	},
 	"grab": {
 		"max_grab": "最高可抢",

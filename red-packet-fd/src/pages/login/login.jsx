@@ -71,10 +71,11 @@ export default class Login extends Component {
             this.setState({
                 shareId: aaa.substring(6)
             })
+        } else {
+            this.setState({
+                shareId: this.props.location.state ? this.props.location.state.shareId : null,
+            })
         }
-        // this.setState({
-        //     shareId: this.props.location.state ? this.props.location.state.shareId : null,
-        // })
     }
     // 对密码进行自定义验证
     validatorPwd = (rule, value, callback) => {
