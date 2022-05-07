@@ -288,12 +288,15 @@
         width: 100%;
         height: 100%;
     }
+    &_content_outer {
+        display: flex;
+        justify-content: center;
+    }
     &_content {
         position: absolute;
-        top: 20%;
-        left: 15%;
-        height: 50%;
-        width: 70%;
+        width: 260px;
+        height: 320px;
+        margin-top: 35%;
         display: flex;
         flex-direction: column;
         border-radius: 10px;
@@ -315,7 +318,7 @@
         }
         &_middle {
             width: 100%;
-            height: 80%;
+            height: 75%;
             display: flex;
             flex-direction: column;
             // border-bottom: 1px solid #E5E5E5;
@@ -359,7 +362,6 @@
             .recharge_button {
                 width: 70%;
                 height: 60%;
-                margin-top: -10px;
                 border-radius: 20px;
                 font-size: 18px;
                 color: #ffffff;

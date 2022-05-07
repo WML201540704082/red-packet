@@ -20,7 +20,8 @@
 		"Please enter your verification code": "Please enter your verification code!",
 		"Account added successfully": "Account added successfully!",
 		"Password retrieved successfully": "Password retrieved successfully!",
-		"new_password": "new password"
+		"new_password": "new password",
+		"retrieve_password": "Retrieve Password"
 	},
 	"grab": {
 		"max_grab": "Get up to ",

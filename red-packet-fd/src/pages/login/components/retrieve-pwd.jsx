@@ -96,7 +96,7 @@ export default class ModalComponent extends Component {
                 {
                     !countryFlag ? (
                         <Modal 
-                            title="找回密码" 
+                            title={t('login.retrieve_password')}
                             visible={flag}
                             closable={false}
                             onOk={this.handleOk}

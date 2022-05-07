@@ -263,7 +263,7 @@ export default class Login extends Component {
                         <div className="login" style={{ backgroundImage: !this.state.pop ? '' : `url("${bg_2}")`}}>
                             <section className='login-section' style={{height: !this.state.pop ? '' : '60%'}}>
                                 <Tabs defaultActiveKey="1" centered>
-                                    <TabPane tab={t('login.passwordless_login')} key="1" className="login-content" style={{top: !this.state.pop ? '50%' : '70%'}}>
+                                    <TabPane tab={t('login.passwordless_login')} key="1" className="login-content" style={{top: !this.state.pop ? '52%' : '70%'}}>
                                         <Form
                                             name="normal_login"
                                             className="login-form"
@@ -320,7 +320,7 @@ export default class Login extends Component {
                                             </Form.Item>
                                         </Form>
                                     </TabPane>
-                                    <TabPane tab={t('login.password_login')} key="2" className="login-content" style={{top: !this.state.pop ? '50%' : '70%'}}>
+                                    <TabPane tab={t('login.password_login')} key="2" className="login-content" style={{top: !this.state.pop ? '52%' : '70%'}}>
                                         <Form
                                             name="normal_login"
                                             className="login-form"
@@ -359,7 +359,7 @@ export default class Login extends Component {
                                                     <div className='input_text'>PassWord</div>
                                                     <Input
                                                         type={t('login.password')}
-                                                        placeholder="密码"
+                                                        placeholder={t('login.password')}
                                                     />
                                                 </div>
                                             </Form.Item>

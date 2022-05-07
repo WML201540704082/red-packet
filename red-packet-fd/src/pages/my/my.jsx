@@ -292,65 +292,67 @@ export default class My extends Component {
         return (
            <div className='recharge'>
                 <div className='recharge_outer'></div>
-                <div className='recharge_content'>
-                    <img src={close} style={{width:'20px',height:'20px',position:'absolute',top:'-40px',right:'5px'}} onClick={() => this.setState({rechargeFlag: false})} alt="" />
-                    <div className='recharge_content_top'>
-                        <span>{t('my.recharge')}</span>
-                    </div>
-                    <div className='recharge_content_middle'>
-                        <div style={{padding:'15px 15px 0'}}>{t('my.Please select recharge amount')}</div>
-                        <div className='recharge_content_middle_top'>
-                            {
-                                rechargeConfigList.map((item,index)=>{
-                                    return (
-                                        <div className='recharge_amount' 
-                                             onClick={()=>this.setState({clickMoneyFlag:index,moneyId:item.id})} 
-                                            style={{color:this.state.clickMoneyFlag === index ? '#D53E1C' : '#333333',
-                                                    border:this.state.clickMoneyFlag === index ? '1px solid #C99D3F' : '1px solid #333333',
-                                                    background:this.state.clickMoneyFlag === index ? '#FBE4DE' : '#ffffff',
-                                                    width:'30%',fontFamily:'PingFang-SC-Heavy',
-                                                    display:'flex',justifyContent:'center',alignContent:'center',
-                                                    borderRadius:'5px'}}>
-                                        {item.amount/1000}k</div>
-                                    )
-                                })
-                            }
+                <div className='recharge_content_outer'>
+                    <div className='recharge_content'>
+                        <img src={close} style={{width:'20px',height:'20px',position:'absolute',top:'-40px',right:'5px'}} onClick={() => this.setState({rechargeFlag: false})} alt="" />
+                        <div className='recharge_content_top'>
+                            <span>{t('my.recharge')}</span>
                         </div>
-                        <div style={{padding:'0 15px'}}>{t('my.Please select payment method')}</div>
-                        <div className='recharge_content_middle_bottom'>
-                            {/* {
-                                payList.map((item,index)=>{
-                                    return (
-                                        <div onClick={()=>this.setState({clickFlag:index,type:item.type})} 
-                                            style={{color:this.state.clickFlag === index ? '#ffffff' : '#333333',
-                                                    border:this.state.clickFlag === index ? '1px solid #C99D3F' : '1px solid #333333',
-                                                    background:this.state.clickFlag === index ? '#C99D3F' : '#ffffff',
-                                                    width:'30%',height:'45px',lineHeight:'42px',fontFamily:'PingFang-SC-Heavy',
-                                                    display:'flex',justifyContent:'center',alignContent:'center',
-                                                    borderRadius:'5px'}}>
-                                            <span>{item.name}</span>
-                                        </div>
-                                    )
-                                })
-                            } */}
-                            <Radio.Group defaultValue={'1'} style={{width:'100%'}}>
+                        <div className='recharge_content_middle'>
+                            <div style={{padding:'5px 15px 0'}}>{t('my.Please select recharge amount')}</div>
+                            <div className='recharge_content_middle_top'>
                                 {
-                                    payList.map(item=>{
+                                    rechargeConfigList.map((item,index)=>{
                                         return (
-                                            <Radio style={{width: '100%',padding:'10px 10px 7px'}} onChange={()=>this.setState({type:item.type})} value={item.type}>
-                                                <img src={item.type === '1' ? zalo : momo} style={{width:'40px',height:'40px'}} alt="" />
-                                                <span style={{paddingLeft:'20px'}}>{item.name}</span>
-                                            </Radio>
+                                            <div className='recharge_amount' 
+                                                onClick={()=>this.setState({clickMoneyFlag:index,moneyId:item.id})} 
+                                                style={{color:this.state.clickMoneyFlag === index ? '#D53E1C' : '#333333',
+                                                        border:this.state.clickMoneyFlag === index ? '1px solid #C99D3F' : '1px solid #333333',
+                                                        background:this.state.clickMoneyFlag === index ? '#FBE4DE' : '#ffffff',
+                                                        width:'30%',fontFamily:'PingFang-SC-Heavy',
+                                                        display:'flex',justifyContent:'center',alignContent:'center',
+                                                        borderRadius:'5px'}}>
+                                            {item.amount/1000}k</div>
                                         )
                                     })
                                 }
-                            </Radio.Group>
+                            </div>
+                            <div style={{padding:'0 15px'}}>{t('my.Please select payment method')}</div>
+                            <div className='recharge_content_middle_bottom'>
+                                {/* {
+                                    payList.map((item,index)=>{
+                                        return (
+                                            <div onClick={()=>this.setState({clickFlag:index,type:item.type})} 
+                                                style={{color:this.state.clickFlag === index ? '#ffffff' : '#333333',
+                                                        border:this.state.clickFlag === index ? '1px solid #C99D3F' : '1px solid #333333',
+                                                        background:this.state.clickFlag === index ? '#C99D3F' : '#ffffff',
+                                                        width:'30%',height:'45px',lineHeight:'42px',fontFamily:'PingFang-SC-Heavy',
+                                                        display:'flex',justifyContent:'center',alignContent:'center',
+                                                        borderRadius:'5px'}}>
+                                                <span>{item.name}</span>
+                                            </div>
+                                        )
+                                    })
+                                } */}
+                                <Radio.Group defaultValue={'1'} style={{width:'100%'}}>
+                                    {
+                                        payList.map(item=>{
+                                            return (
+                                                <Radio style={{width: '100%',padding:'10px 10px 0px'}} onChange={()=>this.setState({type:item.type})} value={item.type}>
+                                                    <img src={item.type === '1' ? zalo : momo} style={{width:'40px',height:'40px'}} alt="" />
+                                                    <span style={{paddingLeft:'20px'}}>{item.name}</span>
+                                                </Radio>
+                                            )
+                                        })
+                                    }
+                                </Radio.Group>
+                            </div>
+                        </div>
+                        <div className='recharge_content_bottom'>
+                            <div className='recharge_button' onClick={() => this.pay()}>{t('my.recharge')}</div>
                         </div>
                     </div>
-                    <div className='recharge_content_bottom'>
-                        <div className='recharge_button' onClick={() => this.pay()}>{t('my.recharge')}</div>
-                    </div>
-               </div>
+                </div>
            </div>
         )
     }

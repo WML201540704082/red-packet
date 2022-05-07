@@ -65,8 +65,8 @@ export default class Partner extends Component {
                                                         <th style={{fontWeight:'normal'}}>{index+1}</th>
                                                         <th style={{fontWeight:'normal'}}>{item.userId}</th>
                                                         <th style={{fontWeight:'normal'}}>{item.actingLevel}</th>
-                                                        <th style={{fontWeight:'normal'}}>{item.amount/1000}k</th>
-                                                        <th style={{fontWeight:'normal'}}>{item.commissionAmount/1000}k</th>
+                                                        <th style={{fontWeight:'normal'}}>{item.amount/1000}{item.commissionAmount!==0?'k':''}</th>
+                                                        <th style={{fontWeight:'normal'}}>{item.commissionAmount/1000}{item.commissionAmount!==0?'k':''}</th>
                                                     </tr>
                                                 )
                                             })

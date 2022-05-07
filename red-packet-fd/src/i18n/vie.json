@@ -1,7 +1,7 @@
 {
 	"login": {
-		"passwordless_login": "Đăng nhập mà không cần mật khẩu",
-		"password_login": "Nhập mật khẩu",
+		"passwordless_login": "mã xác minh",
+		"password_login": "mật khẩu",
 		"phone_number": "Số di động",
 		"verification_code": "Mật khẩu",
 		"send": "Phát ra",
@@ -20,7 +20,8 @@
 		"Please enter your verification code": "Hãy nhập mật mã kiểm tra.!",
 		"Account added successfully": "Tài khoản thêm thành công！",
 		"Password retrieved successfully": "Mật khẩu được tìm lại!",
-		"new_password": "Mật khẩu mới"
+		"new_password": "Mật khẩu mới",
+		"retrieve_password": "truy xuất mật khẩu"
 	},
 	"grab": {
 		"max_grab": "lên để lấy",
