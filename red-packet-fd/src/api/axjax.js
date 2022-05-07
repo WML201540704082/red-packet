@@ -12,6 +12,8 @@ import axios from "axios"
 import { message } from "antd";
 import storageUtils from '../utils/storageUtils'
 import memoryUtils from '../utils/memoryUtils'
+import '../i18n/config';
+import { t } from 'i18next'
 
 export default function ajax(url, data={}, type='GET') {
 
@@ -32,7 +34,7 @@ export default function ajax(url, data={}, type='GET') {
             if (response.data.code === -1 && response.data.msg === "The token is invalid, please get it again") {
                 let index=window.location.hash.lastIndexOf("?")
                 let obj=window.location.hash.substring(index,window.location.hash.length)
-                message.error('身份过期，请重新登录！')
+                message.error(t('identity_expired'))
                 storageUtils.removeUser()
                 memoryUtils.user = {}
                 window.location.href = '/#/login' + obj

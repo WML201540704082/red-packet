@@ -111,5 +111,6 @@
 		"remove_the_red_envelope": "拆包",
 		"customer_service": "客服",
 		"my": "我的"
-	}
+	},
+	"identity_expired": "身份过期，请重新登录！"
 }

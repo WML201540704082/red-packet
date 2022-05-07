@@ -111,5 +111,6 @@
 		"remove_the_red_envelope": "Bỏ",
 		"customer_service": "dịch vụ khách",
 		"my": "của"
-	}
+	},
+	"identity_expired": "Danh tính của bạn đã hết hạn, hãy đăng nhập lại!"
 }

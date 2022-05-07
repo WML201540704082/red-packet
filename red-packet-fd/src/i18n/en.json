@@ -111,5 +111,6 @@
 		"remove_the_red_envelope": "remove",
 		"customer_service": "CS",
 		"my": "my"
-	}
+	},
+	"identity_expired": "Identity expired, please log in again!"
 }
