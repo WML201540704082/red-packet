@@ -1,11 +1,14 @@
 import React, { Component } from 'react'
 import { Carousel, message } from 'antd'
 import open from './images/open.png'
+import open_en from './images/open_en.png'
+import horn from './images/horn.png'
 import { reqUnpackLottery, reqGrabCount, reqCarouselInfo } from '../../api'
 import close from '../grab/images/close.png'
 import memoryUtils from '../../utils/memoryUtils'
 import './open.less'
 import { t } from 'i18next'
+import i18n from 'i18next'
 
 export default class Open extends Component {
     constructor(props) {
@@ -47,7 +50,7 @@ export default class Open extends Component {
                     userId: result.data.userId.substring(0,3)+'****'+result.data.userId.substring(result.data.userId.length-4,result.data.userId.length),
                 }]
             })
-            this.getCarouselInfo_2()
+            // this.getCarouselInfo_2()
         }
     }
     getCarouselInfo_2 = async () => {
@@ -183,7 +186,12 @@ export default class Open extends Component {
                                 carouselList ? carouselList.map(item=>{
                                     return(
                                         <div className='content_item'>
-                                            {item.userId + (item.type === "0" ? t('open.unpack') : item.type === "1" ? t('open.grab') : t('open.unpack')) + item.amount}
+                                            <div className='content_item_left'>
+                                                <img src={horn} style={{width:'20px'}} alt="horn"/>
+                                            </div>
+                                            <div className='content_item_right'>
+                                                {item.userId + (item.type === "0" ? t('open.unpack') : item.type === "1" ? t('open.grab') : t('open.unpack')) + item.amount}
+                                            </div>
                                         </div>
                                     )
                                 }) : null
@@ -197,7 +205,7 @@ export default class Open extends Component {
                             return (
                                 <div className='openContent' key={item.index} onClick={() => this.setState({redPacketShow: true})}>
                                     <span className='content_img'>
-                                        <img src={open} alt="open"/>
+                                        <img src={i18n.language === 'zh' ? open : i18n.language === 'cn' ? open_en : open_en} alt="open"/>
                                     </span>
                                 </div>
                             )
