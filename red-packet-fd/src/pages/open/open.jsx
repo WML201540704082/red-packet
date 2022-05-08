@@ -50,7 +50,7 @@ export default class Open extends Component {
                     userId: result.data.userId.substring(0,3)+'****'+result.data.userId.substring(result.data.userId.length-4,result.data.userId.length),
                 }]
             })
-            // this.getCarouselInfo_2()
+            this.getCarouselInfo_2()
         }
     }
     getCarouselInfo_2 = async () => {
