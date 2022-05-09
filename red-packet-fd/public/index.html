@@ -1,20 +1,51 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="utf-8" />
-    <link rel="icon" href="/title.png" />
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <meta name="theme-color" content="#000000" />
-    <meta
-      name="description"
-      content="Web site created using create-react-app"
-    />
-    <link rel="apple-touch-icon" href="%PUBLIC_URL%/logo192.png" />
-    <link rel="manifest" href="%PUBLIC_URL%/manifest.json" />
-    <title>天天抢红包</title>
-    <link rel="stylesheet" href="/css/reset.css">
-  </head>
-  <body>
-    <div id="root"></div>
-  </body>
+	<head>
+		<meta charset="utf-8" />
+		<link rel="icon" href="/title.png" />
+		<meta name="viewport" content="width=device-width, initial-scale=1" />
+		<meta name="theme-color" content="#000000" />
+		<meta
+			name="description"
+			content="Web site created using create-react-app"
+		/>
+		<link rel="apple-touch-icon" href="%PUBLIC_URL%/logo192.png" />
+		<link rel="manifest" href="%PUBLIC_URL%/manifest.json" />
+		<title>天天抢红包</title>
+		<link rel="stylesheet" href="/css/reset.css">
+	</head>
+	<body onload="myFunction()">
+		<script type="text/javascript">
+			function myFunction(){
+				var title = getTitle()
+				document.title = title;
+			};
+		</script>
+		<script>
+			function getTitle() {
+				var lng = (navigator.language) ? navigator.language : navigator.userLanguage
+				switch (lng) {
+					case 'zh':
+						return '天天抢红包';
+						break;
+					case 'zh-CN':
+						return '天天抢红包';
+						break
+					case 'en':
+						return 'Grab a red envelope every day';
+						break;
+					case 'vie':
+						return 'Nhận phong bì đỏ mỗi ngày';
+						break;
+					case 'vi':
+						return 'Nhận phong bì đỏ mỗi ngày';
+						break;
+					default:
+						return 'Grab a red envelope every day';
+						break;
+				}
+			}
+		</script>
+		<div id="root"></div>
+	</body>
 </html>
