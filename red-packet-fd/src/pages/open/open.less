@@ -64,33 +64,67 @@
     width: 100%;
     height: 100%;
     z-index: 2;
-}
-.redpack {
-    height: 380px;
-    background: #f4543e;
-    width: 270px;
-    left: 0;
-    top: 0;
-    border-radius: 10px;
-    margin: 0 auto;
-    margin-top: 50%;
-    &_top {
-        width:100%;
-        height: 40%;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        flex-direction: column;
-        color: #ecb067;
-        font-size: 26px
+    .redpack {
+        background: #f4543e;
+        width: 250px;
+        height: 320px;
+        border-radius: 10px;
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        margin-top: -160px;
+        margin-left: -125px;
+        .topcontent {
+            height: 230px;
+            border: 1px solid #f36151;
+            background-color: #f36151;
+            // border-radius: 10px 10px 50% 50% / 10px 10px 15% 15%;
+            box-shadow: 0px 4px 0px -1px rgba(0,0,0,0.2);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 23px;
+            color: #ecb067;
+            font-weight: bold;
+            &_content {
+                width: 220px;
+                text-align: center;
+            }
+        }
+        #redpack-open {
+            width: 80px;
+            height: 80px;
+            border: 1px solid #ffa73a;
+            background-color: #ffa73a;
+            border-radius: 50%;
+            font-size: 28px;
+            display: inline-block;
+            margin-top: -45px;
+            margin-left: 85px;
+            box-shadow: 0px 4px 0px 0px rgba(0, 0, 0, 0.2);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+        .rotate {
+            transition: all 2s;
+        }
+        .rotate:hover {
+            transform:rotateY(360deg)
+        }
     }
-    &_middle {
-        width: 100%;
-        height: 30%;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        color: #ecb067;
+    .bottom_close {
+        height: 80px;
+        line-height: 80px;
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        margin-top: 160px;
+        margin-left: -15px;
+        img {
+            width: 30px;
+            height: 30px
+        }
     }
 }
 .winner_outer {
@@ -100,15 +134,16 @@
     z-index: 2;
 }
 .winner {
-    width: 270px;
-    height: 380px;
+    width: 250px;
+    height: 320px;
     background-image: url('./images/winner.png');
     background-size: 100% 100%;
-    left: 0;
-    top: 0;
     border-radius: 10px;
-    margin: 0 auto;
-    margin-top: 50%;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    margin-top: -160px;
+    margin-left: -125px;
     font-weight: bold;
     font-family: PingFang-SC-Bold;
     &_top {
@@ -140,37 +175,11 @@
             height: 100px;
             line-height: 100px;
             text-align: center;
-            margin-top: 125px;
+            margin-top: 36%;
             padding-left: 10px;
             font-size: 18px;
             color: #9D161A;
         }
-    }
-}
-.topcontent {
-    height: 275px;
-    border: 1px solid #f36151;
-    background-color: #f36151;
-    // border-radius: 10px 10px 50% 50% / 10px 10px 15% 15%;
-    box-shadow: 0px 4px 0px -1px rgba(0,0,0,0.2);
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    font-size: 23px;
-    color: #ecb067;
-    font-weight: bold;
-    &_content {
-        width: 220px;
-        text-align: center;
-    }
-}
-.bottom_close {
-    height: 80px;
-    line-height: 80px;
-    text-align: center;
-    img {
-        width: 30px;
-        height: 30px
     }
 }
 .go_grab_outer {
@@ -191,8 +200,8 @@
 }
 .go_grab {
     position: absolute;
-    height: 300px;
     width: 280px;
+    height: 300px;
     display: flex;
     flex-direction: column;
     border-radius: 10px;
@@ -239,45 +248,5 @@
             justify-content: center;
             align-items: center;
         }
-    }
-}
-#redpack-open {
-    width: 90px;
-    height: 90px;
-    border: 1px solid #ffa73a;
-    background-color: #ffa73a;
-    border-radius: 50%;
-    font-size: 28px;
-    display: inline-block;
-    margin-top: -50px;
-    margin-left: 90px;
-    box-shadow: 0px 4px 0px 0px rgba(0, 0, 0, 0.2);
-    display: flex;
-    justify-content: center;
-    align-items: center;
-}
-.rotate {
-    transition: all 2s;
-}
-.rotate:hover {
-    transform:rotateY(360deg)
-}
-@media screen and (max-height: 700px) {
-    .redpack{
-        margin-top: 40%;
-    }
-    .winner{
-        margin-top: 43%;
-    }
-    .carousel {
-        margin-top: -10%;
-    }
-}
-@media screen and (min-height: 800px) {
-    .redpack{
-        margin-top: 60%;
-    }
-    .winner{
-        margin-top: 60%;
     }
 }

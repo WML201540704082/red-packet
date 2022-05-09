@@ -102,7 +102,7 @@ export default class Open extends Component {
                     return(
                         <div className='redpack_outer'>
                             <div className='redpack'>
-                                <div className='topcontent' style={{borderRadius: '10px 10px 50% 50% / 10px 10px 15% 15%'}}>
+                                <div className='topcontent' style={{borderRadius: '10px 10px 50% 50% / 10px 10px 20% 20%'}}>
                                     <div className='topcontent_content'>{t('open.wish_you_become_rich,wish_you_auspicious_and_propitious_in_the_new_year')}</div>
                                 </div>
                                 <div id='redpack-open' className={this.state.animation ? 'rotate' : ''} onClick={this.openRedPacket.bind(this)}>開</div>

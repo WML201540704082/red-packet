@@ -222,7 +222,7 @@ export default class My extends Component {
         return (
             <div className='share'>
                 <div className='share_content'>
-                    <img src={close} style={{width:'18px',height:'18px',position:'absolute',right:'20%',marginTop:'31px'}} onClick={() => this.setState({shareFlag: false})} alt="" />
+                    <img src={close} onClick={() => this.setState({shareFlag: false})} alt="" />
                     <QRCode
                         id="qrCode"
                         value={'http://www.redpz.com/#/grab?sign=' + id}  //地址
