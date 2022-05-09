@@ -32,29 +32,24 @@ export default class Grab extends Component {
             this.setState({
                 shareId: aaa.substring(6)
             })
-            if (user && user.userId) {
-                // 以前登录过
-                this.getAccountBalance() // 账户余额
-                this.getGrabList() // 抢红包配置列表
-                this.getGrabCount() // 获取已抢红包个数
-            } else {
-                // 以前没有登录过
-                this.setState({
-                    dataSource: [
-                        {amount: 5000,end: 20000},
-                        {amount: 10000,end: 100000},
-                        {amount: 20000,end: 200000},
-                        {amount: 50000,end: 500000},
-                        {amount: 80000,end: 800000},
-                        {amount: 100000,end: 1000000},
-                    ]
-                })
-            }
-        } else {
-            // 不是分享过来的
+        }
+        if (user && user.userId) {
+            // 以前登录过
             this.getAccountBalance() // 账户余额
             this.getGrabList() // 抢红包配置列表
             this.getGrabCount() // 获取已抢红包个数
+        } else {
+            // 以前没有登录过
+            this.setState({
+                dataSource: [
+                    {amount: 5000,end: 20000},
+                    {amount: 10000,end: 100000},
+                    {amount: 20000,end: 200000},
+                    {amount: 50000,end: 500000},
+                    {amount: 80000,end: 800000},
+                    {amount: 100000,end: 1000000},
+                ]
+            })
         }
     }
     // 账户余额

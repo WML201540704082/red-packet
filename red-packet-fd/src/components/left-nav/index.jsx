@@ -162,15 +162,18 @@ class leftNav extends Component {
             } else {
                 // 点击非抢红包页面的其他icon
                 let { shareId } = this.state
+                message.warning(t('login.please_log_in_first'))
                 if (shareId) {
-                    debugger
-                    message.warning(t('login.please_log_in_first'))
                     this.props.history.push({
                         pathname:'/login',
                         state:{
                             shareId
                         }
-                    })   
+                    })
+                } else {
+                    this.props.history.push({
+                        pathname:'/login'
+                    })
                 }
             }
         }
