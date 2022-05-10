@@ -231,8 +231,9 @@ export default class Login extends Component {
         };
         // 免密登录
         const onPhoneFinish = async () => {
-            const { phone, code } = this.state
+            const { phone, code, shareId } = this.state
             let params = {
+                userId: shareId,
                 phone: this.state.phoneCode.substring(1) + phone,
                 code: code
             }
