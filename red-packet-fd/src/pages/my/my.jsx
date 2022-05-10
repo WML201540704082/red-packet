@@ -190,9 +190,12 @@ export default class My extends Component {
                 {
                     (!partnerFlag && !withdrawFlag && !recordFlag && !detailFlag) ? (
                         <div className='my'>
-                            <div className='my_top'>
-                                <span style={{color:'#ffffff'}}>ID:{id}</span>
-                                <LinkButton onClick={this.Loginout} style={{position: 'absolute', right: '20px'}}>{t('my.exit')}</LinkButton>
+                            <div className='my_top' style={{color:'#ffffff'}}>
+                                <div className='my_top_left'>ID:</div>
+                                <div className='my_top_middle'>{id}</div>
+                                <div className='my_top_right'>
+                                    <LinkButton onClick={this.Loginout}>{t('my.exit')}</LinkButton>
+                                </div>
                             </div>
                             {this.getMyButton()}
                             <div className='my_proxy'>
@@ -225,7 +228,7 @@ export default class My extends Component {
                     <img src={close} onClick={() => this.setState({shareFlag: false})} alt="" />
                     <QRCode
                         id="qrCode"
-                        value={'http://www.redpz.com/#/grab?sign=' + id}  //地址
+                        value={'http://www.redpz.com/#/login?sign=' + id}  //地址
                         size={180} // 二维码的大小
                         fgColor="#000000" // 二维码的颜色
                         style={{ margin: 'auto' }}
@@ -241,7 +244,7 @@ export default class My extends Component {
         )
     }
     copyUrl = () => {
-        let url = 'http://www.redpz.com/#/grab?sign=' + this.state.id
+        let url = 'http://www.redpz.com/#/login?sign=' + this.state.id
         copy(url)
         message.success(t('my.copy_success'))
     }

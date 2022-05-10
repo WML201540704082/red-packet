@@ -87,7 +87,7 @@ export const reqAudit = data => ajax(BASE + 'sys/account/withdrawAudit', data, '
 // 获取代理列表 
 export const reqProxyList = data => ajax(BASE + 'sys/account/commissionsList', data, 'POST')
 // 获取下级代理列表
-export const reqNextProxyList = data => ajax(BASE + 'acting/detail/lowerLevelList', data, 'POST')
+export const reqNextProxyList = data => ajax(BASE + 'sys/account/subordinateList', data, 'POST')
 
 // 代理配置列表
 export const reqProxyConfigList = data => ajax(BASE + 'acting/list', data, 'POST')

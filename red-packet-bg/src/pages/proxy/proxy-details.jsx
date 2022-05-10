@@ -34,7 +34,7 @@ export default class ProxyDetails extends Component {
 		if (result.code === 0) {
 			this.setState({
 				dataSource: result.data,
-				dataTotal: result.data.total
+				dataTotal: result.data.length
 			})
 		}
 	}
