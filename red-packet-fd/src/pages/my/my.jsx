@@ -22,6 +22,7 @@ import QRCode from 'qrcode.react'
 import copy from 'copy-to-clipboard'
 import './my.less'
 import { t } from 'i18next'
+import i18n from 'i18next'
 
 export default class My extends Component {
     constructor(props) {
@@ -299,7 +300,7 @@ export default class My extends Component {
                             <span>{t('my.recharge')}</span>
                         </div>
                         <div className='recharge_content_middle'>
-                            <div style={{padding:'5px 15px 0'}}>{t('my.Please select recharge amount')}</div>
+                            <div style={{padding:'5px 15px 0',fontSize:i18n.language === 'vie' ? '12px': ''}}>{t('my.Please select recharge amount')}</div>
                             <div className='recharge_content_middle_top'>
                                 {
                                     rechargeConfigList.map((item,index)=>{
@@ -317,7 +318,7 @@ export default class My extends Component {
                                     })
                                 }
                             </div>
-                            <div style={{padding:'0 15px'}}>{t('my.Please select payment method')}</div>
+                            <div style={{padding:'0 15px',fontSize:i18n.language === 'vie' ? '12px': ''}}>{t('my.Please select payment method')}</div>
                             <div className='recharge_content_middle_bottom'>
                                 {/* {
                                     payList.map((item,index)=>{

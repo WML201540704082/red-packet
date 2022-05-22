@@ -87,7 +87,7 @@ export default class Open extends Component {
                         <div className='go_grab_top'>
                             <div className='go_grab_top_top'>{t('open.reminder')}</div>
                             <div className='go_grab_top_bottom'>
-                                <div className='go_grab_top_bottom_inner'>{t('open.you_do_not_have_an_unopened_red_envelope,please_grab_the_red_envelope_first')}</div>
+                                <div className='go_grab_top_bottom_inner' style={{width:i18n.language === 'vie' ? '200px' : '',fontSize:i18n.language === 'vie' ? '15px' : ''}}>{t('open.you_do_not_have_an_unopened_red_envelope,please_grab_the_red_envelope_first')}</div>
                             </div>
                         </div>
                         <div className='go_grab_bottom'>
@@ -117,7 +117,7 @@ export default class Open extends Component {
                         <div className='winner_outer'>
                             <div className='winner'>
                                 <img src={close} style={{width:'20px',height:'20px',position:'absolute',top:'-27px',right:'8px'}} onClick={() => this.setState({redPacketShow: false})} alt="" />
-                                <div className='winner_top'>
+                                <div className={i18n.language === 'vie' ? 'winner_top_vie' : 'winner_top'}>
                                     <div>{t('open.congratulations!You_have_won_a_big_prize')}</div>
                                 </div>
                                 <div className='winner_middle'>

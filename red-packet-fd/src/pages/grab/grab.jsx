@@ -113,6 +113,7 @@ export default class Grab extends Component {
                 let result = await reqGrabBet(params)
                 if (result.code === 0) {
                     this.getGrabCount()
+                    this.getAccountBalance()
                     this.setState({
                         imgFlag: true
                     })
