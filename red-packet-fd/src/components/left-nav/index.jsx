@@ -9,7 +9,7 @@ import customer from './images/customer.png'
 import customer_hover from './images/customer_hover.png'
 import my from './images/my.png'
 import my_hover from './images/my_hover.png'
-import menuList from '../../config/menuConfig'
+// import menuList from '../../config/menuConfig'
 import memoryUtils from '../../utils/memoryUtils'
 import './index.less'
 import { t } from 'i18next'
@@ -52,6 +52,24 @@ class leftNav extends Component {
         })
     }
     componentDidMount() {
+        const menuList =[
+            {
+                title: t('navigation.red_envelope_lucky_draw'), // 菜单标题名称
+                key: '/grab', // 对应的path
+            },
+            {
+                title: t('navigation.remove_the_red_envelope'),
+                key: '/open',
+            },
+            {
+                title: t('navigation.customer_service'), 
+                key: '/customer', 
+            },
+            {
+                title: t('navigation.my'), 
+                key: '/my', 
+            },
+        ]
         // 监听路由的变化,如果路由发生变化则进行相应操作
         this.props.history.listen(location => {
             // 最新路由的 location 对象，可以通过比较 pathname 是否相同来判断路由的变化情况
@@ -102,6 +120,24 @@ class leftNav extends Component {
         })
     }
     menu_click = (val) => {
+        const menuList =[
+            {
+                title: t('navigation.red_envelope_lucky_draw'), // 菜单标题名称
+                key: '/grab', // 对应的path
+            },
+            {
+                title: t('navigation.remove_the_red_envelope'),
+                key: '/open',
+            },
+            {
+                title: t('navigation.customer_service'), 
+                key: '/customer', 
+            },
+            {
+                title: t('navigation.my'), 
+                key: '/my', 
+            },
+        ]
         const user = memoryUtils.user
         if (user && user.userId) {
             // 已登录
@@ -180,7 +216,25 @@ class leftNav extends Component {
     }
     // 根据menu的数据数组生成对应的标签数组
     // 使用reduce() + 递归调用
-    getMenuNodes = (menuList) => {
+    getMenuNodes = () => {
+        const menuList =[
+            {
+                title: t('navigation.red_envelope_lucky_draw'), // 菜单标题名称
+                key: '/grab', // 对应的path
+            },
+            {
+                title: t('navigation.remove_the_red_envelope'),
+                key: '/open',
+            },
+            {
+                title: t('navigation.customer_service'), 
+                key: '/customer', 
+            },
+            {
+                title: t('navigation.my'), 
+                key: '/my', 
+            },
+        ]
         // 得到当前请求的路由路径
         const path = this.props.location.pathname
         let { grabFlag, openFlag, customerFlag, myFlag } = this.state
@@ -188,7 +242,6 @@ class leftNav extends Component {
         return menuList.reduce((pre,item) => {
             // 向pre添加<Menu.Item>
             if (!item.children) {
-                console.log(this.state)
                 // debugger
                 pre.push((
                     <Menu.Item key={item.key} icon={item.icon} onClick={this.menu_click}>
@@ -233,6 +286,24 @@ class leftNav extends Component {
         为第一个render()准备数据(必须同步的)
     */
     componentWillMount() {
+        const menuList =[
+            {
+                title: t('navigation.red_envelope_lucky_draw'), // 菜单标题名称
+                key: '/grab', // 对应的path
+            },
+            {
+                title: t('navigation.remove_the_red_envelope'),
+                key: '/open',
+            },
+            {
+                title: t('navigation.customer_service'), 
+                key: '/customer', 
+            },
+            {
+                title: t('navigation.my'), 
+                key: '/my', 
+            },
+        ]
         this.menuNodes = this.getMenuNodes(menuList)
         let aaa = this.props.location.search
         if (aaa) {

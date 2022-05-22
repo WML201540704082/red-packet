@@ -8,13 +8,19 @@ import Grab from '../grab/grab'
 import Open from '../open/open'
 import My from '../my/my'
 import Customer from '../customer/customer'
+import i18n from 'i18next'
 
 const { Content } = Layout;
 
 /*
-后台管理的路由组件
+前台管理的路由组件
 */
 export default class Admin extends Component {
+    componentWillReceiveProps (){
+        console.log(i18n.language)
+        i18n.changeLanguage(i18n.language)
+        this.forceUpdate()
+    }
     render () {
         return (
             <Layout style={{width: '100%',height: '100%'}}>
@@ -27,7 +33,9 @@ export default class Admin extends Component {
                         <Redirect to='/grab'/>
                     </Switch>
                 </Content>
-                <LeftNav/>
+                <LeftNav
+                    language={i18n.language}
+                />
             </Layout>
         )
     }

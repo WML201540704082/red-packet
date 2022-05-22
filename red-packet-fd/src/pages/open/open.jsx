@@ -116,6 +116,7 @@ export default class Open extends Component {
                     return(
                         <div className='winner_outer'>
                             <div className='winner'>
+                                <img src={close} style={{width:'20px',height:'20px',position:'absolute',top:'-27px',right:'8px'}} onClick={() => this.setState({redPacketShow: false})} alt="" />
                                 <div className='winner_top'>
                                     <div>{t('open.congratulations!You_have_won_a_big_prize')}</div>
                                 </div>

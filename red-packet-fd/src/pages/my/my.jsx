@@ -190,12 +190,9 @@ export default class My extends Component {
                 {
                     (!partnerFlag && !withdrawFlag && !recordFlag && !detailFlag) ? (
                         <div className='my'>
-                            <div className='my_top' style={{color:'#ffffff'}}>
-                                <div className='my_top_left'>ID:</div>
-                                <div className='my_top_middle'>{id}</div>
-                                <div className='my_top_right'>
-                                    <LinkButton onClick={this.Loginout}>{t('my.exit')}</LinkButton>
-                                </div>
+                            <div className='my_top'>
+                                <span style={{color:'#ffffff'}}>ID:{id}</span>
+                                <LinkButton onClick={this.Loginout} style={{position: 'absolute', right: '20px'}}>{t('my.exit')}</LinkButton>
                             </div>
                             {this.getMyButton()}
                             <div className='my_proxy'>

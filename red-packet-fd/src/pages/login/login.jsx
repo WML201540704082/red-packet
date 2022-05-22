@@ -1,5 +1,5 @@
 import React, {Component} from 'react'
-import { Form, Input, Button, message, Tabs } from 'antd'
+import { Form, Input, Button, message, Tabs, Select } from 'antd'
 import './login.less'
 import facebook from './images/facebook.png'
 import google from './images/google.png'
@@ -21,7 +21,7 @@ import bg_2 from './images/bg_2.png'
 import { t } from 'i18next'
 import i18n from 'i18next'
 const { TabPane } = Tabs;
-// const { Option } = Select;
+const { Option } = Select;
 
 export default class Login extends Component {
     state = {
@@ -31,7 +31,8 @@ export default class Login extends Component {
         countryFlag: false,
         phoneCode: '+84',
         clientHeight: 0,
-        pop: false
+        pop: false,
+        language: 'vie'
 	}
     componentDidMount() {
         let clientHeight = document.documentElement.clientHeight || document.body.clientHeight
@@ -65,6 +66,9 @@ export default class Login extends Component {
     //     // 这里处理键盘收起的事件
     // }
     componentWillMount() {
+        this.setState({
+            language: i18n.language
+        })
         let aaa = this.props.location.search
         // let aaa = "?id=123"
         if (aaa) {
@@ -256,10 +260,19 @@ export default class Login extends Component {
                 console.log('失败了', error);
             }
         }
-
+        const changeLanguage = (value) => {
+            this.setState({language: value})
+            i18n.changeLanguage(value)
+            this.forceUpdate()
+        }
         return (
             // 解决软键盘问题
             <div style={{width:'100%', height: '100%'}}>
+                <Select style={{position:'absolute',top:'15px',right:'20px',width:'106px'}} value={this.state.language} onChange={value => changeLanguage(value)}>
+                    <Option value="vie">ViệtName</Option>
+                    <Option value="en">English</Option>
+                    <Option value="zh">中文</Option>
+                </Select>
                 {
                     !countryFlag ? (
                         <div className="login" style={{ backgroundImage: !this.state.pop ? '' : `url("${bg_2}")`}}>

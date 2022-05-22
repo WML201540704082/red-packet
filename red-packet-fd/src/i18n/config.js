@@ -18,10 +18,11 @@ const resources = {
     translation: translation_vie
   }
 };
-const language = ((navigator.language) ? navigator.language : navigator.userLanguage)
+// const language = ((navigator.language) ? navigator.language : navigator.userLanguage)
 i18n.use(initReactI18next).init({
   resources,
-  lng: language === ('zh-CN' || 'zh') ? 'zh' : language === 'en' ? 'en' : language === ('vi' || 'vie') ? 'vie' : 'en',
+  // lng: language === ('zh-CN' || 'zh') ? 'zh' : language === 'en' ? 'en' : language === ('vi' || 'vie') ? 'vie' : 'en',
+  lng: 'zh',
   interpolation: {
     escapeValue: false
   }
