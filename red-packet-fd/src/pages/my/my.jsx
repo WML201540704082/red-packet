@@ -231,9 +231,9 @@ export default class My extends Component {
                         fgColor="#000000" // 二维码的颜色
                         style={{ margin: 'auto' }}
                     />
-                </div>
-                <div className='share_text'>
-                    {t('my.your own QR code')}
+                    <div className='share_text'>
+                        {t('my.your own QR code')}
+                    </div>
                 </div>
                 <div className='share_bottom'>
                     <div className='share_bottom_content' onClick={() => this.copyUrl()}>{t('my.copy_link')}</div>

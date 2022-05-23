@@ -100,11 +100,11 @@ export default class Withdrawal extends Component {
     }
     // 添加银行卡
     addBankCard = async () => {
-        let { cardName, id, cardNo, type, bankId } = this.state
+        let { cardName, id, newId, cardNo, type, bankId } = this.state
         let params = {
             cardName,//收款人姓名
             cardNo,//银行卡号
-            id,//用户银行列表id
+            id: type === 'update' ? id : newId,//用户银行列表id
             bankId: type === 'update' ? bankId : null
         }
         let result = type === 'update'? await reqUpdateCard(params) : await reqAddCard(params)
@@ -137,7 +137,7 @@ export default class Withdrawal extends Component {
     showBankName = () => {
         return (
             <BankList
-                closeModal={(id,bankId,bankName) => this.setState({bankNameFlag: false,id,bankId,bankName})}
+                closeModal={(id,bankId,bankName) => this.setState({bankNameFlag: false,newId:id,bankId:id,bankName})}
             />
         )
     }
@@ -176,7 +176,7 @@ export default class Withdrawal extends Component {
                                                         this.state.cardList.map((item,index)=>{
                                                             return (
                                                                 <div style={{width:'100%',display:'flex'}}>
-                                                                    <div onClick={()=>this.setState({clickFlag:index,bankCardId:item.bankId})} 
+                                                                    <div onClick={()=>this.setState({clickFlag:index,bankCardId:item.id})} 
                                                                         style={{color:this.state.clickFlag === index ? 'red' : '',
                                                                                 border:this.state.clickFlag === index ? '1px solid red' : '',
                                                                                 background:'#ffffff',height:'40px',lineHeight:'40px',
