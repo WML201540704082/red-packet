@@ -148,17 +148,19 @@ export default class Open extends Component {
     openRedPacket = async () => {
         let result = await reqUnpackLottery()
         if (result.code === 0) {
-            this.setState({
-                winnerObject: result.data,
-                carouselList: [{
-                    type: '0',
-                    amount: result.data.amount,
-                    userId: memoryUtils.user.userId.substring(0,3)+'****'+memoryUtils.user.userId.substring(memoryUtils.user.userId.length-4,memoryUtils.user.userId.length),
-                }]
-            },()=>{
-                // 重新获取轮番图信息
-                this.getCarouselInfo()
-            })
+            setTimeout(() => {
+                this.setState({
+                    winnerObject: result.data,
+                    carouselList: [{
+                        type: '0',
+                        amount: result.data.amount,
+                        userId: memoryUtils.user.userId.substring(0,3)+'****'+memoryUtils.user.userId.substring(memoryUtils.user.userId.length-4,memoryUtils.user.userId.length),
+                    }]
+                },()=>{
+                    // 重新获取轮番图信息
+                    this.getCarouselInfo()
+                })
+            }, 4000);
             this.setState({animation: true});
             setTimeout(this.stopAnimation.bind(this), 2000);
             setTimeout(this.showResult.bind(this), 2000);
