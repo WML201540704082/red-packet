@@ -40,7 +40,7 @@
 		"wish_you_become_rich,wish_you_auspicious_and_propitious_in_the_new_year": "wish you become rich",
 		"congratulations!You_have_won_a_big_prize": "Cheeeeer!You get a reward",
 		"once_more": "Try one more time",
-		"unpack": "get",
+		"unpack": " get ",
 		"grab": "grab"
 	},
 	"customer": {
@@ -74,8 +74,8 @@
 		"copy_link": "Copy link",
 		"copy_success": "Copy success",
 		"current_balance": "Current balance",
-		"commission": "Commission balance",
-		"red_packet": "Red pocket balance",
+		"commission": "Commission",
+		"red_packet": "Red pocket",
 		"go_withdraw_cash": "Go withdraw cash",
 		"withdraw_cash": "Withdraw cash",
 		"add_account": "Add account",
@@ -110,7 +110,7 @@
 	"navigation": {
 		"red_envelope_lucky_draw": "Get pocket",
 		"remove_the_red_envelope": "Withdraw",
-		"customer_service": "CS",
+		"customer_service": "Customer service",
 		"my": "Me"
 	},
 	"identity_expired": "Identity expired, please log in again!"

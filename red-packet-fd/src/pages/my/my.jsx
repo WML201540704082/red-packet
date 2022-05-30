@@ -174,7 +174,7 @@ export default class My extends Component {
                 {
                     proxyDetails.map(item=>{
                         return (
-                            <div>{item.index + '. ' + item.name + ':' + item.percent + '%'}</div>
+                            <div>{item.index + '. ' + item.name + ': ' + item.percent + '%'}</div>
                         )
                     })
                 }
