@@ -41,39 +41,15 @@ export default class Open extends Component {
     }
     // 获取轮番图信息
     getCarouselInfo = async () => {
-        let result = await reqCarouselInfo({flag:true})
+        let result = await reqCarouselInfo()
         if (result.code === 0) {
             this.setState({
-                carouselList: [{
-                    type: result.data.type,
-                    amount: result.data.amount,
-                    userId: result.data.userId.substring(0,3)+'****'+result.data.userId.substring(result.data.userId.length-4,result.data.userId.length),
-                }]
-            })
-            this.getCarouselInfo_2()
-        }
-    }
-    getCarouselInfo_2 = async () => {
-        let result = await reqCarouselInfo({flag:false})
-        if (result.code === 0) {
-            this.setState({
-                carouselList: (result.data.disResp || result.data.grabResp) ? 
-                               result.data.disResp.map(item=>{
-                                   return {
-                                       ...item,
-                                       userId: item.userId.substring(0,3)+'****'+item.userId.substring(item.userId.length-4,item.userId.length)
-                                   }
-                               }).concat(result.data.grabResp).map(item=>{
-                                    return {
-                                        ...item,
-                                        userId: item.userId.substring(0,3)+'****'+item.userId.substring(item.userId.length-4,item.userId.length)
-                                    }
-                               }) : result.data.randomResp.map(item=>{
-                                    return {
-                                        ...item,
-                                        userId: item.userId.substring(0,3)+'****'+item.userId.substring(item.userId.length-4,item.userId.length)
-                                    }
-                               })
+                carouselList: result.data.map( item => {
+                    return {
+                        ...item,
+                        userId: item.userId.substring(0,2)+'****'+item.userId.substring(item.userId.length-2,item.userId.length)
+                    }
+                })
             })
         }
     }
@@ -154,7 +130,7 @@ export default class Open extends Component {
                     carouselList: [{
                         type: '0',
                         amount: result.data.amount,
-                        userId: memoryUtils.user.userId.substring(0,3)+'****'+memoryUtils.user.userId.substring(memoryUtils.user.userId.length-4,memoryUtils.user.userId.length),
+                        userId: memoryUtils.user.userId.substring(0,2)+'****'+memoryUtils.user.userId.substring(memoryUtils.user.userId.length-2,memoryUtils.user.userId.length),
                     }]
                 },()=>{
                     // 重新获取轮番图信息
