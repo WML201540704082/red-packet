@@ -4,6 +4,7 @@ import { Modal, Card, Table, Button, message } from 'antd'
 import { reqOpenList, reqDeleteOpen  } from '../../../api'
 import { PlusCircleOutlined } from '@ant-design/icons'
 import AddOpen from './add-open'
+import './openConfig.less'
 
 export default class ModalComponent extends Component {
 	formRef = React.createRef()
@@ -69,9 +70,9 @@ export default class ModalComponent extends Component {
 				visible={flag}
 				onOk={this.handleOk}
 				onCancel={() => this.closeClear()}
-				cancelText="取消"
-				okText="确定"
+				footer={[]}
 				width="80%"
+				className='open_config'
 			>
 				{
 					<Card title={title}>
