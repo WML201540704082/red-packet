@@ -4,6 +4,7 @@ import { Button, Table, Card, Modal, message } from 'antd'
 import { PlusCircleOutlined } from '@ant-design/icons'
 import { reqRobList, reqDeleteRob } from '../../api'
 import AddRob from './add-rob'
+import OpenConfig from './components/openConfig'
 
 export default class RobConfig extends Component {
 	formRef = React.createRef()
@@ -15,6 +16,8 @@ export default class RobConfig extends Component {
 			isDeleteVisible: false,
 			pageNumber: 1,
             pageSize: 10,
+			openConfigVisible: false,
+			robId:''
 		}
 	}
 	componentWillMount() {
@@ -86,11 +89,12 @@ export default class RobConfig extends Component {
 							title: <span style={{ fontWeight: 700 }}>操作</span>,
 							key: 'id',
 							align: 'center',
-							width: '20%',
+							width: '300px',
 							render: reload => {
 								return (
 									<span>
 										<Button type={'link'} onClick={() => this.oppModal('修改',reload)}>编辑</Button>
+										<Button type={'link'} onClick={() => this.openConfig(reload.id)}>拆红包配置</Button>
 										<Button type={'link'} onClick={() => this.deleteModal(reload.id)}>删除</Button>
 									</span>
 								)
@@ -110,6 +114,7 @@ export default class RobConfig extends Component {
 				</Modal>
 			</Card>
 			{this.showModal(this.state.isModalVisible, dataSource)}
+			{this.showOpenConfig(this.state.openConfigVisible, this.state.robId)}
 		</div>
 		)
 	}
@@ -162,6 +167,24 @@ export default class RobConfig extends Component {
 				type={modalType}
 				/>
 			)
+		}
+	}
+	// 拆红包设置
+	openConfig = (id) => {
+		this.setState({
+			openConfigVisible: true,
+			robId: id,
+		})
+	}
+	showOpenConfig = (flag, id) => {
+		if (flag) {
+			return (
+				<OpenConfig
+					flag={flag}
+					robId={id}
+					closeModal={() => this.setState({openConfigVisible: false,})}
+				/>
+			)	
 		}
 	}
 	// 删除

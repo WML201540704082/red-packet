@@ -5,7 +5,7 @@ import {
     LineChartOutlined,
     UserOutlined,
     MailOutlined,
-    FolderOpenOutlined,
+    // FolderOpenOutlined,
     RedEnvelopeOutlined,
     CustomerServiceOutlined,
     AppstoreOutlined,
@@ -45,11 +45,11 @@ const menuList =[
         key: '/robConfig', 
         icon: <MailOutlined />, 
     },
-    {
-        title: '拆红包配置', 
-        key: '/openConfig', 
-        icon: <FolderOpenOutlined />, 
-    },
+    // {
+    //     title: '拆红包配置', 
+    //     key: '/openConfig', 
+    //     icon: <FolderOpenOutlined />, 
+    // },
     {
         title: '充值配置', 
         key: '/recharge', 
