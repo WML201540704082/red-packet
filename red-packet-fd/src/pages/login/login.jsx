@@ -96,10 +96,6 @@ export default class Login extends Component {
         }
     }
     /*
-        忘记密码
-    */
-    forgotPwd = () => {}
-    /*
         Google登录
     */
     responseGoogle = async (response) => {
@@ -111,6 +107,7 @@ export default class Login extends Component {
                 id: shareId,
                 name: name,
                 userId: googleId,
+                type: this.state.language === 'en' ? '0' : 1
             }
             try {
                 const result = await reqGoogleLogin(params)
@@ -143,6 +140,7 @@ export default class Login extends Component {
                 id: shareId,
                 name: name,
                 userId: userID,
+                type: this.state.language === 'en' ? '0' : 1
             }
             try {
                 const result = await reqFacebookLogin(params)
@@ -208,6 +206,7 @@ export default class Login extends Component {
         // 密码登录
         const onFinish = async (values) => {
             const { account, passWord } = values
+            const type = this.state.language === 'en' ? '0' : 1
             if (!account) {
                 message.warning(t('login.Please enter the account'))
             } else if (!passWord) {
@@ -215,7 +214,7 @@ export default class Login extends Component {
             } else {
                 NProgress.start() // 显示滚动条
                 try {
-                    const result = await reqLogin(account, passWord)
+                    const result = await reqLogin(account, passWord, type)
                     if (result.code === 0) {
                         message.success(t('login.login_success'))
                         // 保存user
@@ -239,7 +238,8 @@ export default class Login extends Component {
             let params = {
                 userId: shareId,
                 phone: this.state.phoneCode.substring(1) + phone,
-                code: code
+                code: code,
+                type: this.state.language === 'en' ? '0' : 1
             }
             try {
                 const result = await reqPhoneLogin(params)
@@ -451,6 +451,7 @@ export default class Login extends Component {
 					flag={flag}
                     shareId={shareId}
 					closeModal={() => this.setState({isModalVisible: false})}
+                    type={this.state.language === 'en' ? '0' : 1}
 				/>
 			)
 		}
@@ -464,6 +465,7 @@ export default class Login extends Component {
 					flag={flag}
 					closeModal={() => this.setState({isPwdVisible: false})}
                     account={account}
+                    type={this.state.language === 'en' ? '0' : 1}
 				/>
 			)
 		}

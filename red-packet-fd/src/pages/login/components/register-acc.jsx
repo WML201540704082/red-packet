@@ -21,10 +21,11 @@ export default class ModalComponent extends Component {
 		}
 	}
 	componentWillMount() {
-		let { flag, shareId } = this.props
+		let { flag, shareId, type } = this.props
 		this.setState({
 			flag,
-            shareId
+            shareId,
+            type
 		})
 	}
 	componentDidMount() {
@@ -144,7 +145,7 @@ export default class ModalComponent extends Component {
 	}
 	handleOk = async () => {
 		let { closeModal } = this.props
-		let { account, passWord, phone, code, shareId } = this.state
+		let { account, passWord, phone, code, shareId, type } = this.state
         if (!account) return message.info(t('login.Please enter the account'))
         if (!passWord) return message.info(t('login.Please enter the password'))
         if (!phone) return message.info(t('login.Please enter your mobile number'))
@@ -154,7 +155,8 @@ export default class ModalComponent extends Component {
             passWord,
             phone: this.state.phoneCode.substring(1) + phone,
             code,
-            userId: shareId
+            userId: shareId,
+            type
         }
         let result = await reqRegister(params)
         if (result.code === 0 && result.data.code === 0) {

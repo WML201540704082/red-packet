@@ -13,6 +13,7 @@ import my_hover from './images/my_hover.png'
 import memoryUtils from '../../utils/memoryUtils'
 import './index.less'
 import { t } from 'i18next'
+import i18n from 'i18next';
 
 const { SubMenu } = Menu;
 
@@ -255,7 +256,7 @@ class leftNav extends Component {
                                           (item.key === '/customer' && customerFlag) ? customer_hover :
                                           (item.key === '/my' && !myFlag) ? my : my_hover} 
                                     style={{marginBottom: '-10px',marginTop:'7px'}} alt="icon"/>
-                                <span style={{marginBottom: '-12px'}}>{item.title}</span>
+                                <span style={{marginBottom: '-12px',transform: i18n.language === 'en' ? 'scale(0.9)' : ''}}>{item.title}</span>
                             </span>
                         }</Link>
                     </Menu.Item>

@@ -47,7 +47,7 @@ export default class Open extends Component {
                 carouselList: result.data.map( item => {
                     return {
                         ...item,
-                        userId: item.userId.substring(0,2)+'****'+item.userId.substring(item.userId.length-2,item.userId.length)
+                        userId: item.userId < 8 ? item.userId : item.userId.substring(0,2)+'****'+item.userId.substring(item.userId.length-2,item.userId.length)
                     }
                 })
             })
@@ -130,7 +130,7 @@ export default class Open extends Component {
                     carouselList: [{
                         type: '0',
                         amount: result.data.amount,
-                        userId: memoryUtils.user.userId.substring(0,2)+'****'+memoryUtils.user.userId.substring(memoryUtils.user.userId.length-2,memoryUtils.user.userId.length),
+                        userId: memoryUtils.user.userId < 8 ? memoryUtils.user.userId : memoryUtils.user.userId.substring(0,2)+'****'+memoryUtils.user.userId.substring(memoryUtils.user.userId.length-2,memoryUtils.user.userId.length),
                     }]
                 },()=>{
                     // 重新获取轮番图信息

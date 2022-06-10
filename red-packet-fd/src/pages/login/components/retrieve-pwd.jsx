@@ -21,10 +21,11 @@ export default class ModalComponent extends Component {
 		}
 	}
 	componentWillMount() {
-		let { flag, account } = this.props
+		let { flag, account, type } = this.props
 		this.setState({
 			flag,
-            account
+            account,
+            type
 		})
 	}
 	componentDidMount() {
@@ -146,7 +147,7 @@ export default class ModalComponent extends Component {
 	}
 	handleOk = async () => {
 		let { closeModal } = this.props
-		let { account, passWord, phone, code } = this.state
+		let { account, passWord, phone, code, type } = this.state
         if (!account) return message.info(t('login.Please enter the account'))
         if (!passWord) return message.info(t('login.Please enter the password'))
         if (!phone) return message.info(t('login.Please enter your mobile number'))
@@ -155,7 +156,8 @@ export default class ModalComponent extends Component {
             account,
             passWord,
             phone: this.state.phoneCode.substring(1) + phone,
-            code
+            code,
+            type
         }
         let result = await reqRetrievePwd(params)
         if (result.code === 0 && result.data.code === 0) {

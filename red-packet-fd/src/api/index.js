@@ -6,7 +6,7 @@ import ajax from './axjax';
 const BASE = 'api/'
 
 // 账号登陆
-export const reqLogin = (account,passWord) => ajax(BASE + 'sys/front/amountLogin', {account,passWord}, 'POST')
+export const reqLogin = (account,passWord,type) => ajax(BASE + 'sys/front/amountLogin', {account,passWord,type}, 'POST')
 
 // facebook登录
 export const reqFacebookLogin = data => ajax(BASE + 'sys/front/faceBookLogin', data, 'POST')

@@ -150,7 +150,7 @@ export default class Withdrawal extends Component {
                         <div style={{width:'100%',height:'100%'}}>
                             <div style={{height:'50px',lineHeight:'50px',background:'#ffffff',fontSize:'16px',fontWeight:'bold',display:'flex',justifyContent:'center',borderBottom:'1px solid #DCDCDC'}}>{t('my.withdraw_cash')}</div>
                             <img src={goback} onClick={()=>this.goBack()} style={{position:'absolute',top:'16px',left:'15px',width:'15px'}} alt="goback"/>
-                            <div onClick={()=>this.setState({newCardFlag:true})} style={{position:'absolute',top:'16px',right:'15px'}}>{t('my.add_account')}</div>
+                            <div onClick={()=>this.setState({newCardFlag:true})} style={{position:'absolute',top:'16px',right:'15px',fontSize:i18n.language === 'vie'?'12px':''}}>{t('my.add_account')}</div>
                             <div style={{padding:'30px 20px 0',background:'#f5f5f5',height:'calc(100vh - 50px)'}}>
                                 <div style={{height:'30px'}}>{t('my.Please enter the withdrawal amount')}</div>
                                 <div style={{background:'#ffffff',height:'110px',border:'1px solid #D53E1C',borderRadius:'5px',padding:'0 15px'}}>
