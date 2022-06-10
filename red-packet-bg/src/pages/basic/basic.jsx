@@ -49,14 +49,22 @@ export default class Basic extends Component {
         }
         let result = await reqProbability(params)
         if (result.code === 0) {
+            let forList = []
             let frontArray = [{
                 name: '奖项',
                 probability: '开奖概率',
                 amount: '总额'
             }]
-            frontArray = frontArray.concat(result.data)
+            for (let i = 0; i < result.data.length; i++) {
+                forList.push(frontArray.concat(result.data[i].unpackList).map(item=>{
+                    return{
+                        ...item,
+                        xxx:result.data[i].amount
+                    }
+                }))
+            }
             this.setState({
-                probabilityDate: frontArray,
+                probabilityDate: forList,
             })
         }
     }
@@ -76,39 +84,42 @@ export default class Basic extends Component {
     probabilityDom = (probabilityDate) => {
         if (probabilityDate && probabilityDate.length>1) {
             return (
-                <table border="1" width="100%" align="center" style={{marginBottom:'15px'}}>
-                    <thead>
-                        <tr bgcolor="#FAFAFA">
-                            {
-                                probabilityDate.map(item=>{
-                                    return (
-                                        <th>{item.name}</th>
-                                    )
-                                })
-                            }
-                        </tr>
-                    </thead>
-                    <tbody align="center">
-                        <tr>
-                            {
-                                probabilityDate.map(item=>{
-                                    return (
-                                        <th style={item.amount !== '总额' ? {fontWeight: 'normal'} : {}}>{item.amount}</th>
-                                    )
-                                })
-                            }
-                        </tr>
-                        <tr>
-                            {
-                                probabilityDate.map(item=>{
-                                    return (
-                                        <th style={item.probability !== '开奖概率' ? {fontWeight: 'normal'} : {}}>{item.probability === '开奖概率' ? item.probability : item.probability + '%'}</th>
-                                    )
-                                })
-                            }
-                        </tr>
-                    </tbody>
-                </table>
+                <div>
+                    <div>抢红包金额：{probabilityDate[0].xxx}</div>
+                    <table border="1" width="100%" align="center" style={{marginBottom:'15px'}}>
+                        <thead>
+                            <tr bgcolor="#FAFAFA">
+                                {
+                                    probabilityDate.map(item=>{
+                                        return (
+                                            <th>{item.name}</th>
+                                        )
+                                    })
+                                }
+                            </tr>
+                        </thead>
+                        <tbody align="center">
+                            <tr>
+                                {
+                                    probabilityDate.map(item=>{
+                                        return (
+                                            <th style={item.amount !== '总额' ? {fontWeight: 'normal'} : {}}>{item.amount}</th>
+                                        )
+                                    })
+                                }
+                            </tr>
+                            <tr>
+                                {
+                                    probabilityDate.map(item=>{
+                                        return (
+                                            <th style={item.probability !== '开奖概率' ? {fontWeight: 'normal'} : {}}>{item.probability === '开奖概率' ? item.probability : item.probability + '%'}</th>
+                                        )
+                                    })
+                                }
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
             )
         }
     }
@@ -346,9 +357,6 @@ export default class Basic extends Component {
                         ]}
                     />
                 </Card>
-                <Card title={title2} extra={extra2}>
-                    {this.probabilityDom(probabilityDate)}
-                </Card>
                 <Card title={title3} extra={extra3}>
                     <Table
                         bordered
@@ -397,6 +405,29 @@ export default class Basic extends Component {
                             },
                         ]}
                     />
+                </Card>
+                <Card title={title2} extra={extra2}>
+                    {this.probabilityDom(probabilityDate ? probabilityDate[0] : [])}
+                    {this.probabilityDom(probabilityDate ? probabilityDate[1] : [])}
+                    {this.probabilityDom(probabilityDate ? probabilityDate[2] : [])}
+                    {this.probabilityDom(probabilityDate ? probabilityDate[3] : [])}
+                    {this.probabilityDom(probabilityDate ? probabilityDate[4] : [])}
+                    {this.probabilityDom(probabilityDate ? probabilityDate[5] : [])}
+                    {this.probabilityDom(probabilityDate ? probabilityDate[6] : [])}
+                    {this.probabilityDom(probabilityDate ? probabilityDate[7] : [])}
+                    {this.probabilityDom(probabilityDate ? probabilityDate[8] : [])}
+                    {this.probabilityDom(probabilityDate ? probabilityDate[9] : [])}
+                    {this.probabilityDom(probabilityDate ? probabilityDate[10] : [])}
+                    {this.probabilityDom(probabilityDate ? probabilityDate[11] : [])}
+                    {this.probabilityDom(probabilityDate ? probabilityDate[12] : [])}
+                    {this.probabilityDom(probabilityDate ? probabilityDate[13] : [])}
+                    {this.probabilityDom(probabilityDate ? probabilityDate[14] : [])}
+                    {this.probabilityDom(probabilityDate ? probabilityDate[15] : [])}
+                    {this.probabilityDom(probabilityDate ? probabilityDate[16] : [])}
+                    {this.probabilityDom(probabilityDate ? probabilityDate[17] : [])}
+                    {this.probabilityDom(probabilityDate ? probabilityDate[18] : [])}
+                    {this.probabilityDom(probabilityDate ? probabilityDate[19] : [])}
+                    {this.probabilityDom(probabilityDate ? probabilityDate[20] : [])}
                 </Card>
             </div>
         )

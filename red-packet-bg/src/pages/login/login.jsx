@@ -38,7 +38,8 @@ export default class Login extends Component {
             try {
                 let params = {
                     account,
-                    passWord
+                    passWord,
+                    type:'0'
                 }
                 const result = await reqLogin(params)
                 if (result.code === 0) {

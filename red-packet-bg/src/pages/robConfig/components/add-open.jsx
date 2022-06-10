@@ -99,7 +99,7 @@ export default class ModalComponent extends Component {
 		let { closeModal } = this.props
 		let { id, name, begin, end, probability, type, grabId } = this.state
 		if (!name) return message.info('抢红包下注金额不可以为空！')
-		if (!begin) return message.info('起始值不可以为空！')
+		if (!(begin || begin === 0)) return message.info('起始值不可以为空！')
 		if (!end) return message.info('终止值不可以为空！')
 		if (!probability) return message.info('中奖概率不可以为空！')
 		let params = {
