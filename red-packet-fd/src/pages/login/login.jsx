@@ -69,6 +69,9 @@ export default class Login extends Component {
         this.setState({
             language: i18n.language
         })
+        // 本地存储lng
+        localStorage.setItem('lng', i18n.language)
+
         let aaa = this.props.location.search
         // let aaa = "?id=123"
         if (aaa) {
@@ -263,6 +266,8 @@ export default class Login extends Component {
         const changeLanguage = (value) => {
             this.setState({language: value})
             i18n.changeLanguage(value)
+            // 本地存储lng
+            localStorage.setItem('lng', value)
             this.forceUpdate()
         }
         return (

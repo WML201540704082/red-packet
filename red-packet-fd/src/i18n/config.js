@@ -22,7 +22,7 @@ const resources = {
 i18n.use(initReactI18next).init({
   resources,
   // lng: language === ('zh-CN' || 'zh') ? 'zh' : language === 'en' ? 'en' : language === ('vi' || 'vie') ? 'vie' : 'en',
-  lng: 'zh',
+  lng: localStorage.getItem('lng') || 'zh',
   interpolation: {
     escapeValue: false
   }
