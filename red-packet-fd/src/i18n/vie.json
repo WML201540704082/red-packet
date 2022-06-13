@@ -22,7 +22,8 @@
 		"Password retrieved successfully": "Mật khẩu được tìm lại!",
 		"new_password": "Mật Khẩu Mới",
 		"retrieve_password": "Tìm Lại Mật Khẩu",
-		"please_log_in_first": "vui lòng đăng nhập trước!"
+		"please_log_in_first": "vui lòng đăng nhập trước!",
+		"select_country_code": "Chọn mã quốc gia"
 	},
 	"grab": {
 		"max_grab": "Cao Nhất Có Thể Nhận",

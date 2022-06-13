@@ -22,7 +22,8 @@
 		"Password retrieved successfully": "Password retrieved successfully!",
 		"new_password": "New password",
 		"retrieve_password": "Find my password",
-		"please_log_in_first": "Please log in first!"
+		"please_log_in_first": "Please log in first!",
+		"select_country_code": "Select country code"
 	},
 	"grab": {
 		"max_grab": "up to ",

@@ -273,11 +273,15 @@ export default class Login extends Component {
         return (
             // 解决软键盘问题
             <div style={{width:'100%', height: '100%'}}>
-                <Select style={{position:'absolute',top:'15px',right:'20px',width:'106px'}} value={this.state.language} onChange={value => changeLanguage(value)}>
-                    <Option value="vie">ViệtName</Option>
-                    <Option value="en">English</Option>
-                    <Option value="zh">中文</Option>
-                </Select>
+                {
+                    !countryFlag ? (
+                        <Select style={{position:'absolute',top:'15px',right:'20px',width:'106px'}} value={this.state.language} onChange={value => changeLanguage(value)}>
+                            <Option value="vie">ViệtName</Option>
+                            <Option value="en">English</Option>
+                            <Option value="zh">中文</Option>
+                        </Select>
+                    ) : null
+                }
                 {
                     !countryFlag ? (
                         <div className="login" style={{ backgroundImage: !this.state.pop ? '' : `url("${bg_2}")`}}>
