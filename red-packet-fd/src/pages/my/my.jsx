@@ -91,6 +91,10 @@ export default class My extends Component {
                 // 删除保存的user数据
                 storageUtils.removeUser()
                 memoryUtils.user = {}
+                // 清空localStorage
+                localStorage.removeItem('user_key')
+                localStorage.removeItem('lng')
+                localStorage.removeItem('navigate')
                 // 跳转到Login
                 this.props.history.replace('/login')
             },

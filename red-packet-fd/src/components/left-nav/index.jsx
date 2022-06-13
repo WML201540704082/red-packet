@@ -121,6 +121,7 @@ class leftNav extends Component {
         })
     }
     menu_click = (val) => {
+        localStorage.setItem('navigate',val.key)
         const menuList =[
             {
                 title: t('navigation.red_envelope_lucky_draw'), // 菜单标题名称
@@ -305,7 +306,59 @@ class leftNav extends Component {
                 key: '/my', 
             },
         ]
-        this.menuNodes = this.getMenuNodes(menuList)
+        if (localStorage.getItem('navigate')) {
+            if (localStorage.getItem('navigate') === "/grab") {
+                this.setState({
+                    grabFlag: true,
+                    openFlag: false,
+                    customerFlag: false,
+                    myFlag: false
+                },()=>{
+                    this.menuNodes = this.getMenuNodes(menuList)
+                    this.forceUpdate()
+                })
+            } else if (localStorage.getItem('navigate') === "/open") {
+                this.setState({
+                    grabFlag: false,
+                    openFlag: true,
+                    customerFlag: false,
+                    myFlag: false
+                },()=>{
+                    this.menuNodes = this.getMenuNodes(menuList)
+                    this.forceUpdate()
+                })
+            } else if (localStorage.getItem('navigate') === "/customer") {
+                this.setState({
+                    grabFlag: false,
+                    openFlag: false,
+                    customerFlag: true,
+                    myFlag: false
+                },()=>{
+                    this.menuNodes = this.getMenuNodes(menuList)
+                    this.forceUpdate()
+                })
+            } else if (localStorage.getItem('navigate') === "/my") {
+                this.setState({
+                    grabFlag: false,
+                    openFlag: false,
+                    customerFlag: false,
+                    myFlag: true
+                },()=>{
+                    this.menuNodes = this.getMenuNodes(menuList)
+                    this.forceUpdate()
+                })
+            }
+        } else {
+            this.setState({
+                grabFlag: true,
+                openFlag: false,
+                customerFlag: false,
+                myFlag: false
+            },()=>{
+                this.menuNodes = this.getMenuNodes(menuList)
+                this.forceUpdate()
+            })
+        }
         let aaa = this.props.location.search
         if (aaa) {
             // 是分享过来的
