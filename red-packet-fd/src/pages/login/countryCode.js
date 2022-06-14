@@ -147,1176 +147,1372 @@ const countryCode = [
         "phone_code":"32"
     },
     {
+        "vietnamese_name":"Burkina Faso",
         "english_name":"Burkina Faso",
         "chinese_name":"布基纳法索",
         "country_code":"BF",
         "phone_code":"226"
     },
     {
+        "vietnamese_name":"Bungari",
         "english_name":"Bulgaria",
         "chinese_name":"保加利亚",
         "country_code":"BG",
         "phone_code":"359"
     },
     {
+        "vietnamese_name":"Bahrain",
         "english_name":"Bahrain",
         "chinese_name":"巴林",
         "country_code":"BH",
         "phone_code":"973"
     },
     {
+        "vietnamese_name":"Burundi",
         "english_name":"Burundi",
         "chinese_name":"布隆迪",
         "country_code":"BI",
         "phone_code":"257"
     },
     {
+        "vietnamese_name":"Benin",
         "english_name":"Benin",
         "chinese_name":"贝宁",
         "country_code":"BJ",
         "phone_code":"229"
     },
     {
+        "vietnamese_name":"Bermuda",
         "english_name":"Bermuda",
         "chinese_name":"百慕大群岛",
         "country_code":"BM",
         "phone_code":"1441"
     },
     {
+        "vietnamese_name":"Brunei",
         "english_name":"Brunei",
         "chinese_name":"文莱",
         "country_code":"BN",
         "phone_code":"673"
     },
     {
+        "vietnamese_name":"Bolivia",
         "english_name":"Bolivia",
         "chinese_name":"玻利维亚",
         "country_code":"BO",
         "phone_code":"591"
     },
     {
+        "vietnamese_name":"Ca-ri-bê thuộc Hà Lan",
         "english_name":"Caribisch Nederland",
         "chinese_name":"荷兰加勒比",
         "country_code":"BQ",
         "phone_code":"599"
     },
     {
+        "vietnamese_name":"Brazil",
         "english_name":"Brazil",
         "chinese_name":"巴西",
         "country_code":"BR",
         "phone_code":"55"
     },
     {
+        "vietnamese_name":"Bahamas",
         "english_name":"Bahamas",
         "chinese_name":"巴哈马",
         "country_code":"BS",
         "phone_code":"1242"
     },
     {
+        "vietnamese_name":"Bhutan",
         "english_name":"Bhutan",
         "chinese_name":"不丹",
         "country_code":"BT",
         "phone_code":"975"
     },
     {
+        "vietnamese_name":"Botswana",
         "english_name":"Botswana",
         "chinese_name":"博茨瓦纳",
         "country_code":"BW",
         "phone_code":"267"
     },
     {
+        "vietnamese_name":"Belarus",
         "english_name":"Belarus",
         "chinese_name":"白俄罗斯",
         "country_code":"BY",
         "phone_code":"375"
     },
     {
+        "vietnamese_name":"Belize",
         "english_name":"Belize",
         "chinese_name":"伯利兹",
         "country_code":"BZ",
         "phone_code":"501"
     },
     {
+        "vietnamese_name":"Canada",
         "english_name":"Canada",
         "chinese_name":"加拿大",
         "country_code":"CA",
         "phone_code":"1"
     },
     {
+        "vietnamese_name":"Cộng hòa Dân chủ Congo",
         "english_name":"Democratic Republic of theCongo",
         "chinese_name":"刚果民主共和国",
         "country_code":"CD",
         "phone_code":"243"
     },
     {
+        "vietnamese_name":"Cộng hòa trung phi",
         "english_name":"Central African Republic",
         "chinese_name":"中非共和国",
         "country_code":"CF",
         "phone_code":"236"
     },
     {
+        "vietnamese_name":"cộng hòa Congo",
         "english_name":"Republic Of The Congo",
         "chinese_name":"刚果共和国",
         "country_code":"CG",
         "phone_code":"242"
     },
     {
+        "vietnamese_name":"Thụy sĩ",
         "english_name":"Switzerland",
         "chinese_name":"瑞士",
         "country_code":"CH",
         "phone_code":"41"
     },
     {
+        "vietnamese_name":"bờ biển Ngà",
         "english_name":"Ivory Coast",
         "chinese_name":"象牙海岸",
         "country_code":"CI",
         "phone_code":"225"
     },
     {
+        "vietnamese_name":"Hòn đảo",
         "english_name":"Cook Islands",
         "chinese_name":"库克群岛",
         "country_code":"CK",
         "phone_code":"682"
     },
     {
+        "vietnamese_name":"Chile",
         "english_name":"Chile",
         "chinese_name":"智利",
         "country_code":"CL",
         "phone_code":"56"
     },
     {
+        "vietnamese_name":"Cameroon",
         "english_name":"Cameroon",
         "chinese_name":"喀麦隆",
         "country_code":"CM",
         "phone_code":"237"
     },
     {
+        "vietnamese_name":"Colombia",
         "english_name":"Colombia",
         "chinese_name":"哥伦比亚",
         "country_code":"CO",
         "phone_code":"57"
     },
     {
-        "english_name":"CostaRica",
+        "vietnamese_name":"Costa Rica",
+        "english_name":"Costa Rica",
         "chinese_name":"哥斯达黎加",
         "country_code":"CR",
         "phone_code":"506"
     },
     {
+        "vietnamese_name":"Cuba",
         "english_name":"Cuba",
         "chinese_name":"古巴",
         "country_code":"CU",
         "phone_code":"53"
     },
     {
+        "vietnamese_name":"Cape Verde",
         "english_name":"Cape Verde",
         "chinese_name":"开普",
         "country_code":"CV",
         "phone_code":"238"
     },
     {
+        "vietnamese_name":"rượu cam bì",
         "english_name":"Curacao",
         "chinese_name":"库拉索",
         "country_code":"CW",
         "phone_code":"599"
     },
     {
+        "vietnamese_name":"Síp",
         "english_name":"Cyprus",
         "chinese_name":"塞浦路斯",
         "country_code":"CY",
         "phone_code":"357"
     },
     {
+        "vietnamese_name":"Tiếng Séc",
         "english_name":"Czech",
         "chinese_name":"捷克",
         "country_code":"CZ",
         "phone_code":"420"
     },
     {
+        "vietnamese_name":"nước Đức",
         "english_name":"Germany",
         "chinese_name":"德国",
         "country_code":"DE",
         "phone_code":"49"
     },
     {
+        "vietnamese_name":"Djibouti",
         "english_name":"Djibouti",
         "chinese_name":"吉布提",
         "country_code":"DJ",
         "phone_code":"253"
     },
     {
+        "vietnamese_name":"Đan mạch",
         "english_name":"Denmark",
         "chinese_name":"丹麦",
         "country_code":"DK",
         "phone_code":"45"
     },
     {
+        "vietnamese_name":"Dominica",
         "english_name":"Dominica",
         "chinese_name":"多米尼加",
         "country_code":"DM",
         "phone_code":"1767"
     },
     {
+        "vietnamese_name":"Cộng hòa Dominica",
         "english_name":"dominican republic",
         "chinese_name":"多米尼加共和国",
         "country_code":"DO",
         "phone_code":"1809"
     },
     {
+        "vietnamese_name":"Algeria",
         "english_name":"Algeria",
         "chinese_name":"阿尔及利亚",
         "country_code":"DZ",
         "phone_code":"213"
     },
     {
+        "vietnamese_name":"Ecuador",
         "english_name":"Ecuador",
         "chinese_name":"厄瓜多尔",
         "country_code":"EC",
         "phone_code":"593"
     },
     {
+        "vietnamese_name":"Estonia",
         "english_name":"Estonia",
         "chinese_name":"爱沙尼亚",
         "country_code":"EE",
         "phone_code":"372"
     },
     {
+        "vietnamese_name":"Ai cập",
         "english_name":"Egypt",
         "chinese_name":"埃及",
         "country_code":"EG",
         "phone_code":"20"
     },
     {
+        "vietnamese_name":"Eritrea",
         "english_name":"Eritrea",
         "chinese_name":"厄立特里亚",
         "country_code":"ER",
         "phone_code":"291"
     },
     {
+        "vietnamese_name":"Tây ban nha",
         "english_name":"Spain",
         "chinese_name":"西班牙",
         "country_code":"ES",
         "phone_code":"34"
     },
     {
+        "vietnamese_name":"Ethiopia",
         "english_name":"Ethiopia",
         "chinese_name":"埃塞俄比亚",
         "country_code":"ET",
         "phone_code":"251"
     },
     {
+        "vietnamese_name":"Phần Lan",
         "english_name":"Finland",
         "chinese_name":"芬兰",
         "country_code":"FI",
         "phone_code":"358"
     },
     {
+        "vietnamese_name":"Fiji",
         "english_name":"Fiji",
         "chinese_name":"斐济",
         "country_code":"FJ",
         "phone_code":"679"
     },
     {
+        "vietnamese_name":"Micronesia",
         "english_name":"Micronesia",
         "chinese_name":"密克罗尼西亚",
         "country_code":"FM",
         "phone_code":"691"
     },
     {
+        "vietnamese_name":"Quần đảo Faroe",
         "english_name":"Faroe Islands",
         "chinese_name":"法罗群岛",
         "country_code":"FO",
         "phone_code":"298"
     },
     {
+        "vietnamese_name":"Nước pháp",
         "english_name":"France",
         "chinese_name":"法国",
         "country_code":"FR",
         "phone_code":"33"
     },
     {
+        "vietnamese_name":"Gabon",
         "english_name":"Gabon",
         "chinese_name":"加蓬",
         "country_code":"GA",
         "phone_code":"241"
     },
     {
+        "vietnamese_name":"Vương quốc Anh",
         "english_name":"United Kingdom",
         "chinese_name":"英国",
         "country_code":"GB",
         "phone_code":"44"
     },
     {
+        "vietnamese_name":"Grenada",
         "english_name":"Grenada",
         "chinese_name":"格林纳达",
         "country_code":"GD",
         "phone_code":"1473"
     },
     {
+        "vietnamese_name":"Georgia",
         "english_name":"Georgia",
         "chinese_name":"格鲁吉亚",
         "country_code":"GE",
         "phone_code":"995"
     },
     {
+        "vietnamese_name":"Guiana thuộc Pháp",
         "english_name":"French Guiana",
         "chinese_name":"法属圭亚那",
         "country_code":"GF",
         "phone_code":"594"
     },
     {
+        "vietnamese_name":"Ghana",
         "english_name":"Ghana",
         "chinese_name":"加纳",
         "country_code":"GH",
         "phone_code":"233"
     },
     {
+        "vietnamese_name":"Gibraltar",
         "english_name":"Gibraltar",
         "chinese_name":"直布罗陀",
         "country_code":"GI",
         "phone_code":"350"
     },
     {
+        "vietnamese_name":"Greenland",
         "english_name":"Greenland",
         "chinese_name":"格陵兰岛",
         "country_code":"GL",
         "phone_code":"299"
     },
     {
+        "vietnamese_name":"Gambia",
         "english_name":"Gambia",
         "chinese_name":"冈比亚",
         "country_code":"GM",
         "phone_code":"220"
     },
     {
+        "vietnamese_name":"Guinea",
         "english_name":"Guinea",
         "chinese_name":"几内亚",
         "country_code":"GN",
         "phone_code":"224"
     },
     {
+        "vietnamese_name":"Guadeloupe",
         "english_name":"Guadeloupe",
         "chinese_name":"瓜德罗普岛",
         "country_code":"GP",
         "phone_code":"590"
     },
     {
+        "vietnamese_name":"Equatorial Guinea",
         "english_name":"Equatorial Guinea",
         "chinese_name":"赤道几内亚",
         "country_code":"GQ",
         "phone_code":"240"
     },
     {
+        "vietnamese_name":"Hy Lạp",
         "english_name":"Greece",
         "chinese_name":"希腊",
         "country_code":"GR",
         "phone_code":"30"
     },
     {
+        "vietnamese_name":"Guatemala",
         "english_name":"Guatemala",
         "chinese_name":"瓜地马拉",
         "country_code":"GT",
         "phone_code":"502"
     },
     {
+        "vietnamese_name":"Guam",
         "english_name":"Guam",
         "chinese_name":"关岛",
         "country_code":"GU",
         "phone_code":"1671"
     },
     {
+        "vietnamese_name":"Cộng hòa Guinea-Bissau",
         "english_name":"Guinea-Bissau",
         "chinese_name":"几内亚比绍共和国",
         "country_code":"GW",
         "phone_code":"245"
     },
     {
+        "vietnamese_name":"Guyana",
         "english_name":"Guyana",
         "chinese_name":"圭亚那",
         "country_code":"GY",
         "phone_code":"592"
     },
     {
+        "vietnamese_name":"Trung Quốc Hồng Kông",
         "english_name":"Hong Kong",
         "chinese_name":"中国香港",
         "country_code":"HK",
         "phone_code":"852"
     },
     {
+        "vietnamese_name":"Honduras",
         "english_name":"Honduras",
         "chinese_name":"洪都拉斯",
         "country_code":"HN",
         "phone_code":"504"
     },
     {
+        "vietnamese_name":"Croatia",
         "english_name":"Croatia",
         "chinese_name":"克罗地亚",
         "country_code":"HR",
         "phone_code":"385"
     },
     {
+        "vietnamese_name":"Haiti",
         "english_name":"Haiti",
         "chinese_name":"海地",
         "country_code":"HT",
         "phone_code":"509"
     },
     {
+        "vietnamese_name":"Hungary",
         "english_name":"Hungary",
         "chinese_name":"匈牙利",
         "country_code":"HU",
         "phone_code":"36"
     },
     {
+        "vietnamese_name":"Indonesia",
         "english_name":"Indonesia",
         "chinese_name":"印度尼西亚",
         "country_code":"ID",
         "phone_code":"62"
     },
     {
+        "vietnamese_name":"Ailen",
         "english_name":"Ireland",
         "chinese_name":"爱尔兰",
         "country_code":"IE",
         "phone_code":"353"
     },
     {
+        "vietnamese_name":"Người israel",
         "english_name":"Israel",
         "chinese_name":"以色列",
         "country_code":"IL",
         "phone_code":"972"
     },
     {
+        "vietnamese_name":"Ấn Độ",
         "english_name":"India",
         "chinese_name":"印度",
         "country_code":"IN",
         "phone_code":"91"
     },
     {
+        "vietnamese_name":"I-rắc",
         "english_name":"Iraq",
         "chinese_name":"伊拉克",
         "country_code":"IQ",
         "phone_code":"964"
     },
     {
+        "vietnamese_name":"Iran",
         "english_name":"Iran",
         "chinese_name":"伊朗",
         "country_code":"IR",
         "phone_code":"98"
     },
     {
+        "vietnamese_name":"Nước Iceland",
         "english_name":"Iceland",
         "chinese_name":"冰岛",
         "country_code":"IS",
         "phone_code":"354"
     },
     {
+        "vietnamese_name":"Nước Ý",
         "english_name":"Italy",
         "chinese_name":"意大利",
         "country_code":"IT",
         "phone_code":"39"
     },
     {
+        "vietnamese_name":"Jamaica",
         "english_name":"Jamaica",
         "chinese_name":"牙买加",
         "country_code":"JM",
         "phone_code":"1876"
     },
     {
+        "vietnamese_name":"Jordan",
         "english_name":"Jordan",
         "chinese_name":"约旦",
         "country_code":"JO",
         "phone_code":"962"
     },
     {
+        "vietnamese_name":"Nhật Bản",
         "english_name":"Japan",
         "chinese_name":"日本",
         "country_code":"JP",
         "phone_code":"81"
     },
     {
+        "vietnamese_name":"Kenya",
         "english_name":"Kenya",
         "chinese_name":"肯尼亚",
         "country_code":"KE",
         "phone_code":"254"
     },
     {
+        "vietnamese_name":"Kyrgyzstan",
         "english_name":"Kyrgyzstan",
         "chinese_name":"吉尔吉斯斯坦",
         "country_code":"KG",
         "phone_code":"996"
     },
     {
+        "vietnamese_name":"Campuchia",
         "english_name":"Cambodia",
         "chinese_name":"柬埔寨",
         "country_code":"KH",
         "phone_code":"855"
     },
     {
+        "vietnamese_name":"Kiribati",
         "english_name":"Kiribati",
         "chinese_name":"基里巴斯",
         "country_code":"KI",
         "phone_code":"686"
     },
     {
+        "vietnamese_name":"Comoros",
         "english_name":"Comoros",
         "chinese_name":"科摩罗",
         "country_code":"KM",
         "phone_code":"269"
     },
     {
+        "vietnamese_name":"Saint Kitts và Nevis",
         "english_name":"Saint Kitts and Nevis",
         "chinese_name":"圣基茨和尼维斯",
         "country_code":"KN",
         "phone_code":"1869"
     },
     {
+        "vietnamese_name":"Bắc Triều Tiên",
         "english_name":"Korea Democratic Rep.",
         "chinese_name":"朝鲜",
         "country_code":"KP",
         "phone_code":"850"
     },
     {
+        "vietnamese_name":"Nam Triều Tiên",
         "english_name":"South Korea",
         "chinese_name":"韩国",
         "country_code":"KR",
         "phone_code":"82"
     },
     {
+        "vietnamese_name":"Kuwait",
         "english_name":"Kuwait",
         "chinese_name":"科威特",
         "country_code":"KW",
         "phone_code":"965"
     },
     {
+        "vietnamese_name":"Quần đảo Cayman",
         "english_name":"Cayman Islands",
         "chinese_name":"开曼群岛",
         "country_code":"KY",
         "phone_code":"1345"
     },
     {
+        "vietnamese_name":"Kazakhstan",
         "english_name":"Kazakhstan",
         "chinese_name":"哈萨克斯坦",
         "country_code":"KZ",
         "phone_code":"7"
     },
     {
+        "vietnamese_name":"Nước Lào",
         "english_name":"Laos",
         "chinese_name":"老挝",
         "country_code":"LA",
         "phone_code":"856"
     },
     {
+        "vietnamese_name":"Lebanon",
         "english_name":"Lebanon",
         "chinese_name":"黎巴嫩",
         "country_code":"LB",
         "phone_code":"961"
     },
     {
+        "vietnamese_name":"St Lucia",
         "english_name":"Saint Lucia",
         "chinese_name":"圣露西亚",
         "country_code":"LC",
         "phone_code":"1758"
     },
     {
+        "vietnamese_name":"Liechtenstein",
         "english_name":"Liechtenstein",
         "chinese_name":"列支敦士登",
         "country_code":"LI",
         "phone_code":"423"
     },
     {
+        "vietnamese_name":"Sri Lanka",
         "english_name":"Sri Lanka",
         "chinese_name":"斯里兰卡",
         "country_code":"LK",
         "phone_code":"94"
     },
     {
+        "vietnamese_name":"Liberia",
         "english_name":"Liberia",
         "chinese_name":"利比里亚",
         "country_code":"LR",
         "phone_code":"231"
     },
     {
+        "vietnamese_name":"Lesotho",
         "english_name":"Lesotho",
         "chinese_name":"莱索托",
         "country_code":"LS",
         "phone_code":"266"
     },
     {
+        "vietnamese_name":"Lithuania",
         "english_name":"Lithuania",
         "chinese_name":"立陶宛",
         "country_code":"LT",
         "phone_code":"370"
     },
     {
+        "vietnamese_name":"Luxembourg",
         "english_name":"Luxembourg",
         "chinese_name":"卢森堡",
         "country_code":"LU",
         "phone_code":"352"
     },
     {
+        "vietnamese_name":"Latvia",
         "english_name":"Latvia",
         "chinese_name":"拉脱维亚",
         "country_code":"LV",
         "phone_code":"371"
     },
     {
+        "vietnamese_name":"Libya",
         "english_name":"Libya",
         "chinese_name":"利比亚",
         "country_code":"LY",
         "phone_code":"218"
     },
     {
+        "vietnamese_name":"Maroc",
         "english_name":"Morocco",
         "chinese_name":"摩洛哥",
         "country_code":"MA",
         "phone_code":"212"
     },
     {
+        "vietnamese_name":"Monaco",
         "english_name":"Monaco",
         "chinese_name":"摩纳哥",
         "country_code":"MC",
         "phone_code":"377"
     },
     {
+        "vietnamese_name":"Moldova",
         "english_name":"Moldova",
         "chinese_name":"摩尔多瓦",
         "country_code":"MD",
         "phone_code":"373"
     },
     {
+        "vietnamese_name":"Montenegro",
         "english_name":"Montenegro",
         "chinese_name":"黑山",
         "country_code":"ME",
         "phone_code":"382"
     },
     {
+        "vietnamese_name":"Madagascar",
         "english_name":"Madagascar",
         "chinese_name":"马达加斯加",
         "country_code":"MG",
         "phone_code":"261"
     },
     {
+        "vietnamese_name":"đảo Marshall",
         "english_name":"Marshall Islands",
         "chinese_name":"马绍尔群岛",
         "country_code":"MH",
         "phone_code":"692"
     },
     {
+        "vietnamese_name":"Macedonia",
         "english_name":"Macedonia",
         "chinese_name":"马其顿",
         "country_code":"MK",
         "phone_code":"389"
     },
     {
+        "vietnamese_name":"Mali",
         "english_name":"Mali",
         "chinese_name":"马里",
         "country_code":"ML",
         "phone_code":"223"
     },
     {
+        "vietnamese_name":"Myanmar",
         "english_name":"Myanmar",
         "chinese_name":"缅甸",
         "country_code":"MM",
         "phone_code":"95"
     },
     {
+        "vietnamese_name":"Mông Cổ",
         "english_name":"Mongolia",
         "chinese_name":"蒙古",
         "country_code":"MN",
         "phone_code":"976"
     },
     {
+        "vietnamese_name":"Ma-cao, Trung Quốc",
         "english_name":"Macau",
         "chinese_name":"中国澳门",
         "country_code":"MO",
         "phone_code":"853"
     },
     {
+        "vietnamese_name":"Mauritania",
         "english_name":"Mauritania",
         "chinese_name":"毛里塔尼亚",
         "country_code":"MR",
         "phone_code":"222"
     },
     {
+        "vietnamese_name":"montserrat",
         "english_name":"Montserrat",
         "chinese_name":"蒙特塞拉特岛",
         "country_code":"MS",
         "phone_code":"1664"
     },
     {
+        "vietnamese_name":"Malta",
         "english_name":"Malta",
         "chinese_name":"马耳他",
         "country_code":"MT",
         "phone_code":"356"
     },
     {
+        "vietnamese_name":"Mauritius",
         "english_name":"Mauritius",
         "chinese_name":"毛里求斯",
         "country_code":"MU",
         "phone_code":"230"
     },
     {
+        "vietnamese_name":"Maldives",
         "english_name":"Maldives",
         "chinese_name":"马尔代夫",
         "country_code":"MV",
         "phone_code":"960"
     },
     {
+        "vietnamese_name":"Malawi",
         "english_name":"Malawi",
         "chinese_name":"马拉维",
         "country_code":"MW",
         "phone_code":"265"
     },
     {
+        "vietnamese_name":"Mexico",
         "english_name":"Mexico",
         "chinese_name":"墨西哥",
         "country_code":"MX",
         "phone_code":"52"
     },
     {
+        "vietnamese_name":"Malaysia",
         "english_name":"Malaysia",
         "chinese_name":"马来西亚",
         "country_code":"MY",
         "phone_code":"60"
     },
     {
+        "vietnamese_name":"Mozambique",
         "english_name":"Mozambique",
         "chinese_name":"莫桑比克",
         "country_code":"MZ",
         "phone_code":"258"
     },
     {
+        "vietnamese_name":"Namibia",
         "english_name":"Namibia",
         "chinese_name":"纳米比亚",
         "country_code":"NA",
         "phone_code":"264"
     },
     {
+        "vietnamese_name":"new caledonia",
         "english_name":"New Caledonia",
         "chinese_name":"新喀里多尼亚",
         "country_code":"NC",
         "phone_code":"687"
     },
     {
+        "vietnamese_name":"Niger",
         "english_name":"Niger",
         "chinese_name":"尼日尔",
         "country_code":"NE",
         "phone_code":"227"
     },
     {
+        "vietnamese_name":"Nigeria",
         "english_name":"Nigeria",
         "chinese_name":"尼日利亚",
         "country_code":"NG",
         "phone_code":"234"
     },
     {
+        "vietnamese_name":"Nicaragua",
         "english_name":"Nicaragua",
         "chinese_name":"尼加拉瓜",
         "country_code":"NI",
         "phone_code":"505"
     },
     {
+        "vietnamese_name":"nước Hà Lan",
         "english_name":"Netherlands",
         "chinese_name":"荷兰",
         "country_code":"NL",
         "phone_code":"31"
     },
     {
+        "vietnamese_name":"Na Uy",
         "english_name":"Norway",
         "chinese_name":"挪威",
         "country_code":"NO",
         "phone_code":"47"
     },
     {
+        "vietnamese_name":"Nêpan",
         "english_name":"Nepal",
         "chinese_name":"尼泊尔",
         "country_code":"NP",
         "phone_code":"977"
     },
     {
+        "vietnamese_name":"Đảo Naru",
         "english_name":"Nauru",
         "chinese_name":"拿鲁岛",
         "country_code":"NR",
         "phone_code":"674"
     },
     {
+        "vietnamese_name":"New Zealand",
         "english_name":"New Zealand",
         "chinese_name":"新西兰",
         "country_code":"NZ",
         "phone_code":"64"
     },
     {
+        "vietnamese_name":"Oman",
         "english_name":"Oman",
         "chinese_name":"阿曼",
         "country_code":"OM",
         "phone_code":"968"
     },
     {
+        "vietnamese_name":"Panama",
         "english_name":"Panama",
         "chinese_name":"巴拿马",
         "country_code":"PA",
         "phone_code":"507"
     },
     {
+        "vietnamese_name":"Peru",
         "english_name":"Peru",
         "chinese_name":"秘鲁",
         "country_code":"PE",
         "phone_code":"51"
     },
     {
+        "vietnamese_name":"Polynesia thuộc Pháp",
         "english_name":"French Polynesia",
         "chinese_name":"法属波利尼西亚",
         "country_code":"PF",
         "phone_code":"689"
     },
     {
+        "vietnamese_name":"Papua New Guinea",
         "english_name":"Papua New Guinea",
         "chinese_name":"巴布亚新几内亚",
         "country_code":"PG",
         "phone_code":"675"
     },
     {
+        "vietnamese_name":"Philippines",
         "english_name":"Philippines",
         "chinese_name":"菲律宾",
         "country_code":"PH",
         "phone_code":"63"
     },
     {
+        "vietnamese_name":"Pakistan",
         "english_name":"Pakistan",
         "chinese_name":"巴基斯坦",
         "country_code":"PK",
         "phone_code":"92"
     },
     {
+        "vietnamese_name":"Ba lan",
         "english_name":"Poland",
         "chinese_name":"波兰",
         "country_code":"PL",
         "phone_code":"48"
     },
     {
+        "vietnamese_name":"Saint Pierre và Miquelon",
         "english_name":"Saint Pierreand Miquelon",
         "chinese_name":"圣彼埃尔和密克隆岛",
         "country_code":"PM",
         "phone_code":"508"
     },
     {
+        "vietnamese_name":"Puerto Rico",
         "english_name":"Puerto Rico",
         "chinese_name":"波多黎各",
         "country_code":"PR",
         "phone_code":"1787"
     },
     {
+        "vietnamese_name":"Bồ Đào Nha",
         "english_name":"Portugal",
         "chinese_name":"葡萄牙",
         "country_code":"PT",
         "phone_code":"351"
     },
     {
+        "vietnamese_name":"Palau",
         "english_name":"Palau",
         "chinese_name":"帕劳",
         "country_code":"PW",
         "phone_code":"680"
     },
     {
+        "vietnamese_name":"Paraguay",
         "english_name":"Paraguay",
         "chinese_name":"巴拉圭",
         "country_code":"PY",
         "phone_code":"595"
     },
     {
+        "vietnamese_name":"Qatar",
         "english_name":"Qatar",
         "chinese_name":"卡塔尔",
         "country_code":"QA",
         "phone_code":"974"
     },
     {
+        "vietnamese_name":"Đảo Reunion",
         "english_name":"Réunion Island",
         "chinese_name":"留尼汪",
         "country_code":"RE",
         "phone_code":"262"
     },
     {
+        "vietnamese_name":"Romania",
         "english_name":"Romania",
         "chinese_name":"罗马尼亚",
         "country_code":"RO",
         "phone_code":"40"
     },
     {
+        "vietnamese_name":"Xéc-bi-a",
         "english_name":"Serbia",
         "chinese_name":"塞尔维亚",
         "country_code":"RS",
         "phone_code":"381"
     },
     {
+        "vietnamese_name":"Nga",
         "english_name":"Russia",
         "chinese_name":"俄罗斯",
         "country_code":"RU",
         "phone_code":"7"
     },
     {
+        "vietnamese_name":"Rwanda",
         "english_name":"Rwanda",
         "chinese_name":"卢旺达",
         "country_code":"RW",
         "phone_code":"250"
     },
     {
+        "vietnamese_name":"Ả Rập Saudi",
         "english_name":"Saudi Arabia",
         "chinese_name":"沙特阿拉伯",
         "country_code":"SA",
         "phone_code":"966"
     },
     {
+        "vietnamese_name":"Quần đảo Solomon",
         "english_name":"Solomon Islands",
         "chinese_name":"所罗门群岛",
         "country_code":"SB",
         "phone_code":"677"
     },
     {
+        "vietnamese_name":"Seychelles",
         "english_name":"Seychelles",
         "chinese_name":"塞舌尔",
         "country_code":"SC",
         "phone_code":"248"
     },
     {
+        "vietnamese_name":"Sudan",
         "english_name":"Sudan",
         "chinese_name":"苏丹",
         "country_code":"SD",
         "phone_code":"249"
     },
     {
+        "vietnamese_name":"Thụy Điển",
         "english_name":"Sweden",
         "chinese_name":"瑞典",
         "country_code":"SE",
         "phone_code":"46"
     },
     {
+        "vietnamese_name":"Singapore",
         "english_name":"Singapore",
         "chinese_name":"新加坡",
         "country_code":"SG",
         "phone_code":"65"
     },
     {
+        "vietnamese_name":"Slovenia",
         "english_name":"Slovenia",
         "chinese_name":"斯洛文尼亚",
         "country_code":"SI",
         "phone_code":"386"
     },
     {
+        "vietnamese_name":"Xlô-va-ki-a",
         "english_name":"Slovakia",
         "chinese_name":"斯洛伐克",
         "country_code":"SK",
         "phone_code":"421"
     },
     {
+        "vietnamese_name":"Sierra Leone",
         "english_name":"Sierra Leone",
         "chinese_name":"塞拉利昂",
         "country_code":"SL",
         "phone_code":"232"
     },
     {
+        "vietnamese_name":"San Marino",
         "english_name":"San Marino",
         "chinese_name":"圣马力诺",
         "country_code":"SM",
         "phone_code":"378"
     },
     {
+        "vietnamese_name":"Senegal",
         "english_name":"Senegal",
         "chinese_name":"塞内加尔",
         "country_code":"SN",
         "phone_code":"221"
     },
     {
+        "vietnamese_name":"Somalia",
         "english_name":"Somalia",
         "chinese_name":"索马里",
         "country_code":"SO",
         "phone_code":"252"
     },
     {
+        "vietnamese_name":"Suriname",
         "english_name":"Suriname",
         "chinese_name":"苏里南",
         "country_code":"SR",
         "phone_code":"597"
     },
     {
+        "vietnamese_name":"Sao Tome và Principe",
         "english_name":"Sao Tome and Principe",
         "chinese_name":"圣多美和普林西比",
         "country_code":"ST",
         "phone_code":"239"
     },
     {
+        "vietnamese_name":"salvador",
         "english_name":"ElSalvador",
         "chinese_name":"萨尔瓦多",
         "country_code":"SV",
         "phone_code":"503"
     },
     {
+        "vietnamese_name":"Syria",
         "english_name":"Syria",
         "chinese_name":"叙利亚",
         "country_code":"SY",
         "phone_code":"963"
     },
     {
+        "vietnamese_name":"Swaziland",
         "english_name":"Swaziland",
         "chinese_name":"斯威士兰",
         "country_code":"SZ",
         "phone_code":"268"
     },
     {
+        "vietnamese_name":"Quần đảo Turks và Caicos",
         "english_name":"Turksand Caicos Islands",
         "chinese_name":"特克斯和凯科斯群岛",
         "country_code":"TC",
         "phone_code":"1649"
     },
     {
+        "vietnamese_name":"Chad",
         "english_name":"Chad",
         "chinese_name":"乍得",
         "country_code":"TD",
         "phone_code":"235"
     },
     {
+        "vietnamese_name":"togo",
         "english_name":"Togo",
         "chinese_name":"多哥",
         "country_code":"TG",
         "phone_code":"228"
     },
     {
+        "vietnamese_name":"nước Thái Lan",
         "english_name":"Thailand",
         "chinese_name":"泰国",
         "country_code":"TH",
         "phone_code":"66"
     },
     {
+        "vietnamese_name":"Tajikistan",
         "english_name":"Tajikistan",
         "chinese_name":"塔吉克斯坦",
         "country_code":"TJ",
         "phone_code":"992"
     },
     {
+        "vietnamese_name":"Đông Timor",
         "english_name":"East Timor",
         "chinese_name":"东帝汶",
         "country_code":"TL",
         "phone_code":"670"
     },
     {
+        "vietnamese_name":"Turkmenistan",
         "english_name":"Turkmenistan",
         "chinese_name":"土库曼斯坦",
         "country_code":"TM",
         "phone_code":"993"
     },
     {
+        "vietnamese_name":"Tunisia",
         "english_name":"Tunisia",
         "chinese_name":"突尼斯",
         "country_code":"TN",
         "phone_code":"216"
     },
     {
+        "vietnamese_name":"Tonga",
         "english_name":"Tonga",
         "chinese_name":"汤加",
         "country_code":"TO",
         "phone_code":"676"
     },
     {
+        "vietnamese_name":"Thổ Nhĩ Kỳ",
         "english_name":"Turkey",
         "chinese_name":"土耳其",
         "country_code":"TR",
         "phone_code":"90"
     },
     {
+        "vietnamese_name":"Trinidad và Tobago",
         "english_name":"Trinidadand Tobago",
         "chinese_name":"特立尼达和多巴哥",
         "country_code":"TT",
         "phone_code":"1868"
     },
     {
+        "vietnamese_name":"Đài Loan, Trung Quốc",
         "english_name":"Taiwan",
         "chinese_name":"中国台湾",
         "country_code":"TW",
         "phone_code":"886"
     },
     {
+        "vietnamese_name":"Tanzania",
         "english_name":"Tanzania",
         "chinese_name":"坦桑尼亚",
         "country_code":"TZ",
         "phone_code":"255"
     },
     {
+        "vietnamese_name":"Ukraine",
         "english_name":"Ukraine",
         "chinese_name":"乌克兰",
         "country_code":"UA",
         "phone_code":"380"
     },
     {
+        "vietnamese_name":"Uganda",
         "english_name":"Uganda",
         "chinese_name":"乌干达",
         "country_code":"UG",
         "phone_code":"256"
     },
     {
+        "vietnamese_name":"Uruguay",
         "english_name":"Uruguay",
         "chinese_name":"乌拉圭",
         "country_code":"UY",
         "phone_code":"598"
     },
     {
+        "vietnamese_name":"U-dơ-bê-ki-xtan",
         "english_name":"Uzbekistan",
         "chinese_name":"乌兹别克斯坦",
         "country_code":"UZ",
         "phone_code":"998"
     },
     {
+        "vietnamese_name":"Saint Vincent và Grenadines",
         "english_name":"Saint Vincent and The Grenadines",
         "chinese_name":"圣文森特和格林纳丁斯",
         "country_code":"VC",
         "phone_code":"1784"
     },
     {
+        "vietnamese_name":"Venezuela",
         "english_name":"Venezuela",
         "chinese_name":"委内瑞拉",
         "country_code":"VE",
         "phone_code":"58"
     },
     {
+        "vietnamese_name":"Quần đảo British Virgin",
         "english_name":"VirginIslands,British",
         "chinese_name":"英属处女群岛",
         "country_code":"VG",
         "phone_code":"1284"
     },
     {
+        "vietnamese_name":"Vanuatu",
         "english_name":"Vanuatu",
         "chinese_name":"瓦努阿图",
         "country_code":"VU",
         "phone_code":"678"
     },
     {
+        "vietnamese_name":"Samoa",
         "english_name":"Samoa",
         "chinese_name":"萨摩亚",
         "country_code":"WS",
         "phone_code":"685"
     },
     {
+        "vietnamese_name":"Yemen",
         "english_name":"Yemen",
         "chinese_name":"也门",
         "country_code":"YE",
         "phone_code":"967"
     },
     {
+        "vietnamese_name":"Mayotte",
         "english_name":"Mayotte",
         "chinese_name":"马约特",
         "country_code":"YT",
         "phone_code":"269"
     },
     {
+        "vietnamese_name":"Nam Phi",
         "english_name":"South Africa",
         "chinese_name":"南非",
         "country_code":"ZA",
         "phone_code":"27"
     },
     {
+        "vietnamese_name":"Zambia",
         "english_name":"Zambia",
         "chinese_name":"赞比亚",
         "country_code":"ZM",
         "phone_code":"260"
     },
     {
+        "vietnamese_name":"Zimbabwe",
         "english_name":"Zimbabwe",
         "chinese_name":"津巴布韦",
         "country_code":"ZW",
