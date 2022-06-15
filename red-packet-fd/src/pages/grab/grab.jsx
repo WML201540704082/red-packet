@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { message, Radio } from 'antd'
+import { message, Radio, Select } from 'antd'
 import './grab.less'
 import { reqGrabList, reqAccountBalance, reqGrabBet, reqRechargePay, reqPayOrderInfo, reqGrabCount } from '../../api'
 import grab from './images/grab.png'
@@ -9,6 +9,8 @@ import close from './images/close.png'
 import tag from './images/tag.png'
 import memoryUtils from '../../utils/memoryUtils'
 import { t } from 'i18next'
+import i18n from 'i18next'
+const { Option } = Select;
 // 首页路由
 export default class Grab extends Component {
     constructor(props) {
@@ -21,7 +23,9 @@ export default class Grab extends Component {
             type: '1',
             rechargeAmount: 0,
             redPacketId: null,
-            redPacketAmount: null
+            redPacketAmount: null,
+            unlistedFlag: false,
+            language: 'vie'
 		}
 	}
     componentWillMount() {
@@ -48,8 +52,10 @@ export default class Grab extends Component {
                     {amount: 50000,end: 500000},
                     {amount: 80000,end: 800000},
                     {amount: 100000,end: 1000000},
-                ]
+                ],
+                unlistedFlag: true
             })
+            localStorage.setItem('navigate',"/grab")
         }
     }
     // 账户余额
@@ -131,11 +137,26 @@ export default class Grab extends Component {
             })
         }
     }
-        
+    changeLanguage = (value) => {
+        this.setState({language: value})
+        i18n.changeLanguage(value)
+        // 本地存储lng
+        localStorage.setItem('lng', value)
+        this.forceUpdate()
+    }
     redPacketShow = (dataSource) => {
         if (dataSource && dataSource.length > 0) {
             return(
                 <div>
+                    {
+                        this.state.unlistedFlag ? (
+                            <Select style={{position:'absolute',top:'4%',right:'20px',borderRadius:'5px',width:'106px'}} value={this.state.language} onChange={value => this.changeLanguage(value)}>
+                                <Option value="vie">ViệtName</Option>
+                                <Option value="en">English</Option>
+                                <Option value="zh">中文</Option>
+                            </Select>
+                        ) : null
+                    }
                     <div style={{position:'absolute',top:'5%',left:'30px',padding:'3px 8px',borderRadius:'5px',display:'flex',justifyContent:'center',backgroundColor:'#ffffff',color:'#AC2A22',fontSize:'12px'}}>{t('grab.account_balance')}:{this.state.amount}</div>
                     <div style={{display:'flex',flexDirection:'column',marginTop:'30%'}}>
                         {/* <div style={{display:'flex',justifyContent:'center',color:'#FEFFA7',fontSize:'32px',fontFamily:'FZZDHJW--GB1-0'}}>2022最给力必赚平台</div> */}
