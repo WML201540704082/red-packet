@@ -40,6 +40,13 @@ export default class Basic extends Component {
             })
         }
     }
+    sortBy(property){
+        return function(value1,value2){
+            let a=value1[property]
+            let b=value2[property]
+            return a < b ? -1 : a > b ? 1 : 0
+        }
+    }
     // 开奖概率
     getProbabilityList = async () => {
         let { beginDate2, endDate2 } = this.state
@@ -59,9 +66,14 @@ export default class Basic extends Component {
                 forList.push(frontArray.concat(result.data[i].unpackList).map(item=>{
                     return{
                         ...item,
-                        xxx:result.data[i].amount
+                        xxx:result.data[i].amount,
+                        sortId: item.name === '奖项' ? 0 : item.name === '一等奖' ? 1 : item.name === '二等奖' ? 2 : item.name === '三等奖' ? 3 : item.name === '四等奖' ? 4 : item.name === '五等奖' ? 5 : 
+                        item.name === '六等奖' ? 6 : item.name === '七等奖' ? 7 : item.name === '八等奖' ? 8 : item.name === '九等奖' ? 9 : item.name === '十等奖' ? 10 : 11
                     }
                 }))
+            }
+            for (let i = 0; i < forList.length; i++) {
+                forList[i].sort(this.sortBy('sortId'))
             }
             this.setState({
                 probabilityDate: forList,
