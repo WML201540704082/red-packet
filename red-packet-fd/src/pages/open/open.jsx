@@ -81,7 +81,7 @@ export default class Open extends Component {
                                 <div className='topcontent' style={{borderRadius: '10px 10px 50% 50% / 10px 10px 20% 20%'}}>
                                     <div className='topcontent_content'>{t('open.wish_you_become_rich,wish_you_auspicious_and_propitious_in_the_new_year')}</div>
                                 </div>
-                                <div id='redpack-open' className={this.state.animation ? 'rotate' : ''} onClick={this.openRedPacket.bind(this)}>開</div>
+                                <div id='redpack-open' style={{fontSize:i18n.language === 'en' ? '20px' : ''}} className={this.state.animation ? 'rotate' : ''} onClick={this.openRedPacket.bind(this)}>{i18n.language === 'zh' ? '開' : i18n.language === 'vie' ? 'mở' : 'OPEN'}</div>
                             </div>
                             <div className='bottom_close'>
                                 <img src={close} onClick={() => this.setState({redPacketShow: false})} alt="" />
