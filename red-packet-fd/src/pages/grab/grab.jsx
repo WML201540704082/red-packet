@@ -20,7 +20,7 @@ export default class Grab extends Component {
             imgFlag: false,
             amount: null,
             rechargeFlag: false,
-            type: '1',
+            type: '2',
             rechargeAmount: 0,
             redPacketId: null,
             redPacketAmount: null,
@@ -197,11 +197,11 @@ export default class Grab extends Component {
     // 充值
     showRecharge = () => {
         let payList = [{
-            type: '1',
-            name: 'zalo',
-        },{
+        //     type: '1',
+        //     name: 'Zalo Pay',
+        // },{
             type: '2',
-            name: 'momo'
+            name: 'MoMo Pay'
         }]
         return (
            <div className='recharge_show'>
@@ -213,12 +213,13 @@ export default class Grab extends Component {
                         <div style={{fontSize:'16px',fontFamily:'PingFang-SC-Regular'}}>{t('grab.please_select_payment_channel')}</div>
                     </div>
                     <div className='recharge_show_content_middle'>
-                        <Radio.Group defaultValue={'1'}>
+                        <Radio.Group defaultValue={'2'}>
                             {
                                 payList.map(item=>{
                                     return (
                                         <Radio style={{paddingRight: item.type === '1' ? '20px' : '',paddingLeft: item.type === '2' ? '20px' : ''}} onChange={()=>this.setState({type:item.type})} value={item.type}>
                                             <img src={item.type === '1' ? zalo : momo} style={{width:'40px',height:'40px'}} alt="" />
+                                            <span style={{marginLeft:'10px'}}>{item.name}</span>
                                         </Radio>
                                     )
                                 })

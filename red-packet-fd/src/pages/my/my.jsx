@@ -40,7 +40,7 @@ export default class My extends Component {
             detailFlag: false,//分佣明细
             moneyId: null,
             clickFlag: 0,
-            type: '1',
+            type: '2',
 		}
 	}
     componentWillMount() {
@@ -288,9 +288,9 @@ export default class My extends Component {
     showRecharge = () => {
         let { rechargeConfigList } = this.state
         let payList = [{
-            type: '1',
-            name: 'Zalo Pay',
-        },{
+        //     type: '1',
+        //     name: 'Zalo Pay',
+        // },{
             type: '2',
             name: 'MoMo Pay'
         }]
@@ -339,7 +339,7 @@ export default class My extends Component {
                                         )
                                     })
                                 } */}
-                                <Radio.Group defaultValue={'1'} style={{width:'100%'}}>
+                                <Radio.Group defaultValue={'2'} style={{width:'100%'}}>
                                     {
                                         payList.map(item=>{
                                             return (
