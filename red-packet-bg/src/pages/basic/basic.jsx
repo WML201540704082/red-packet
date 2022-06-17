@@ -388,32 +388,52 @@ export default class Basic extends Component {
                             {
                                 title: '次留',
                                 align: 'center',
-                                dataIndex: 'secondStay',
                                 key: 'secondStay',
+                                render: reload => {
+                                    return (
+                                        <span>{reload.secondStay !== 0 ? (reload.secondStay/reload.secondPer * 100 + '%') : '0%'}</span>
+                                    )
+                                },
                             },
                             {
                                 title: '3留',
                                 align: 'center',
-                                dataIndex: 'three',
                                 key: 'three',
+                                render: reload => {
+                                    return (
+                                        <span>{reload.three !== 0 ? (reload.three/reload.threePer * 100 + '%') : '0%'}</span>
+                                    )
+                                },
                             },
                             {
                                 title: '7留',
                                 align: 'center',
-                                dataIndex: 'sevenStay',
                                 key: 'sevenStay',
+                                render: reload => {
+                                    return (
+                                        <span>{reload.sevenStay !== 0 ? (reload.sevenStay/reload.sevenStayPer * 100 + '%') : '0%'}</span>
+                                    )
+                                },
                             },
                             {
                                 title: '15留',
                                 align: 'center',
-                                dataIndex: 'fifteenStay',
                                 key: 'fifteenStay',
+                                render: reload => {
+                                    return (
+                                        <span>{reload.fifteenStay !== 0 ? (reload.fifteenStay/reload.fifteenStayPer * 100 + '%') : '0%'}</span>
+                                    )
+                                },
                             },
                             {
                                 title: '月留',
                                 align: 'center',
-                                dataIndex: 'monthStay',
                                 key: 'monthStay',
+                                render: reload => {
+                                    return (
+                                        <span>{reload.monthStay !== 0 ? (reload.monthStay/reload.monthStayPer * 100 + '%') : '0%'}</span>
+                                    )
+                                },
                             },
                         ]}
                     />
