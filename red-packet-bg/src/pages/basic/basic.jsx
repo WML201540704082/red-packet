@@ -88,8 +88,74 @@ export default class Basic extends Component {
         let result = await reqKeep(params)
         if (result.code === 0) {
             this.setState({
-                keepSource: [result.data],
+                keepSource: [{
+                    name: '用户留存',
+                    stayPre: '留存百分比',
+                    stay: '留存用户数'
+                },{
+                    name: '次留',
+                    stayPre: result.data.secondPer,
+                    stay: result.data.secondStay
+                },{
+                    name: '3留',
+                    stayPre: result.data.threePer,
+                    stay: result.data.three
+                },{
+                    name: '7留',
+                    stayPre: result.data.sevenStayPer,
+                    stay: result.data.sevenStay
+                },{
+                    name: '15留',
+                    stayPre: result.data.fifteenStayPer,
+                    stay: result.data.fifteenStay
+                },{
+                    name: '月留',
+                    stayPre: result.data.monthStayPer,
+                    stay: result.data.monthStay
+                }],
             })
+        }
+    }
+    // 用户留存Dom表格
+    keepDom = (keepSource) => {
+        if (keepSource) {
+            return (
+                <div>
+                    <table border="1" width="100%" align="center" style={{marginBottom:'15px'}}>
+                        <thead>
+                            <tr bgcolor="#FAFAFA">
+                                {
+                                    keepSource.map(item=>{
+                                        return (
+                                            <th>{item.name}</th>
+                                        )
+                                    })
+                                }
+                            </tr>
+                        </thead>
+                        <tbody align="center">
+                            <tr>
+                                {
+                                    keepSource.map(item=>{
+                                        return (
+                                            <th style={item.stayPre !== '留存百分比' ? {fontWeight: 'normal'} : {}}>{item.stayPre === '留存百分比' ? item.stayPre : item.stayPre + '%'}</th>
+                                        )
+                                    })
+                                }
+                            </tr>
+                            <tr>
+                                {
+                                    keepSource.map(item=>{
+                                        return (
+                                            <th style={item.stay !== '留存用户数' ? {fontWeight: 'normal'} : {}}>{item.stay}</th>
+                                        )
+                                    })
+                                }
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            )
         }
     }
     // 开奖概率Dom表格
@@ -370,73 +436,7 @@ export default class Basic extends Component {
                     />
                 </Card>
                 <Card title={title3} extra={extra3}>
-                    <Table
-                        bordered
-                        rowKey="id"
-                        dataSource={keepSource}
-                        pagination={false}
-                        style={{'marginTop':'0px',marginBottom:'15px'}}
-                        columns={[
-                            {
-                                title: '用户留存',
-                                render: reload => {
-                                    return (
-                                        <span>留存用户数</span>
-                                    )
-                                },
-                            },
-                            {
-                                title: '次留',
-                                align: 'center',
-                                key: 'secondStay',
-                                render: reload => {
-                                    return (
-                                        <span>{reload.secondStay !== 0 ? (reload.secondStay/reload.secondPer * 100 + '%') : '0%'}</span>
-                                    )
-                                },
-                            },
-                            {
-                                title: '3留',
-                                align: 'center',
-                                key: 'three',
-                                render: reload => {
-                                    return (
-                                        <span>{reload.three !== 0 ? (reload.three/reload.threePer * 100 + '%') : '0%'}</span>
-                                    )
-                                },
-                            },
-                            {
-                                title: '7留',
-                                align: 'center',
-                                key: 'sevenStay',
-                                render: reload => {
-                                    return (
-                                        <span>{reload.sevenStay !== 0 ? (reload.sevenStay/reload.sevenStayPer * 100 + '%') : '0%'}</span>
-                                    )
-                                },
-                            },
-                            {
-                                title: '15留',
-                                align: 'center',
-                                key: 'fifteenStay',
-                                render: reload => {
-                                    return (
-                                        <span>{reload.fifteenStay !== 0 ? (reload.fifteenStay/reload.fifteenStayPer * 100 + '%') : '0%'}</span>
-                                    )
-                                },
-                            },
-                            {
-                                title: '月留',
-                                align: 'center',
-                                key: 'monthStay',
-                                render: reload => {
-                                    return (
-                                        <span>{reload.monthStay !== 0 ? (reload.monthStay/reload.monthStayPer * 100 + '%') : '0%'}</span>
-                                    )
-                                },
-                            },
-                        ]}
-                    />
+                    {this.keepDom(keepSource)}
                 </Card>
                 <Card title={title2} extra={extra2}>
                     {this.probabilityDom(probabilityDate ? probabilityDate[0] : [])}
