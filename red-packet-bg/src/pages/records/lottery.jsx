@@ -138,6 +138,12 @@ export default class Lottery extends Component {
                                 key: 'awards',
                             },
                             {
+                                title: '抢红包金额',
+                                align: 'center',
+                                dataIndex: 'redPacketsAmount',
+                                key: 'redPacketsAmount',
+                            },
+                            {
                                 title: '中奖金额',
                                 align: 'center',
                                 dataIndex: 'amount',
