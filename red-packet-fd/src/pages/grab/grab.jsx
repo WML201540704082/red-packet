@@ -7,6 +7,7 @@ import zalo from './images/zalo.png'
 import momo from './images/momo.png'
 import close from './images/close.png'
 import tag from './images/tag.png'
+import go_open_en from './images/goOpen_en.png'
 import memoryUtils from '../../utils/memoryUtils'
 import { t } from 'i18next'
 import i18n from 'i18next'
@@ -288,7 +289,7 @@ export default class Grab extends Component {
             <div className='img_show'>
                 <div className='img_show_outer'></div>
                 <div className='img_show_content_outer'>
-                    <div className='img_show_content'>
+                    <div className='img_show_content' style={{backgroundImage: i18n.language === 'zh' ? '' : `url("${go_open_en}")`}}>
                         <img src={close} style={{width:'20px',height:'20px',position:'absolute',top:'-12px',right:'28px'}} onClick={() => this.setState({imgFlag: false})} alt="" />
                         <div className='img_show_content_top'>
                             <div className='img_show_content_top_content'>{t('grab.congratulations_on_getting_a_red_envelope')}</div>

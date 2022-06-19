@@ -226,6 +226,7 @@ export default class My extends Component {
         let { id } = this.state
         return (
             <div className='share'>
+                <div style={{backgroundColor:'#1B1B1B',opacity:'0.6',position:'absolute',width:'100%',height:'100%'}}></div>
                 <div className='share_content'>
                     <img src={close} onClick={() => this.setState({shareFlag: false})} alt="" />
                     <QRCode

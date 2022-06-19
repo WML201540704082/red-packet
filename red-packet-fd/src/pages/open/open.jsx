@@ -2,6 +2,7 @@ import React, { Component } from 'react'
 import { Carousel, message } from 'antd'
 import open from './images/open.png'
 import open_en from './images/open_en.png'
+import bg_en from './images/bg_en.png'
 import horn from './images/horn.png'
 import { reqUnpackLottery, reqGrabCount, reqCarouselInfo } from '../../api'
 import close from '../grab/images/close.png'
@@ -77,6 +78,7 @@ export default class Open extends Component {
                 if (status === 0) {
                     return(
                         <div className='redpack_outer'>
+                            <div style={{backgroundColor:'#1B1B1B',opacity:'0.6',position:'absolute',width:'100%',height:'110%'}}></div>
                             <div className='redpack'>
                                 <div className='topcontent' style={{borderRadius: '10px 10px 50% 50% / 10px 10px 20% 20%'}}>
                                     <div className='topcontent_content'>{t('open.wish_you_become_rich,wish_you_auspicious_and_propitious_in_the_new_year')}</div>
@@ -91,8 +93,9 @@ export default class Open extends Component {
                 } else {
                     return(
                         <div className='winner_outer'>
+                            <div style={{backgroundColor:'#1B1B1B',opacity:'0.6',position:'absolute',width:'100%',height:'110%'}}></div>
                             <div className='winner'>
-                                <img src={close} style={{width:'20px',height:'20px',position:'absolute',top:'-27px',right:'8px'}} onClick={() => this.setState({redPacketShow: false})} alt="" />
+                                <img src={close} style={{width:'20px',height:'20px',position:'absolute',top:'-27px',right:'8px'}} onClick={() => this.setState({redPacketShow: false,status: 0})} alt="" />
                                 <div className={i18n.language === 'vie' ? 'winner_top_vie' : i18n.language === 'en' ? 'winner_top_en' : 'winner_top'}>
                                     <div>{t('open.congratulations!You_have_won_a_big_prize')}</div>
                                 </div>
@@ -100,7 +103,7 @@ export default class Open extends Component {
                                     <div>{winnerObject.amount}</div>
                                 </div>
                                 <div className='winner_bottom'>
-                                    <div className='winner_bottom_content' onClick={() => this.nextOne()}>{t('open.once_more')}》</div>
+                                    <div className='winner_bottom_content' onClick={() => this.nextOne()}>{t('open.once_more')} 》</div>
                                 </div>
                             </div>
                         </div>
@@ -184,7 +187,7 @@ export default class Open extends Component {
                             return (
                                 <div className='openContent' key={item.index} onClick={() => this.setState({redPacketShow: true})}>
                                     <span className='content_img'>
-                                        <img src={i18n.language === 'zh' ? open : i18n.language === 'cn' ? open_en : open_en} alt="open"/>
+                                        <img src={i18n.language === 'zh' ? open : i18n.language === 'en' ? open_en : open_en} alt="open"/>
                                     </span>
                                 </div>
                             )
@@ -196,7 +199,7 @@ export default class Open extends Component {
     }
     render() {
         return (
-            <div className='open'>
+            <div className='open' style={{backgroundImage: i18n.language === 'zh' ? '' : `url("${bg_en}")`}}>
                 {this.openShow()}
                 {this.state.redPacketShow ? this.oepnRedPacket() : null}
             </div>

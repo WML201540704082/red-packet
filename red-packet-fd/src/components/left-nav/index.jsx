@@ -257,7 +257,16 @@ class leftNav extends Component {
                                           (item.key === '/customer' && customerFlag) ? customer_hover :
                                           (item.key === '/my' && !myFlag) ? my : my_hover} 
                                     style={{marginBottom: '-10px',marginTop:'7px'}} alt="icon"/>
-                                <span style={{marginBottom: '-12px',transform: i18n.language === 'en' ? 'scale(0.9)' : ''}}>{item.title}</span>
+                                <span style={{marginBottom: '-12px',transform: i18n.language === 'en' ? 'scale(0.9)' : '',
+                                              color:(item.key === '/grab' && !grabFlag) ? '#666666' : 
+                                              (item.key === '/grab' && grabFlag) ? '' :
+                                              (item.key === '/open' && !openFlag) ? '#666666' : 
+                                              (item.key === '/open' && openFlag) ? '' :
+                                              (item.key === '/customer' && !customerFlag) ? '#666666' : 
+                                              (item.key === '/customer' && customerFlag) ?  '':
+                                              (item.key === '/my' && !myFlag) ? '#666666' : ''}}>
+                                    {item.title}
+                                </span>
                             </span>
                         }</Link>
                     </Menu.Item>
