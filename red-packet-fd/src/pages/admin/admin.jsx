@@ -19,6 +19,11 @@ export default class Admin extends Component {
     componentWillReceiveProps (){
         console.log(i18n.language)
         i18n.changeLanguage(i18n.language)
+        // if (window.location.hash) {
+        //     // 重新赋值本地存储导航栏信息(防止点击的链接后面没有’/grab‘、'/open'。。。)
+        //     localStorage.setItem('navigate',window.location.hash.substring(1) || '/grab')
+        //     console.log(window.location.hash.substring(1) || '/grab')
+        // }
         this.forceUpdate()
     }
     render () {

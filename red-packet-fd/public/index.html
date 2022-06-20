@@ -11,7 +11,7 @@
 		/>
 		<link rel="apple-touch-icon" href="%PUBLIC_URL%/logo192.png" />
 		<link rel="manifest" href="%PUBLIC_URL%/manifest.json" />
-		<title>天天抢红包</title>
+		<title>Mỗi Ngày Nhận Lì Xì</title>
 		<link rel="stylesheet" href="/css/reset.css">
 	</head>
 	<body onload="myFunction()">
@@ -23,21 +23,12 @@
 		</script>
 		<script>
 			function getTitle() {
-				var lng = (navigator.language) ? navigator.language : navigator.userLanguage
+				var lng = localStorage.getItem('lng') ? localStorage.getItem('lng') : 'vie'
 				switch (lng) {
 					case 'zh':
 						return '天天抢红包';
 						break;
-					case 'zh-CN':
-						return '天天抢红包';
-						break
-					case 'en':
-						return 'Lucky red pocket';
-						break;
 					case 'vie':
-						return 'Mỗi Ngày Nhận Lì Xì';
-						break;
-					case 'vi':
 						return 'Mỗi Ngày Nhận Lì Xì';
 						break;
 					default:

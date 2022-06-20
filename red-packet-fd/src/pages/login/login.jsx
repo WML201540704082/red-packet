@@ -224,6 +224,8 @@ export default class Login extends Component {
                         const user = result.data
                         memoryUtils.user = user //保存在内存中
                         storageUtils.saveUser(user)
+                        // 重新赋值本地存储导航栏信息(防止一开始进入抢红包页面点击grab以外的导航，本地存储为其他导航信息，登录进去下方显示错误)
+                        localStorage.setItem('navigate','/grab')
                         // 跳转到管理页面(不需要会退到登陆用replace，需要会退到登陆用push)
                         this.props.history.push('/')
                     } else {
@@ -268,6 +270,7 @@ export default class Login extends Component {
             i18n.changeLanguage(value)
             // 本地存储lng
             localStorage.setItem('lng', value)
+            document.title = value === 'zh' ? '天天抢红包' : value === 'vie' ? 'Mỗi Ngày Nhận Lì Xì' : 'Lucky red pocket'
             this.forceUpdate()
         }
         return (
