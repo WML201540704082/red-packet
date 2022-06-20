@@ -256,9 +256,10 @@ export default class My extends Component {
         let { balanceObject } = this.state
         return (
            <div className='balance'>
-                <div className='balance_outer' onClick={() => this.setState({balanceFlag: false})}></div>
+                <div className='balance_outer'></div>
                 <div className='balance_content_outer'>
                     <div className='balance_content'>
+                        <img src={close} style={{width:'20px',height:'20px',position:'absolute',top:'-35px',right:'5px'}} onClick={() => this.setState({balanceFlag: false})} alt="" />
                         <div className='balance_content_top'>
                             <div style={{fontSize:'20px'}}>{t('my.current_balance')}</div>
                             <div style={{fontWeight:'bold',fontSize:'26px',fontFamily:'PingFang-SC-Heavy'}}>{balanceObject.amount}</div>
@@ -300,7 +301,7 @@ export default class My extends Component {
                 <div className='recharge_outer'></div>
                 <div className='recharge_content_outer'>
                     <div className='recharge_content'>
-                        <img src={close} style={{width:'20px',height:'20px',position:'absolute',top:'-40px',right:'5px'}} onClick={() => this.setState({rechargeFlag: false})} alt="" />
+                        <img src={close} style={{width:'20px',height:'20px',position:'absolute',top:'-35px',right:'5px'}} onClick={() => this.setState({rechargeFlag: false})} alt="" />
                         <div className='recharge_content_top'>
                             <span>{t('my.recharge')}</span>
                         </div>
