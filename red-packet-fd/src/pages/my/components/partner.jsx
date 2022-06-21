@@ -3,6 +3,7 @@ import goback from '../images/goback.png'
 import { reqPartnerList } from '../../../api'
 import { message } from 'antd'
 import { t } from 'i18next'
+import i18n from 'i18next'
 
 export default class Partner extends Component {
     formRef = React.createRef()
@@ -22,7 +23,7 @@ export default class Partner extends Component {
                 partnerList: result.data.map(item=>{
                     return {
                         ...item,
-                        userId: item.userId.substring(0,3)+'****'+item.userId.substring(item.userId.length-4,item.userId.length)
+                        userId: item.userId < 8 ? item.userId : item.userId.substring(0,2)+'****'+item.userId.substring(item.userId.length-2,item.userId.length)
                     }
                 })
             })
@@ -63,7 +64,11 @@ export default class Partner extends Component {
                                                 return (
                                                     <tr style={{height:'30px',fontSize:'12px',fontWeight:'normal'}}>
                                                         <th style={{fontWeight:'normal'}}>{index+1}</th>
-                                                        <th style={{fontWeight:'normal'}}>{item.userId}</th>
+                                                        <th style={{fontWeight:'normal'}}>{i18n.language === 'zh' ? item.userId : 
+                                                                                           i18n.language === 'vie' ? (item.userId === '一级代理' ? 'Đại Lý Cấp 1' : item.userId === '二级代理' ? 'Đại Lý Cấp 2' : item.userId === '三级代理' ? 'Đại Lý Cấp 3' : item.userId === '四级代理' ? 'Đại Lý Cấp 4' : 'Đại Lý Cấp 5') : 
+                                                                                           (item.userId === '一级代理' ? '1 level' : item.userId === '二级代理' ? '2 level' : 
+                                                                                            item.userId === '三级代理' ? '3 level' : item.userId === '四级代理' ? '4 level' : '5 level')}
+                                                        </th>
                                                         <th style={{fontWeight:'normal'}}>{item.actingLevel}</th>
                                                         <th style={{fontWeight:'normal'}}>{item.amount/1000}{item.commissionAmount!==0?'k':''}</th>
                                                         <th style={{fontWeight:'normal'}}>{item.commissionAmount/1000}{item.commissionAmount!==0?'k':''}</th>
