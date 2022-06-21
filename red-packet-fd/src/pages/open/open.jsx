@@ -95,7 +95,7 @@ export default class Open extends Component {
                         <div className='winner_outer'>
                             <div style={{backgroundColor:'#1B1B1B',opacity:'0.6',position:'absolute',width:'100%',height:'110%'}}></div>
                             <div className='winner'>
-                                <img src={close} style={{width:'20px',height:'20px',position:'absolute',top:'-27px',right:'8px'}} onClick={() => this.setState({redPacketShow: false,status: 0})} alt="" />
+                                <img src={close} style={{width:'20px',height:'20px',position:'absolute',top:'-27px',right:'8px'}} onClick={() => this.closeRedPacket()} alt="" />
                                 <div className={i18n.language === 'vie' ? 'winner_top_vie' : i18n.language === 'en' ? 'winner_top_en' : 'winner_top'}>
                                     <div>{t('open.congratulations!You_have_won_a_big_prize')}</div>
                                 </div>
@@ -123,6 +123,13 @@ export default class Open extends Component {
                 this.oepnRedPacket()
             })
         }
+    }
+    closeRedPacket = () => {
+        this.setState({
+            redPacketShow: false,
+            status: 0
+        })
+        this.getGrabCount()
     }
     openRedPacket = async () => {
         let result = await reqUnpackLottery()

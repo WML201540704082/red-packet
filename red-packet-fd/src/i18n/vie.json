@@ -23,7 +23,8 @@
 		"new_password": "Mật Khẩu Mới",
 		"retrieve_password": "Tìm Lại Mật Khẩu",
 		"please_log_in_first": "vui lòng đăng nhập trước!",
-		"select_country_code": "Chọn mã quốc gia"
+		"select_country_code": "Chọn mã quốc gia",
+		"insufficient_balance": "Không đủ số dư, vui lòng nạp tiền trước!"
 	},
 	"grab": {
 		"max_grab": "Cao Nhất Có Thể Nhận",

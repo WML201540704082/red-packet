@@ -21,7 +21,7 @@ export default class Grab extends Component {
             imgFlag: false,
             amount: null,
             rechargeFlag: false,
-            type: '2',
+            type: '1',
             rechargeAmount: 0,
             redPacketId: null,
             redPacketAmount: null,
@@ -106,7 +106,7 @@ export default class Grab extends Component {
         const user = memoryUtils.user
         if (user && user.userId) {
             if (this.state.amount < item.amount) {
-                message.warning('余额不足，请先充值！')
+                message.warning(t('grab.insufficient_balance'))
                 this.setState({
                     rechargeFlag: true,
                     rechargeAmount: item.amount,
@@ -154,7 +154,7 @@ export default class Grab extends Component {
                             <Select style={{position:'absolute',top:'4%',right:'20px',borderRadius:'5px',width:'106px'}} value={this.state.language} onChange={value => this.changeLanguage(value)}>
                                 <Option value="vie">ViệtName</Option>
                                 <Option value="en">English</Option>
-                                <Option value="zh">中文</Option>
+                                {/* <Option value="zh">中文</Option> */}
                             </Select>
                         ) : null
                     }
@@ -198,9 +198,9 @@ export default class Grab extends Component {
     // 充值
     showRecharge = () => {
         let payList = [{
-        //     type: '1',
-        //     name: 'Zalo Pay',
-        // },{
+            type: '1',
+            name: 'Zalo Pay',
+        },{
             type: '2',
             name: 'MoMo Pay'
         }]
@@ -214,13 +214,13 @@ export default class Grab extends Component {
                         <div style={{fontSize:'16px',fontFamily:'PingFang-SC-Regular'}}>{t('grab.please_select_payment_channel')}</div>
                     </div>
                     <div className='recharge_show_content_middle'>
-                        <Radio.Group defaultValue={'2'}>
+                        <Radio.Group defaultValue={'1'}>
                             {
                                 payList.map(item=>{
                                     return (
                                         <Radio style={{paddingRight: item.type === '1' ? '20px' : '',paddingLeft: item.type === '2' ? '20px' : ''}} onChange={()=>this.setState({type:item.type})} value={item.type}>
                                             <img src={item.type === '1' ? zalo : momo} style={{width:'40px',height:'40px'}} alt="" />
-                                            <span style={{marginLeft:'10px'}}>{item.name}</span>
+                                            {/* <span style={{marginLeft:'10px'}}>{item.name}</span> */}
                                         </Radio>
                                     )
                                 })

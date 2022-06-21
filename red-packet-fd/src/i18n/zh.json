@@ -32,7 +32,8 @@
 		"please_select_payment_channel": "请选择支付通道",
 		"go_recharget": "去充值",
 		"congratulations_on_getting_a_red_envelope": "恭喜您获得一个红包",
-		"go_open_red_envelope": "去拆红包"
+		"go_open_red_envelope": "去拆红包",
+		"insufficient_balance": "余额不足，请先充值！"
 	},
 	"open": {
 		"reminder": "温馨提示！",

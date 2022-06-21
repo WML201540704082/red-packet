@@ -32,7 +32,8 @@
 		"please_select_payment_channel": "Please select payment channel",
 		"go_recharget": "Go recharget",
 		"congratulations_on_getting_a_red_envelope": "Congratulations on getting a red envelope",
-		"go_open_red_envelope": "Go withdraw now"
+		"go_open_red_envelope": "Go withdraw now",
+		"insufficient_balance": "Insufficient balance, please recharge first!"
 	},
 	"open": {
 		"reminder": "Notice",
