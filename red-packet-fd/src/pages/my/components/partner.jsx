@@ -64,12 +64,12 @@ export default class Partner extends Component {
                                                 return (
                                                     <tr style={{height:'30px',fontSize:'12px',fontWeight:'normal'}}>
                                                         <th style={{fontWeight:'normal'}}>{index+1}</th>
-                                                        <th style={{fontWeight:'normal'}}>{i18n.language === 'zh' ? item.userId : 
-                                                                                           i18n.language === 'vie' ? (item.userId === '一级代理' ? 'Đại Lý Cấp 1' : item.userId === '二级代理' ? 'Đại Lý Cấp 2' : item.userId === '三级代理' ? 'Đại Lý Cấp 3' : item.userId === '四级代理' ? 'Đại Lý Cấp 4' : 'Đại Lý Cấp 5') : 
-                                                                                           (item.userId === '一级代理' ? '1 level' : item.userId === '二级代理' ? '2 level' : 
-                                                                                            item.userId === '三级代理' ? '3 level' : item.userId === '四级代理' ? '4 level' : '5 level')}
+                                                        <th style={{fontWeight:'normal'}}>{item.userId}</th>
+                                                        <th style={{fontWeight:'normal'}}>{i18n.language === 'zh' ? item.actingLevel : 
+                                                                                           i18n.language === 'vie' ? (item.actingLevel === '一级代理' ? 'Đại Lý Cấp 1' : item.actingLevel === '二级代理' ? 'Đại Lý Cấp 2' : item.actingLevel === '三级代理' ? 'Đại Lý Cấp 3' : item.actingLevel === '四级代理' ? 'Đại Lý Cấp 4' : 'Đại Lý Cấp 5') : 
+                                                                                           (item.actingLevel === '一级代理' ? '1 level' : item.actingLevel === '二级代理' ? '2 level' : 
+                                                                                            item.actingLevel === '三级代理' ? '3 level' : item.actingLevel === '四级代理' ? '4 level' : '5 level')}
                                                         </th>
-                                                        <th style={{fontWeight:'normal'}}>{item.actingLevel}</th>
                                                         <th style={{fontWeight:'normal'}}>{item.amount/1000}{item.commissionAmount!==0?'k':''}</th>
                                                         <th style={{fontWeight:'normal'}}>{item.commissionAmount/1000}{item.commissionAmount!==0?'k':''}</th>
                                                     </tr>
