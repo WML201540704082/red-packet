@@ -231,7 +231,7 @@ export default class My extends Component {
                     <img src={close} onClick={() => this.setState({shareFlag: false})} alt="" />
                     <QRCode
                         id="qrCode"
-                        value={'http://www.redpz.com/#/login?sign=' + id}  //地址
+                        value={'https://www.redpz.com/#/login?sign=' + id}  //地址
                         size={180} // 二维码的大小
                         fgColor="#000000" // 二维码的颜色
                         style={{ margin: 'auto' }}
@@ -247,7 +247,7 @@ export default class My extends Component {
         )
     }
     copyUrl = () => {
-        let url = 'http://www.redpz.com/#/login?sign=' + this.state.id
+        let url = 'https://www.redpz.com/#/login?sign=' + this.state.id
         copy(url)
         message.success(t('my.copy_success'))
     }

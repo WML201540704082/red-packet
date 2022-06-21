@@ -75,11 +75,9 @@ export default class Login extends Component {
         let aaa = this.props.location.search
         // let aaa = "?id=123"
         if (aaa) {
-            localStorage.setItem('shareId',aaa.substring(6))
-            window.location.replace("http://www.redpz.com/#/login")
-            // this.setState({
-            //     shareId: aaa.substring(6)
-            // })
+            this.setState({
+                shareId: aaa.substring(6)
+            })
         } else {
             this.setState({
                 shareId: this.props.location.state ? this.props.location.state.shareId : null,
@@ -107,8 +105,9 @@ export default class Login extends Component {
         console.log('**********',response)
         if (response.profileObj) {
             const { name, googleId } = response.profileObj
+            let { shareId } = this.state
             let params = {
-                id: localStorage.getItem('shareId'),
+                id: shareId,
                 name: name,
                 userId: googleId,
                 type: this.state.language === 'en' ? '0' : 1
@@ -121,7 +120,6 @@ export default class Login extends Component {
                     const user = result.data
                     memoryUtils.user = user //保存在内存中
                     storageUtils.saveUser(user)
-                    localStorage.removeItem('shareId')
                     this.props.history.push('/')
                 } else {
                     message.error(result.message)
@@ -140,8 +138,9 @@ export default class Login extends Component {
         console.log('----------',response)
         if (response.name || response.userID) {
             const { name, userID } = response
+            let { shareId } = this.state
             let params = {
-                id: localStorage.getItem('shareId'),
+                id: shareId,
                 name: name,
                 userId: userID,
                 type: this.state.language === 'en' ? '0' : 1
@@ -154,7 +153,6 @@ export default class Login extends Component {
                     const user = result.data
                     memoryUtils.user = user //保存在内存中
                     storageUtils.saveUser(user)
-                    localStorage.removeItem('shareId')
                     this.props.history.push('/')
                 } else {
                     message.error(result.message)
@@ -241,9 +239,9 @@ export default class Login extends Component {
         };
         // 免密登录
         const onPhoneFinish = async () => {
-            const { phone, code } = this.state
+            const { phone, code, shareId } = this.state
             let params = {
-                userId: localStorage.getItem('shareId'),
+                userId: shareId,
                 phone: this.state.phoneCode.substring(1) + phone,
                 code: code,
                 type: this.state.language === 'en' ? '0' : 1
@@ -257,7 +255,7 @@ export default class Login extends Component {
                     const user = result.data
                     memoryUtils.user = user //保存在内存中
                     storageUtils.saveUser(user)
-                    localStorage.removeItem('shareId')
+
                     // 跳转到管理页面(不需要会退到登陆用replace，需要会退到登陆用push)
                     this.props.history.push('/')
                 } else {
@@ -459,7 +457,7 @@ export default class Login extends Component {
     // 注册
     showModal = (flag) => {
 		if (flag) {
-            let shareId = localStorage.getItem('shareId')
+            let { shareId } = this.state
 			return (
 				<RegisterAcc
 					flag={flag}
