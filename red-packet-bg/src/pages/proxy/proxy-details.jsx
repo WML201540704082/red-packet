@@ -53,12 +53,13 @@ export default class ProxyDetails extends Component {
 				onCancel={() => this.closeClear()} 
 				cancelText="取消" 
 				okText="确定"
+				width='70%'
+				style={{marginTop:'-20px'}}
 			>
 				<Table
 					bordered
 					rowKey="id"
 					dataSource={dataSource}
-					style={{'height': '500px','overflow': 'auto'}}
 					pagination={{current: pageNumber,pageSize: pageSize, 
 						showQuickJumper: false, 
 						showSizeChanger: true, 
@@ -67,7 +68,7 @@ export default class ProxyDetails extends Component {
 						onChange: this.onPageChange,
 						onShowSizeChange: this.onPageChange,
 						showTotal: () => {return `共 ${dataTotal} 条`}}}
-					scroll={{ y: '55vh' }}
+					scroll={{ y: '50vh' }}
 					columns={[
 						{
 							title: 'userId',

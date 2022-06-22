@@ -54,6 +54,7 @@ export default class ProxyDetails extends Component {
 				cancelText="取消" 
 				okText="确定"
 				width='80%'
+				style={{marginTop:'-20px'}}
 			>
 				<Table
 					bordered
@@ -61,12 +62,6 @@ export default class ProxyDetails extends Component {
 					dataSource={dataSource}
 					// style={{'height': '500px','overflow': 'auto'}}
 					scroll={{ y: '50vh' }}
-					// pagination={{
-					// 	current: pageNumber,
-					// 	pageSize: pageSize,
-					// 	showQuickJumper: true,
-					// 	onChange: this.onPageChange
-					// }}
 					pagination={{current: pageNumber,pageSize: pageSize, 
 						showQuickJumper: false, 
 						showSizeChanger: true, 
