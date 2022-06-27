@@ -19,13 +19,6 @@ export default class ProxyList extends Component {
         this.getCustomerDetails()
     }
     getCustomerDetails = async () => {
-        // let result = {
-        //     data: {
-        //         id: "1512818513086025730",
-        //         teleAccount: "123456",
-        //         url: "http://admin.redpz.com/img/4.jpg"
-        //     }
-        // }
         let result = await reqCustomerDetail()
         if (result.code === 0) {
             this.setState({
@@ -106,7 +99,6 @@ export default class ProxyList extends Component {
                     </div>
 				</Item>
                 <Item style={{marginLeft:'100px', display:img || url ? '' : 'none'}}>
-                    {/* http://admin.redpz.com/img/4.jpg */}
                     <img src={img || url} width="200" alt=""/>
                 </Item>
 				<Item label="tele账号">

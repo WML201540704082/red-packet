@@ -6,13 +6,13 @@ const countryCode = [
         "country_code":"VN",
         "phone_code":"84"
     },
-    {
-        "vietnamese_name":"Trung Quốc",
-        "english_name":"China",
-        "chinese_name":"中国",
-        "country_code":"CN",
-        "phone_code":"86"
-    },
+    // {
+    //     "vietnamese_name":"Trung Quốc",
+    //     "english_name":"China",
+    //     "chinese_name":"中国",
+    //     "country_code":"CN",
+    //     "phone_code":"86"
+    // },
     {
         "vietnamese_name":"Hoa Kỳ",
         "english_name":"United States",

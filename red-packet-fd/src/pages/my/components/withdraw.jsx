@@ -40,12 +40,10 @@ export default class Withdrawal extends Component {
     resize = () => {
         let clientHeight = document.documentElement.clientHeight || document.body.clientHeight
         if (this.state.clientHeight > clientHeight) { // 键盘弹出
-            // this.inputClickHandle()
             this.setState({
                 pop: true
             })
         } else { // 键盘收起
-            // this.inputBlurHandle()
             this.setState({
                 pop: false
             })

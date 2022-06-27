@@ -47,24 +47,15 @@ export default class Login extends Component {
     resize = () => {
         let clientHeight = document.documentElement.clientHeight || document.body.clientHeight
         if (this.state.clientHeight > clientHeight) { // 键盘弹出
-            // this.inputClickHandle()
             this.setState({
                 pop: true
             })
         } else { // 键盘收起
-            // this.inputBlurHandle()
             this.setState({
                 pop: false
             })
         }
     }
-
-    // inputClickHandle = () => {
-    //     // 这里处理键盘弹出的事件
-    // }
-    // inputBlurHandle = () => {
-    //     // 这里处理键盘收起的事件
-    // }
     componentWillMount() {
         this.setState({
             language: i18n.language
@@ -320,8 +311,6 @@ export default class Login extends Component {
                                                     </span>
                                                     <Input 
                                                         placeholder={t('login.phone_number')}
-                                                        // onClick={this.inputClickHandle}
-                                                        // onBlur={this.inputBlurHandle}
                                                         style={{width: '172px', marginLeft: '3px'}}
                                                         onChange={event => this.setState({phone:event.target.value})}
                                                     />
@@ -417,7 +406,6 @@ export default class Login extends Component {
                                         </span>
                                         <span className='login_icon'>
                                             <GoogleLogin
-                                                // clientId="715440772497-uuq231lpek9ek0m08o2013dvua1728jl.apps.googleusercontent.com"
                                                 clientId="927698055570-nevn1mcsm2u7ijjgghdi5ijn7t0i8ehh.apps.googleusercontent.com"
                                                 buttonText="Login"
                                                 onSuccess={this.responseGoogle}
@@ -431,9 +419,7 @@ export default class Login extends Component {
                                                 <span>&nbsp;</span>
                                             </GoogleLogin>
                                             <FacebookLogin
-                                                // appId="895624567779325"
                                                 appId="346326924009220"
-                                                // autoLoad={true}
                                                 fields="name,email,picture"
                                                 callback={this.responseFacebook}
                                                 cssClass="btnFacebook"
