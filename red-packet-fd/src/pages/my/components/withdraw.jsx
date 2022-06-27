@@ -76,11 +76,11 @@ export default class Withdrawal extends Component {
     widthdraw = async () => {
         let { clickFlag, money, balanceAmount, bankCardId } = this.state
         if (clickFlag !==0 && !clickFlag) {
-            message.warning('请选择账号！')
+            message.warning(t('my.Please select an account'))
         } else if (!money) {
-            message.warning('请输入提现金额！')
+            message.warning(t('my.Please enter the withdrawal amount'))
         } else if (money > balanceAmount) {
-            message.warning('提现金额需小于余额！')
+            message.warning(t('my.less_than_balance'))
         } else {
             let params = {
                 bankCardId: bankCardId,
@@ -88,7 +88,7 @@ export default class Withdrawal extends Component {
             }
             let result = await reqWithdraw(params)
             if (result.code === 0) {
-                message.success('提现成功！')
+                message.success(t('my.withdrawal_succeeded'))
                 this.props.sureModal()
                 this.props.sureModal2()
             } else {
@@ -107,7 +107,7 @@ export default class Withdrawal extends Component {
         }
         let result = type === 'update'? await reqUpdateCard(params) : await reqAddCard(params)
         if (result.code === 0 && result.data.code === 0) {
-            message.success(type === 'update' ? '修改成功' : '添加成功')
+            message.success(type === 'update' ? t('my.successfully_modified') : t('my.added_successfully'))
             this.setState({
                 newCardFlag:false
             },()=>{
@@ -121,7 +121,7 @@ export default class Withdrawal extends Component {
     deleteBankCard = async id => {
         let result = await reqDeleteCard(id)
         if (result.data.code === 0) {
-            message.success('删除成功！')
+            message.success(t('my.delete_succeeded'))
             this.getUserCardList()
         } else {
             message.error(result.data.msg)
